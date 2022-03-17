@@ -5,6 +5,7 @@ import Head from "next/head";
 import { useTranslation } from "next-i18next";
 
 import SampleComponent from "src/components/SampleComponent";
+import Card from "src/components/Card";
 
 const Home: NextPage = () => {
   const { t } = useTranslation();
@@ -18,6 +19,14 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
+        <div
+          style={{
+            marginLeft: "300px",
+            width: "300px",
+          }}
+        >
+          <Card title="House in Laax" />
+        </div>
         <h1>
           {t("welcome", "Welcome to")}{" "}
           <SampleComponent>

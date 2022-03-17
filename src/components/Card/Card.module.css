@@ -1,0 +1,28 @@
+.Card {
+  padding: 16px 16px 24px 16px;
+  background-color: gray;
+}
+
+.Card-img {
+  width: 100%;
+  position: relative;
+}
+
+.Card-Title {
+  margin: 16px 0 0 0;
+}
+
+.Card-Info {
+  padding: 0;
+  margin-top: 16px;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Card-InfoText {
+}
+
+.Card-Info li:not(:last-child) {
+  margin-right: 10px;
+}
