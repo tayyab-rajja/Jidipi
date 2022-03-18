@@ -5,6 +5,7 @@ import Head from "next/head";
 import { useTranslation } from "next-i18next";
 
 import SampleComponent from "src/components/SampleComponent";
+import { Navbar } from "src/components/Navbar/Navbar";
 
 const Home: NextPage = () => {
   const { t } = useTranslation();
@@ -18,6 +19,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
+        <Navbar />
         <h1>
           {t("welcome", "Welcome to")}{" "}
           <SampleComponent>
