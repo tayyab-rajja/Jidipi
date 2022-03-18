@@ -5,11 +5,24 @@ import Head from "next/head";
 import { useTranslation } from "next-i18next";
 
 import SampleComponent from "src/components/SampleComponent";
-import { Navbar } from "src/components/Navbar/Navbar";
+import Navbar from "src/components/Navbar";
 import Card from "src/components/Card";
+import Sidebar from "src/components/Sidebar";
 
 const Home: NextPage = () => {
   const { t } = useTranslation();
+
+  const testData = [
+    { title: "House in Laax" },
+    { title: "House in Laax" },
+    { title: "House in Laax" },
+    { title: "House in Laax" },
+    { title: "House in Laax" },
+    { title: "House in Laax" },
+    { title: "House in Laax" },
+    { title: "House in Laax" },
+    { title: "House in Laax" },
+  ];
 
   return (
     <div>
@@ -20,13 +33,24 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <Navbar />
-        <h1>
-          {t("welcome", "Welcome to")}{" "}
-          <SampleComponent>
-            <a href="https://nextjs.org">Next.js!</a>
-          </SampleComponent>
-        </h1>
+        <div style={{ position: "relative" }}>
+          <Navbar />
+          <Sidebar />
+          <div
+            style={{
+              padding: "20px 40px 20px 320px",
+              backgroundColor: "rgb(0, 0, 0, 0.1)",
+              display: "flex",
+              flexWrap: "wrap",
+            }}
+          >
+            {testData.map(({ title }, index) => (
+              <div key={index} style={{ width: 350, margin: "0 20px 20px 0" }}>
+                <Card title={title} />
+              </div>
+            ))}
+          </div>
+        </div>
       </main>
     </div>
   );
