@@ -22,7 +22,7 @@ const Home: NextPage = () => {
         <div
           style={{
             marginLeft: "300px",
-            width: "300px",
+            width: "450px",
           }}
         >
           <Card title="House in Laax" />
