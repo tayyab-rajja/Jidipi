@@ -6,6 +6,7 @@ import { useTranslation } from "next-i18next";
 
 import SampleComponent from "src/components/SampleComponent";
 import { Navbar } from "src/components/Navbar/Navbar";
+import Card from "src/components/Card";
 
 const Home: NextPage = () => {
   const { t } = useTranslation();
