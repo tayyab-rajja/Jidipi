@@ -3,7 +3,6 @@
   height: 64px;
   display: flex;
   align-items: center;
-  background-color: green;
 }
 
 .Navbar-Title {
@@ -20,6 +19,20 @@
   list-style: none;
 }
 
+.Navbar-Menu li {
+  position: relative;
+}
+
+.Navbar-Menu li:hover::before {
+  content: "";
+  height: 2px;
+  background-color: #373737;
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: -5px;
+}
+
 .Navbar-Menu li:not(:last-child) {
   margin-right: 36px;
 }
@@ -30,8 +43,9 @@
 }
 
 .Navbar-User {
-  height: 28px;
-  width: 28px;
+  margin-left: 40px;
+  height: 32px;
+  width: 32px;
   border-radius: 50%;
   background-color: #eeeeee;
   display: flex;
