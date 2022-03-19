@@ -7,7 +7,7 @@ import { useTranslation } from "next-i18next";
 import SampleComponent from "src/components/SampleComponent";
 import Navbar from "src/components/Navbar";
 import Card from "src/components/Card";
-import Sidebar from "src/components/Sidebar";
+import Layout from "src/components/Layout";
 
 const Home: NextPage = () => {
   const { t } = useTranslation();
@@ -15,13 +15,13 @@ const Home: NextPage = () => {
   const testData = [
     { title: "House in Laax" },
     { title: "House in Laax" },
-    { title: "House in Laax" },
-    { title: "House in Laax" },
-    { title: "House in Laax" },
-    { title: "House in Laax" },
-    { title: "House in Laax" },
-    { title: "House in Laax" },
-    { title: "House in Laax" },
+    // { title: "House in Laax" },
+    // { title: "House in Laax" },
+    // { title: "House in Laax" },
+    // { title: "House in Laax" },
+    // { title: "House in Laax" },
+    // { title: "House in Laax" },
+    // { title: "House in Laax" },
   ];
 
   return (
@@ -32,26 +32,24 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <div style={{ position: "relative" }}>
-          <Navbar />
-          <Sidebar />
-          <div
-            style={{
-              padding: "20px 40px 20px 320px",
-              backgroundColor: "rgb(0, 0, 0, 0.1)",
-              display: "flex",
-              flexWrap: "wrap",
-            }}
-          >
-            {testData.map(({ title }, index) => (
-              <div key={index} style={{ width: 350, margin: "0 20px 20px 0" }}>
-                <Card title={title} />
-              </div>
-            ))}
-          </div>
+      <Layout>
+        <div
+          style={{
+            width: "100%",
+            minHeight: "100%",
+            padding: "20px 40px",
+            backgroundColor: "rgb(0, 0, 0, 0.1)",
+            display: "flex",
+            flexWrap: "wrap",
+          }}
+        >
+          {testData.map(({ title }, index) => (
+            <div key={index} style={{ width: 350, margin: "0 20px 20px 0" }}>
+              <Card title={title} />
+            </div>
+          ))}
         </div>
-      </main>
+      </Layout>
     </div>
   );
 };
