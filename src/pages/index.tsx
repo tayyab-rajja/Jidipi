@@ -4,8 +4,6 @@ import Head from "next/head";
 
 import { useTranslation } from "next-i18next";
 
-import SampleComponent from "src/components/SampleComponent";
-import Navbar from "src/components/Navbar";
 import Card from "src/components/Card";
 import Layout from "src/components/Layout";
 
@@ -35,7 +33,7 @@ const Home: NextPage = () => {
       <Layout>
         <div
           style={{
-            width: "100%",
+            width: "calc(100% - 300px)",
             minHeight: "100%",
             padding: "20px 40px",
             backgroundColor: "rgb(0, 0, 0, 0.1)",

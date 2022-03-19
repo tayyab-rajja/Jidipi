@@ -11,12 +11,12 @@ interface LayoutProps {
 
 export const Layout: FC<LayoutProps> = ({ children }) => {
   return (
-    <main className={styles["Layout"]}>
+    <>
       <Navbar />
-      <div className={styles["Layout-Container"]}>
+      <main className={styles["Layout-Container"]}>
         <Sidebar />
         {children}
-      </div>
-    </main>
+      </main>
+    </>
   );
 };
