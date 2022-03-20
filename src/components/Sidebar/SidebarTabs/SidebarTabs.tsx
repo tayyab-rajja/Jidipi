@@ -1,7 +1,7 @@
 import { FC } from "react";
 import CustomButton from "src/components/CustomButton";
 
-import styles from "./Sidebar.module.css";
+import styles from "./SidebarTabs.module.css";
 
 interface SidebarTabsProps {
   currentTab: string;

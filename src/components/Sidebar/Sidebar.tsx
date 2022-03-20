@@ -1,8 +1,9 @@
 import { ChangeEvent, useState } from "react";
-import { useTranslation } from "next-i18next";
+
+import { SidebarTabs } from "./SidebarTabs/SidebarTabs";
+import { SidebarContent } from "./SidebarContent/SidebarContent";
 
 import styles from "./Sidebar.module.css";
-import { SidebarTabs } from "./SidebarTabs";
 
 export const Sidebar = () => {
   const [searchValue, setSearchValue] = useState<string>("");
@@ -27,6 +28,7 @@ export const Sidebar = () => {
         placeholder="Search"
       />
       <SidebarTabs currentTab={currentTab} handleChange={handleTab} />
+      <SidebarContent />
     </div>
   );
 };

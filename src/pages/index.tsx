@@ -13,13 +13,13 @@ const Home: NextPage = () => {
   const testData = [
     { title: "House in Laax" },
     { title: "House in Laax" },
-    // { title: "House in Laax" },
-    // { title: "House in Laax" },
-    // { title: "House in Laax" },
-    // { title: "House in Laax" },
-    // { title: "House in Laax" },
-    // { title: "House in Laax" },
-    // { title: "House in Laax" },
+    { title: "House in Laax" },
+    { title: "House in Laax" },
+    { title: "House in Laax" },
+    { title: "House in Laax" },
+    { title: "House in Laax" },
+    { title: "House in Laax" },
+    { title: "House in Laax" },
   ];
 
   return (

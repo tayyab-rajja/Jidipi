@@ -1,0 +1,17 @@
+.SidebarTabs {
+  display: flex;
+  justify-content: space-between;
+}
+
+.SidebarTabs {
+  margin-top: 15px;
+}
+
+.SidebarTabs button {
+  width: 48%;
+}
+
+.SidebarTabs:first-of-type button:last-child {
+  margin-left: 10px;
+  width: 60%;
+}
