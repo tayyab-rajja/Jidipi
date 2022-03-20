@@ -8,7 +8,7 @@ export const Navbar = () => {
       <h1 className={styles["Navbar-Title"]}>jidipi</h1>
       <nav className={styles["Navbar-Menu"]}>
         <ul>
-          <li>
+          <li className={styles["Navbar-ActiveTab"]}>
             <Link href="#">
               <a>home</a>
             </Link>
