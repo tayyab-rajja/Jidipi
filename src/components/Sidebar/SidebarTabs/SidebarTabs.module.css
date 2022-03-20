@@ -11,6 +11,10 @@
   width: 48%;
 }
 
+.SidebarTabs button:hover {
+  background-color: #f1f1f1;
+}
+
 .SidebarTabs:first-of-type button:last-child {
   margin-left: 10px;
   width: 60%;
