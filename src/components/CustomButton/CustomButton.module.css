@@ -1,0 +1,24 @@
+.CustomButton {
+  height: 45px;
+  width: 100%;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888888;
+  background-color: #fff;
+  border: 1px solid #d6d6d6;
+  cursor: pointer;
+}
+
+.CustomButton svg path {
+  fill: #d6d6d6;
+}
+
+.CustomButton-TextWithIcon {
+  margin-left: 10px;
+}
+
+.Active {
+  background-color: #f1f1f1;
+}
