@@ -26,11 +26,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
       className={clsx(styles["CustomButton"], isActive && styles["Active"])}
       onClick={onClick}
     >
-      {iconType && (
-        <div className={styles["CustomButton-ImgWrapper"]}>
-          {categoriesSvg[iconType]}
-        </div>
-      )}
+      {iconType && categoriesSvg[iconType]}
       <span className={iconType ? styles["CustomButton-TextWithIcon"] : ""}>
         {t(text)}
       </span>

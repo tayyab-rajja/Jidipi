@@ -14,16 +14,18 @@
 
 .SidebarTabs {
   display: flex;
+  justify-content: space-between;
 }
 
 .SidebarTabs {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
-.SidebarTabs:first-child {
-  border: 2px solid red;
+.SidebarTabs button {
+  width: 48%;
 }
 
-.SidebarTabs button:last-child {
+.SidebarTabs:first-of-type button:last-child {
   margin-left: 10px;
+  width: 60%;
 }

@@ -6,10 +6,15 @@ import { SidebarTabs } from "./SidebarTabs";
 
 export const Sidebar = () => {
   const [searchValue, setSearchValue] = useState<string>("");
+  const [currentTab, setCurrentTab] = useState("Categories");
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchValue(value);
+  };
+
+  const handleTab = (tab: string) => {
+    setCurrentTab(tab);
   };
 
   return (
@@ -21,7 +26,7 @@ export const Sidebar = () => {
         onChange={handleSearch}
         placeholder="Search"
       />
-      <SidebarTabs />
+      <SidebarTabs currentTab={currentTab} handleChange={handleTab} />
     </div>
   );
 };
