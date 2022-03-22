@@ -21,7 +21,7 @@ export const SidebarTabs: FC<SidebarTabsProps> = ({
     },
     {
       text: "Categories",
-      iconType: "CATEGORY",
+      iconType: "CATEGORIES",
     },
     {
       text: "Style",

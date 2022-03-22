@@ -7,20 +7,14 @@ import { useTranslation } from "next-i18next";
 import Card from "src/components/Card";
 import Layout from "src/components/Layout";
 
-const Home: NextPage = () => {
+import { changePostsData } from "helpers/changePostsData";
+
+const Home: NextPage = (props) => {
   const { t } = useTranslation();
 
-  const testData = [
-    { title: "House in Laax" },
-    { title: "House in Laax" },
-    { title: "House in Laax" },
-    { title: "House in Laax" },
-    { title: "House in Laax" },
-    { title: "House in Laax" },
-    { title: "House in Laax" },
-    { title: "House in Laax" },
-    { title: "House in Laax" },
-  ];
+  const data = changePostsData(props.posts.posts);
+
+  console.log(props.posts);
 
   return (
     <div>
@@ -41,9 +35,9 @@ const Home: NextPage = () => {
             flexWrap: "wrap",
           }}
         >
-          {testData.map(({ title }, index) => (
-            <div key={index} style={{ width: 350, margin: "0 20px 20px 0" }}>
-              <Card title={title} />
+          {data.map(({ title, categories, image }, index) => (
+            <div key={index} style={{ width: 450, margin: "0 20px 20px 0" }}>
+              <Card title={title} categories={categories} image={image} />
             </div>
           ))}
         </div>
@@ -54,8 +48,17 @@ const Home: NextPage = () => {
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale as string, ["common"])),
-  },
-});
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  const response = await fetch(
+    "https://api.jidipi.com/api/v1/post/public/603ce60958c5c6279bc2ed96?pageNumber=0&pageSize=10&language=EN"
+  );
+
+  const posts = await response.json();
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string, ["common"])),
+      posts: posts,
+    },
+  };
+};
