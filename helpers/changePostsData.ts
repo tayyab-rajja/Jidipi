@@ -31,7 +31,7 @@ export const changePostsData = (posts: []): Posts[] | [] => {
       if (key === "companyId" && post[key]) {
         newPost.categories.push({
           title: post[key].companyName,
-          type: "PEN",
+          type: "COMPANY",
         });
       }
     }

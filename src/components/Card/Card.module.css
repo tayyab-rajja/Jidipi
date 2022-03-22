@@ -30,7 +30,11 @@
   flex-wrap: wrap;
 }
 
-.Card-Info svg > path {
+.Card-Info li:hover a {
+  color: #373737;
+}
+
+.Card-Info svg path {
   fill: #bababa;
 }
 
