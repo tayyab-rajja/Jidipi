@@ -30,7 +30,7 @@
   flex-wrap: wrap;
 }
 
-.Card-Info svg path {
+.Card-Info svg > path {
   fill: #bababa;
 }
 

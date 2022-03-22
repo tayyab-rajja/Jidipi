@@ -5,9 +5,7 @@ export const changePostsData = (posts: []): Posts[] | [] => {
     return [];
   }
 
-  const newPosts: Posts[] = [];
-
-  posts.forEach((post: any) => {
+  const newPosts: Posts[] = posts.map((post: any) => {
     const newPost = {
       title: post.title,
       image: post.featuredImage?.liveURL,
@@ -29,15 +27,16 @@ export const changePostsData = (posts: []): Posts[] | [] => {
             });
           }
         );
-      } else if (key === "companyId" && post[key]) {
+      }
+      if (key === "companyId" && post[key]) {
         newPost.categories.push({
-          title: post[key].title,
-          type: "",
+          title: post[key].companyName,
+          type: "PEN",
         });
       }
     }
 
-    newPosts.push(newPost);
+    return newPost;
   });
 
   return newPosts;
