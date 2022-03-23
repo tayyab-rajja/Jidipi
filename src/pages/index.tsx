@@ -14,7 +14,7 @@ const Home: NextPage = (props) => {
 
   const data = changePostsData(props.posts.posts);
 
-  console.log(props.posts);
+  // console.log(props.sidebarCategories);
 
   return (
     <div>
@@ -49,16 +49,22 @@ const Home: NextPage = (props) => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-  const response = await fetch(
-    "https://api.jidipi.com/api/v1/post/public/603ce60958c5c6279bc2ed96?pageNumber=0&pageSize=10&language=EN"
+  const responsePosts = await fetch(
+    "https://api.jidipi.com/api/v1/post/public/603ce60958c5c6279bc2ed96?pageNumber=0&pageSize=100&language=EN"
   );
 
-  const posts = await response.json();
+  const responseSidebarCategories = await fetch(
+    "https://api.jidipi.com/api/v1/category?pageFolderId=603ce60958c5c6279bc2ed96"
+  );
+
+  const posts = await responsePosts.json();
+  const sidebarCategories = await responseSidebarCategories.json();
 
   return {
     props: {
       ...(await serverSideTranslations(locale as string, ["common"])),
       posts: posts,
+      sidebarCategories: sidebarCategories,
     },
   };
 };

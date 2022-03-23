@@ -19,14 +19,18 @@ export const changePostsData = (posts: []): Posts[] | [] => {
 
     for (const key in post) {
       if (key.toLocaleLowerCase().includes("categories")) {
+        const categoty = {
+          title: "",
+          type: "",
+        };
         post[key].forEach(
-          ({ title, type }: { title: string; type: string }) => {
-            newPost.categories.push({
-              title,
-              type,
-            });
+          ({ title, type }: { title: string; type: string }, index: number) => {
+            categoty.type = type;
+            categoty.title +=
+              index === post[key].length - 1 ? title : `${title}, `;
           }
         );
+        newPost.categories.push(categoty);
       }
       if (key === "companyId" && post[key]) {
         newPost.categories.push({
