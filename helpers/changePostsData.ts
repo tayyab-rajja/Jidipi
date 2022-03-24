@@ -9,6 +9,7 @@ export const changePostsData = (posts: []): Posts[] | [] => {
     const newPost = {
       title: post.title,
       image: post.featuredImage?.liveURL,
+      id: post.postUniqueId,
       categories: [
         {
           title: new Date(post.publishedDate).toDateString(),

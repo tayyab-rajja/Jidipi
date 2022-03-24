@@ -14,7 +14,7 @@ const Home: NextPage = (props) => {
 
   const data = changePostsData(props.posts.posts);
 
-  // console.log(props.sidebarCategories);
+  console.log(data);
 
   return (
     <div>
@@ -25,22 +25,11 @@ const Home: NextPage = (props) => {
       </Head>
 
       <Layout>
-        <div
-          style={{
-            width: "calc(100% - 300px)",
-            minHeight: "100%",
-            padding: "20px 40px",
-            backgroundColor: "rgb(0, 0, 0, 0.1)",
-            display: "flex",
-            flexWrap: "wrap",
-          }}
-        >
-          {data.map(({ title, categories, image }, index) => (
-            <div key={index} style={{ width: 450, margin: "0 20px 20px 0" }}>
-              <Card title={title} categories={categories} image={image} />
-            </div>
-          ))}
-        </div>
+        {data.map(({ title, categories, image, id }, index) => (
+          <div key={index} style={{ width: 450, margin: "0 20px 20px 0" }}>
+            <Card title={title} categories={categories} image={image} id={id} />
+          </div>
+        ))}
       </Layout>
     </div>
   );

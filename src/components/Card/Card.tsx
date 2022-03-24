@@ -1,5 +1,6 @@
-import clsx from "clsx";
+import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
+import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -11,6 +12,7 @@ interface CardProps {
   title: string;
   className?: string;
   image: string;
+  id: string;
   categories: {
     title: string;
     type: string;
@@ -23,13 +25,22 @@ const emptyImage =
 export const Card = ({
   className,
   title,
+  id,
   categories,
   image = emptyImage,
 }: CardProps) => {
   const { t } = useTranslation();
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/${id}`);
+  };
 
   return (
-    <div className={clsx(styles.Card, className && className)}>
+    <div
+      className={clsx(styles.Card, className && className)}
+      onClick={handleClick}
+    >
       <Image
         layout="responsive"
         width={500}
@@ -40,7 +51,12 @@ export const Card = ({
       <h3 className={styles["Card-Title"]}>{t(title)}</h3>
       <ul className={styles["Card-Info"]}>
         {categories.map(({ type, title }, index) => (
-          <li key={index}>
+          <li
+            key={index}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
             <Link href="#">
               <a className={styles["Card-InfoText"]}>
                 {categoriesSvg[type]}
