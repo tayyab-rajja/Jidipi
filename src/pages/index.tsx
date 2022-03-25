@@ -1,4 +1,4 @@
-import type { GetServerSideProps, NextPage } from "next";
+import type { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 
@@ -9,12 +9,14 @@ import Layout from "src/components/Layout";
 
 import { changePostsData } from "helpers/changePostsData";
 
-const Home: NextPage = (props) => {
+interface Props {
+  posts: any;
+}
+
+const Home = ({ posts }: Props) => {
   const { t } = useTranslation();
 
-  const data = changePostsData(props.posts.posts);
-
-  console.log(data);
+  const data = changePostsData(posts.posts);
 
   return (
     <div>

@@ -7,14 +7,14 @@ import CardDetails from "src/components/CardDetails/CardDetails";
 
 import { getPostCategories } from "helpers/changePostsData";
 
-type Props = {};
+type Props = {
+  post: any;
+};
 
-const Post = (props) => {
-  console.log(props);
-
-  const categories = getPostCategories(props.post, "oldCategories");
-  const companyImg = props.post?.companyId?.avatar || null;
-  const title = props.post.title;
+const Post = ({ post }: Props) => {
+  const categories = getPostCategories(post, "oldCategories");
+  const companyImg = post?.companyId?.avatar || null;
+  const title = post.title;
 
   return (
     <div>
@@ -38,7 +38,7 @@ const Post = (props) => {
           companyImg={companyImg}
           title={title}
         >
-          <div dangerouslySetInnerHTML={{ __html: props.post.description }} />
+          <div dangerouslySetInnerHTML={{ __html: post.description }} />
         </CardDetails>
       </Layout>
     </div>
@@ -55,7 +55,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   return {
     props: {
       post: post,
-      query,
     },
   };
 };

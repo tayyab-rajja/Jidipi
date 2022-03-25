@@ -28,7 +28,7 @@ export const Sidebar = () => {
         placeholder="Search"
       />
       <SidebarTabs currentTab={currentTab} handleChange={handleTab} />
-      <SidebarContent />
+      <SidebarContent title="All" />
     </div>
   );
 };

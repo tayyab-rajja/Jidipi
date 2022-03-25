@@ -6,19 +6,15 @@ import styles from "./SidebarContent.module.css";
 
 interface SidebarContentPriops {
   title: string;
-  categories: [];
 }
 
-export const SidebarContent: FC<SidebarContentPriops> = ({
-  title,
-  categories,
-}) => {
+export const SidebarContent: FC<SidebarContentPriops> = ({ title }) => {
   const { t } = useTranslation();
 
   return (
     <div className={styles["SidebarContent"]}>
       <h2 className={styles["SidebarContent-Title"]}>
-        {t("All")}
+        {t(title)}
         <span className={styles["SidebarContent-Count"]}></span>
       </h2>
       <ul className={styles["SidebarContent-Hero"]}>

@@ -7,7 +7,7 @@ import styles from "./Layout.module.css";
 
 interface LayoutProps {
   children: ReactElement | ReactElement[];
-  sidebarCategories: [];
+  sidebarCategories?: [];
 }
 
 export const Layout: FC<LayoutProps> = ({ children }) => {
