@@ -1,13 +1,22 @@
-import type { GetServerSideProps, NextPage } from "next";
+import type { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 
 import { useTranslation } from "next-i18next";
 
-import SampleComponent from "src/components/SampleComponent";
+import Card from "src/components/Card";
+import Layout from "src/components/Layout";
 
-const Home: NextPage = () => {
+import { changePostsData } from "helpers/changePostsData";
+
+interface Props {
+  posts: any;
+}
+
+const Home = ({ posts }: Props) => {
   const { t } = useTranslation();
+
+  const data = changePostsData(posts.posts);
 
   return (
     <div>
@@ -17,22 +26,36 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1>
-          {t("welcome", "Welcome to")}{" "}
-          <SampleComponent>
-            <a href="https://nextjs.org">Next.js!</a>
-          </SampleComponent>
-        </h1>
-      </main>
+      <Layout>
+        {data.map(({ title, categories, image, id }, index) => (
+          <div key={index} style={{ width: 450, margin: "0 20px 20px 0" }}>
+            <Card title={title} categories={categories} image={image} id={id} />
+          </div>
+        ))}
+      </Layout>
     </div>
   );
 };
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale as string, ["common"])),
-  },
-});
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  const responsePosts = await fetch(
+    "https://api.jidipi.com/api/v1/post/public/603dc78958c5c6279bc2ed9b?pageNumber=0&pageSize=100&language=EN"
+  );
+
+  const responseSidebarCategories = await fetch(
+    "https://api.jidipi.com/api/v1/category?pageFolderId=603ce60958c5c6279bc2ed96"
+  );
+
+  const posts = await responsePosts.json();
+  const sidebarCategories = await responseSidebarCategories.json();
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string, ["common"])),
+      posts: posts,
+      sidebarCategories: sidebarCategories,
+    },
+  };
+};
