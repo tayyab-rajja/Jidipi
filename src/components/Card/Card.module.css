@@ -5,6 +5,10 @@
   color: #bababa;
 }
 
+.Card ul {
+  margin-top: 16px;
+}
+
 .Card:hover {
   color: #fff;
   background-color: #deb851;
@@ -14,41 +18,10 @@
   color: #fff;
 }
 
-.Card:hover .Card-Info svg path {
+.Card:hover ul svg path {
   fill: #fff;
 }
 
 .Card-Title {
   margin: 16px 0 0 0;
-}
-
-.Card-Info {
-  padding: 0;
-  margin-top: 16px;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.Card-Info li:hover a {
-  color: #373737;
-}
-
-.Card-Info svg path {
-  fill: #bababa;
-}
-
-.Card-InfoText {
-  color: #bababa;
-  line-height: 2;
-  display: flex;
-  align-items: center;
-}
-
-.Card-InfoText span {
-  margin-left: 5px;
-}
-
-.Card-Info li:not(:last-child) {
-  margin-right: 20px;
 }

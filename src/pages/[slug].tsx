@@ -3,11 +3,18 @@ import { GetServerSideProps } from "next/types";
 import Head from "next/head";
 
 import Layout from "src/components/Layout";
+import CardDetails from "src/components/CardDetails/CardDetails";
+
+import { getPostCategories } from "helpers/changePostsData";
 
 type Props = {};
 
 const Post = (props) => {
   console.log(props);
+
+  const categories = getPostCategories(props.post, "oldCategories");
+  const companyImg = props.post?.companyId?.avatar || null;
+  const title = props.post.title;
 
   return (
     <div>
@@ -26,7 +33,13 @@ const Post = (props) => {
       </Head>
 
       <Layout>
-        <div dangerouslySetInnerHTML={{ __html: props.post.description }} />
+        <CardDetails
+          categories={categories}
+          companyImg={companyImg}
+          title={title}
+        >
+          <div dangerouslySetInnerHTML={{ __html: props.post.description }} />
+        </CardDetails>
       </Layout>
     </div>
   );

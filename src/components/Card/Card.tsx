@@ -2,9 +2,9 @@ import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import clsx from "clsx";
 import Image from "next/image";
-import Link from "next/link";
 
-import { categoriesSvg } from "constant/categoriesSvg";
+import PostCategories from "src/components/PostCategories/PostCategories";
+import { Categories } from "types/postTypes";
 
 import styles from "./Card.module.css";
 
@@ -13,10 +13,7 @@ interface CardProps {
   className?: string;
   image: string;
   id: string;
-  categories: {
-    title: string;
-    type: string;
-  }[];
+  categories: Categories[];
 }
 
 const emptyImage =
@@ -49,23 +46,7 @@ export const Card = ({
         alt="Card Img"
       />
       <h3 className={styles["Card-Title"]}>{t(title)}</h3>
-      <ul className={styles["Card-Info"]}>
-        {categories.map(({ type, title }, index) => (
-          <li
-            key={index}
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
-            <Link href="#">
-              <a className={styles["Card-InfoText"]}>
-                {categoriesSvg[type]}
-                <span>{t(title)}</span>
-              </a>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <PostCategories categories={categories} />
     </div>
   );
 };

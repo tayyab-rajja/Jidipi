@@ -1,0 +1,30 @@
+.Post-Info {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Post-Info li:hover a {
+  color: #373737;
+}
+
+.Post-Info svg path {
+  fill: #bababa;
+}
+
+.Post-InfoText {
+  color: #bababa;
+  line-height: 2;
+  display: flex;
+  align-items: center;
+}
+
+.Post-InfoText span {
+  margin-left: 5px;
+}
+
+.Post-Info li:not(:last-child) {
+  margin-right: 20px;
+}

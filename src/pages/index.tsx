@@ -39,7 +39,7 @@ export default Home;
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const responsePosts = await fetch(
-    "https://api.jidipi.com/api/v1/post/public/603ce60958c5c6279bc2ed96?pageNumber=0&pageSize=100&language=EN"
+    "https://api.jidipi.com/api/v1/post/public/603dc78958c5c6279bc2ed9b?pageNumber=0&pageSize=100&language=EN"
   );
 
   const responseSidebarCategories = await fetch(
