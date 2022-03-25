@@ -1,16 +1,25 @@
 import clsx from "clsx";
 import { useTranslation } from "next-i18next";
+import { FC } from "react";
 
 import styles from "./SidebarContent.module.css";
 
-export const SidebarContent = () => {
+interface SidebarContentPriops {
+  title: string;
+  categories: [];
+}
+
+export const SidebarContent: FC<SidebarContentPriops> = ({
+  title,
+  categories,
+}) => {
   const { t } = useTranslation();
 
   return (
     <div className={styles["SidebarContent"]}>
       <h2 className={styles["SidebarContent-Title"]}>
-        {t("Title")}
-        <span className={styles["SidebarContent-Count"]}>9999999</span>
+        {t("All")}
+        <span className={styles["SidebarContent-Count"]}></span>
       </h2>
       <ul className={styles["SidebarContent-Hero"]}>
         <li>
