@@ -33,6 +33,7 @@ const CategoryText = ({
           styles["SidebarContent-Subtitle"],
           styles["SidebarContent-Text"]
         )}
+        title={`${text} (${count})`}
       >
         <Link href="#">
           <a className={styles["SidebarContent-Link"]}>
@@ -45,7 +46,7 @@ const CategoryText = ({
   }
 
   return (
-    <li className={styles["SidebarContent-Text"]}>
+    <li className={styles["SidebarContent-Text"]} title={`${text} (${count})`}>
       <Link href="#">
         <a className={styles["SidebarContent-Link"]}>
           <span>{t(text)}</span>
@@ -66,6 +67,7 @@ export const SidebarContent: FC<SidebarContentProps> = ({
     categories,
     "603ce60958c5c6279bc2ed96"
   );
+
   return (
     <div className={styles["SidebarContent"]}>
       <h2 className={styles["SidebarContent-Title"]}>

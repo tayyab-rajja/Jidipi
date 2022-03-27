@@ -6,12 +6,18 @@
 .SidebarContent-Count {
   margin-bottom: 5px;
   font-size: 11px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .SidebarContent-Link {
+  width: 100%;
   display: flex;
   align-items: flex-end;
-  flex-wrap: wrap;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .SidebarContent-Link span:first-child {
@@ -42,7 +48,7 @@
 }
 
 .SidebarContent-Text {
-  min-height: 40px;
+  height: 40px;
   padding: 10px 10px 10px 35px;
   font-size: 16px;
   font-weight: normal;
