@@ -53,13 +53,13 @@ export const SidebarTabs: FC<SidebarTabsProps> = ({
               text={tab.text}
               iconType={tab.iconType}
               onClick={() => handleChange(tab.iconType)}
-              isActive={tab.text === currentTab}
+              isActive={tab.iconType === currentTab}
             />
             <CustomButton
               text={nextTab.text}
               iconType={nextTab.iconType}
               onClick={() => handleChange(nextTab.iconType)}
-              isActive={nextTab.text === currentTab}
+              isActive={nextTab.iconType === currentTab}
             />
           </div>
         );

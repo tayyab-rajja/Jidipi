@@ -4,18 +4,35 @@
 }
 
 .SidebarContent-Count {
-  padding: 0 0 5px 3px;
+  margin-bottom: 5px;
   font-size: 11px;
 }
 
+.SidebarContent-Link {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.SidebarContent-Link span:first-child {
+  margin-right: 5px;
+}
+
 .SidebarContent-Title {
+  height: 40px;
   margin: 0;
-  text-align: center;
-  padding: 10px 0;
   font-weight: normal;
   font-size: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #fff;
   background-color: black;
+}
+
+.SidebarContent-Title .SidebarContent-Count {
+  display: inline-block;
+  margin-left: 5px;
 }
 
 .SidebarContent-Hero {
@@ -25,6 +42,7 @@
 }
 
 .SidebarContent-Text {
+  min-height: 40px;
   padding: 10px 10px 10px 35px;
   font-size: 16px;
   font-weight: normal;

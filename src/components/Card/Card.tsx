@@ -39,6 +39,7 @@ export const Card = ({
       onClick={handleClick}
     >
       <Image
+        className={styles["Card-Image"]}
         layout="responsive"
         width={500}
         height={500}

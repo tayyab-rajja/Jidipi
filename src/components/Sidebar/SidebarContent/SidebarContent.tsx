@@ -1,29 +1,28 @@
 import clsx from "clsx";
+import Link from "next/link";
 import { useTranslation } from "next-i18next";
 import { FC } from "react";
 
+import { getFormatedList } from "helpers/getFormatedList";
+
 import styles from "./SidebarContent.module.css";
+import { Category, CategoryAPI } from "types/categoryTypes";
 
-interface SidebarContentPriops {
+interface SidebarContentProps {
   title: string;
-  categories?: [];
-}
-
-interface Categories {
-  categoryId: {
-    title: string;
-  };
-  subCategories: [];
+  categories?: CategoryAPI[];
 }
 
 const CategoryText = ({
   text,
   count,
   isTitle,
+  link,
 }: {
   text: string;
   count: number | string;
   isTitle?: boolean;
+  link: string;
 }) => {
   const { t } = useTranslation();
 
@@ -35,81 +34,103 @@ const CategoryText = ({
           styles["SidebarContent-Text"]
         )}
       >
-        <span>
-          {t(text)}
-          <span className={styles["SidebarContent-Count"]}>{count}</span>
-        </span>
+        <Link href="#">
+          <a className={styles["SidebarContent-Link"]}>
+            <span>{t(text)}</span>
+            <span className={styles["SidebarContent-Count"]}>{count}</span>
+          </a>
+        </Link>
       </h3>
     );
   }
 
   return (
     <li className={styles["SidebarContent-Text"]}>
-      <span>
-        {t(text)}
-        <span className={styles["SidebarContent-Count"]}>{count}</span>
-      </span>
+      <Link href="#">
+        <a className={styles["SidebarContent-Link"]}>
+          <span>{t(text)}</span>
+          <span className={styles["SidebarContent-Count"]}>{count}</span>
+        </a>
+      </Link>
     </li>
   );
 };
 
-export const SidebarContent: FC<SidebarContentPriops> = ({
+export const SidebarContent: FC<SidebarContentProps> = ({
   title,
   categories,
 }) => {
   const { t } = useTranslation();
 
-  console.log(categories);
+  const { list, totalCount } = getFormatedList(
+    categories,
+    "603ce60958c5c6279bc2ed96"
+  );
+
+  console.log(list);
 
   return (
     <div className={styles["SidebarContent"]}>
       <h2 className={styles["SidebarContent-Title"]}>
         {t(title)}
-        <span className={styles["SidebarContent-Count"]}></span>
+        <span className={styles["SidebarContent-Count"]}>{totalCount}</span>
       </h2>
       {categories && (
         <ul className={styles["SidebarContent-Hero"]}>
-          {categories.map(
-            ({ categoryId, subCategories }: Categories, index) => {
-              const title = categoryId.title;
-              return (
-                <li key={index}>
-                  <CategoryText text={title} count={100} isTitle />
-                  <ul className={styles["SidebarContent-Hero"]}>
-                    {subCategories.map(
-                      ({ categoryId, subCategories }: Categories, index) => {
-                        const title = categoryId.title;
-
-                        if (!subCategories.length) {
+          {list.map(
+            ({ title, subCategories, postCount }: Category, index: number) => (
+              <li key={index}>
+                <CategoryText
+                  text={title}
+                  count={postCount}
+                  link={""}
+                  isTitle
+                />
+                <ul className={styles["SidebarContent-Hero"]}>
+                  {subCategories &&
+                    subCategories.map(
+                      (
+                        { title, subCategories, postCount }: Category,
+                        index
+                      ) => {
+                        if (subCategories && subCategories.length) {
                           return (
-                            <CategoryText
-                              text={title}
-                              count={100}
-                              key={index}
-                            />
+                            <li key={index}>
+                              <CategoryText
+                                text={title}
+                                count={postCount}
+                                isTitle
+                                link={""}
+                              />
+                              <ul className={styles["SidebarContent-Hero"]}>
+                                {subCategories.map(
+                                  ({ title, postCount }, index) => (
+                                    <CategoryText
+                                      key={index}
+                                      text={title}
+                                      count={postCount}
+                                      link={""}
+                                    />
+                                  )
+                                )}
+                              </ul>
+                            </li>
                           );
                         }
 
                         return (
-                          <li key={index}>
-                            <CategoryText text={title} count={1000} isTitle />
-                            <ul className={styles["SidebarContent-Hero"]}>
-                              {subCategories.map(({ title }, index) => (
-                                <CategoryText
-                                  key={index}
-                                  text={title}
-                                  count={100}
-                                />
-                              ))}
-                            </ul>
-                          </li>
+                          <CategoryText
+                            text={title}
+                            count={postCount}
+                            key={index}
+                            link={""}
+                          />
                         );
                       }
                     )}
-                  </ul>
-                </li>
-              );
-            }
+                </ul>
+              </li>
+            )
           )}
         </ul>
       )}
