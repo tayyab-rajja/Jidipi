@@ -10,11 +10,11 @@
   max-width: 940px;
 }
 
-.CardDetails-Content {
+.CardDetails-Header {
   padding: 0 20px;
 }
 
-.CardDetails-Content ul {
+.CardDetails-Header ul {
   margin-top: 5px;
 }
 

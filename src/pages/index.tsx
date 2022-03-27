@@ -1,7 +1,7 @@
-import type { GetServerSideProps } from "next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
+import type { GetServerSideProps } from "next";
 
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 
 import Card from "src/components/Card";
@@ -9,14 +9,18 @@ import Layout from "src/components/Layout";
 
 import { changePostsData } from "helpers/changePostsData";
 
+import { Posts } from "types/postTypes";
 interface Props {
-  posts: any;
+  posts: {
+    posts: [];
+    total: number;
+  };
   sidebarCategories: any;
 }
 
 const Home = ({ posts, sidebarCategories }: Props) => {
   const { t } = useTranslation();
-  const data = changePostsData(posts.posts);
+  const postsData: Posts[] = posts.posts;
 
   return (
     <div>
@@ -27,7 +31,7 @@ const Home = ({ posts, sidebarCategories }: Props) => {
       </Head>
 
       <Layout sidebarCategories={sidebarCategories}>
-        {data.map(({ title, categories, image, id }, index) => (
+        {postsData.map(({ title, categories, image, id }, index) => (
           <div key={index} style={{ width: 450, margin: "0 20px 20px 0" }}>
             <Card title={title} categories={categories} image={image} id={id} />
           </div>
@@ -54,7 +58,10 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale as string, ["common"])),
-      posts: posts,
+      posts: {
+        ...posts,
+        posts: changePostsData(posts.posts),
+      },
       sidebarCategories: sidebarCategories,
     },
   };

@@ -9,10 +9,11 @@ export const getPostCategories = (post: any, withoutCategory?: string) => {
   ];
 
   for (const key in post) {
-    if (
+    const isWithoutCategory =
       withoutCategory &&
-      key.toLocaleLowerCase().includes(withoutCategory.toLocaleLowerCase())
-    ) {
+      key.toLocaleLowerCase().includes(withoutCategory.toLocaleLowerCase());
+
+    if (isWithoutCategory) {
       continue;
     }
 
