@@ -5,9 +5,17 @@ import { SidebarContent } from "./SidebarContent/SidebarContent";
 
 import styles from "./Sidebar.module.css";
 
-export const Sidebar = () => {
+interface Props {
+  sidebarCategories: any;
+}
+
+export const Sidebar = ({ sidebarCategories }: Props) => {
   const [searchValue, setSearchValue] = useState<string>("");
-  const [currentTab, setCurrentTab] = useState("Categories");
+  const [currentTab, setCurrentTab] = useState("CATEGORIES");
+
+  const categories = sidebarCategories?.categories?.find(
+    ({ type }: { type: string }) => type === currentTab
+  )?.categories;
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -28,7 +36,7 @@ export const Sidebar = () => {
         placeholder="Search"
       />
       <SidebarTabs currentTab={currentTab} handleChange={handleTab} />
-      <SidebarContent title="All" />
+      <SidebarContent categories={categories} title="All" />
     </div>
   );
 };

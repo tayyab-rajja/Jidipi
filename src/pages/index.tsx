@@ -11,9 +11,10 @@ import { changePostsData } from "helpers/changePostsData";
 
 interface Props {
   posts: any;
+  sidebarCategories: any;
 }
 
-const Home = ({ posts }: Props) => {
+const Home = ({ posts, sidebarCategories }: Props) => {
   const { t } = useTranslation();
 
   const data = changePostsData(posts.posts);
@@ -26,7 +27,7 @@ const Home = ({ posts }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Layout>
+      <Layout sidebarCategories={sidebarCategories}>
         {data.map(({ title, categories, image, id }, index) => (
           <div key={index} style={{ width: 450, margin: "0 20px 20px 0" }}>
             <Card title={title} categories={categories} image={image} id={id} />
@@ -41,7 +42,7 @@ export default Home;
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const responsePosts = await fetch(
-    "https://api.jidipi.com/api/v1/post/public/603dc78958c5c6279bc2ed9b?pageNumber=0&pageSize=100&language=EN"
+    "https://api.jidipi.com/api/v1/post/public/603ce60958c5c6279bc2ed96?pageNumber=0&pageSize=100&language=EN"
   );
 
   const responseSidebarCategories = await fetch(

@@ -9,9 +9,10 @@ import { getPostCategories } from "helpers/changePostsData";
 
 type Props = {
   post: any;
+  sidebarCategories: any;
 };
 
-const Post = ({ post }: Props) => {
+const Post = ({ post, sidebarCategories }: Props) => {
   const categories = getPostCategories(post, "oldCategories");
   const companyImg = post?.companyId?.avatar || null;
   const title = post.title;
@@ -32,7 +33,7 @@ const Post = ({ post }: Props) => {
         ></script>
       </Head>
 
-      <Layout>
+      <Layout sidebarCategories={sidebarCategories}>
         <CardDetails
           categories={categories}
           companyImg={companyImg}
@@ -50,11 +51,18 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     `https://api.jidipi.com/api/v1/post/public/${query.slug}/en`
   );
 
+  const responseSidebarCategories = await fetch(
+    "https://api.jidipi.com/api/v1/category?pageFolderId=603ce60958c5c6279bc2ed96"
+  );
+
+  const sidebarCategories = await responseSidebarCategories.json();
+
   const post = await responsePost.json();
 
   return {
     props: {
       post: post,
+      sidebarCategories: sidebarCategories,
     },
   };
 };

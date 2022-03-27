@@ -10,12 +10,10 @@
 
 .SidebarContent-Title {
   margin: 0;
-  height: 35px;
+  text-align: center;
+  padding: 10px 0;
   font-weight: normal;
   font-size: 17px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: #fff;
   background-color: black;
 }
@@ -27,25 +25,26 @@
 }
 
 .SidebarContent-Text {
+  padding: 10px 10px 10px 35px;
   font-size: 16px;
   font-weight: normal;
-  height: 35px;
   display: flex;
   align-items: center;
   cursor: pointer;
 }
 
-.SidebarContent-Text:hover {
-  color: #fff;
-  background-color: #deb851;
-}
-
 .SidebarContent-Subtitle {
   margin: 0;
-  padding-left: 20px;
+  padding-left: 15px;
   background-color: #e3e3e3;
 }
 
-.SidebarContent-Hero ul > li {
-  padding-left: 35px;
+.SidebarContent-Hero ul > li .SidebarContent-Subtitle {
+  padding-left: 25px;
+  background-color: #f1f1f1;
+}
+
+.SidebarContent-Text.SidebarContent-Text:hover {
+  color: #fff;
+  background-color: #deb851;
 }
