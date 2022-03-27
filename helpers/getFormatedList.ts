@@ -25,7 +25,7 @@ export const getFormatedList = (
                 secondPostCount = 0;
               }
               if (
-                secondCurrent.categoryId.title !== "[[DELETED]]" &&
+                secondCurrent.title !== "[[DELETED]]" &&
                 !secondCurrent.isDeleted
               ) {
                 postCount += secondPostCount;
@@ -42,7 +42,7 @@ export const getFormatedList = (
                       }
                       if (
                         !thirdCurrent.isDeleted &&
-                        secondCurrent.categoryId.title !== "[[DELETED]]"
+                        secondCurrent.title !== "[[DELETED]]"
                       ) {
                         postCount += thirdPostCount;
                         secondPostCount += thirdPostCount;
