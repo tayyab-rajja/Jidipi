@@ -16,9 +16,6 @@ interface Props {
 
 const Home = ({ posts, sidebarCategories }: Props) => {
   const { t } = useTranslation();
-
-  console.log(sidebarCategories);
-
   const data = changePostsData(posts.posts);
 
   return (

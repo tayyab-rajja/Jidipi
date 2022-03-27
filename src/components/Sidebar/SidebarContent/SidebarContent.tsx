@@ -66,9 +66,6 @@ export const SidebarContent: FC<SidebarContentProps> = ({
     categories,
     "603ce60958c5c6279bc2ed96"
   );
-
-  console.log(list);
-
   return (
     <div className={styles["SidebarContent"]}>
       <h2 className={styles["SidebarContent-Title"]}>
