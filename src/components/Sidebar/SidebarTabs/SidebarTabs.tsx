@@ -23,18 +23,16 @@ export const SidebarTabs: FC<SidebarTabsProps> = ({
   const tabs = sidebarTabs["architectures"];
   return (
     <>
-      <Tabs className={styles["SidebarTabs"]}>
+      <Tabs
+        className={styles["SidebarTabs"]}
+        onChange={(index) => {
+          const { type } = tabs[index];
+          handleChange(type);
+        }}
+      >
         <TabList className={styles["SidebarTabs-List"]}>
           {tabs.map(({ text, type }, index) => (
-            <Tab
-              key={index}
-              className={styles["SidebarTabs-Tab"]}
-              onClick={() => {
-                console.log("s");
-
-                handleChange(type);
-              }}
-            >
+            <Tab key={index} className={styles["SidebarTabs-Tab"]}>
               {categoriesSvg[type]}
               <span>{text}</span>
             </Tab>
