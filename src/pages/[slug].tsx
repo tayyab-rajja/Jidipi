@@ -4,6 +4,7 @@ import Head from "next/head";
 
 import Layout from "src/components/Layout";
 import CardDetails from "src/components/CardDetails/CardDetails";
+import CompanyProfile from "src/components/CompanyProfile/CompanyProfile";
 
 import { getPostCategories } from "helpers/changePostsData";
 
@@ -38,6 +39,7 @@ const Post = ({ post, sidebarCategories }: Props) => {
         >
           <div dangerouslySetInnerHTML={{ __html: post.description }} />
         </CardDetails>
+        {companyImg && <CompanyProfile companyImg={companyImg} />}
       </Layout>
     </div>
   );

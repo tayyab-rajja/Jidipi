@@ -21,10 +21,13 @@ export const SidebarTabs: FC<SidebarTabsProps> = ({
   const { t } = useTranslation();
 
   const tabs = sidebarTabs["architectures"];
+  const index = tabs.find(({ type }) => type == currentTab)?.index;
+
   return (
     <>
       <Tabs
         className={styles["SidebarTabs"]}
+        index={index}
         onChange={(index) => {
           const { type } = tabs[index];
           handleChange(type);
