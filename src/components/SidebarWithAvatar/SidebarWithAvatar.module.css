@@ -1,0 +1,67 @@
+.Sidebar {
+    width: 300px;
+    background-color: #fff;
+}
+
+.Text {
+    font-size: 12px;
+    color: #37373799;
+}
+
+.Profile {
+    margin-top: 43px;
+    padding: 10px;
+}
+
+.Profile-Avatar {
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+}
+
+.Profile-Avatar_Round {
+    border-radius: 50%;
+}
+
+.Profile-Data {
+    margin-top: 46px;
+}
+
+.Profile-Text {
+    padding-left: 30px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 13px;
+}
+
+.Profile-Text:last-child {
+    margin-bottom: 0;
+}
+
+.Profile-Text span {
+    margin-left: 32px;
+}
+
+.Links {
+    margin-top: 57px;
+    width: 100%;
+}
+
+.Links a {
+    display: block;
+    text-transform: uppercase;
+    color: #888;
+    font-size: 11px;
+    padding: 20px;
+    border-bottom: 1px solid #D6D6D6;
+}
+
+.Links a:first-child {
+    border-top: 1px solid #D6D6D6;
+}
+
+.Links a:hover {
+    background-color: #373737;
+    color: #fff;
+    cursor: pointer;
+}
