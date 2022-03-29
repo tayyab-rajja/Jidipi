@@ -65,3 +65,9 @@
     color: #fff;
     cursor: pointer;
 }
+
+.Links a:hover:first-child {
+    background-color: #fff;
+    color: #888;
+    cursor: auto;
+}

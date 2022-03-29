@@ -1,0 +1,54 @@
+.Container {
+    width: 100%;
+    height: 255px;
+    margin: 0 20px 20px;
+    background-color: #fff;
+}
+
+.Header-Items {
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.Header-Item {
+    display: flex;
+}
+
+.Header-Icon {
+    width: 56px;
+    height: 56px;
+    background-color: #E3E3E3;
+    position: relative;
+}
+
+.Header-Icon svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    color: #fff;
+}
+
+.Header-Data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Header-Text {
+    margin: 0;
+    margin-left: 20px;
+    margin-bottom: 9px;
+    font-size: 13px;
+    line-height: 19px;
+    color: #37373799;
+}
+
+.Header-Number {
+    margin: 0;
+    margin-left: 20px;
+    font-size: 20px;
+    line-height: 28px;
+    color: #37373799;
+}
