@@ -23,11 +23,19 @@ const SidebarWithAvatar = () => {
                     </div>
                 </div>
             </div>
-            <div className={styles["Links"]}>
-                <Link href="#">favorate</Link>
-                <Link href="#">post</Link>
-                <Link href="#">company</Link>
-                <Link href="#">information</Link>
+            <div className={styles["Favorate-Links"]}>
+                <div className={styles["Title"]}>favorate</div>
+                <ul className={styles["Links"]}>
+                    <li className={styles["Links-Item"]}>
+                        <Link href="#"><a>post</a></Link>
+                    </li>
+                    <li className={styles["Links-Item"]}>
+                        <Link href="#"><a>company</a></Link>
+                    </li>
+                    <li className={styles["Links-Item"]}>
+                        <Link href="#"><a>information</a></Link>
+                    </li>
+                </ul>
             </div>
         </div>
     )
