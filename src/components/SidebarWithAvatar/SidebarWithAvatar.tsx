@@ -27,13 +27,28 @@ const SidebarWithAvatar = () => {
                 <div className={styles["Title"]}>favorate</div>
                 <ul className={styles["Links"]}>
                     <li className={styles["Links-Item"]}>
-                        <Link href="#"><a>post</a></Link>
+                        <span className={styles["Links-Item_Icon"]}>
+                            {/* Icon to be added */}
+                        </span>
+                        <span className={styles["Links-Item_Text"]}>
+                            <Link href="#"><a>post</a></Link>
+                        </span>
                     </li>
                     <li className={styles["Links-Item"]}>
-                        <Link href="#"><a>company</a></Link>
+                        <span className={styles["Links-Item_Icon"]}>
+                            {/* Icon to be added */}
+                        </span>
+                        <span className={styles["Links-Item_Text"]}>
+                            <Link href="#"><a>company</a></Link>
+                        </span>
                     </li>
                     <li className={styles["Links-Item"]}>
-                        <Link href="#"><a>information</a></Link>
+                        <span className={styles["Links-Item_Icon"]}>
+                            {/* Icon to be added */}
+                        </span>
+                        <span className={styles["Links-Item_Text"]}>
+                            <Link href="#"><a>information</a></Link>
+                        </span>
                     </li>
                 </ul>
             </div>
