@@ -1,0 +1,14 @@
+.Table {
+  height: 900px;
+  display: grid;
+  grid-template-columns: 105px 105px 300px 160px 160px 300px 200px 150px;
+  grid-template-rows: repeat(auto-fit, 80px);
+  row-gap: 10px;
+  overflow: hidden;
+  overflow-x: auto;
+  /* background-color: #f1f1f1; */
+}
+
+.Table div {
+  border: 1px solid red;
+}

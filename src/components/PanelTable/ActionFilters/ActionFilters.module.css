@@ -1,0 +1,17 @@
+.ActionFilters {
+  padding-bottom: 40px;
+  display: grid;
+  grid-template-columns: 0.5fr 0.5fr 1fr 0.5fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 15px;
+}
+
+.ActionFilters-Item {
+  height: 40px;
+  border: 1px solid #d6d6d6;
+  border-radius: 5px;
+}
+
+.ActionFilters-Item:last-child {
+  grid-column: 1/5;
+}

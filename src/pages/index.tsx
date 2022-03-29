@@ -8,6 +8,9 @@ import Card from "src/components/Card";
 import Layout from "src/components/Layout";
 
 import { changePostsData } from "helpers/changePostsData";
+import FavoratePost from "src/components/FavoratePost/FavoratePost";
+import UserPanelData from "src/components/UserPanelData/UserPanelData";
+import PanelTable from "src/components/PanelTable/PanelTable";
 
 interface Props {
   posts: any;
@@ -27,11 +30,10 @@ const Home = ({ posts }: Props) => {
       </Head>
 
       <Layout>
-        {data.map(({ title, categories, image, id }, index) => (
-          <div key={index} style={{ width: 450, margin: "0 20px 20px 0" }}>
-            <Card title={title} categories={categories} image={image} id={id} />
-          </div>
-        ))}
+        <div style={{ width: "100%" }}>
+          <UserPanelData />
+          <PanelTable />
+        </div>
       </Layout>
     </div>
   );

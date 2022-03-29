@@ -1,0 +1,27 @@
+.PanelTable {
+  height: 1500px;
+}
+
+.PanelTable-TabList[data-reach-tab-list] {
+  background-color: transparent;
+}
+
+.PanelTable-Tab[data-reach-tab] {
+  width: 120px;
+  height: 45px;
+  border: 1px solid #d6d6d6;
+  background-color: #f1f1f1;
+}
+
+.PanelTable-Tab[data-selected].PanelTable-Tab {
+  background-color: #fff;
+  border-bottom-color: #d6d6d6;
+}
+
+.PanelTable-TabPanels {
+  height: 100%;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #d6d6d6;
+  border-top: none;
+}
