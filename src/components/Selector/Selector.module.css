@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+}
+
+.switcher-container {
+  display: flex;
+  border: 1px solid #E3E3E3;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.bar__switcher-container {
+  width: 30px;
+  height: 18px;
+  margin-left: 8px;
+}
+.switcher-container[data-unlocked='true'] {
+  justify-content: flex-end;
+  background: black;
+}
+
+.switcher {
+  background: white;
+  height: 100%;
+  width: 18px;
+  border-radius: 50%;
+}

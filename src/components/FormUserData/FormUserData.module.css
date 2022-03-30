@@ -1,0 +1,9 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.form__elem {
+  margin-bottom: 14px;
+}

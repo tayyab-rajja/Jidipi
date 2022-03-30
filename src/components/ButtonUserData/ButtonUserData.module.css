@@ -1,0 +1,18 @@
+.btn {
+  border: none;
+  outline: none;
+  background-color: rgb(55,55,55);
+  color: white;
+  font: normal normal medium 12px/18px Poppins;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn:hover {
+  background: #DEB851;
+}
+
+.form__btn {
+  height: 44px;
+}
