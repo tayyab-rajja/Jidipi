@@ -6,6 +6,7 @@ import { useTranslation } from "next-i18next";
 
 import Card from "src/components/Card";
 import Layout from "src/components/Layout";
+import Sidebar from "src/components/Sidebar";
 
 import { changePostsData } from "helpers/changePostsData";
 
@@ -26,7 +27,7 @@ const Home = ({ posts }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Layout>
+      <Layout SidebarComponent={Sidebar}>
         {data.map(({ title, categories, image, id }, index) => (
           <div key={index} style={{ width: 450, margin: "0 20px 20px 0" }}>
             <Card title={title} categories={categories} image={image} id={id} />

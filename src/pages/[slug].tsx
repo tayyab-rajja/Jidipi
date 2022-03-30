@@ -6,6 +6,7 @@ import Layout from "src/components/Layout";
 import CardDetails from "src/components/CardDetails/CardDetails";
 
 import { getPostCategories } from "helpers/changePostsData";
+import Sidebar from "src/components/Sidebar";
 
 type Props = {
   post: any;
@@ -32,7 +33,7 @@ const Post = ({ post }: Props) => {
         ></script>
       </Head>
 
-      <Layout>
+      <Layout SidebarComponent={Sidebar}>
         <CardDetails
           categories={categories}
           companyImg={companyImg}
