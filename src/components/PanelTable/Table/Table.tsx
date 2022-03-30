@@ -1,97 +1,38 @@
-import { ChangeEvent, FC, useEffect, useState } from "react";
+import { FC, useMemo } from "react";
 import {
   useTable,
   useBlockLayout,
   useSortBy,
-  Column,
-  Row,
-  CellValue,
-  ColumnGroup,
+  TableOptions,
+  UseSortByOptions,
 } from "react-table";
 import { useSticky } from "react-table-sticky";
 
 import clsx from "clsx";
 
+import { EditableCell } from "./EditableCell";
+
+import { UpdateMyData } from "types/updateMyData";
+import { tableColumns } from "constant/tableColumns";
+
 import styles from "./Table.module.css";
-import {
-  CustomCheckbox,
-  CustomCheckboxContainer,
-  CustomCheckboxInput,
-} from "@reach/checkbox";
 import "@reach/checkbox/styles.css";
 
 interface TableProps {
-  columns: Column[];
-  data: {}[];
-  updateMyData: (value: string, rowIndex: number, columnId?: string) => void;
+  data: Array<any>;
+  updateMyData: UpdateMyData;
 }
 
-const EditableCell = ({
-  value: initialValue,
-  row: { index },
-  column: { id },
-  updateMyData,
-}: {
-  row: Row;
-  value: CellValue;
-  column: ColumnGroup;
-  updateMyData: (value: string, rowIndex: number, columnId?: string) => void;
-}) => {
-  const [value, setValue] = useState(initialValue);
+interface CustomTableOptions {
+  autoResetSortBy: boolean;
+  updateMyData: UpdateMyData;
+}
 
-  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-  };
-
-  const onCheckboxCahnge = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.checked);
-  };
-
-  const onBlur = () => {
-    updateMyData(value, index, id);
-  };
-
-  useEffect(() => {
-    setValue(initialValue);
-  }, [initialValue]);
-
-  switch (id) {
-    case "edit":
-      return (
-        <div className={styles["Table-Column_Edit"]}>
-          <button></button>
-          <button></button>
-          <button></button>
-        </div>
-      );
-    case "label":
-    case "note":
-      return (
-        <input
-          value={value}
-          onChange={onInputChange}
-          onBlur={onBlur}
-          className={styles["Table-Input_Text"]}
-        />
-      );
-    case "isSelect":
-      return (
-        <CustomCheckbox
-          value={value}
-          onChange={onCheckboxCahnge}
-          className={styles["Table-Input_Select"]}
-        />
-      );
-
-    default:
-      return value;
-  }
-};
-
-const Table: FC<TableProps> = ({ columns, data, updateMyData }) => {
+const Table: FC<TableProps> = ({ data, updateMyData }) => {
   const defaultColumn = {
     Cell: EditableCell,
   };
+  const columns = useMemo(() => tableColumns, []);
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
@@ -99,9 +40,9 @@ const Table: FC<TableProps> = ({ columns, data, updateMyData }) => {
         columns,
         data,
         defaultColumn,
-        //@ts-ignore
+        autoResetSortBy: false,
         updateMyData,
-      },
+      } as TableOptions<UseSortByOptions<CustomTableOptions>>,
       useBlockLayout,
       useSortBy,
       useSticky
