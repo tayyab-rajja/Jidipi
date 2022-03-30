@@ -1,3 +1,54 @@
 .Table {
   height: 900px;
+  width: 100%;
+  color: #373737;
+}
+
+.Sticky {
+  overflow-x: scroll;
+}
+
+.Sticky [data-sticky-td] {
+  position: sticky;
+}
+
+.Sticky [data-sticky-last-left-td] {
+  margin-right: 5px;
+}
+
+.Sticky .Table-Body {
+  position: relative;
+  z-index: 0;
+}
+
+.Table-Row {
+  height: 60px;
+  width: max-content !important;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.Table-Column {
+  height: 100%;
+  padding: 10px;
+  background-color: #f1f1f1;
+  overflow: hidden;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.Table-Column:nth-child(2) {
+  padding: 5px;
+}
+
+.Table-Column_Header.Table-Column_Header {
+  padding: 0;
+  font-weight: 600;
+  background-color: #fff;
+}
+
+.Table-Header .Table-Row {
+  height: 30px;
 }
