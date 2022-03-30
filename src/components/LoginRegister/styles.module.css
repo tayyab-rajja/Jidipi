@@ -1,3 +1,14 @@
 .body__login-register {
   width: 268px;
 }
+
+.login-register__back-to-login {
+  display: flex;
+  justify-content: center;
+  margin: 240px 0 30px;
+}
+
+.login-register__a {
+  color: blue;
+  margin-left: 5px;
+}
