@@ -39,7 +39,7 @@ const LoginSidebar = () => {
         return;
       }
       console.log({ ...res });
-    } catch (error) {
+    } catch (error: any) {
       console.log(error?.response?.data?.error);
       // TODO: show error message
     }
