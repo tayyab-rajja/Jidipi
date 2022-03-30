@@ -2,6 +2,7 @@ import { FC, ReactElement } from "react";
 
 import Navbar from "src/components/Navbar";
 import Sidebar from "src/components/Sidebar";
+import LoginSidebar from "../LoginSidebar/LoginSidebar";
 
 import styles from "./Layout.module.css";
 

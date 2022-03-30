@@ -4,6 +4,7 @@ import { SidebarTabs } from "./SidebarTabs/SidebarTabs";
 import { SidebarContent } from "./SidebarContent/SidebarContent";
 
 import styles from "./Sidebar.module.css";
+import LoginSidebar from "../LoginSidebar/LoginSidebar";
 
 export const Sidebar = () => {
   const [searchValue, setSearchValue] = useState<string>("");
@@ -29,6 +30,8 @@ export const Sidebar = () => {
       />
       <SidebarTabs currentTab={currentTab} handleChange={handleTab} />
       <SidebarContent title="All" />
+
+      <LoginSidebar />
     </div>
   );
 };
