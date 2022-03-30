@@ -6,6 +6,8 @@ export const tableColumns = [
     sticky: "left",
     width: 80,
     accessor: "isSelect",
+    defaultCanSort: false,
+    disableSortBy: true,
   },
   {
     Header: "Image",
@@ -20,6 +22,8 @@ export const tableColumns = [
       />
     ),
     accessor: "image",
+    defaultCanSort: false,
+    disableSortBy: true,
   },
   {
     Header: "Name",
@@ -51,5 +55,7 @@ export const tableColumns = [
     Header: "Edit",
     accessor: "edit",
     width: 160,
+    defaultCanSort: false,
+    disableSortBy: true,
   },
 ];

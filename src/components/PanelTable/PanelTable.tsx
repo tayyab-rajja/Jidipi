@@ -17,7 +17,27 @@ const PanelTable = () => {
 
   const [data, setData] = useState([
     {
-      isSelect: "1",
+      isSelect: true,
+      image: emptyImage,
+      name: "Aaaa Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita!",
+      location: "Lorem ipsum dolor sit.",
+      compay: "Lorem, ipsum.",
+      label: "",
+      note: "",
+      edit: "complicated",
+    },
+    {
+      isSelect: false,
+      image: emptyImage,
+      name: "Bbbb Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita!",
+      location: "Lorem ipsum dolor sit.",
+      compay: "Lorem, ipsum.",
+      label: "",
+      note: "",
+      edit: "complicated",
+    },
+    {
+      isSelect: false,
       image: emptyImage,
       name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita!",
       location: "Lorem ipsum dolor sit.",
@@ -27,9 +47,9 @@ const PanelTable = () => {
       edit: "complicated",
     },
     {
-      isSelect: "1",
+      isSelect: false,
       image: emptyImage,
-      name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita!",
+      name: "Dsdcsd Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita!",
       location: "Lorem ipsum dolor sit.",
       compay: "Lorem, ipsum.",
       label: "",
@@ -37,18 +57,16 @@ const PanelTable = () => {
       edit: "complicated",
     },
     {
-      isSelect: "1",
+      isSelect: false,
       image: emptyImage,
-      name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita!",
+      name: "MdmLorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita!",
       location: "Lorem ipsum dolor sit.",
       compay: "Lorem, ipsum.",
-      label: "22",
-      note: "22",
+      label: "",
+      note: "",
       edit: "complicated",
     },
   ]);
-
-  console.log(data);
 
   const updateMyData = (value: string, rowIndex: number, columnId?: string) => {
     if (!rowIndex || !columnId) {

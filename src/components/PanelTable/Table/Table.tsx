@@ -2,6 +2,7 @@ import { ChangeEvent, FC, useEffect, useState } from "react";
 import {
   useTable,
   useBlockLayout,
+  useSortBy,
   Column,
   Row,
   CellValue,
@@ -12,7 +13,12 @@ import { useSticky } from "react-table-sticky";
 import clsx from "clsx";
 
 import styles from "./Table.module.css";
-import React from "react";
+import {
+  CustomCheckbox,
+  CustomCheckboxContainer,
+  CustomCheckboxInput,
+} from "@reach/checkbox";
+import "@reach/checkbox/styles.css";
 
 interface TableProps {
   columns: Column[];
@@ -33,8 +39,12 @@ const EditableCell = ({
 }) => {
   const [value, setValue] = useState(initialValue);
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
+  };
+
+  const onCheckboxCahnge = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.checked);
   };
 
   const onBlur = () => {
@@ -45,21 +55,37 @@ const EditableCell = ({
     setValue(initialValue);
   }, [initialValue]);
 
-  if (id === "edit") {
-    return <button></button>;
-  }
+  switch (id) {
+    case "edit":
+      return (
+        <div className={styles["Table-Column_Edit"]}>
+          <button></button>
+          <button></button>
+          <button></button>
+        </div>
+      );
+    case "label":
+    case "note":
+      return (
+        <input
+          value={value}
+          onChange={onInputChange}
+          onBlur={onBlur}
+          className={styles["Table-Input_Text"]}
+        />
+      );
+    case "isSelect":
+      return (
+        <CustomCheckbox
+          value={value}
+          onChange={onCheckboxCahnge}
+          className={styles["Table-Input_Select"]}
+        />
+      );
 
-  if (id === "label" || id === "note") {
-    return (
-      <input
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-        className={styles["Table-Input"]}
-      />
-    );
+    default:
+      return value;
   }
-  return value;
 };
 
 const Table: FC<TableProps> = ({ columns, data, updateMyData }) => {
@@ -77,6 +103,7 @@ const Table: FC<TableProps> = ({ columns, data, updateMyData }) => {
         updateMyData,
       },
       useBlockLayout,
+      useSortBy,
       useSticky
     );
 
@@ -95,8 +122,11 @@ const Table: FC<TableProps> = ({ columns, data, updateMyData }) => {
               {...restHeaderGroupProps}
               className={styles["Table-Row"]}
             >
-              {headerGroup.headers.map((column) => {
-                const { key, ...restHeaderProps } = column.getHeaderProps();
+              {headerGroup.headers.map((column: any) => {
+                const { key, ...restHeaderProps } = column.getHeaderProps(
+                  column.getSortByToggleProps()
+                );
+
                 return (
                   <div
                     key={key}
@@ -108,6 +138,13 @@ const Table: FC<TableProps> = ({ columns, data, updateMyData }) => {
                   >
                     <div className={styles["Table-Column_Wrapper"]}>
                       {column.render("Header")}
+                      <span>
+                        {column.isSorted
+                          ? column.isSortedDesc
+                            ? " 🔽"
+                            : " 🔼"
+                          : ""}
+                      </span>
                     </div>
                   </div>
                 );
