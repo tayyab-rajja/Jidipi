@@ -3,8 +3,8 @@
     background-color: #fff;
 }
 
-.Title {
-    border-bottom: 1px solid #D6D6D6;
+.Sidebar-Title {
+    border-bottom: 2px solid #D6D6D6;
     text-transform: uppercase;
     color: #888888;
     font-size: 11px;
@@ -12,7 +12,7 @@
     margin-top: 60px;
 }
 
-.Links {
+.Sidebar-Links {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -21,16 +21,12 @@
 .Links-Item {
     color: #888;
     font-size: 11px;
-    padding: 20px;
-    border: 1px solid #D6D6D6;
+    padding: 20px 20px 20px 26px;
+    border-bottom: 2px solid #D6D6D6;
     text-decoration: none;
     display: flex;
     align-items: center;
     position: relative;
-}
-
-.Links-Item:last-child {
-    border-bottom: 2px solid #D6D6D6;
 }
 
 .Links-Item span svg path {
@@ -62,7 +58,7 @@
 }
 
 .Links-Item:last-child:hover .Links-Item_Icon::after {
-    border: none;
+    display: none;
 }
 
 .Links-Item:hover span svg path {
@@ -70,21 +66,19 @@
 }
 
 .Links-Item_Icon {
-    display: block;
     position: relative;
 }
 
 .Links-Item_Text {
-    display: block;
-    margin-left: 19px;
+    margin-left: 20px;
 }
 
-.Links-Item:active {
+.Links-Item:last-child:active {
     background-color: #373737;
     color: #fff;
 }
 
-.Links-Item:active .Links-Item_Text::before {
+.Links-Item:last-child:active .Links-Item_Text::before {
     content: 'link copied';
     background-color: #DEB851;
     position: absolute;

@@ -2,6 +2,7 @@ import { FC } from "react";
 import Link from 'next/link';
 
 import styles from './ShareSidebar.module.css';
+import { categoriesSvg } from "constant/categoriesSvg";
 
 const ShareSidebar: FC = () => {
 
@@ -11,11 +12,12 @@ const ShareSidebar: FC = () => {
 
     return (
         <div className={styles["Sidebar"]}>
-            <div className={styles["Title"]}>share</div>
-            <ul className={styles["Links"]}>
+            <div className={styles["Sidebar-Title"]}>share</div>
+            <ul className={styles["Sidebar-Links"]}>
                 <li className={styles["Links-Item"]}>
                     <span className={styles["Links-Item_Icon"]}>
                         {/* Icon to be added */}
+                        {categoriesSvg["DESIGNER"]}
                     </span>
                     <span className={styles["Links-Item_Text"]}>
                         <Link href="#"><a>Facebook</a></Link>
