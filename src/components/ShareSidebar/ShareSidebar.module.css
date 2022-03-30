@@ -1,0 +1,102 @@
+.Sidebar {
+    width: 300px;
+    background-color: #fff;
+}
+
+.Title {
+    border-bottom: 1px solid #D6D6D6;
+    text-transform: uppercase;
+    color: #888888;
+    font-size: 11px;
+    padding: 20px;
+    margin-top: 60px;
+}
+
+.Links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.Links-Item {
+    color: #888;
+    font-size: 11px;
+    padding: 20px;
+    border: 1px solid #D6D6D6;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.Links-Item:last-child {
+    border-bottom: 2px solid #D6D6D6;
+}
+
+.Links-Item span svg path {
+    fill: #D6D6D6;
+}
+
+.Links-Item:hover {
+    background-color: #DEB851;
+    color: #fff;
+    cursor: pointer;
+}
+
+.Links-Item:hover .Links-Item_Icon::before,
+.Links-Item:hover .Links-Item_Icon::after {
+    content: '';
+    width: 24px;
+    height: 24px;
+    border: 1px solid rgba(214, 214, 214, 0.6);
+    border-radius: 50%;
+    position: absolute;
+    padding: 5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.Links-Item:hover .Links-Item_Icon::after {
+    padding: 3px;
+}
+
+.Links-Item:last-child:hover .Links-Item_Icon::after {
+    border: none;
+}
+
+.Links-Item:hover span svg path {
+    fill: #fff;
+}
+
+.Links-Item_Icon {
+    display: block;
+    position: relative;
+}
+
+.Links-Item_Text {
+    display: block;
+    margin-left: 19px;
+}
+
+.Links-Item:active {
+    background-color: #373737;
+    color: #fff;
+}
+
+.Links-Item:active .Links-Item_Text::before {
+    content: 'link copied';
+    background-color: #DEB851;
+    position: absolute;
+    box-sizing: border-box;
+    padding: 4px 14px;
+    border-radius: 4px;
+    right: 8px;
+    top: 46px;
+    width: 80px;
+    height: 20px;
+    text-align: center;
+    font-size: 9px;
+    line-height: 12px;
+    color: #fff;    
+}
