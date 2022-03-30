@@ -13,7 +13,7 @@ interface InputValues {
 
 const LoginSidebar = () => {
   const [isFormSubmitting, setIsFormSubmitting] = useState(false);
-  const { setSession } = useSession();
+  const { setSession, removeSession, session, setLoading } = useSession();
 
   const { register, reset, handleSubmit } = useForm<InputValues>({
     defaultValues: {
@@ -25,6 +25,7 @@ const LoginSidebar = () => {
   const login: SubmitHandler<InputValues> = async ({ email, password }) => {
     setIsFormSubmitting(true);
     try {
+      setLoading();
       const res = await axios.post<ILoginSuccess>(
         `${process.env.NEXT_PUBLIC_API_URL}user/login`,
         { email, password }
@@ -47,31 +48,43 @@ const LoginSidebar = () => {
 
   return (
     <div>
-      <form
-        className={styles["Main-FormContainer"]}
-        onSubmit={handleSubmit(login)}
-        noValidate
-      >
-        <div className={styles["Main-ClientInfo"]}>
-          <input
-            type="email"
-            placeholder="E-Mail*"
-            {...register("email", {
-              required: "required",
-            })}
-          />
-          <input
-            type="password"
-            placeholder="Passwort*"
-            {...register("password", {
-              required: "required",
-            })}
-          />
-        </div>
-        <div className={styles["Main-CreateAccountBtnWrapper"]}>
-          <button disabled={isFormSubmitting}>Submit</button>
-        </div>
-      </form>
+      {(session.status === "unauthenticated" ||
+        session.status === "loading") && (
+        <form
+          className={styles["Main-FormContainer"]}
+          onSubmit={handleSubmit(login)}
+          noValidate
+        >
+          <div className={styles["Main-ClientInfo"]}>
+            <input
+              type="email"
+              placeholder="E-Mail*"
+              {...register("email", {
+                required: "required",
+              })}
+            />
+            <input
+              type="password"
+              placeholder="Passwort*"
+              {...register("password", {
+                required: "required",
+              })}
+            />
+          </div>
+          <div className={styles["Main-Submit"]}>
+            <button disabled={isFormSubmitting}>Submit</button>
+          </div>
+        </form>
+      )}
+      <div className={styles["Main-Logout"]}>
+        <button
+          disabled={session.status === "unauthenticated"}
+          onClick={removeSession}
+        >
+          Sign out
+        </button>
+      </div>
+      {session.status === "loading" && <p>loading</p>}
     </div>
   );
 };

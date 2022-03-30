@@ -39,7 +39,11 @@ const cache: SessionCache = {
   state: null,
 };
 
-const initialState: SessionState = { user: null, token: null };
+const initialState: SessionState = {
+  user: null,
+  token: null,
+  status: "unauthenticated",
+};
 
 // State reducer
 const SessionReducer = (
@@ -48,10 +52,16 @@ const SessionReducer = (
 ): SessionState => {
   switch (action.type) {
     case "ADD_SESSION": {
-      return { ...action.payload };
+      return { ...action.payload, status: "authenticated" };
     }
     case "REMOVE_SESSION": {
-      return initialState;
+      return { ...initialState };
+    }
+    case "LOADING": {
+      return {
+        ...state,
+        status: "loading",
+      };
     }
     default:
       return state;
@@ -125,5 +135,8 @@ export const useSession = () => {
     dispatch({ type: "REMOVE_SESSION" });
   };
 
-  return { session: state, setSession, removeSession };
+  const setLoading = () => {
+    dispatch({ type: "LOADING" });
+  };
+  return { session: state, setSession, removeSession, setLoading };
 };
