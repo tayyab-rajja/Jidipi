@@ -1,13 +1,13 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { appWithTranslation } from "next-i18next";
-import { SessionProvider } from "src/providers/SessionProvider";
+import { AuthProvider } from "src/providers/AuthProvider";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <SessionProvider>
+    <AuthProvider>
       <Component {...pageProps} />
-    </SessionProvider>
+    </AuthProvider>
   );
 }
 

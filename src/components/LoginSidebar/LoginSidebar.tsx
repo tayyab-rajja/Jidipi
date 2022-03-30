@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 
 import styles from "./LoginSidebar.module.css";
 import { ILoginSuccess } from "types/loginTypes";
-import { useSession } from "src/providers/SessionProvider";
+import { useAuth } from "src/providers/AuthProvider";
 import axios from "axios";
 
 interface InputValues {
@@ -13,7 +13,7 @@ interface InputValues {
 
 const LoginSidebar = () => {
   const [isFormSubmitting, setIsFormSubmitting] = useState(false);
-  const { setSession, removeSession, session, setLoading } = useSession();
+  const { setSession, removeSession, session, setLoading } = useAuth();
 
   const { register, reset, handleSubmit } = useForm<InputValues>({
     defaultValues: {

@@ -31,8 +31,8 @@ const setInterceptor = (cb: VoidFunction) => {
   );
 };
 
-const SessionContext = createContext<SessionState | undefined>(undefined);
-const SessionDispatchContext = createContext<SessionDispatch | undefined>(
+const AuthContext = createContext<SessionState | undefined>(undefined);
+const AuthDispatchContext = createContext<SessionDispatch | undefined>(
   undefined
 );
 const cache: SessionCache = {
@@ -73,7 +73,7 @@ const getToken = async () => {
 };
 
 // Context provider
-export const SessionProvider: React.FC = ({ children }) => {
+export const AuthProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(
     SessionReducer,
     cache.state || initialState
@@ -107,21 +107,19 @@ export const SessionProvider: React.FC = ({ children }) => {
   }, []);
 
   return (
-    <SessionDispatchContext.Provider value={dispatch}>
-      <SessionContext.Provider value={state}>
-        {children}
-      </SessionContext.Provider>
-    </SessionDispatchContext.Provider>
+    <AuthDispatchContext.Provider value={dispatch}>
+      <AuthContext.Provider value={state}>{children}</AuthContext.Provider>
+    </AuthDispatchContext.Provider>
   );
 };
 
 // Context hooks
-export const useSession = () => {
-  const state = useContext(SessionContext);
-  const dispatch = useContext(SessionDispatchContext);
+export const useAuth = () => {
+  const state = useContext(AuthContext);
+  const dispatch = useContext(AuthDispatchContext);
 
   if (state === undefined || dispatch === undefined) {
-    throw new Error("useSession must be used within a SessionProvider");
+    throw new Error("useAuth must be used within a AuthProvider");
   }
 
   const setSession = (response: ILoginSuccess) => {
