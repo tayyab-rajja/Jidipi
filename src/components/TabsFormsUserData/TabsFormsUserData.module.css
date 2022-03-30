@@ -1,0 +1,15 @@
+.body__section {
+  width: 100%;
+}
+
+.tabs__tab[data-reach-menu-item] {
+  width: 50%;
+  height: 44px;
+  background: white;
+}
+
+.tabs__tab[data-reach-menu-item][data-selected] {
+  width: 50%;
+  height: 44px;
+  background: #F1F1F1;
+}
