@@ -6,7 +6,7 @@ import styles from "./Layout.module.css";
 
 interface LayoutProps {
   children: ReactElement | ReactElement[];
-  SidebarComponent: FC
+  SidebarComponent: FC;
   sidebarCategories?: [];
 }
 
