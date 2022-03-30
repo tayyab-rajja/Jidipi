@@ -13,51 +13,51 @@ const ShareSidebar: FC = () => {
         <div className={styles["Sidebar"]}>
             <div className={styles["Sidebar-Title"]}>share</div>
             <ul className={styles["Sidebar-Links"]}>
-                <li className={styles["Links-Item"]}>
-                    <span className={styles["Links-Item_Icon"]}>
+                <li className={styles["Sidebar-LinksItem"]}>
+                    <span className={styles["Sidebar-LinksItem_Icon"]}>
                         {/* Icon to be added */}
                     </span>
-                    <span className={styles["Links-Item_Text"]}>
+                    <span className={styles["Sidebar-LinksItem_Text"]}>
                         <Link href="#"><a>Facebook</a></Link>
                     </span>
                 </li>
-                <li className={styles["Links-Item"]}>
-                    <span className={styles["Links-Item_Icon"]}>
+                <li className={styles["Sidebar-LinksItem"]}>
+                    <span className={styles["Sidebar-LinksItem_Icon"]}>
                         {/* Icon to be added */}
                     </span>
-                    <span className={styles["Links-Item_Text"]}>
+                    <span className={styles["Sidebar-LinksItem_Text"]}>
                         <Link href="#"><a>Twitter</a></Link>
                     </span>
                 </li>
-                <li className={styles["Links-Item"]}>
-                    <span className={styles["Links-Item_Icon"]}>
+                <li className={styles["Sidebar-LinksItem"]}>
+                    <span className={styles["Sidebar-LinksItem_Icon"]}>
                         {/* Icon to be added */}
                     </span>
-                    <span className={styles["Links-Item_Text"]}>
+                    <span className={styles["Sidebar-LinksItem_Text"]}>
                         <Link href="#"><a>Instagram</a></Link>
                     </span>
                 </li>
-                <li className={styles["Links-Item"]}>
-                    <span className={styles["Links-Item_Icon"]}>
+                <li className={styles["Sidebar-LinksItem"]}>
+                    <span className={styles["Sidebar-LinksItem_Icon"]}>
                         {/* Icon to be added */}
                     </span>
-                    <span className={styles["Links-Item_Text"]}>
+                    <span className={styles["Sidebar-LinksItem_Text"]}>
                         <Link href="#"><a>Pinterest</a></Link>
                     </span>
                 </li>
-                <li className={styles["Links-Item"]}>
-                    <span className={styles["Links-Item_Icon"]}>
+                <li className={styles["Sidebar-LinksItem"]}>
+                    <span className={styles["Sidebar-LinksItem_Icon"]}>
                         {/* Icon to be added */}
                     </span>
-                    <span className={styles["Links-Item_Text"]}>
+                    <span className={styles["Sidebar-LinksItem_Text"]}>
                         <Link href="mailto:mail@mail.com" passHref={true}><a>Email</a></Link>
                     </span>
                 </li>
-                <li className={styles["Links-Item"]} onClick={copyLink}>
-                    <span className={styles["Links-Item_Icon"]}>
+                <li className={styles["Sidebar-LinksItem"]} onClick={copyLink}>
+                    <span className={styles["Sidebar-LinksItem_Icon"]}>
                         {/* Icon to be added */}
                     </span>
-                    <span className={styles["Links-Item_Text"]} >
+                    <span className={styles["Sidebar-LinksItem_Text"]} >
                         <Link href="#"><a>http://architecture.jidipi.com/j000012394/…</a></Link>
                     </span>
                 </li>

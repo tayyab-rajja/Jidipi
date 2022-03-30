@@ -18,7 +18,7 @@
     padding: 0;
 }
 
-.Links-Item {
+.Sidebar-LinksItem {
     color: #888;
     font-size: 11px;
     padding: 20px 20px 20px 26px;
@@ -30,20 +30,20 @@
     cursor: pointer;
 }
 
-.Links-Item span svg path {
+.Sidebar-LinksItem span svg path {
     fill: #D6D6D6;
 }
 
-.Links-Item:hover {
+.Sidebar-LinksItem:hover {
     background-color: #DEB851;
 }
 
-.Links-Item:hover a {
+.Sidebar-LinksItem:hover a {
     color: #fff;
 }
 
-.Links-Item:hover .Links-Item_Icon::before,
-.Links-Item:hover .Links-Item_Icon::after {
+.Sidebar-LinksItem:hover .Sidebar-LinksItem_Icon::before,
+.Sidebar-LinksItem:hover .Sidebar-LinksItem_Icon::after {
     content: '';
     width: 24px;
     height: 24px;
@@ -56,32 +56,32 @@
     transform: translate(-50%, -50%);
 }
 
-.Links-Item:hover .Links-Item_Icon::after {
+.Sidebar-LinksItem:hover .Sidebar-LinksItem_Icon::after {
     padding: 3px;
 }
 
-.Links-Item:last-child:hover .Links-Item_Icon::after {
+.Sidebar-LinksItem:last-child:hover .Sidebar-LinksItem_Icon::after {
     display: none;
 }
 
-.Links-Item:hover span svg path {
+.Sidebar-LinksItem:hover span svg path {
     fill: #fff;
 }
 
-.Links-Item_Icon {
+.Sidebar-LinksItem_Icon {
     position: relative;
 }
 
-.Links-Item_Text {
+.Sidebar-LinksItem_Text {
     margin-left: 20px;
 }
 
-.Links-Item:last-child:active {
+.Sidebar-LinksItem:last-child:active {
     background-color: #373737;
     color: #fff;
 }
 
-.Links-Item:last-child:active .Links-Item_Text::before {
+.Sidebar-LinksItem:last-child:active .Sidebar-LinksItem_Text::before {
     content: 'link copied';
     background-color: #DEB851;
     position: absolute;
