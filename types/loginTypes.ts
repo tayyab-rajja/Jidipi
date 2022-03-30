@@ -7,6 +7,10 @@ interface IUserRoles {
   _id: string;
 }
 
+export interface ILoginError {
+  error: string;
+}
+
 export interface ILoginSuccess {
   token: string;
   user: IUserFromToken;

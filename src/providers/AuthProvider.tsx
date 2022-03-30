@@ -25,6 +25,7 @@ const setInterceptor = (cb: VoidFunction) => {
       if (error.response.status === 401) {
         cb();
         Cookies.remove(TOKEN);
+        return error;
       }
       return error;
     }

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import styles from "./LoginSidebar.module.css";
@@ -12,8 +11,12 @@ interface InputValues {
 }
 
 const LoginSidebar = () => {
-  const [isFormSubmitting, setIsFormSubmitting] = useState(false);
-  const { setSession, removeSession, session, setLoading } = useAuth();
+  const {
+    setSession,
+    removeSession,
+    session: { status },
+    setLoading,
+  } = useAuth();
 
   const { register, reset, handleSubmit } = useForm<InputValues>({
     defaultValues: {
@@ -23,33 +26,28 @@ const LoginSidebar = () => {
   });
 
   const login: SubmitHandler<InputValues> = async ({ email, password }) => {
-    setIsFormSubmitting(true);
     try {
       setLoading();
       const res = await axios.post<ILoginSuccess>(
         `${process.env.NEXT_PUBLIC_API_URL}user/login`,
         { email, password }
       );
-
       if (res.status === 200) {
         const response: ILoginSuccess = res.data;
         setSession(response);
         reset();
-        setIsFormSubmitting(true);
         return;
       }
+      console.log({ ...res });
     } catch (error) {
-      console.log(error);
+      console.log(error?.response?.data?.error);
       // TODO: show error message
     }
-
-    // const response: ILoginError = await res.json();
   };
 
   return (
     <div>
-      {(session.status === "unauthenticated" ||
-        session.status === "loading") && (
+      {status !== "authenticated" && (
         <form
           className={styles["Main-FormContainer"]}
           onSubmit={handleSubmit(login)}
@@ -72,19 +70,16 @@ const LoginSidebar = () => {
             />
           </div>
           <div className={styles["Main-Submit"]}>
-            <button disabled={isFormSubmitting}>Submit</button>
+            <button disabled={status === "loading"}>Submit</button>
           </div>
         </form>
       )}
       <div className={styles["Main-Logout"]}>
-        <button
-          disabled={session.status === "unauthenticated"}
-          onClick={removeSession}
-        >
+        <button disabled={status === "unauthenticated"} onClick={removeSession}>
           Sign out
         </button>
       </div>
-      {session.status === "loading" && <p>loading</p>}
+      {status === "loading" && <p>loading</p>}
     </div>
   );
 };
