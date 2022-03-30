@@ -50,7 +50,7 @@ const ShareSidebar: FC = () => {
                         {/* Icon to be added */}
                     </span>
                     <span className={styles["Links-Item_Text"]}>
-                        <Link href="mailto:" passHref={true}><a>Email</a></Link>
+                        <Link href="mailto:mail@mail.com" passHref={true}><a>Email</a></Link>
                     </span>
                 </li>
                 <li className={styles["Links-Item"]} onClick={copyLink}>

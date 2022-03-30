@@ -27,6 +27,7 @@
     display: flex;
     align-items: center;
     position: relative;
+    cursor: pointer;
 }
 
 .Links-Item span svg path {
@@ -35,8 +36,10 @@
 
 .Links-Item:hover {
     background-color: #DEB851;
+}
+
+.Links-Item:hover a {
     color: #fff;
-    cursor: pointer;
 }
 
 .Links-Item:hover .Links-Item_Icon::before,
