@@ -1,0 +1,36 @@
+.Sidebar {
+    width: 300px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.Text {
+    border-bottom: 1px solid #D6D6D6;
+    text-transform: uppercase;
+    color: #373737;
+    line-height: 16px;
+    font-size: 11px;
+}
+
+.Sidebar-Title {
+    margin-top: 74px;
+    padding: 20px;
+}
+
+.Sidebar-Button {
+    padding: 14px 20px;
+    background-color: #F1F1F1;
+}
+
+.Sidebar-Folders {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+
+

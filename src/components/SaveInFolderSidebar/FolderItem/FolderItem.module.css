@@ -1,0 +1,52 @@
+.Sidebar-FolderItem {
+    color: #D6D6D6;
+    font-size: 11px;
+    line-height: 16px;
+    padding: 14px 0px;
+    border-bottom: 1px solid #D6D6D6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.Sidebar-FolderItem span svg path {
+    fill: #D6D6D6;
+}
+
+.Sidebar-FolderItem.Active {
+    background-color: #F1F1F1;
+    color: #373737;
+}
+
+.Sidebar-FolderItem.Active span svg path {
+    fill: #373737;
+}
+
+.Sidebar-FolderItem.Choosen {
+    background-color: #373737;
+    color: #FFFFFF;
+}
+
+.Sidebar-FolderItem.Choosen span svg path {
+    fill: #fff;
+}
+
+.Sidebar-FolderItem:hover {
+    background-color: #DEB851;
+    color: #fff;
+}
+
+.Sidebar-FolderItem:hover span svg path {
+    fill: #fff;
+}
+
+.Sidebar-FolderItem_Text {
+    margin-left: 62px;
+}
+
+.Sidebar-FolderItem_Icon {
+    display: flex;
+    align-items: center;
+    margin-right: 37px;
+}
