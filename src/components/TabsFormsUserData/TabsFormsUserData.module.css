@@ -5,7 +5,7 @@
   padding: 40px 14px;
 }
 
-.Tabs-Tab[data-reach-menu-item] {
+.Tabs-Tab[data-reach-tab] {
   width: 50%;
   height: 44px;
   background: white;
@@ -13,7 +13,7 @@
   text-transform: uppercase;
 }
 
-.Tabs-Tab[data-reach-menu-item][data-selected] {
+.Tabs-Tab[data-reach-tab][data-selected] {
   width: 50%;
   height: 44px;
   background: none;
