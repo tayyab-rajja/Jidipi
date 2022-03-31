@@ -6,32 +6,37 @@ import styles from './SaveInFolderSidebar.module.css';
 
 export const SaveInFolderSidebar: FC = () => {
 
-    const [showAddLabelBtn, setShowAddLabelBtn] = useState(false);
-    const [showAddLabelForm, setShowAddLabelForm] = useState(false);
-    
+    const [showItem, setShowItem] = useState({
+        showAddLabelBtn: false,
+        showAddLabelForm: false
+    });
+
     const labels = ["Architectures", "Interiors", "Construction", "Electronics", "Furniture", "Goods", "Mine"];
 
-    const displayAddLabelBtn = () => {
-        setShowAddLabelBtn(true);
+    const displayItem = (item: string) => {
+        setShowItem({
+            ...showItem,
+            [item]: true
+        })
     }
 
-    const displayAddLabelForm = () => {
-        setShowAddLabelForm(true);
+    const hideItem = (item: string) => {
+        setShowItem({
+            ...showItem,
+            [item]: false
+        })
     }
-
-    const addLabelButton = showAddLabelBtn ? <div className={`${styles["Sidebar-Button"]} ${styles["Text"]}`} onClick={displayAddLabelForm}>add label</div> : null;
-    const addLabelForm = showAddLabelForm ? <AddLabelForm /> : null;
 
     return (
         <div className={styles["Sidebar"]}>
             <div>
                 <div className={`${styles["Sidebar-Title"]} ${styles["Text"]}`}>save in folder</div>
                 <ul className={styles["Sidebar-Folders"]}>
-                    {labels.map((label, i) => <FolderItem key={i} label={label} displayAddLabelBtn={displayAddLabelBtn} />)}
+                    {labels.map((label, i) => <FolderItem key={i} label={label} displayAddLabelBtn={displayItem} />)}
                 </ul>
-                {addLabelButton} 
+                {showItem.showAddLabelBtn && <div className={`${styles["Sidebar-Button"]} ${styles["Text"]}`} onClick={() => displayItem('showAddLabelForm')}>add label</div>} 
             </div>
-            {addLabelForm}
+            {showItem.showAddLabelForm && <AddLabelForm hideItem={hideItem} />}
         </div>
     )
 }

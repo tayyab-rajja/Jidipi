@@ -19,6 +19,7 @@
     font-size: 9px;
     padding: 12px;
     color: #D6D6D6;
+    outline: none;
 }
 
 .AddLabelForm-InputWrapper_Input::placeholder {
@@ -42,4 +43,5 @@
     color: #888888;
     font-size: 9px;
     text-align: center;
+    cursor: pointer;
 }
