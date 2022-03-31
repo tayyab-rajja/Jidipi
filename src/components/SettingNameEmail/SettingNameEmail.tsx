@@ -8,10 +8,6 @@ import FormUserData from 'src/components/FormUserData';
 import styles from './SettingNameEmail.module.css'
 
 const SettingNameEmail:FC = () => {
-  // const [inputNameUnlock, setInputNameUnlock] = useState(true);
-  // const [inputEmailUnlock, setInputEmailUnlock] = useState(true);
-  // const [inputPasswordsUnlock, setInputPasswordsUnlock] = useState(true);
-
   interface State {
     [key: string]: boolean;
   }

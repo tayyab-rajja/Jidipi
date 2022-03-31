@@ -12,10 +12,10 @@ interface Props {
 }
 
 const FormUserData:FC<Props> = ({children, className}) => {
-  const clazz = clsx(styles.form, className);
+  const classForm = clsx(styles['Form'], className);
 
   return (
-    <form className={clazz}>
+    <form className={classForm}>
       {children}
     </form>
   )

@@ -2,7 +2,7 @@ import {FC} from 'react';
 import clsx from "clsx";
 
 import styles from './ButtonUserData.module.css';
-import formStyles from '../FormUserData/FormUserData.module.css';
+import formStyles from 'src/components/FormUserData/FormUserData.module.css';
 
 interface Props {
   label: string;
@@ -11,11 +11,11 @@ interface Props {
 }
 
 const ButtonUserData:FC<Props> = ({label, action, className}) => {
-  const clazz = clsx(styles['btn'], styles['form__btn'], formStyles['form__elem'], className);
+  const classBtn = clsx(styles['Btn'], styles['Form-Btn'], formStyles['Form-Elem'], className);
 
   return (
     <button
-      className={clazz}
+      className={classBtn}
       onClick={e => {
         e.preventDefault();
         action();
