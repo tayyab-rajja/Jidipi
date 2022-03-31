@@ -11,23 +11,17 @@ interface Props {
 }
 
 const TabsFormsContainer:FC<Props> = ({tabsData}) => {
-  let id = 1;
-
-  let tabsToRender: Array<ReactElement> = [];
-  let tabPanelsToRender: Array<ReactElement> = [];
-
-  tabsData.forEach(e => {
-    tabsToRender.push(<Tab key={id++} className={styles['Tabs-Tab']} data-reach-menu-item>{e.name}</Tab>);
-    tabPanelsToRender.push(<TabPanel key={id++}>{e.panel}</TabPanel>)
-  })
-
   return (
     <Tabs>
       <TabList>
-        {tabsToRender}
+        {tabsData.map(({name}, index) => (
+          <Tab key={index} className={styles['Tabs-Tab']} data-reach-menu-item>{name}</Tab>
+        ))}
       </TabList>
       <TabPanels className={clsx(styles['TabPanels'], styles['Body-TabPanel'])}>
-        {tabPanelsToRender}
+        {tabsData.map(({panel}, index) => (
+          <TabPanel key={index}>{panel}</TabPanel>
+        ))}
       </TabPanels>
     </Tabs>
   );

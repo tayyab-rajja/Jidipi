@@ -15,12 +15,11 @@ interface Props {
 }
 
 const BarForInput:FC<Props> = ({label, hasSelector = false, isUnlock = true, selectorAction, className}) => {
-  const selector = hasSelector ? <Selector isUnlock={isUnlock} action={selectorAction}/> : null;
-
   return (
     <div className={clsx(styles['Bar'], styles['Form-Bar'], className)}>
       <p>{label}</p>
-      {selector}
+      
+      {hasSelector && <Selector isUnlock={isUnlock} action={selectorAction}/>}
     </div>
   )
 }

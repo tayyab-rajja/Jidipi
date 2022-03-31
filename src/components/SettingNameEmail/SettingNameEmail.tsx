@@ -19,23 +19,23 @@ const SettingNameEmail:FC = () => {
   })
 
   const changeInputUnlock = (input: string) => {
-    setInputsUnlock(s => {
-      return {...s, [input]: !s[input]}
+    setInputsUnlock(prevState => {
+      return {...prevState, [input]: !prevState[input]}
     })
   }
 
   return (
     <FormUserData>
       <>
-        <BarForInput label='Name' hasSelector={true} isUnlock={inputsUnlock.name} selectorAction={() => changeInputUnlock('name')}/>
+        <BarForInput label='Name' hasSelector isUnlock={inputsUnlock.name} selectorAction={() => changeInputUnlock('name')}/>
 
         <InputUserData type='text' isUnlock={inputsUnlock.name}/>
 
-        <BarForInput label='Email' hasSelector={true} isUnlock={inputsUnlock.email} selectorAction={() => changeInputUnlock('email')}/>
+        <BarForInput label='Email' hasSelector isUnlock={inputsUnlock.email} selectorAction={() => changeInputUnlock('email')}/>
 
         <InputUserData type='email' isUnlock={inputsUnlock.email}/>
 
-        <BarForInput label='Current Password' hasSelector={true} isUnlock={inputsUnlock.password} selectorAction={() => changeInputUnlock('password')}/>
+        <BarForInput label='Current Password' hasSelector isUnlock={inputsUnlock.password} selectorAction={() => changeInputUnlock('password')}/>
 
         <InputUserData type='password' isUnlock={inputsUnlock.password}/>
         

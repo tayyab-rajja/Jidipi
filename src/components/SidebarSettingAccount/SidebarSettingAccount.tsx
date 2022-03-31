@@ -3,7 +3,7 @@ import {FC} from 'react';
 import TabsFormsUserData from 'src/components/TabsFormsUserData';
 import SettingNameEmail from 'src/components/SettingNameEmail';
 
-import styles from './SettingAccount.module.css'
+import styles from './SidebarSettingAccount.module.css'
 
 const tabsData = [
   {
@@ -17,15 +17,14 @@ const tabsData = [
   },
 ]
 
-const SettingAccount:FC = () => {
+const SidebarSettingAccount:FC = () => {
   return (
     <div className={styles['Body-SettingAccountContainer']}>
       <TabsFormsUserData
         tabsData={tabsData}
-      >
-      </TabsFormsUserData>
+      />
     </div>
   )
 }
 
-export default SettingAccount
+export default SidebarSettingAccount
