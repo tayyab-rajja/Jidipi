@@ -9,10 +9,10 @@
   padding: 12px 0 12px 40px;
 }
 
-.container__logo {
+/* .container__logo {
   margin-right: 16px;
-}
+} */
 
 .container__text {
-  margin: 0 0;
+  margin: 0 0 0 16px;
 }

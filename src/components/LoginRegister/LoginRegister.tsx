@@ -1,5 +1,7 @@
 import {FC} from 'react';
 
+import Image from 'next/image';
+
 import clsx from 'clsx';
 
 import styles from './styles.module.css';
@@ -15,14 +17,21 @@ import SectionUserData from '../SectionUserData';
 import TabsFormsUserData from '../TabsFormsUserData';
 import Link from 'next/link';
 
+import googleIcon from './google-logo.png';
+import facebookIcon from './facebook-logo.png';
+
+const googleIconComponent = <Image src={googleIcon} alt='logo' width={20} height={20}/>
+
+const facebookIconComponent = <Image src={facebookIcon} alt='logo' width={20} height={20}/>
+
 const tabLogin = (
   <SectionUserData>
     <FormUserData>
       <>
-        <LoginWithSocialBtn logoUrl='/google-logo.png' socialName='Google' className={formStyles['form__elem']} />
+        <LoginWithSocialBtn imgComponent={googleIconComponent} socialName='Google' action={() => alert('Write your Login function')} className={formStyles['form__elem']} />
 
         
-        <LoginWithSocialBtn logoUrl='/facebook-logo.png' socialName='Facebook' className={formStyles['form__elem']} />
+        <LoginWithSocialBtn imgComponent={facebookIconComponent} socialName='Facebook' action={() => alert('Write your Login function')} className={formStyles['form__elem']} />
 
         <Divider label='OR LOGIN WITH EMAIL'/>
         
@@ -32,7 +41,7 @@ const tabLogin = (
 
         <RememberMe/>
         
-        <ButtonUserData label='LOGIN' className={clsx(styles['setting-account__btn'])} action={() => console.log('Login')}/>
+        <ButtonUserData label='LOGIN' className={clsx(styles['setting-account__btn'])} action={() => alert('Write your Login function')}/>
       </>
     </FormUserData>
   </SectionUserData>
@@ -55,7 +64,7 @@ const tabRegister = (
 
           <InputUserData type='password' placeholder='Password Confirm'/>
           
-          <ButtonUserData label='RESET PASSWORD' className={clsx(styles['setting-account__btn'])} action={() => console.log('Reset Password')}/>
+          <ButtonUserData label='RESET PASSWORD' className={clsx(styles['setting-account__btn'])} action={() => alert('Writу your Reset Password function')}/>
         </>
       </FormUserData>
       

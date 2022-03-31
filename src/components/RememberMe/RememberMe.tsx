@@ -11,7 +11,7 @@ interface Props {
   className?: string;
 }
 
-const RememberMe:FC<Props> = ({action = () => console.log('Checked'), className}) => {
+const RememberMe:FC<Props> = ({action = () => {}, className}) => {
   const [checked, setChecked] = useState(true)
 
   const clazz = clsx(styles['container'], formStyles['form__elem'], className)
