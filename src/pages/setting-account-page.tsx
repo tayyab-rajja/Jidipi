@@ -1,6 +1,6 @@
 import {FC} from "react";
 
-import SettingAccount from '../components/SettingAccount';
+import SettingAccount from 'src/components/SettingAccount';
 
 const SettingAccountPage: FC = () => {
   return (
