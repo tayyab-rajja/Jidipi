@@ -1,26 +1,21 @@
-import { FC, useState } from 'react';
-import styles from './FolderItem.module.css';
+import { FC } from 'react';
 
+import clsx from 'clsx';
+import styles from './FolderItem.module.css';
 interface Props {
-    label: string,
-    displayAddLabelBtn: (item: string) => void,
+    folderName: string,
+    handleClickItem: () => void,
+    isSelected: boolean
 }
 
-const FolderItem: FC<Props> = ({label, displayAddLabelBtn}) => { 
+const FolderItem: FC<Props> = ({folderName, handleClickItem, isSelected}) => { 
 
-    const [isSelected, setSelected] = useState(false);
-
-    const handleClick = (e) => {
-        displayAddLabelBtn('showAddLabelBtn');
-        setSelected(true);
-    }
-
-    let className = isSelected ? `${styles["Sidebar-FolderItem"]} ${styles["Choosen"]}` : styles["Sidebar-FolderItem"];
+    let className = isSelected ? clsx(styles["Sidebar-FolderItem"], styles["Choosen"]) : styles["Sidebar-FolderItem"];
 
     return (
-        <li className={className} onClick={handleClick}>
+        <li className={className} onClick={handleClickItem}>
             <span className={styles["Sidebar-FolderItem_Text"]}>
-                {label}
+                {folderName}
             </span>
             <span className={styles["Sidebar-FolderItem_Icon"]}>
                 {/* Icon to be added */}
