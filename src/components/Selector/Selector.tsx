@@ -1,4 +1,4 @@
-import {FC, useState} from 'react'
+import {FC} from 'react'
 
 import clsx from 'clsx';
 
@@ -6,21 +6,21 @@ import styles from './Selector.module.css';
 
 interface Props {
   isUnlock: boolean;
-  action?: () => void; // TODO: убери вопрос
+  action?: () => void;
 }
 
 const Selector:FC<Props> = ({isUnlock, action}) => {  
   const statusText = isUnlock ? 'Unlock' : 'Lock';
 
   return (
-    <div className={styles['container']}>
+    <div className={styles['Container']}>
       <span>{statusText}</span>
       <div
-        className={clsx(styles['switcher-container'], styles['bar__switcher-container'])}
+        className={clsx(styles['SwitcherContainer'], styles['Bar-SwitcherContainer'])}
         onClick={action}
         data-unlocked={isUnlock}
       >
-        <div className={styles['switcher']}></div>
+        <div className={styles['Switcher']}></div>
       </div>
     </div>
   )

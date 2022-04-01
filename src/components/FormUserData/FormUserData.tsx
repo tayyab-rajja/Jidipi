@@ -7,15 +7,13 @@ import styles from './FormUserData.module.css';
 interface Props {
   children: ReactElement;
   className?: string;
-  elementClass?: string;
-  modificatorClass?: string;
 }
 
 const FormUserData:FC<Props> = ({children, className}) => {
-  const clazz = clsx(styles.form, className);
+  const classForm = clsx(styles['Form'], className);
 
   return (
-    <form className={clazz}>
+    <form className={classForm}>
       {children}
     </form>
   )
