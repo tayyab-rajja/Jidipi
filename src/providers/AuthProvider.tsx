@@ -130,7 +130,7 @@ export const useAuth = () => {
   };
 
   const removeSession = () => {
-    Cookies.remove("token");
+    Cookies.remove(TOKEN);
     dispatch({ type: "REMOVE_SESSION" });
   };
 
