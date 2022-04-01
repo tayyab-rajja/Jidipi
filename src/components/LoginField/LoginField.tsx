@@ -17,7 +17,7 @@ interface Props {
   changeLoginForgottenStatus: () => void;
 }
 
-const Login:FC<Props> = ({changeLoginForgottenStatus}) => {
+const LoginField:FC<Props> = ({changeLoginForgottenStatus}) => {
   return (
     <>
       <LoginWithSocialBtn img={googleIcon} socialName="Google" action={() => alert('Write your login function')} className={stylesForm['Form-Elem']}/>
@@ -43,4 +43,4 @@ const Login:FC<Props> = ({changeLoginForgottenStatus}) => {
   )
 }
 
-export default Login
+export default LoginField
