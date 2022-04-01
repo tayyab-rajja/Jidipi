@@ -1,28 +1,28 @@
-.container {
+.Container {
   border: 1px solid #D6D6D6;
   background: #373737;
   display: grid;
   grid-template-rows: 100%;
   grid-template-columns: 100%; 
 }
-.container[data-type-container="password"] {
+.Container[data-type-container="password"] {
   grid-template-columns: 80% 20%; 
 }
-.container[data-is-unlock="true"] {
+.Container[data-is-unlock="true"] {
   background: #E3E3E3;
 }
 
-.input {
+.Input {
   outline: none;
   border: none;
   background: none;
 }
 
-.form__input {
+.Form-Input {
   padding: 14px 0 14px 20px;
 }
 
-.container__btn {
+.Container-Btn {
   display: flex;
   justify-content: center;
   align-items: center;

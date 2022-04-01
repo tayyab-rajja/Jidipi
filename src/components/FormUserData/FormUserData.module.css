@@ -1,9 +1,9 @@
-.form {
+.Form {
   display: flex;
   flex-direction: column;
   align-items: stretch;
 }
 
-.form__elem {
+.Form-Elem {
   margin-bottom: 14px;
 }

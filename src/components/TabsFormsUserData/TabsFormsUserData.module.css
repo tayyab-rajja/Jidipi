@@ -1,17 +1,21 @@
-.body__section {
-  width: 100%;
+.TabPanels {
+  background: #F1F1F1;
+}
+.Body-TabPanel {
+  padding: 40px 14px;
 }
 
-.tabs__tab[data-reach-menu-item] {
+.Tabs-Tab[data-reach-tab] {
   width: 50%;
   height: 44px;
   background: white;
   border: 1px solid #D6D6D6;
+  text-transform: uppercase;
 }
 
-.tabs__tab[data-reach-menu-item][data-selected] {
+.Tabs-Tab[data-reach-tab][data-selected] {
   width: 50%;
   height: 44px;
-  background: #F1F1F1;
+  background: none;
   border: 1px solid #D6D6D6;
 }

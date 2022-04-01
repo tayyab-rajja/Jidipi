@@ -1,4 +1,4 @@
-.btn {
+.Btn {
   border: none;
   outline: none;
   background-color: rgb(55,55,55);
@@ -9,10 +9,10 @@
   justify-content: center;
   align-items: center;
 }
-.btn:hover {
+.Btn:hover {
   background: #DEB851;
 }
 
-.form__btn {
+.Form-Btn {
   height: 44px;
 }
