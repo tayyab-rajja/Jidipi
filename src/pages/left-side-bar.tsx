@@ -3,10 +3,10 @@ import SidebarWithAvatar from "src/components/SidebarWithAvatar/SidebarWithAvata
 
 const LeftSideBar = () => {
   return (
-    <Layout SidebarComponent={SidebarWithAvatar}>
-      
+    <Layout SidebarComponent={<SidebarWithAvatar />}>
+      <div></div>
     </Layout>
-  )
-}
+  );
+};
 
 export default LeftSideBar;
