@@ -6,14 +6,22 @@ import FormUserData from 'src/components/FormUserData';
 import InputUserData from 'src/components/InputUserData';
 import ButtonUserData from 'src/components/ButtonUserData';
 import RememberMe from 'src/components/RememberMe';
+import FooterUserData from 'src/components/FooterUserData';
 
 import stylesForm from 'src/components/FormUserData/FormUserData.module.css';
 
-const Login:FC = () => {
+import googleIcon from 'public/images/social-icons/google-logo.png';
+import facebookIcon from 'public/images/social-icons/facebook-logo.png';
+
+interface Props {
+  changeLoginForgottenStatus: () => void;
+}
+
+const Login:FC<Props> = ({changeLoginForgottenStatus}) => {
   return (
     <>
-      <LoginWithSocialBtn imgUrl={'/public/images/social-icons/google-logo.png'} socialName="Google" action={() => alert('Write your login function')} className={stylesForm['Form-Elem']}/>
-      <LoginWithSocialBtn imgUrl='/public/images/social-icons/facebook-logo.png' socialName="Facebook" action={() => alert('Write your login function')} className={stylesForm['Form-Elem']}/>
+      <LoginWithSocialBtn img={googleIcon} socialName="Google" action={() => alert('Write your login function')} className={stylesForm['Form-Elem']}/>
+      <LoginWithSocialBtn img={facebookIcon} socialName="Facebook" action={() => alert('Write your login function')} className={stylesForm['Form-Elem']}/>
       
       <Divider label='or login with email'/>
       
@@ -21,10 +29,16 @@ const Login:FC = () => {
         <>
           <InputUserData type="email" placeholder="Email"/>
           <InputUserData type="password" placeholder="Password"/>
-          <RememberMe className={stylesForm['Form-Elem']} checkAction={() => alert('write your check action')} forgotPasswordAction={() => alert('write your remember action')}/>
+          <RememberMe className={stylesForm['Form-Elem']} checkAction={() => alert('write your check action')} forgotPasswordAction={changeLoginForgottenStatus}/>
           <ButtonUserData label='login' action={() => alert('Write your Login function')}/>
         </>
       </FormUserData>
+
+      <FooterUserData
+        label='Do not have an account?'
+        refLabel='Register'
+        action={() => alert('Your to registration function')}
+      />
     </>
   )
 }

@@ -1,0 +1,13 @@
+.FooterContainer {
+  display: flex;
+  justify-content: center;
+}
+.Body-FooterContainer {
+  margin-top: 240px;
+}
+
+.FooterContainer-Ref {
+  color: blue;
+  cursor: pointer;
+  margin-left: 6px;
+}

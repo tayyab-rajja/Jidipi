@@ -1,24 +1,28 @@
-import {FC} from 'react';
+import {FC, useState} from 'react';
 
 import TabsFormsUserData from 'src/components/TabsFormsUserData';
-// import SettingNameEmail from 'src/components/SettingNameEmail';
 import Login from 'src/components/Login';
+import ForgotPasswordContainer from 'src/components/ForgotPasswordContainer';
 
 import styles from './SidebarLoginRegister.module.css';
 
-const tabsData = [
-  {
-    name: 'register',
-    panel: <h1>Register</h1>
-  },
-  
-  {
-    name: 'login',
-    panel: <Login/>
-  },
-]
-
 const SidebarLoginRegister:FC = () => {
+  const [loginForgotten, setLoginForgotten] = useState(false);
+
+  const changeLoginForgottenStatus = () => setLoginForgotten(prevState => !prevState);
+  
+  const tabsData = [
+    {
+      name: 'register',
+      panel: <h1>Register</h1>
+    },
+    
+    {
+      name: 'login',
+      panel: loginForgotten ? <ForgotPasswordContainer changeLoginForgottenStatus={changeLoginForgottenStatus}/> : <Login changeLoginForgottenStatus={changeLoginForgottenStatus}/>
+    },
+  ]
+
   return (
     <div className={styles['Body-LoginRegisterContainer']}>
       <TabsFormsUserData
