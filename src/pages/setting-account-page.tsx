@@ -1,10 +1,10 @@
 import {FC} from "react";
 
-import SettingAccount from '../components/SettingAccount';
+import SidebarSettingAccount from 'src/components/SidebarSettingAccount';
 
 const SettingAccountPage: FC = () => {
   return (
-    <SettingAccount/>
+    <SidebarSettingAccount/>
   )
 }
 
