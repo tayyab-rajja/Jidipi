@@ -14,10 +14,10 @@ import googleIcon from 'public/images/social-icons/google-logo.png';
 import facebookIcon from 'public/images/social-icons/facebook-logo.png';
 
 interface Props {
-  changeLoginForgottenStatus: () => void;
+  goToRecoverPassword: () => void;
 }
 
-const LoginField:FC<Props> = ({changeLoginForgottenStatus}) => {
+const LoginField:FC<Props> = ({goToRecoverPassword}) => {
   return (
     <>
       <LoginWithSocialBtn img={googleIcon} socialName="Google" action={() => alert('Write your login function')} className={stylesForm['Form-Elem']}/>
@@ -29,7 +29,7 @@ const LoginField:FC<Props> = ({changeLoginForgottenStatus}) => {
         <>
           <InputUserData type="email" placeholder="Email"/>
           <InputUserData type="password" placeholder="Password"/>
-          <RememberMe className={stylesForm['Form-Elem']} checkAction={() => alert('write your check action')} forgotPasswordAction={changeLoginForgottenStatus}/>
+          <RememberMe className={stylesForm['Form-Elem']} checkAction={() => alert('write your check action')} forgotPasswordAction={goToRecoverPassword}/>
           <ButtonUserData label='login' action={() => alert('Write your Login function')}/>
         </>
       </FormUserData>
