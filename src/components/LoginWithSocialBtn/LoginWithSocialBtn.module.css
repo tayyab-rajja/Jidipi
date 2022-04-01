@@ -5,8 +5,9 @@
   display: flex;
   align-items: center;
 }
-.Bbody-Container {
+.Body-Container {
   padding: 12px 0 12px 40px;
+  height: 44px;
 }
 
 /* .Container-Logo {
@@ -15,4 +16,5 @@
 
 .Container-Text {
   margin: 0 0 0 16px;
+  color: #37373780;
 }

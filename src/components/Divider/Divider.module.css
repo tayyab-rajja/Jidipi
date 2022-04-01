@@ -17,4 +17,5 @@
 .Container-Label {
   color: #888888;
   font-size: 12px;
+  text-transform: uppercase;
 }

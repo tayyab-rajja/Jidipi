@@ -17,7 +17,7 @@ const LoginWithSocialBtn:FC<Props> = ({imgUrl, socialName, action, className}) =
 
   return (
     <div className={clazz} onClick={action}>
-      <Image src={imgUrl} alt='Social Logo' width={200} height={200} />
+      <Image src={imgUrl} alt='logo' width={20} height={20} />
       <p className={styles['Container-Text']}>Login with {socialName}</p>
     </div>
   )

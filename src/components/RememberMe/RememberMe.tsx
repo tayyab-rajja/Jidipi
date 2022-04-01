@@ -3,40 +3,46 @@ import Link from 'next/link';
 
 import clsx from 'clsx'
 
-import styles from './styles.module.css'
+import styles from './RememberMe.module.css'
 import formStyles from '../FormUserData/FormUserData.module.css'
 
 interface Props {
-  action?: () => void;
+  checkAction?: () => void;
+  forgotPasswordAction?: () => void;
   className?: string;
 }
 
-const RememberMe:FC<Props> = ({action = () => {}, className}) => {
+const RememberMe:FC<Props> = ({checkAction = () => {}, forgotPasswordAction, className}) => {
   const [checked, setChecked] = useState(true)
 
-  const clazz = clsx(styles['container'], formStyles['form__elem'], className)
+  const clazz = clsx(styles['Container'], formStyles['Form-Elem'], className)
 
   const check = checked ?
-    <span className={styles['check']}>&#10004;</span>
+    <span className={styles['Check']}>&#10004;</span>
     :
     null
 
   return (
     <div className={clazz}>
       <div
-        className={clsx(styles['checkbox'], styles['container__checkbox'])}
+        className={clsx(styles['Checkbox'], styles['Container-Checkbox'])}
         data-checked={checked}
         onClick={() => {
           setChecked(s => !s);
-          action();
+          checkAction();
         }}  
       >
         {check}
       </div>
 
-      <p className={styles['container__label']}>Remember Me</p>
+      <p className={styles['Container-Label']}>Remember Me</p>
 
-      <Link href="/"><a className={styles['forgot-password']}>Forgot Password?</a></Link>
+      <p
+        className={styles['ForgotPassword']}
+        onClick={forgotPasswordAction}
+      >
+        Forgot Password?
+      </p>
     </div>
   )
 }
