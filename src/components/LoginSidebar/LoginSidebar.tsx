@@ -4,6 +4,10 @@ import styles from "./LoginSidebar.module.css";
 import { ILoginSuccess } from "types/loginTypes";
 import { useAuth } from "src/providers/AuthProvider";
 import axios from "axios";
+import ReactFacebookLogin, {
+  ReactFacebookFailureResponse,
+  ReactFacebookLoginInfo,
+} from "react-facebook-login";
 
 interface InputValues {
   email: string;
@@ -45,6 +49,39 @@ const LoginSidebar = () => {
     }
   };
 
+  const responseFacebook = async (
+    response: any
+    // response: ReactFacebookLoginInfo | ReactFacebookFailureResponse
+  ) => {
+    if (response?.status) {
+      const res: ReactFacebookFailureResponse = response;
+    }
+    const res: ReactFacebookLoginInfo = response;
+
+    try {
+      setLoading();
+      const body = {
+        type: "social",
+        network: "facebook",
+        //network:google
+        accessToken: res.accessToken,
+      };
+      const socialLoginResponse = await axios.post<ILoginSuccess>(
+        `${process.env.NEXT_PUBLIC_API_URL}user/login`,
+        body
+      );
+      if (socialLoginResponse.status === 200) {
+        const response: ILoginSuccess = socialLoginResponse.data;
+        setSession(response);
+        return;
+      }
+    } catch (error: any) {
+      console.log(error?.response?.data?.error);
+      // TODO: show error message
+    }
+    console.log(response);
+  };
+
   return (
     <div>
       {status !== "authenticated" && (
@@ -74,6 +111,12 @@ const LoginSidebar = () => {
           </div>
         </form>
       )}
+      <ReactFacebookLogin
+        appId={process.env.FACEBOOK_ID!}
+        fields="name,email,picture"
+        callback={responseFacebook}
+        autoLoad={false}
+      />
       <div className={styles["Main-Logout"]}>
         <button disabled={status === "unauthenticated"} onClick={removeSession}>
           Sign out
