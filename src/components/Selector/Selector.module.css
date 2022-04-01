@@ -1,0 +1,26 @@
+.Container {
+  display: flex;
+}
+
+.SwitcherContainer {
+  display: flex;
+  border: 1px solid #E3E3E3;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.Bar-SwitcherContainer {
+  width: 30px;
+  height: 18px;
+  margin-left: 8px;
+}
+.SwitcherContainer[data-unlocked='true'] {
+  justify-content: flex-end;
+  background: black;
+}
+
+.Switcher {
+  background: white;
+  height: 100%;
+  width: 18px;
+  border-radius: 50%;
+}

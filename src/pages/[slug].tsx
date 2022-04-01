@@ -7,6 +7,7 @@ import CardDetails from "src/components/CardDetails/CardDetails";
 import CompanyProfile from "src/components/CompanyProfile/CompanyProfile";
 
 import { getPostCategories } from "helpers/changePostsData";
+import Sidebar from "src/components/Sidebar";
 
 type Props = {
   post: any;
@@ -31,7 +32,9 @@ const Post = ({ post, sidebarCategories }: Props) => {
         <script defer src={process.env.NEXT_PUBLIC_SETKA_SCRIPTS_URL}></script>
       </Head>
 
-      <Layout sidebarCategories={sidebarCategories}>
+      <Layout
+        SidebarComponent={<Sidebar sidebarCategories={sidebarCategories} />}
+      >
         <CardDetails
           categories={categories}
           companyImg={companyImg}

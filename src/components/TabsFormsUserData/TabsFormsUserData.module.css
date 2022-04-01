@@ -1,0 +1,21 @@
+.TabPanels {
+  background: #F1F1F1;
+}
+.Body-TabPanel {
+  padding: 40px 14px;
+}
+
+.Tabs-Tab[data-reach-tab] {
+  width: 50%;
+  height: 44px;
+  background: white;
+  border: 1px solid #D6D6D6;
+  text-transform: uppercase;
+}
+
+.Tabs-Tab[data-reach-tab][data-selected] {
+  width: 50%;
+  height: 44px;
+  background: none;
+  border: 1px solid #D6D6D6;
+}
