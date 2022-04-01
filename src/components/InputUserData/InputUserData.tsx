@@ -19,7 +19,7 @@ const InputUserData:FC<Props> = ({type: originalType, placeholder, isUnlock = tr
 
   const isBtnShowPassword = canShowPassword && originalType === 'password' && inputValue;
 
-  let btnShowPassword = null;
+  const iconShowPassword = newType === 'password' ? 'Show' : 'Hide';
 
   const setValue = (e:ChangeEvent<HTMLInputElement>) => {
     setInputValue(`${(e.target as HTMLInputElement).value}`)
@@ -36,7 +36,7 @@ const InputUserData:FC<Props> = ({type: originalType, placeholder, isUnlock = tr
       
       {isBtnShowPassword && (
         <div className={styles['Container-Btn']} onClick={() => setNewType(s => s === 'password' ? 'text' : 'password')}>
-          {/* {iconShowPassword} */}
+          {iconShowPassword}
         </div>
       )}
     </div>

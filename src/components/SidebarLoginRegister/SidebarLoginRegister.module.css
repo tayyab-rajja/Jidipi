@@ -1,14 +1,14 @@
-.body__login-register {
+.Body-LoginRegisterContainer {
   width: 268px;
 }
 
-.login-register__back-to-login {
+.LoginRegisterContainer-BackToLogin {
   display: flex;
   justify-content: center;
   margin: 240px 0 30px;
 }
 
-.login-register__a {
+.LoginRegisterContainer-A {
   color: blue;
   margin-left: 5px;
 }

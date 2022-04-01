@@ -1,10 +1,10 @@
 import {FC} from "react";
 
-import LoginRegister from '../components/LoginRegister';
+import SidebarLoginRegister from '../components/SidebarLoginRegister';
 
 const LoginRegisterPage: FC = () => {
   return (
-    <LoginRegister/>
+    <SidebarLoginRegister/>
   )
 }
 

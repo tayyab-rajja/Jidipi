@@ -2,7 +2,7 @@ import {FC} from 'react';
 
 import clsx from 'clsx';
 
-import styles from './styles.module.css';
+import styles from './Divider.module.css';
 
 interface Props {
   label: string;
@@ -10,13 +10,13 @@ interface Props {
 }
 
 const Divider:FC<Props> = ({label, className}) => {
-  const clazz = clsx(styles['container'], styles['body__container'], className)
+  const clazz = clsx(styles['Container'], styles['Body-Container'], className)
 
   return (
     <div className={clazz}>
-      <hr className={styles['container__hr']}/>
-      <p className={styles['container__label']}>{label}</p>
-      <hr className={styles['container__hr']}/>
+      <hr className={styles['Container-Hr']}/>
+      <p className={styles['Container-Label']}>{label}</p>
+      <hr className={styles['Container-Hr']}/>
     </div>
   )
 }

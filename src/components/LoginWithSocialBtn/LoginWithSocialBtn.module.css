@@ -1,18 +1,18 @@
-.container {
+.Container {
   border: 1px solid #D6D6D6;
   background: white;
   cursor: pointer;
   display: flex;
   align-items: center;
 }
-.body__container {
+.Bbody-Container {
   padding: 12px 0 12px 40px;
 }
 
-/* .container__logo {
+/* .Container-Logo {
   margin-right: 16px;
 } */
 
-.container__text {
+.Container-Text {
   margin: 0 0 0 16px;
 }

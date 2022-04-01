@@ -1,21 +1,20 @@
-.container {
+.Container {
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
   grid-column-gap: 18px;
   align-items: center;
   justify-items: center;
 }
+.Body-Container {
+  margin: 50px 0;
+}
 
-.container__hr {
+.Container-Hr {
   color: #888888;
   width: 100%;
 }
 
-.container__label {
+.Container-Label {
   color: #888888;
   font-size: 12px;
-}
-
-.body__container {
-  margin: 50px 0;
 }

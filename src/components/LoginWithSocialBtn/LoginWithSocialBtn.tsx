@@ -3,23 +3,22 @@ import Image from 'next/image';
 
 import clsx from 'clsx';
 
-import styles from './styles.module.css';
+import styles from './LoginWithSocialBtn.module.css';
 
 interface Props {
-  imgComponent: ReactElement;
+  imgUrl: string;
   socialName: string;
   action: () => void;
   className?: string;
 }
 
-const LoginWithSocialBtn:FC<Props> = ({imgComponent, socialName, action, className}) => {
-  console.log(imgComponent);
-  const clazz = clsx(styles['container'], styles['body__container'], className);
+const LoginWithSocialBtn:FC<Props> = ({imgUrl, socialName, action, className}) => {
+  const clazz = clsx(styles['Container'], styles['Body-Container'], className);
 
   return (
     <div className={clazz} onClick={action}>
-      {imgComponent}
-      <p className={styles['container__text']}>Login with {socialName}</p>
+      <Image src={imgUrl} alt='Social Logo' width={200} height={200} />
+      <p className={styles['Container-Text']}>Login with {socialName}</p>
     </div>
   )
 }
