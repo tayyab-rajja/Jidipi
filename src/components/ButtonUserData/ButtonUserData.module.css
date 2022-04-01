@@ -1,0 +1,18 @@
+.Btn {
+  border: none;
+  outline: none;
+  background-color: rgb(55,55,55);
+  color: white;
+  font: normal normal medium 12px/18px Poppins;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Btn:hover {
+  background: #DEB851;
+}
+
+.Form-Btn {
+  height: 44px;
+}

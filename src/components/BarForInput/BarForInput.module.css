@@ -1,0 +1,10 @@
+.Bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Form-Bar {
+  width: 100%;
+  margin: 12px 0 8px;
+}
