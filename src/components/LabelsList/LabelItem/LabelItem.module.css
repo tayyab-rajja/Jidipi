@@ -1,0 +1,17 @@
+.LabelItem {
+    width: 120px;
+    height: 28px;
+    background-color: #F1F1F1;
+    border: 1px solid #D6D6D6;
+    padding: 8px 44px;
+    margin-bottom: 12px;
+    color: #373737;
+    font-size: 9px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.LabelItem:hover {
+    background-color: #DEB851;
+    color: #fff;
+}

@@ -18,7 +18,7 @@
     height: 32px;
     font-size: 9px;
     padding: 12px;
-    color: #D6D6D6;
+    color: #3A63DEE8;
     outline: none;
 }
 
@@ -29,12 +29,13 @@
 .AddLabelForm-ButtonWrapper {
     margin-top: 40px;
     margin-bottom: 47px;
+    padding: 0 24px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .AddLabelForm-InputWrapper_Button {
-    margin-right: 12px;
+    /* margin-right: 12px; */
     width: 120px;
     height: 28px;
     background-color: #F1F1F1;
@@ -44,4 +45,18 @@
     font-size: 9px;
     text-align: center;
     cursor: pointer;
+}
+
+/* .AddLabelForm-InputWrapper_Button:last-child {
+    margin-right: 12px;
+} */
+
+.AddLabelForm-InputWrapper_Button:hover {
+    background-color: #DEB851;
+    color: #fff;
+}
+
+.AddLabelForm-InputWrapper_Button:active {
+    background-color: #373737;
+    color: #fff;
 }

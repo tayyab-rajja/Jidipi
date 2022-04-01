@@ -1,4 +1,5 @@
 import { FC, useState } from "react";
+import LabelsList from "../LabelsList";
 import AddLabelForm from "./AddLabelForm/AddLabelForm";
 import FolderItem from "./FolderItem/FolderItem";
 
@@ -35,6 +36,8 @@ const defaultFolderNames = [
     },
 ]
 
+type State = string[];
+
 export const SaveInFolderSidebar: FC = () => {
 
     const [showEl, setShowEl] = useState({
@@ -43,6 +46,7 @@ export const SaveInFolderSidebar: FC = () => {
     });
 
     const [folderNames, setFolderNames] = useState(defaultFolderNames);
+    const [labelsList, setLabelsList] = useState<State>([]);
 
     const handleClickItem = (elName: string, title?: string) => {
         if (title) {
@@ -64,6 +68,10 @@ export const SaveInFolderSidebar: FC = () => {
         })
     }
 
+    const createLabel = (labelName: string) => {
+        setLabelsList(labelsList => [...labelsList, labelName])
+    }
+
     return (
         <div className={styles["Sidebar"]}>
             <div>
@@ -73,7 +81,8 @@ export const SaveInFolderSidebar: FC = () => {
                 </ul>
                 {showEl.addLabelBtn && <div className={`${styles["Sidebar-Button"]} ${styles["Text"]}`} onClick={() => handleClickItem('addLabelForm')}>add label</div>} 
             </div>
-            {showEl.addLabelForm && <AddLabelForm hideAddLableForm={() => hideAddLableForm('addLabelForm')} />}
+            <LabelsList labelsList={labelsList} />
+            {showEl.addLabelForm && <AddLabelForm hideAddLableForm={() => hideAddLableForm('addLabelForm')} createLabel={createLabel} />}
         </div>
     )
 }
