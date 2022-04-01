@@ -49,22 +49,32 @@ const Post = ({ post, sidebarCategories }: Props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const responsePost = await fetch(
-    `https://api.jidipi.com/api/v1/post/public/${query.slug}/en`
-  );
+  let post = {};
+  let sidebarCategories = [];
 
-  const responseSidebarCategories = await fetch(
-    "https://api.jidipi.com/api/v1/category?pageFolderId=603ce60958c5c6279bc2ed96"
-  );
+  try {
+    const responsePost = await fetch(
+      `https://api.jidipi.com/api/v1/post/public/${query.slug}/en`
+    );
 
-  const sidebarCategories = await responseSidebarCategories.json();
+    const responseSidebarCategories = await fetch(
+      "https://api.jidipi.com/api/v1/category?pageFolderId=603ce60958c5c6279bc2ed96"
+    );
 
-  const post = await responsePost.json();
+    const sidebarCategoriesFromApi = await responseSidebarCategories.json();
+
+    const postFromApi = await responsePost.json();
+
+    post = postFromApi;
+    sidebarCategories = sidebarCategoriesFromApi;
+  } catch (e) {
+    console.log(e);
+  }
 
   return {
     props: {
-      post: post,
-      sidebarCategories: sidebarCategories,
+      post,
+      sidebarCategories,
     },
   };
 };

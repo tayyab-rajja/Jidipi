@@ -83,11 +83,11 @@ const LoginSidebar = () => {
     console.log(response);
   };
 
-  const responseGoogleSuccess = (value) => {
+  const responseGoogleSuccess = (value: any) => {
     console.log(value);
   };
 
-  const responseGoogleFailed = (value) => {
+  const responseGoogleFailed = (value: any) => {
     console.log(value);
   };
 

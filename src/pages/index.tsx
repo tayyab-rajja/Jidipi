@@ -13,7 +13,7 @@ import { changePostsData } from "helpers/changePostsData";
 import { Posts } from "types/postTypes";
 interface Props {
   posts: {
-    posts: [];
+    posts: [] | Posts[];
     total: number;
   };
   sidebarCategories: any;
@@ -47,25 +47,34 @@ const Home = ({ posts, sidebarCategories }: Props) => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-  const responsePosts = await fetch(
-    "https://api.jidipi.com/api/v1/post/public/603ce60958c5c6279bc2ed96?pageNumber=0&pageSize=100&language=EN"
-  );
+  let posts = {};
+  let sidebarCategories = [];
 
-  const responseSidebarCategories = await fetch(
-    "https://api.jidipi.com/api/v1/category?pageFolderId=603ce60958c5c6279bc2ed96"
-  );
+  try {
+    const responsePosts = await fetch(
+      "https://api.jidipi.com/api/v1/post/public/603ce60958c5c6279bc2ed96?pageNumber=0&pageSize=100&language=EN"
+    );
+    const responseSidebarCategories = await fetch(
+      "https://api.jidipi.com/api/v1/category?pageFolderId=603ce60958c5c6279bc2ed96"
+    );
 
-  const posts = await responsePosts.json();
-  const sidebarCategories = await responseSidebarCategories.json();
+    const postsFromApi = await responsePosts.json();
+    const sidebarCategoriesFromApi = await responseSidebarCategories.json();
+
+    posts = {
+      ...postsFromApi,
+      posts: changePostsData(postsFromApi.posts),
+    };
+    sidebarCategories = sidebarCategoriesFromApi;
+  } catch (e) {
+    console.log(e);
+  }
 
   return {
     props: {
       ...(await serverSideTranslations(locale as string, ["common"])),
-      posts: {
-        ...posts,
-        posts: changePostsData(posts.posts),
-      },
-      sidebarCategories: sidebarCategories,
+      posts,
+      sidebarCategories,
     },
   };
 };

@@ -1,6 +1,9 @@
 import { Posts } from "types/postTypes";
 
 export const getPostCategories = (post: any, withoutCategory?: string) => {
+  if (!post) {
+    return [];
+  }
   const categories = [
     {
       title: new Date(post.publishedDate).toDateString(),
