@@ -8,7 +8,7 @@ export const SaveInFolderSidebar: FC = () => {
 
     const [showItem, setShowItem] = useState({
         showAddLabelBtn: false,
-        showAddLabelForm: false
+        showAddLabelForm: false,
     });
 
     const labels = ["Architectures", "Interiors", "Construction", "Electronics", "Furniture", "Goods", "Mine"];
@@ -16,7 +16,7 @@ export const SaveInFolderSidebar: FC = () => {
     const displayItem = (item: string) => {
         setShowItem({
             ...showItem,
-            [item]: true
+            [item]: true,
         })
     }
 
