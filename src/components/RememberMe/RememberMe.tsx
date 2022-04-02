@@ -15,7 +15,7 @@ interface Props {
 const RememberMe:FC<Props> = ({checkAction = () => {}, forgotPasswordAction, className}) => {
   const [checked, setChecked] = useState(true)
 
-  const clazz = clsx(styles['Container'], formStyles['Form-Elem'], className)
+  const classContainer = clsx(styles['Container'], formStyles['Form-Elem'], className)
 
   const check = checked ?
     <span className={styles['Check']}>&#10004;</span>
@@ -23,7 +23,7 @@ const RememberMe:FC<Props> = ({checkAction = () => {}, forgotPasswordAction, cla
     null
 
   return (
-    <div className={clazz}>
+    <div className={classContainer}>
       <div
         className={clsx(styles['Checkbox'], styles['Container-Checkbox'])}
         data-checked={checked}
@@ -38,7 +38,7 @@ const RememberMe:FC<Props> = ({checkAction = () => {}, forgotPasswordAction, cla
       <p className={styles['Container-Label']}>Remember Me</p>
 
       <p
-        className={styles['ForgotPassword']}
+        className={clsx(styles['ForgotPassword'], styles['Container-ForgotPassword'])}
         onClick={forgotPasswordAction}
       >
         Forgot Password?
