@@ -8,7 +8,7 @@ interface Props {
 
 const LabelItem: FC<Props> = ({title}) => {
     return (
-        <li>
+        <li className={styles["LabelItem-Wrapper"]}>
             <div className={styles["LabelItem"]}>{title}</div>
         </li>
     )

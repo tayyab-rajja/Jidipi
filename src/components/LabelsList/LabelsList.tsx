@@ -12,6 +12,5 @@ export const LabelsList: FC<Props> = (props) => {
         <ul className={styles["LabelsList"]}>
             {props.labelsList.map((label, i) => <LabelItem key={i} title={label} />)}
         </ul>
-           
     )
 }

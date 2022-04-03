@@ -11,6 +11,9 @@ const AddLabelForm: FC<Props> = ({hideAddLableForm, createLabel}) => {
     const [inputValue, setInputValue] = useState('');
 
     const handleConfirmBtnOnEnter = (e) => {
+        if (!inputValue) {
+            return
+        }
         if (e.keyCode === 13) {
             createLabel(inputValue);
             setInputValue('');
@@ -18,6 +21,9 @@ const AddLabelForm: FC<Props> = ({hideAddLableForm, createLabel}) => {
     }
 
     const handleConfirmBtn = () => {
+        if (!inputValue) {
+            return
+        }
         createLabel(inputValue);
         setInputValue('');
     }
