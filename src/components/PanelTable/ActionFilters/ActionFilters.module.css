@@ -14,6 +14,14 @@
   color: #888888;
 }
 
+.ActionFilters-Item_Menu {
+  width: 235px;
+}
+
+.ActionFilters-Item_MenuLocation {
+  width: 423px;
+}
+
 .ActionFilters-Item_Filter {
   width: 235px;
   padding-left: 20px;
@@ -23,14 +31,22 @@
 }
 
 .ActionFilters-Item_Filter:nth-child(3) {
-  width: 420px;
+  width: 423px;
 }
 
 .ActionFilters-Item_Filter:not(:last-child) {
   margin-right: 10px;
 }
 
-.ActionFilters-Item [data-reach-listbox-input] {
+.ActionFilters-Item_DropDown {
+  padding: 0 50px 0 50px;
+  color: #888888;
+  font-weight: bold;
+  background-color: transparent;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: none;
   position: absolute;
   right: 0;
   left: 0;
@@ -39,31 +55,15 @@
   z-index: 3;
 }
 
-.ActionFilters [data-reach-listbox-button] {
-  display: block;
-  padding: 0 50px 0 50px;
-  width: 100%;
-  height: 100%;
-  border: none;
-  outline: none;
-  line-height: 40px;
-  text-align: center;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.ActionFilters [data-reach-listbox-arrow] {
-  position: absolute;
-  top: calc(50% - 5px);
-  right: 30px;
-}
-
-.ActionFilters [data-expanded] .ActionFilters-Arrow {
-  transform: rotate(135deg);
+.ActionFilters-MenuItem {
+  display: flex;
+  border-bottom: 1px solid #d6d6d6;
 }
 
 .ActionFilters-Arrow {
+  position: absolute;
+  top: calc(50% - 5px);
+  right: 30px;
   height: 10px;
   width: 10px;
   border-left: 2px solid;

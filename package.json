@@ -12,6 +12,7 @@
     "@reach/checkbox": "^0.16.0",
     "@reach/listbox": "^0.16.2",
     "@reach/tabs": "^0.16.4",
+    "@szhsin/react-menu": "^3.0.0",
     "@types/react-table": "^7.7.10",
     "clsx": "^1.1.1",
     "next": "12.1.0",
