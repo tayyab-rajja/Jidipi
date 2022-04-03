@@ -37,31 +37,44 @@ const defaultFolderNames = [
 
 export const SaveInFolderSidebar: FC = () => {
 
-    const [showEl, setShowEl] = useState({
+    const [showElement, setShowElement] = useState({
         addLabelBtn: false,
         addLabelForm: false,
     });
 
     const [folderNames, setFolderNames] = useState(defaultFolderNames);
 
-    const handleClickItem = (elName: string, title?: string) => {
+    const handleClickItem = (elementName: string, title?: string) => {
         if (title) {
             setFolderNames((prevState) => prevState.map(
                 (folderName) => folderName.title === title ? {...folderName, isSelected: true} : {...folderName, isSelected: false})
             )
         }
-        setShowEl({
-            ...showEl,
-            [elName]: true,
+        setShowElement({
+            ...showElement,
+            [elementName]: true,
         });
 
     }
 
-    const hideAddLableForm = (elName: string) => {
-        setShowEl({
-            ...showEl,
-            [elName]: false
+    const hideAddLableForm = (elementName: string) => {
+        setShowElement({
+            ...showElement,
+            [elementName]: false
         })
+    }
+
+    const cancelSelectedFolder = (title:string, isSelected:boolean) => {
+        if (!isSelected) {
+            return
+        }
+        setFolderNames((prevState) => prevState.map(
+            (folderName) => folderName.title === title ? {...folderName, isSelected: false} : {...folderName})
+        )
+        setShowElement({
+            addLabelBtn: false,
+            addLabelForm: false,
+        });   
     }
 
     return (
@@ -69,11 +82,18 @@ export const SaveInFolderSidebar: FC = () => {
             <div>
                 <div className={`${styles["Sidebar-Title"]} ${styles["Text"]}`}>save in folder</div>
                 <ul className={styles["Sidebar-Folders"]}>
-                    {folderNames.map(({title, isSelected}, i) => <FolderItem key={i} folderName={title} handleClickItem={() => handleClickItem('addLabelBtn', title)} isSelected={isSelected} />)}
+                    {folderNames.map(({title, isSelected}, i) => 
+                        <FolderItem 
+                            key={i} 
+                            folderName={title} 
+                            handleClickItem={() => handleClickItem('addLabelBtn', title)} 
+                            isSelected={isSelected}
+                            cancelSelectedFolder={() => cancelSelectedFolder(title, isSelected)} 
+                        />)}
                 </ul>
-                {showEl.addLabelBtn && <div className={`${styles["Sidebar-Button"]} ${styles["Text"]}`} onClick={() => handleClickItem('addLabelForm')}>add label</div>} 
+                {showElement.addLabelBtn && <div className={`${styles["Sidebar-Button"]} ${styles["Text"]}`} onClick={() => handleClickItem('addLabelForm')}>add label</div>} 
             </div>
-            {showEl.addLabelForm && <AddLabelForm hideAddLableForm={() => hideAddLableForm('addLabelForm')} />}
+            {showElement.addLabelForm && <AddLabelForm hideAddLableForm={() => hideAddLableForm('addLabelForm')} />}
         </div>
     )
 }
