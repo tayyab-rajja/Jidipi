@@ -10,7 +10,7 @@ import { Categories } from "types/postTypes";
 import styles from "./CardDetails.module.css";
 
 interface CardDetailsProps {
-  children: ReactElement;
+  children: ReactElement | ReactElement[];
   categories: Categories[];
   title: string;
   companyImg?: string;
@@ -27,7 +27,7 @@ const CardDetails: FC<CardDetailsProps> = ({
   return (
     <div className={styles["CardDetails"]}>
       <div className={styles["CardDetails-Wrapper"]}>
-        <div className={styles["CardDetails-Content"]}>
+        <div className={styles["CardDetails-Header"]}>
           <div className={styles["CardDetails-Buttons"]}>
             <button
               className={clsx(styles["CardDetails-Button"], styles["Active"])}
