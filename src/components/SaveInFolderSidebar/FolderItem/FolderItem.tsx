@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, MouseEvent } from 'react';
 
 import clsx from 'clsx';
 import styles from './FolderItem.module.css';
@@ -13,7 +13,7 @@ const FolderItem: FC<Props> = ({folderName, handleClickItem, isSelected, cancelS
 
     let className = isSelected ? clsx(styles["Sidebar-FolderItem"], styles["Choosen"]) : styles["Sidebar-FolderItem"];
 
-    const handleClick = (e) => {
+    const handleClick = (e: MouseEvent) => {
         e.stopPropagation();
         cancelSelectedFolder();
     }
