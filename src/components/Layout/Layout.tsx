@@ -1,7 +1,8 @@
 import { FC, ReactElement } from "react";
-import { PageFolders } from "src/api/fetchPageFolders";
 
 import Navbar from "src/components/Navbar";
+
+import { PageFolders } from "types/pageFoldersTypes";
 
 import styles from "./Layout.module.css";
 
@@ -11,7 +12,11 @@ interface LayoutProps {
   pageFolders: PageFolders[];
 }
 
-export const Layout: FC<LayoutProps> = ({ children, SidebarComponent, pageFolders }) => {
+export const Layout: FC<LayoutProps> = ({
+  children,
+  SidebarComponent,
+  pageFolders,
+}) => {
   return (
     <>
       <Navbar pageFolders={pageFolders} />

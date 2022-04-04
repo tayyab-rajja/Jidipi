@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { PageFolders } from "src/api/fetchPageFolders";
 import { usePageFolders } from "src/api/usePageFolders";
+
+import { PageFolders } from "types/pageFoldersTypes";
 
 import styles from "./Navbar.module.css";
 

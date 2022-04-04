@@ -5,10 +5,11 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { fetchPageFolders, PageFolders } from "src/api/fetchPageFolders";
+import { fetchPageFolders } from "src/api/fetchPageFolders";
 import Card from "src/components/Card";
 import Layout from "src/components/Layout";
 import Sidebar from "src/components/Sidebar";
+import { PageFolders } from "types/pageFoldersTypes";
 import { Posts } from "types/postTypes";
 
 interface Props {
@@ -38,16 +39,14 @@ const FolderPage = ({ pageFolders, posts, sidebarCategories }: Props) => {
       >
         {postsData.map(({ title, categories, image, id, slug }) => (
           <div key={id} style={{ width: 450, margin: "0 20px 20px 0" }}>
-            <Link href={`${query.folder}/${id}/${slug}`}>
-              <a>
-                <Card
-                  title={title}
-                  categories={categories}
-                  image={image}
-                  id={id}
-                />
-              </a>
-            </Link>
+            <Card
+              id={id}
+              folder={query.folder as string}
+              slug={slug}
+              title={title}
+              categories={categories}
+              image={image}
+            />
           </div>
         ))}
       </Layout>
@@ -79,6 +78,12 @@ export const getServerSideProps: GetServerSideProps = async ({
     const responseSidebarCategories = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/category?pageFolderId=${currentPageFolder?._id}`
     );
+
+    const responsePosts = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/post/public/${currentPageFolder?._id}?pageNumber=0&pageSize=10&language=EN`
+    );
+
+    const postsFromApi = await responsePosts.json();
     const sidebarCategoriesFromApi = await responseSidebarCategories.json();
 
     posts = {

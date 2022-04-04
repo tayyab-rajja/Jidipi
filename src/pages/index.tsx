@@ -7,11 +7,12 @@ import { useTranslation } from "next-i18next";
 import Card from "src/components/Card";
 import Layout from "src/components/Layout";
 import Sidebar from "src/components/Sidebar";
+import { fetchPageFolders } from "src/api/fetchPageFolders";
 
 import { changePostsData } from "helpers/changePostsData";
 
 import { Posts } from "types/postTypes";
-import { fetchPageFolders, PageFolders } from "src/api/fetchPageFolders";
+import { PageFolders } from "types/pageFoldersTypes";
 interface Props {
   pageFolders: PageFolders[];
   posts: {
