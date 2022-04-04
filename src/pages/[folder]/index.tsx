@@ -11,6 +11,9 @@ import Layout from "src/components/Layout";
 import Sidebar from "src/components/Sidebar";
 import { PageFolders } from "types/pageFoldersTypes";
 import { Post } from "types/postTypes";
+import { fetchPosts } from "src/api/fetchPosts";
+import qs from "qs";
+import { fetchCategoriesList } from "src/api/fetchCategoriesList";
 
 interface Props {
   pageFolders: PageFolders[];
@@ -59,6 +62,7 @@ export default FolderPage;
 export const getServerSideProps: GetServerSideProps = async ({
   params,
   locale,
+  query,
 }) => {
   let pageFolders: PageFolders[] = [];
   let posts = {};
@@ -74,25 +78,19 @@ export const getServerSideProps: GetServerSideProps = async ({
     (pageFolder) => pageFolder.subDomain === params?.folder
   );
 
-  try {
-    const responseSidebarCategories = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/category?pageFolderId=${currentPageFolder?._id}`
-    );
+  const responseSidebarCategories = await fetchCategoriesList(
+    currentPageFolder?._id
+  );
 
-    const responsePosts = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/post/public/${currentPageFolder?._id}?pageNumber=0&pageSize=10&language=EN`
-    );
+  const postsFromApi = await fetchPosts(
+    currentPageFolder?._id,
+    qs.stringify(query)
+  );
 
-    const postsFromApi = await responsePosts.json();
-    const sidebarCategoriesFromApi = await responseSidebarCategories.json();
-
-    posts = {
-      posts: changePostsData(postsFromApi.posts),
-    };
-    sidebarCategories = sidebarCategoriesFromApi;
-  } catch (e) {
-    console.log(e);
-  }
+  posts = {
+    posts: changePostsData(postsFromApi.posts),
+  };
+  sidebarCategories = responseSidebarCategories;
 
   return {
     notFound: !currentPageFolder,
@@ -103,19 +101,4 @@ export const getServerSideProps: GetServerSideProps = async ({
       pageFolders,
     },
   };
-};
-
-// TODO: check qs
-const getPosts = async (folderId: string, qs: string) => {
-  if (!folderId) {
-    // TO DO: Check is folderId is null
-  }
-
-  const responsePosts = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/post/public/${folderId}?${qs}`
-  );
-
-  const postsFromApi = await responsePosts.json();
-
-  return postsFromApi;
 };

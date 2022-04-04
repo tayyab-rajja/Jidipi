@@ -40,7 +40,7 @@ export const getPostCategories = (post: any, withoutCategory?: string) => {
   return categories;
 };
 
-export const changePostsData = (posts: []): Post[] | [] => {
+export const changePostsData = (posts: any[]): Post[] | [] => {
   if (!posts || !posts.length) {
     return [];
   }
