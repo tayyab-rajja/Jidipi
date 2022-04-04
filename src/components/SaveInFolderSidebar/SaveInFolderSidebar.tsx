@@ -1,5 +1,4 @@
 import { FC, useState } from "react";
-import { ColorPicker } from "../ColorPicker/ColorPicker";
 import LabelsList from "../LabelsList";
 import AddLabelForm from "./AddLabelForm/AddLabelForm";
 import FolderItem from "./FolderItem/FolderItem";
