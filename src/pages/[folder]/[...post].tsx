@@ -9,6 +9,7 @@ import Sidebar from "src/components/Sidebar";
 
 import { fetchPageFolders } from "src/api/fetchPageFolders";
 import { fetchPost } from "src/api/fetchPost";
+import { fetchCategoriesList } from "src/api/fetchCategoriesList";
 
 import { getPostCategories } from "helpers/changePostsData";
 
@@ -74,11 +75,9 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   );
 
   try {
-    const responseSidebarCategories = await fetch(
-      "https://api.jidipi.com/api/v1/category?pageFolderId=603ce60958c5c6279bc2ed96"
+    const sidebarCategoriesFromApi = await fetchCategoriesList(
+      currentPageFolder?._id
     );
-
-    const sidebarCategoriesFromApi = await responseSidebarCategories.json();
 
     const postFromApi = await fetchPost(postId);
 

@@ -45,16 +45,14 @@ const CategoryId = ({
       >
         {postsData.map(({ title, categories, image, id, slug }) => (
           <div key={id} style={{ width: 450, margin: "0 20px 20px 0" }}>
-            <Link href={`${query.folder}/${id}/${slug}`}>
-              <a>
-                <Card
-                  title={title}
-                  categories={categories}
-                  image={image}
-                  id={id}
-                />
-              </a>
-            </Link>
+            <Card
+              folder={query.folder as string}
+              slug={slug}
+              title={title}
+              categories={categories}
+              image={image}
+              id={id}
+            />
           </div>
         ))}
       </Layout>
