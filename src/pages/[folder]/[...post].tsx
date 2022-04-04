@@ -20,11 +20,6 @@ type Props = {
   sidebarCategories: any;
 };
 
-interface Query {
-  folder: string;
-  post: string[];
-}
-
 const Post = ({ post, sidebarCategories, pageFolders }: Props) => {
   const categories = getPostCategories(post, "oldCategories");
   const companyImg = post?.companyId?.avatar || null;

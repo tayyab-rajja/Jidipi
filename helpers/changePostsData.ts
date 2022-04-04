@@ -1,4 +1,4 @@
-import { Posts } from "types/postTypes";
+import { Post } from "types/postTypes";
 
 export const getPostCategories = (post: any, withoutCategory?: string) => {
   if (!post) {
@@ -40,12 +40,12 @@ export const getPostCategories = (post: any, withoutCategory?: string) => {
   return categories;
 };
 
-export const changePostsData = (posts: []): Posts[] | [] => {
+export const changePostsData = (posts: []): Post[] | [] => {
   if (!posts || !posts.length) {
     return [];
   }
 
-  const newPosts: Posts[] = posts.map((post: any) => ({
+  const newPosts: Post[] = posts.map((post: any) => ({
     title: post.title,
     image: post.featuredImage?.liveURL || null,
     id: post.postUniqueId,

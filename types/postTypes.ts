@@ -2,7 +2,7 @@ export interface Categories {
   title: string;
   type: string;
 }
-export interface Posts {
+export interface Post {
   title: string;
   image: string;
   id: string;

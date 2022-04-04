@@ -10,19 +10,19 @@ import Card from "src/components/Card";
 import Layout from "src/components/Layout";
 import Sidebar from "src/components/Sidebar";
 import { PageFolders } from "types/pageFoldersTypes";
-import { Posts } from "types/postTypes";
+import { Post } from "types/postTypes";
 
 interface Props {
   pageFolders: PageFolders[];
   posts: {
-    posts: [] | Posts[];
+    posts: [] | Post[];
     total: number;
   };
   sidebarCategories: any;
 }
 
 const FolderPage = ({ pageFolders, posts, sidebarCategories }: Props) => {
-  const postsData: Posts[] = posts?.posts ?? [];
+  const postsData: Post[] = posts?.posts ?? [];
   const { query } = useRouter();
 
   return (

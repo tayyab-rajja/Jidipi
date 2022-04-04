@@ -11,12 +11,12 @@ import { fetchPageFolders } from "src/api/fetchPageFolders";
 
 import { changePostsData } from "helpers/changePostsData";
 
-import { Posts } from "types/postTypes";
+import { Post } from "types/postTypes";
 import { PageFolders } from "types/pageFoldersTypes";
 interface Props {
   pageFolders: PageFolders[];
   posts: {
-    posts: [] | Posts[];
+    posts: [] | Post[];
     total: number;
   };
   sidebarCategories: any;
@@ -24,7 +24,7 @@ interface Props {
 
 const Home = ({ pageFolders, posts, sidebarCategories }: Props) => {
   const { t } = useTranslation();
-  const postsData: Posts[] = posts.posts;
+  const postsData: Post[] = posts.posts;
 
   return (
     <div>
