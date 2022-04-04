@@ -117,13 +117,15 @@ const LoginSidebar = () => {
           autoLoad={false}
         />
       )}
-      <GoogleLogin
-        clientId={process.env.GOOGLE_CLIENT_ID!}
-        buttonText="Login"
-        onSuccess={responseGoogleSuccess}
-        onFailure={responseGoogleFailed}
-        cookiePolicy={"single_host_origin"}
-      />
+      {status !== "authenticated" && (
+        <GoogleLogin
+          clientId={process.env.GOOGLE_CLIENT_ID!}
+          buttonText="Login"
+          onSuccess={responseGoogleSuccess}
+          onFailure={responseGoogleFailed}
+          cookiePolicy={"single_host_origin"}
+        />
+      )}
       <div className={styles["Main-Logout"]}>
         <button disabled={status === "unauthenticated"} onClick={removeSession}>
           Sign out
