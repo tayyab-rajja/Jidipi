@@ -118,7 +118,7 @@ const LoginSidebar = () => {
     }
   };
 
-  const responseGoogleFailed = (value) => {
+  const responseGoogleFailed = (value: any) => {
     console.log(value);
   };
 
@@ -153,14 +153,14 @@ const LoginSidebar = () => {
       )}
       {status !== "authenticated" && (
         <ReactFacebookLogin
-          appId={process.env.FACEBOOK_ID!}
+          appId={process.env.FACEBOOK_CLIENT_ID!}
           fields="name,email,picture"
           callback={responseFacebook}
           autoLoad={false}
         />
       )}
       <GoogleLogin
-        clientId="460487191198-dimb0m834e5l5n3ql8ltcpqn504j8n7d.apps.googleusercontent.com"
+        clientId={process.env.GOOGLE_CLIENT_ID!}
         buttonText="Login"
         onSuccess={responseGoogleSuccess}
         onFailure={responseGoogleFailed}

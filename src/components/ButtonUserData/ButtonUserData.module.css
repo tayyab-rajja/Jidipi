@@ -16,3 +16,7 @@
 .Form-Btn {
   height: 44px;
 }
+
+.Btn-Label {
+  text-transform: uppercase;
+}
