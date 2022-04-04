@@ -66,6 +66,14 @@ const PanelTable = () => {
     },
   ]);
 
+  const [filtersValues, setFiltersValues] = useState({
+    action: "",
+    location: "",
+    language: "",
+    all: "",
+    searchValue: "",
+  });
+
   const updateMyData: UpdateMyData = (value, rowIndex, columnId) => {
     if (!columnId) {
       return;

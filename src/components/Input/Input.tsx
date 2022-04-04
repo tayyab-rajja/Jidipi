@@ -29,7 +29,8 @@ export const Input = (props) => {
     switch (event.key) {
       case "Enter":
       case "Tab":
-        setValue([...value, createOption(inputValue)]);
+        !value.some(({ value }) => value === inputValue) &&
+          setValue([...value, createOption(inputValue)]);
         setInputValue("");
         event.preventDefault();
     }
