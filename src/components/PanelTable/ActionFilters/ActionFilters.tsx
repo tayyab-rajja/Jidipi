@@ -17,7 +17,7 @@ export const ActionFilters = () => {
         <LocationFilter />
         <AllFilter />
       </div>
-      <Input className={styles["Search"]} />
+      <Input />
     </div>
   );
 };

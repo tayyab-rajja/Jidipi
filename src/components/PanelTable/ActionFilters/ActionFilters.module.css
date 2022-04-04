@@ -10,12 +10,3 @@
 .ActionFilters-Filters > div:not(:last-child) {
   margin-right: 10px;
 }
-
-.Search [class$="-control"] {
-  border: 2px solid #d6d6d6;
-  box-shadow: none;
-}
-
-.Search [class$="-control"]:hover {
-  border: 2px solid #d6d6d6;
-}

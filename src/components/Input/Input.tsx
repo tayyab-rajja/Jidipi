@@ -1,6 +1,10 @@
+import clsx from "clsx";
+import { categoriesSvg } from "constant/categoriesSvg";
 import { KeyboardEventHandler, useState } from "react";
 import { OnChangeValue } from "react-select";
 import CreatableSelect from "react-select/creatable";
+
+import styles from "./Input.module.css";
 
 const components = {
   DropdownIndicator: null,
@@ -40,18 +44,20 @@ export const Input = (props) => {
   };
 
   return (
-    <CreatableSelect
-      inputValue={inputValue}
-      isClearable
-      isMulti
-      menuIsOpen={false}
-      value={value}
-      onChange={handleChange}
-      onInputChange={handleInputChange}
-      onKeyDown={handleKeyDown}
-      components={components}
-      // classNamePrefix="input"
-      {...props}
-    />
+    <div className={clsx(styles["Input"])}>
+      {categoriesSvg["DATE"]}
+      <CreatableSelect
+        inputValue={inputValue}
+        isClearable
+        isMulti
+        menuIsOpen={false}
+        value={value}
+        onChange={handleChange}
+        onInputChange={handleInputChange}
+        onKeyDown={handleKeyDown}
+        components={components}
+        {...props}
+      />
+    </div>
   );
 };
