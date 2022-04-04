@@ -7,21 +7,24 @@ import { useTranslation } from "next-i18next";
 import Card from "src/components/Card";
 import Layout from "src/components/Layout";
 import Sidebar from "src/components/Sidebar";
+import { fetchPageFolders } from "src/api/fetchPageFolders";
 
 import { changePostsData } from "helpers/changePostsData";
 
-import { Posts } from "types/postTypes";
+import { Post } from "types/postTypes";
+import { PageFolder } from "types/pageFolderType";
 interface Props {
+  pageFolders: PageFolder[];
   posts: {
-    posts: [] | Posts[];
+    posts: [] | Post[];
     total: number;
   };
   sidebarCategories: any;
 }
 
-const Home = ({ posts, sidebarCategories }: Props) => {
+const Home = ({ pageFolders, posts, sidebarCategories }: Props) => {
   const { t } = useTranslation();
-  const postsData: Posts[] = posts.posts;
+  const postsData: Post[] = posts.posts;
 
   return (
     <div>
@@ -33,10 +36,17 @@ const Home = ({ posts, sidebarCategories }: Props) => {
 
       <Layout
         SidebarComponent={<Sidebar sidebarCategories={sidebarCategories} />}
+        pageFolders={pageFolders}
       >
-        {postsData.map(({ title, categories, image, id }, index) => (
+        {postsData.map(({ title, categories, image, id, slug }, index) => (
           <div key={index} style={{ width: 450, margin: "0 20px 20px 0" }}>
-            <Card title={title} categories={categories} image={image} id={id} />
+            {/* <Card
+              title={title}
+              categories={categories}
+              image={image}
+              id={id}
+              slug={slug}
+            /> */}
           </div>
         ))}
       </Layout>
@@ -49,6 +59,7 @@ export default Home;
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   let posts = {};
   let sidebarCategories = [];
+  let pageFolders: PageFolder[] = [];
 
   try {
     const responsePosts = await fetch(
@@ -66,6 +77,8 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
       posts: changePostsData(postsFromApi.posts),
     };
     sidebarCategories = sidebarCategoriesFromApi;
+
+    pageFolders = await fetchPageFolders();
   } catch (e) {
     console.log(e);
   }
@@ -75,6 +88,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
       ...(await serverSideTranslations(locale as string, ["common"])),
       posts,
       sidebarCategories,
+      pageFolders,
     },
   };
 };
