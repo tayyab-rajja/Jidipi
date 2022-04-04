@@ -5,19 +5,20 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { fetchPageFolders, PageFolders } from "src/api/fetchPageFolders";
+import { fetchPageFolders } from "src/api/fetchPageFolders";
 import { fetchPosts } from "src/api/fetchPosts";
 import Card from "src/components/Card";
 import Layout from "src/components/Layout";
 import Sidebar from "src/components/Sidebar";
-import { Posts } from "types/postTypes";
+import { Post } from "types/postTypes";
 import qs from "qs";
 import { fetchCategoriesList } from "src/api/fetchCategoriesList";
+import { PageFolder } from "types/pageFolderType";
 
 interface ICategoryIdProps {
-  pageFolders: PageFolders[];
+  pageFolders: PageFolder[];
   posts: {
-    posts: [] | Posts[];
+    posts: [] | Post[];
     total: number;
   };
   sidebarCategories: any;
@@ -28,7 +29,7 @@ const CategoryId = ({
   posts,
   sidebarCategories,
 }: ICategoryIdProps) => {
-  const postsData: Posts[] = posts?.posts ?? [];
+  const postsData: Post[] = posts?.posts ?? [];
   const { query } = useRouter();
 
   return (
@@ -66,7 +67,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   locale,
   query,
 }) => {
-  let pageFolders: PageFolders[] = [];
+  let pageFolders: PageFolder[] = [];
   let posts = {};
   let sidebarCategories = [];
 

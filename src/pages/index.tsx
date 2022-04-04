@@ -12,9 +12,9 @@ import { fetchPageFolders } from "src/api/fetchPageFolders";
 import { changePostsData } from "helpers/changePostsData";
 
 import { Post } from "types/postTypes";
-import { PageFolders } from "types/pageFoldersTypes";
+import { PageFolder } from "types/pageFolderType";
 interface Props {
-  pageFolders: PageFolders[];
+  pageFolders: PageFolder[];
   posts: {
     posts: [] | Post[];
     total: number;
@@ -38,9 +38,15 @@ const Home = ({ pageFolders, posts, sidebarCategories }: Props) => {
         SidebarComponent={<Sidebar sidebarCategories={sidebarCategories} />}
         pageFolders={pageFolders}
       >
-        {postsData.map(({ title, categories, image, id }, index) => (
+        {postsData.map(({ title, categories, image, id, slug }, index) => (
           <div key={index} style={{ width: 450, margin: "0 20px 20px 0" }}>
-            <Card title={title} categories={categories} image={image} id={id} />
+            {/* <Card
+              title={title}
+              categories={categories}
+              image={image}
+              id={id}
+              slug={slug}
+            /> */}
           </div>
         ))}
       </Layout>
@@ -53,7 +59,7 @@ export default Home;
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   let posts = {};
   let sidebarCategories = [];
-  let pageFolders: PageFolders[] = [];
+  let pageFolders: PageFolder[] = [];
 
   try {
     const responsePosts = await fetch(

@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { usePageFolders } from "src/api/usePageFolders";
 
-import { PageFolders } from "types/pageFoldersTypes";
+import { PageFolder } from "types/pageFolderType";
 
 import styles from "./Navbar.module.css";
 
 interface Props {
-  pageFolders: PageFolders[];
+  pageFolders: PageFolder[];
 }
 
 export const Navbar = ({ pageFolders }: Props) => {

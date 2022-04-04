@@ -16,7 +16,6 @@ export const fetchCategoriesList = async (
     const responsePosts = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/category?pageFolderId=${folderId}`
     );
-    console.log(responsePosts);
 
     return responsePosts.data;
   } catch (error) {

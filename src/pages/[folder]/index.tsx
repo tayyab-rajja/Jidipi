@@ -9,14 +9,14 @@ import { fetchPageFolders } from "src/api/fetchPageFolders";
 import Card from "src/components/Card";
 import Layout from "src/components/Layout";
 import Sidebar from "src/components/Sidebar";
-import { PageFolders } from "types/pageFoldersTypes";
+import { PageFolder } from "types/pageFolderType";
 import { Post } from "types/postTypes";
 import { fetchPosts } from "src/api/fetchPosts";
 import qs from "qs";
 import { fetchCategoriesList } from "src/api/fetchCategoriesList";
 
 interface Props {
-  pageFolders: PageFolders[];
+  pageFolders: PageFolder[];
   posts: {
     posts: [] | Post[];
     total: number;
@@ -64,7 +64,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   locale,
   query,
 }) => {
-  let pageFolders: PageFolders[] = [];
+  let pageFolders: PageFolder[] = [];
   let posts = {};
   let sidebarCategories = [];
 

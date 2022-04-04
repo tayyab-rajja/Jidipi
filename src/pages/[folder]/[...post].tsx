@@ -13,11 +13,11 @@ import { fetchCategoriesList } from "src/api/fetchCategoriesList";
 
 import { getPostCategories } from "helpers/changePostsData";
 
-import { PageFolders } from "types/pageFoldersTypes";
+import { PageFolder } from "types/pageFolderType";
 
 type Props = {
   post: any;
-  pageFolders: PageFolders[];
+  pageFolders: PageFolder[];
   sidebarCategories: any;
 };
 
@@ -59,7 +59,7 @@ const Post = ({ post, sidebarCategories, pageFolders }: Props) => {
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   let post = {};
   let sidebarCategories = [];
-  let pageFolders: PageFolders[] = [];
+  let pageFolders: PageFolder[] = [];
   //@ts-ignore
   const postId = query?.post[0];
   const folder = query?.folder;

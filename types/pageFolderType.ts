@@ -1,4 +1,4 @@
-export interface PageFolders {
+export interface PageFolder {
   _id: string;
   title: string;
   description: string;
