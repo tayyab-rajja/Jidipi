@@ -49,3 +49,6 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     </AuthProvider>
   );
 }
+
+
+// TODO: Add trasklations hoc
