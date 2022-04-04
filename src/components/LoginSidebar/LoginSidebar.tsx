@@ -1,9 +1,4 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-
-import styles from "./LoginSidebar.module.css";
-import { ILoginSuccess } from "types/loginTypes";
-import { useAuth } from "src/providers/AuthProvider";
-import axios from "axios";
 import ReactFacebookLogin, {
   ReactFacebookFailureResponse,
   ReactFacebookLoginInfo,
@@ -13,6 +8,11 @@ import GoogleLogin, {
   GoogleLoginResponseOffline,
 } from "react-google-login";
 
+import { useAuth } from "src/providers/AuthProvider";
+import { useLoginRequest } from "../../hooks/api/useLoginRequest";
+
+import styles from "./LoginSidebar.module.css";
+
 interface InputValues {
   email: string;
   password: string;
@@ -20,11 +20,11 @@ interface InputValues {
 
 const LoginSidebar = () => {
   const {
-    setSession,
     removeSession,
     session: { status },
-    setLoading,
   } = useAuth();
+
+  const { login } = useLoginRequest();
 
   const { register, reset, handleSubmit } = useForm<InputValues>({
     defaultValues: {
@@ -33,93 +33,51 @@ const LoginSidebar = () => {
     },
   });
 
-  const login: SubmitHandler<InputValues> = async ({ email, password }) => {
-    try {
-      setLoading();
-      const res = await axios.post<ILoginSuccess>(
-        `${process.env.NEXT_PUBLIC_API_URL}user/login`,
-        { email, password }
-      );
-      if (res.status === 200) {
-        const response: ILoginSuccess = res.data;
-        setSession(response);
-        reset();
-        return;
-      }
-      console.log({ ...res });
-    } catch (error: any) {
-      console.log(error?.response?.data?.error);
-      // TODO: show error message
+  const loginHandler: SubmitHandler<InputValues> = async ({
+    email,
+    password,
+  }) => {
+    const result = login({ email, password });
+    if (result) {
+      // TODO: show error
     }
   };
 
-  const responseFacebook = async (
-    response: any
-    // response: ReactFacebookLoginInfo | ReactFacebookFailureResponse
-  ) => {
+  const responseFacebook = async (response: any) => {
     if (response?.status) {
       const res: ReactFacebookFailureResponse = response;
+      // TODO: show error from Facebook request
     }
     const res: ReactFacebookLoginInfo = response;
-
-    try {
-      setLoading();
-      const body = {
-        type: "social",
-        network: "facebook",
-        //network:google
-        accessToken: res.accessToken,
-      };
-      const socialLoginResponse = await axios.post<ILoginSuccess>(
-        `${process.env.NEXT_PUBLIC_API_URL}user/login`,
-        body
-      );
-      if (socialLoginResponse.status === 200) {
-        const response: ILoginSuccess = socialLoginResponse.data;
-        setSession(response);
-        return;
-      }
-    } catch (error: any) {
-      console.log(error?.response?.data?.error);
-      // TODO: show error message
+    const result = login({
+      type: "social",
+      network: "facebook",
+      accessToken: res.accessToken,
+    });
+    if (result) {
+      // TODO: show error
     }
-    console.log(response);
   };
 
   const responseGoogleSuccess = async (response: any) => {
-    console.log(response);
-
     if (!response.accessToken) {
       const res: GoogleLoginResponseOffline = response;
+      // TODO: show error from Google request
     }
     const res: GoogleLoginResponse = response;
-    try {
-      setLoading();
-      const body = {
-        type: "social",
-        // network: "facebook",
-        network: "google",
-        credential: res.tokenId,
-      };
-      const socialLoginResponse = await axios.post<ILoginSuccess>(
-        `${process.env.NEXT_PUBLIC_API_URL}user/login`,
-        body
-      );
-      if (socialLoginResponse.status === 200) {
-        const responseFromGoogle: ILoginSuccess = socialLoginResponse.data;
-        setSession(responseFromGoogle);
-        console.log(responseFromGoogle);
-
-        return;
-      }
-    } catch (error: any) {
-      console.log(error?.response?.data?.error);
-      // TODO: show error message
+    const result = login({
+      type: "social",
+      network: "google",
+      credential: res.tokenId,
+    });
+    if (result) {
+      // TODO: show error
     }
   };
 
   const responseGoogleFailed = (value: any) => {
     console.log(value);
+    // TODO: show error from Google request
   };
 
   return (
@@ -127,7 +85,7 @@ const LoginSidebar = () => {
       {status !== "authenticated" && (
         <form
           className={styles["Main-FormContainer"]}
-          onSubmit={handleSubmit(login)}
+          onSubmit={handleSubmit(loginHandler)}
           noValidate
         >
           <div className={styles["Main-ClientInfo"]}>
