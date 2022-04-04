@@ -370,7 +370,7 @@ axios@^0.26.1:
 
 axobject-query@^2.2.0:
   version "2.2.0"
-  resolved "https://registry.yarnpkg.com/axobject-query/-/axobject-query-2.2.0.tgz#943d47e10c0b704aa42275e20edf3722648989be"
+  resolved "https://registry.npmjs.org/axobject-query/-/axobject-query-2.2.0.tgz"
   integrity sha512-Td525n+iPOOyUQIeBfcASuG6uJsDOITl7Mds5gFyerkWiX7qhUTdYUBlSgNMyVqtSJqwpt1kXGLdUt6SykLMRA==
 
 balanced-match@^1.0.0:
@@ -846,7 +846,7 @@ follow-redirects@^1.14.8:
 
 fs.realpath@^1.0.0:
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
+  resolved "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   integrity sha1-FQStJSMVjKpA20onh8sBQRmU6k8=
 
 function-bind@^1.1.1:
@@ -1172,7 +1172,7 @@ jwt-decode@^3.1.2:
 
 language-subtag-registry@~0.3.2:
   version "0.3.21"
-  resolved "https://registry.yarnpkg.com/language-subtag-registry/-/language-subtag-registry-0.3.21.tgz#04ac218bea46f04cb039084602c6da9e788dd45a"
+  resolved "https://registry.npmjs.org/language-subtag-registry/-/language-subtag-registry-0.3.21.tgz"
   integrity sha512-L0IqwlIXjilBVVYKFT37X9Ih11Um5NEl9cbJIuU/SwP/zEEAbBPOnEeeuxVMf45ydWQRDQN3Nqc96OgbH1K+Pg==
 
 language-tags@^1.0.5:
@@ -1505,7 +1505,7 @@ react-hook-form@^7.28.1:
 
 react-i18next@^11.15.5:
   version "11.15.7"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.15.7.tgz#f14c5fbf17c568fe356a848a7ef13420c323b87c"
+  resolved "https://registry.npmjs.org/react-i18next/-/react-i18next-11.15.7.tgz"
   integrity sha512-zSWZ+21LhaG4T155GcvLdepG1j/qJqD9hUGztVtD1MGBc4/l9ft/LMbUX7oKXdVVLyKWjUhUFoDNAwB2402BIQ==
   dependencies:
     "@babel/runtime" "^7.14.5"
