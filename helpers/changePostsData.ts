@@ -45,16 +45,13 @@ export const changePostsData = (posts: []): Posts[] | [] => {
     return [];
   }
 
-  const newPosts: Posts[] = posts.map((post: any) => {
-    const newPost = {
-      title: post.title,
-      image: post.featuredImage?.liveURL,
-      id: post.postUniqueId,
-      categories: getPostCategories(post),
-    };
-
-    return newPost;
-  });
+  const newPosts: Posts[] = posts.map((post: any) => ({
+    title: post.title,
+    image: post.featuredImage?.liveURL || null,
+    id: post.postUniqueId,
+    categories: getPostCategories(post),
+    slug: post.slug,
+  }));
 
   return newPosts;
 };

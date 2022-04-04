@@ -11,7 +11,7 @@ import styles from "./Card.module.css";
 interface CardProps {
   title: string;
   className?: string;
-  image: string;
+  image?: string;
   id: string;
   categories: Categories[];
 }
@@ -24,26 +24,18 @@ export const Card = ({
   title,
   id,
   categories,
-  image = emptyImage,
+  image,
 }: CardProps) => {
   const { t } = useTranslation();
-  const router = useRouter();
-
-  const handleClick = () => {
-    router.push(`/${id}`);
-  };
 
   return (
-    <div
-      className={clsx(styles.Card, className && className)}
-      onClick={handleClick}
-    >
+    <div className={clsx(styles.Card, className && className)}>
       <Image
         className={styles["Card-Image"]}
         layout="responsive"
         width={500}
         height={500}
-        src={image}
+        src={image ? image : emptyImage}
         alt="Card Img"
       />
       <h3 className={styles["Card-Title"]}>{t(title)}</h3>

@@ -11,7 +11,9 @@ import Sidebar from "src/components/Sidebar";
 import { changePostsData } from "helpers/changePostsData";
 
 import { Posts } from "types/postTypes";
+import { fetchPageFolders, PageFolders } from "src/api/fetchPageFolders";
 interface Props {
+  pageFolders: PageFolders[];
   posts: {
     posts: [] | Posts[];
     total: number;
@@ -19,7 +21,7 @@ interface Props {
   sidebarCategories: any;
 }
 
-const Home = ({ posts, sidebarCategories }: Props) => {
+const Home = ({ pageFolders, posts, sidebarCategories }: Props) => {
   const { t } = useTranslation();
   const postsData: Posts[] = posts.posts;
 
@@ -33,6 +35,7 @@ const Home = ({ posts, sidebarCategories }: Props) => {
 
       <Layout
         SidebarComponent={<Sidebar sidebarCategories={sidebarCategories} />}
+        pageFolders={pageFolders}
       >
         {postsData.map(({ title, categories, image, id }, index) => (
           <div key={index} style={{ width: 450, margin: "0 20px 20px 0" }}>
@@ -49,6 +52,7 @@ export default Home;
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   let posts = {};
   let sidebarCategories = [];
+  let pageFolders: PageFolders[] = [];
 
   try {
     const responsePosts = await fetch(
@@ -66,6 +70,8 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
       posts: changePostsData(postsFromApi.posts),
     };
     sidebarCategories = sidebarCategoriesFromApi;
+
+    pageFolders = await fetchPageFolders();
   } catch (e) {
     console.log(e);
   }
@@ -75,6 +81,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
       ...(await serverSideTranslations(locale as string, ["common"])),
       posts,
       sidebarCategories,
+      pageFolders,
     },
   };
 };

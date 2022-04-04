@@ -7,4 +7,5 @@ export interface Posts {
   image: string;
   id: string;
   categories: Categories[];
+  slug: string;
 }
