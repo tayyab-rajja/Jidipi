@@ -1,2 +1,2 @@
-export const TOKEN = "token";
+export const TOKEN = "jdptoken";
 // const USER = "user";

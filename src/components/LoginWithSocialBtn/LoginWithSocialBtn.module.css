@@ -1,0 +1,20 @@
+.Container {
+  border: 1px solid #D6D6D6;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.Body-Container {
+  padding: 12px 0 12px 40px;
+  height: 44px;
+}
+
+/* .Container-Logo {
+  margin-right: 16px;
+} */
+
+.Container-Text {
+  margin: 0 0 0 16px;
+  color: #37373780;
+}

@@ -1,7 +1,7 @@
-import type { GetServerSideProps } from "next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
+import type { GetServerSideProps } from "next";
 
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 
 import Card from "src/components/Card";
@@ -10,14 +10,18 @@ import Sidebar from "src/components/Sidebar";
 
 import { changePostsData } from "helpers/changePostsData";
 
+import { Posts } from "types/postTypes";
 interface Props {
-  posts: any;
+  posts: {
+    posts: [] | Posts[];
+    total: number;
+  };
+  sidebarCategories: any;
 }
 
-const Home = ({ posts }: Props) => {
+const Home = ({ posts, sidebarCategories }: Props) => {
   const { t } = useTranslation();
-
-  const data = changePostsData(posts.posts);
+  const postsData: Posts[] = posts.posts;
 
   return (
     <div>
@@ -27,8 +31,10 @@ const Home = ({ posts }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Layout SidebarComponent={Sidebar}>
-        {data.map(({ title, categories, image, id }, index) => (
+      <Layout
+        SidebarComponent={<Sidebar sidebarCategories={sidebarCategories} />}
+      >
+        {postsData.map(({ title, categories, image, id }, index) => (
           <div key={index} style={{ width: 450, margin: "0 20px 20px 0" }}>
             <Card title={title} categories={categories} image={image} id={id} />
           </div>
@@ -41,22 +47,34 @@ const Home = ({ posts }: Props) => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-  const responsePosts = await fetch(
-    "https://api.jidipi.com/api/v1/post/public/603dc78958c5c6279bc2ed9b?pageNumber=0&pageSize=100&language=EN"
-  );
+  let posts = {};
+  let sidebarCategories = [];
 
-  const responseSidebarCategories = await fetch(
-    "https://api.jidipi.com/api/v1/category?pageFolderId=603ce60958c5c6279bc2ed96"
-  );
+  try {
+    const responsePosts = await fetch(
+      "https://api.jidipi.com/api/v1/post/public/603ce60958c5c6279bc2ed96?pageNumber=0&pageSize=100&language=EN"
+    );
+    const responseSidebarCategories = await fetch(
+      "https://api.jidipi.com/api/v1/category?pageFolderId=603ce60958c5c6279bc2ed96"
+    );
 
-  const posts = await responsePosts.json();
-  const sidebarCategories = await responseSidebarCategories.json();
+    const postsFromApi = await responsePosts.json();
+    const sidebarCategoriesFromApi = await responseSidebarCategories.json();
+
+    posts = {
+      ...postsFromApi,
+      posts: changePostsData(postsFromApi.posts),
+    };
+    sidebarCategories = sidebarCategoriesFromApi;
+  } catch (e) {
+    console.log(e);
+  }
 
   return {
     props: {
       ...(await serverSideTranslations(locale as string, ["common"])),
-      posts: posts,
-      sidebarCategories: sidebarCategories,
+      posts,
+      sidebarCategories,
     },
   };
 };

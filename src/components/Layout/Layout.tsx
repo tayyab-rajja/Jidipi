@@ -6,8 +6,7 @@ import styles from "./Layout.module.css";
 
 interface LayoutProps {
   children: ReactElement | ReactElement[];
-  SidebarComponent: FC;
-  sidebarCategories?: [];
+  SidebarComponent: ReactElement;
 }
 
 export const Layout: FC<LayoutProps> = ({ children, SidebarComponent }) => {
@@ -15,7 +14,7 @@ export const Layout: FC<LayoutProps> = ({ children, SidebarComponent }) => {
     <>
       <Navbar />
       <main className={styles["Layout-Container"]}>
-        <SidebarComponent />
+        {SidebarComponent}
         <div className={styles["Layout-Content"]}>{children}</div>
       </main>
     </>

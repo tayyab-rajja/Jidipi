@@ -4,10 +4,10 @@ import SaveInFolderSidebar from "src/components/SaveInFolderSidebar";
 
 const LeftSideBar = () => {
   return (
-    <Layout SidebarComponent={SaveInFolderSidebar}>
-      
+    <Layout SidebarComponent={<SidebarWithAvatar />}>
+      <div></div>
     </Layout>
-  )
-}
+  );
+};
 
 export default LeftSideBar;

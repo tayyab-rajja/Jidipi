@@ -21,7 +21,7 @@ const ButtonUserData:FC<Props> = ({label, action, className}) => {
         action();
       }}
     >
-      {label}
+      <p className={styles['Btn-Label']}>{label}</p>
     </button>
   );
 }
