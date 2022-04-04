@@ -4,19 +4,16 @@
 }
 
 .LabelItem {
-    /* display: inline-block; */
     width: 120px;
     height: 28px;
     margin-bottom: 12px;
     background-color: #F1F1F1;
     border: 1px solid #D6D6D6;
-    padding: 8px 44px;
     color: #373737;
     font-size: 9px;
+    line-height: 28px;
     text-align: center;
     cursor: pointer;
-    white-space: nowrap;
-    overflow: hidden;
 }
 
 .LabelItem:hover {

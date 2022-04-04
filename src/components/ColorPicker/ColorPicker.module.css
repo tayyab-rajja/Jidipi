@@ -3,18 +3,6 @@
     height: 148px;
 }
 
-.ColorPicker-Title {
-    width: 120px;
-    height: 28px;
-    background-color: #F1F1F1;
-    border: 1px solid #D6D6D6;
-    padding: 8px 44px;
-    color: #373737;
-    font-size: 9px;
-    text-align: center;
-    cursor: pointer;
-}
-
 .ColorPicker-ColorsList {
     margin: 0;
     display: flex;
@@ -31,7 +19,7 @@
     position: relative;
     margin-right: 4px;
     margin-bottom: 8px;
-    
+    cursor: pointer;
 }
 
 .Selected.ColorPicker-ColorItem:before {
@@ -53,6 +41,7 @@
     padding: 8px 44px;
     color: #888888;
     font-size: 9px;
+    font-weight: medium;
     text-align: center;
     cursor: pointer;
 }

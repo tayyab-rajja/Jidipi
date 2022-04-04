@@ -31,7 +31,7 @@ const AddLabelForm: FC<Props> = ({hideAddLableForm, createLabel}) => {
     return (
         <div className={styles["AddLabelForm"]}>
             <div className={styles["AddLabelForm-InputWrapper"]}>
-                <input className={styles["AddLabelForm-InputWrapper_Input"]} placeholder="Create a new label" value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyUp={handleConfirmBtnOnEnter} />
+                <input className={styles["AddLabelForm-InputWrapper_Input"]} placeholder="Create a new label" maxLength={20} value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyUp={handleConfirmBtnOnEnter} />
             </div>
             <div className={styles["AddLabelForm-ButtonWrapper"]}>
                 <button className={styles["AddLabelForm-InputWrapper_Button"]} onClick={hideAddLableForm}>Cancel</button>
