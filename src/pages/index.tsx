@@ -40,13 +40,14 @@ const Home = ({ pageFolders, posts, sidebarCategories }: Props) => {
       >
         {postsData.map(({ title, categories, image, id, slug }, index) => (
           <div key={index} style={{ width: 450, margin: "0 20px 20px 0" }}>
-            {/* <Card
+            <Card
               title={title}
               categories={categories}
               image={image}
               id={id}
               slug={slug}
-            /> */}
+              folder={""}
+            />
           </div>
         ))}
       </Layout>
