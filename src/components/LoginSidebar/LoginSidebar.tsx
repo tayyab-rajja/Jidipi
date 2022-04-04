@@ -37,7 +37,7 @@ const LoginSidebar = () => {
     email,
     password,
   }) => {
-    const result = login({ email, password });
+    const result = await login({ email, password });
     if (result) {
       // TODO: show error
     }
@@ -49,7 +49,7 @@ const LoginSidebar = () => {
       // TODO: show error from Facebook request
     }
     const res: ReactFacebookLoginInfo = response;
-    const result = login({
+    const result = await login({
       type: "social",
       network: "facebook",
       accessToken: res.accessToken,
@@ -65,7 +65,7 @@ const LoginSidebar = () => {
       // TODO: show error from Google request
     }
     const res: GoogleLoginResponse = response;
-    const result = login({
+    const result = await login({
       type: "social",
       network: "google",
       credential: res.tokenId,
