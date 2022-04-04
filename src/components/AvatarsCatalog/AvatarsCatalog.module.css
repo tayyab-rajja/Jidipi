@@ -1,0 +1,16 @@
+.Container {
+  background-color: white;
+  border: 1px solid #D6D6D6;
+  display: grid;
+  grid-template-columns: 80px 80px;
+  grid-auto-rows: 80px;
+  grid-gap: 20px;
+}
+
+.Body-Container {
+  padding: 30px 30px;
+}
+
+.Avatar {
+  cursor: pointer;
+}
