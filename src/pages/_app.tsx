@@ -7,6 +7,7 @@ import { AuthProvider } from "src/providers/AuthProvider";
 import { SWRConfig } from "swr";
 import NProgress from "nprogress";
 import { Router } from "next/router";
+import { appWithTranslation } from "next-i18next";
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -19,7 +20,7 @@ type AppPropsWithLayout = AppProps & {
 // @ts-ignore
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   useEffect(() => {
     NProgress.configure({ showSpinner: false });
     const delay = 500; // in milliseconds
@@ -50,5 +51,5 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   );
 }
 
-
-// TODO: Add trasklations hoc
+// @ts-ignore
+export default appWithTranslation(MyApp);
