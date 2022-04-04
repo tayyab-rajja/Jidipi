@@ -1,4 +1,5 @@
 import { FC, useState } from "react";
+import { ColorPicker } from "../ColorPicker/ColorPicker";
 import LabelsList from "../LabelsList";
 import AddLabelForm from "./AddLabelForm/AddLabelForm";
 import FolderItem from "./FolderItem/FolderItem";
@@ -82,6 +83,7 @@ export const SaveInFolderSidebar: FC = () => {
                 {showEl.addLabelBtn && <div className={`${styles["Sidebar-Button"]} ${styles["Text"]}`} onClick={() => handleClickItem('addLabelForm')}>add label</div>} 
             </div>
             <LabelsList labelsList={labelsList} />
+            <ColorPicker title="Luxury" />
             {showEl.addLabelForm && <AddLabelForm hideAddLableForm={() => hideAddLableForm('addLabelForm')} createLabel={createLabel} />}
         </div>
     )

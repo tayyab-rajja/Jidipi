@@ -1,0 +1,68 @@
+.ColorPicker-Wrapper {
+    width: 120px;
+    height: 148px;
+}
+
+.ColorPicker-Title {
+    width: 120px;
+    height: 28px;
+    background-color: #F1F1F1;
+    border: 1px solid #D6D6D6;
+    padding: 8px 44px;
+    color: #373737;
+    font-size: 9px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.ColorPicker-ColorsList {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid #D6D6D6;
+    padding: 12px 7px 4px 11px;
+    list-style: none;
+}
+
+.ColorPicker-ColorItem {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #D6D6D6;
+    position: relative;
+    margin-right: 4px;
+    margin-bottom: 8px;
+    
+}
+
+.Selected.ColorPicker-ColorItem:before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background-color: #FFF;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ColorPicker-Button {
+    width: 120px;
+    height: 28px;
+    background-color: #FFFFFF;
+    border: 1px solid #D6D6D6;
+    padding: 8px 44px;
+    color: #888888;
+    font-size: 9px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.ColorPicker-Button:hover {
+    background-color: #DEB851;
+    color: #fff;
+}
+
+.ColorPicker-Button:active {
+    background-color: #373737;
+    color: #fff
+}
