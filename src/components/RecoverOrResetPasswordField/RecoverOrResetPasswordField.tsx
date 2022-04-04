@@ -16,7 +16,7 @@ interface Props {
 const RecoverOrResetPasswordField:FC<Props> = ({type, footerAction = () => {}}) => {
   const [dataSended, setDataSended] = useState(false);
   
-  const dividerLabel = type === 'recover' ? 'recover pasword' : 'Label for reset password will be here';
+  const dividerLabel = type === 'recover' ? 'recover pasword' : 'reset password';
   
   const formChildren = type === 'recover' ? 
     <>
@@ -24,17 +24,21 @@ const RecoverOrResetPasswordField:FC<Props> = ({type, footerAction = () => {}}) 
       <ButtonUserData label='recover password' action={() => setDataSended(prevState => !prevState)}/>
     </>
     :
-    <p>Form for reset password will be here</p>
+    <>
+      <InputUserData type='email' placeholder='Email'/>
+      <InputUserData type='password' placeholder='Pasword'/>
+      <InputUserData type='password' placeholder='Password Confirm'/>
+      <ButtonUserData label='reset password' action={() => setDataSended(prevState => !prevState)}/>
+    </>
   
-    const messageComponent = type === 'recover' ?
-    <LoginMessage
-      type={type}
-      visitorName={'Lorem'}
-      visitorEmail={'lorem@mail.com'}
-    />
-    :
-    null;
-  
+    const messageComponent = (
+      <LoginMessage
+        type={type}
+        visitorName={'Lorem'}
+        visitorEmail={'lorem@mail.com'}
+      />
+    )
+
     const renderedContent = dataSended ? messageComponent : <FormUserData>{formChildren}</FormUserData>
   
   return (

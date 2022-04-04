@@ -3,8 +3,6 @@ import {FC, useState} from 'react';
 import TabsFormsUserData from 'src/components/TabsFormsUserData';
 import LoginField from 'src/components/LoginField';
 import RecoverOrResetPasswordField from 'src/components/RecoverOrResetPasswordField';
-// import ForgotPasswordField from 'src/components/ForgotPasswordField';
-{/* <ForgotPasswordField changeLoginForgottenStatus={changeLoginForgottenStatus}/> */}
 
 import styles from './SidebarLoginRegister.module.css';
 
@@ -21,7 +19,7 @@ const SidebarLoginRegister:FC = () => {
     
     {
       name: 'login',
-      panel: loginForgotten ? <RecoverOrResetPasswordField type={'recover'} footerAction={goToRecoverPassword}/> : <LoginField goToRecoverPassword={goToRecoverPassword}/>
+      panel: loginForgotten ? <RecoverOrResetPasswordField type={'reset'} footerAction={goToRecoverPassword}/> : <LoginField goToRecoverPassword={goToRecoverPassword}/>
     },
   ]
 
