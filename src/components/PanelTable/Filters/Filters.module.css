@@ -1,0 +1,76 @@
+.Filter {
+  padding: 0 20px;
+  height: 40px;
+  width: 235px;
+  border: 1px solid #d6d6d6;
+  border-radius: 5px;
+  color: #888888;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.Filter_DropDown {
+  padding: 0 50px 0 50px;
+  color: #888888;
+  font-weight: bold;
+  background-color: transparent;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: none;
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 3;
+}
+
+.Filter-Menu {
+  width: 235px;
+}
+
+.Filter-MenuItem {
+  padding-left: 45px;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-bottom: 1px solid #d6d6d6;
+}
+
+.Filter-MenuItem div {
+  display: flex;
+  align-items: center;
+}
+
+.Filter-MenuItem div:not(:last-child) {
+  margin-right: 10px;
+}
+
+.Filter-MenuItem:hover {
+  color: #fff;
+  background-color: #deb851;
+}
+
+.Filter-Arrow {
+  height: 10px;
+  width: 10px;
+  border-left: 2px solid;
+  border-bottom: 2px solid;
+  border-color: #888888;
+  transform: rotate(-45deg);
+}
+
+.Filter-Location {
+  width: 423px;
+}
+
+.Filter-MenuItem_Location {
+  padding-left: 20px;
+}
+
+.Filter-Menu_Location {
+  width: 423px;
+}

@@ -9,6 +9,7 @@ import clsx from "clsx";
 interface DropDownProps {
   className?: string;
   menuClassName?: string;
+  defaultValue: string;
   options: { [key: string]: any }[];
   renderOptions: (agr: any) => ReactElement;
   onChange: (value: any) => void;
@@ -20,13 +21,14 @@ export const DropDown: FC<DropDownProps> = ({
   menuClassName,
   className,
   options,
+  defaultValue,
   onChange,
   renderOptions,
   optionsPropsToFilter,
   withSearch = false,
 }) => {
   const [filter, setFilter] = useState("");
-  const [selectItem, setSelectItem] = useState("None");
+  const [selectItem, setSelectItem] = useState(defaultValue);
 
   return (
     <Menu
@@ -34,6 +36,11 @@ export const DropDown: FC<DropDownProps> = ({
       menuButton={<MenuButton className={className}>{selectItem}</MenuButton>}
       direction="bottom"
       onItemClick={({ value }) => {
+        if (value === selectItem) {
+          setSelectItem(defaultValue);
+          onChange("");
+          return;
+        }
         setSelectItem(value);
         onChange(value);
       }}
