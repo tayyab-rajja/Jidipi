@@ -1,0 +1,73 @@
+##################################################################################################
+# blog services
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: __SLUG__
+  labels:
+    app: __SLUG__
+    service: __SLUG__
+spec:
+  ports:
+  - port: 80
+    name: http
+  selector:
+    app: __SLUG__
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: __SLUG__
+  labels:
+    app: __SLUG__
+    version: v1
+spec:
+  replicas: __REPLICAS__
+  selector:
+    matchLabels:
+      app: __SLUG__
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: __SLUG__
+        version: v1
+    spec:
+      serviceAccountName: jidipi-blog
+      imagePullSecrets:
+        - name: registry-jidipi
+      containers:
+      - name: __SLUG__
+        image: registry.digitalocean.com/jidipi/blog:__CI_COMMIT_BRANCH__ # blog:test # latest # __CI_COMMIT_BRANCH__
+        imagePullPolicy: Always
+        env:
+          - name: sha
+            value: SHA__CI_COMMIT_SHORT_SHA__
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+#        securityContext:
+#          runAsUser: 1001
+#          runAsNonRoot: true
+      volumes:
+      - name: tmp
+        emptyDir: {}
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: __SLUG__
+spec:
+  hosts:
+      - '__SUBDOMAIN__.__DOMAIN__'
+  gateways:
+    - common-gateway
+  http:
+    - route:
+      - destination:
+          host: __SLUG__
+          port:
+            number: 3000

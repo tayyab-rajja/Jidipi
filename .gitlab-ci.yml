@@ -1,0 +1,77 @@
+image: docker:stable
+
+variables:
+  DOCKER_HOST: tcp://docker:2376
+  DOCKER_TLS_CERTDIR: "/certs"
+  DOCKER_TLS_VERIFY: 1
+  DOCKER_CERT_PATH: "$DOCKER_TLS_CERTDIR/client"
+
+services:
+  - docker:dind
+################### NEW TO DO K8S
+before_script:
+  - echo $CI_COMMIT_BRANCH
+  # https://gitlab.com/gitlab-org/gitlab-runner/-/issues/27384#note_497228752
+  - |
+    for i in $(seq 1 30)
+    do
+        docker info && break
+        echo "Waiting for docker to start"
+        sleep 1s
+    done
+
+  - mv cicd/Dockerfile Dockerfile
+  - if [[ $CI_COMMIT_BRANCH != "master" ]]; then sed -i 's/###DEV //g'  Dockerfile; fi
+  - if [[ $CI_COMMIT_BRANCH == "master" ]]; then sed -i 's/###PRO //g'  Dockerfile; fi
+  - if [[ $CI_COMMIT_BRANCH == "master" ]]; then SLUG="blog"; else SLUG="blog-"$CI_COMMIT_BRANCH; fi
+  - if [[ $CI_COMMIT_BRANCH == "master" ]]; then REPLICAS=3; else REPLICAS=1; fi
+  - if [[ $CI_COMMIT_BRANCH == "master" ]]; then TIER="live"; else TIER="staging"; fi
+#  - DOMAIN = 'dev.jidipi.com'
+  - if [[ $CI_COMMIT_BRANCH == "master" ]]; then  DOMAIN='jidipi.com'; else  DOMAIN='dev.jidipi.com'; fi
+  - if [[ $CI_COMMIT_BRANCH == "master" ]]; then SUBDOMAIN="blog"; else SUBDOMAIN="blog-"$CI_COMMIT_BRANCH; fi
+  - if [[ $CI_COMMIT_BRANCH == "master" ]]; then BACKENDURL="blog"; else SUBDOMAIN="blog-"$CI_COMMIT_BRANCH; fi
+  - echo ">>>>>>>>>>>>>>"$SLUG$REPLICAS$TIER
+  - sed -i "s/__SLUG__/${SLUG}/" cicd/k8s.yaml
+  - sed -i "s/__REPLICAS__/${REPLICAS}/" cicd/k8s.yaml
+  - sed -i "s/__CI_COMMIT_BRANCH__/${CI_COMMIT_BRANCH}/" cicd/k8s.yaml
+  - sed -i "s/__DOMAIN__/${DOMAIN}/" cicd/k8s.yaml
+  - sed -i "s/__SUBDOMAIN__/${SUBDOMAIN}/" cicd/k8s.yaml
+  - sed -i "s/__CI_COMMIT_SHORT_SHA__/${CI_COMMIT_SHORT_SHA}/" cicd/k8s.yaml
+  - echo '+++++++++++++++++++++++++++++'
+  - cat cicd/k8s.yaml
+  - echo '+++++++++++++++++++++++++++++'
+#  - export NEW_VAR=$KUBE_CONFIG
+stages:
+  - build
+  - release
+#  - cleanup
+#-
+docker_build:
+  stage: build
+  only:
+    - main
+    - ruo
+
+  #  services:
+#    - docker:dind
+  # https://docs.gitlab.com/ee/ci/docker/using_docker_build.html
+  script:
+    - docker login  $REGISTER_URL -u $DO_USER_TOKEN -p $DO_CLUSTER_TOEKN
+    - docker build --network host -t blog:${CI_COMMIT_BRANCH} .
+    - docker tag blog:${CI_COMMIT_BRANCH} registry.digitalocean.com/jidipi/blog:${CI_COMMIT_BRANCH}
+    - docker push registry.digitalocean.com/jidipi/blog:${CI_COMMIT_BRANCH}
+
+
+release:
+  stage: release
+  only:
+    - main
+    - ruo
+  image:
+    name: bitnami/kubectl:latest
+    entrypoint: [""]
+  environment:
+    name: review/$CI_COMMIT_BRANCH
+    url: https://$SUBDOMAIN.$DOMAIN
+  script:
+    - kubectl  --kubeconfig $KUBE_CONFIG apply -f cicd/k8s.yaml
