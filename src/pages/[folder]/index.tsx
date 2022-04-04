@@ -76,14 +76,9 @@ export const getServerSideProps: GetServerSideProps = async ({
   );
 
   try {
-    const responsePosts = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/post/public/${currentPageFolder?._id}?pageNumber=0&pageSize=100&language=EN`
-    );
     const responseSidebarCategories = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/category?pageFolderId=${currentPageFolder?._id}`
     );
-
-    const postsFromApi = await responsePosts.json();
     const sidebarCategoriesFromApi = await responseSidebarCategories.json();
 
     posts = {
@@ -103,4 +98,19 @@ export const getServerSideProps: GetServerSideProps = async ({
       pageFolders,
     },
   };
+};
+
+// TODO: check qs
+const getPosts = async (folderId: string, qs: string) => {
+  if (!folderId) {
+    // TO DO: Check is folderId is null
+  }
+
+  const responsePosts = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/post/public/${folderId}?${qs}`
+  );
+
+  const postsFromApi = await responsePosts.json();
+
+  return postsFromApi;
 };
