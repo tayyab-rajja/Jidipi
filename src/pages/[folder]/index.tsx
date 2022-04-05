@@ -2,7 +2,6 @@ import { changePostsData } from "helpers/changePostsData";
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { fetchPageFolders } from "src/api/fetchPageFolders";
@@ -103,14 +102,15 @@ export const getServerSideProps: GetServerSideProps = async ({
   posts = {
     posts: changePostsData(postsFromApi.posts),
   };
-  sidebarCategories = responseSidebarCategories;
+
+  console.log(responseSidebarCategories);
 
   return {
     notFound: !currentPageFolder,
     props: {
       ...(await serverSideTranslations(locale as string, ["common"])),
       posts,
-      sidebarCategories,
+      sidebarCategories: responseSidebarCategories,
       pageFolders,
     },
   };
