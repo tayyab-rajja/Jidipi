@@ -8,15 +8,15 @@ import styles from './AvatarCurrent.module.css'
 import cloudIcon from 'public/icon-cloud.svg'
 
 interface Props {
-  currentAvatar?: string | HTMLImageElement | undefined;
-  resetAvatar: () => void;
+  currentAvatar: string | null;
+  chooseAvatar: (arg: null) => void;
 }
 
-const AvatarCurrent:FC<Props> = ({currentAvatar, resetAvatar}) => {
+const AvatarCurrent:FC<Props> = ({currentAvatar, chooseAvatar}) => {
   const content = currentAvatar ?
     <>
       <Image src={currentAvatar} alt='avatar' objectFit='cover' width={200} height={200} />
-      <span className={styles['Container-DeleteAvatar']} onClick={resetAvatar}>x</span>
+      <span className={styles['Container-DeleteAvatar']} onClick={() => chooseAvatar(null)}>x</span>
     </>
     :
     <>

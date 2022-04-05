@@ -5,40 +5,26 @@ import clsx from 'clsx'
 
 import styles from './AvatarsCatalog.module.css'
 
-// const avatarsArray = [
-//   '/images/avatars-icons/reader-w-01.png',
-//   '/images/avatars-icons/reader-w-02.png',
-//   '/images/avatars-icons/reader-w-03.png',
-//   '/images/avatars-icons/reader-w-05.png',
-//   '/images/avatars-icons/reader-w-07.png',
-//   '/images/avatars-icons/reader-m-31.png',
-//   '/images/avatars-icons/reader-m-43.png',
-//   '/images/avatars-icons/reader-m-44.png',
-//   '/images/avatars-icons/reader-m-45.png',
-//   '/images/avatars-icons/reader-m-46.png',
-// ]
+const avatarsDefault = [
+  {url: '/images/avatars-icons/reader-w-01.png', choosed: false},
+  {url: '/images/avatars-icons/reader-w-02.png', choosed: false},
+  {url: '/images/avatars-icons/reader-w-03.png', choosed: false},
+  {url: '/images/avatars-icons/reader-w-05.png', choosed: false},
+  {url: '/images/avatars-icons/reader-w-07.png', choosed: false},
+  {url: '/images/avatars-icons/reader-m-31.png', choosed: false},
+  {url: '/images/avatars-icons/reader-m-43.png', choosed: false},
+  {url: '/images/avatars-icons/reader-m-44.png', choosed: false},
+  {url: '/images/avatars-icons/reader-m-45.png', choosed: false},
+  {url: '/images/avatars-icons/reader-m-46.png', choosed: false},
+]
 
 interface Props {
   chooseAvatar: (url: string) => void;
-  avatars: Array<{url: string, choosed: boolean}>;
+  currentAvatar: string | null;
 }
 
-const AvatarsCatalog:FC<Props> = ({chooseAvatar, avatars: propAvatars}) => {
-  const [avatars, setAvatars] = useState(propAvatars)
-
-  const decorateChoosedAvatar = (index: number): void => {
-    setAvatars(prevState => prevState.map((prevAvatar, prevIndex) => {
-      if (prevIndex === index) {
-        return {url: prevAvatar.url, choosed: true}
-      }
-
-      return {url: prevAvatar.url, choosed: false}
-    }))
-  }
-
-  useEffect(() => {
-    setAvatars(propAvatars);
-  }, [propAvatars])
+const AvatarsCatalog:FC<Props> = ({chooseAvatar, currentAvatar}) => {
+  const [avatars, setAvatars] = useState(avatarsDefault)
 
   return (
     <div>
@@ -50,10 +36,9 @@ const AvatarsCatalog:FC<Props> = ({chooseAvatar, avatars: propAvatars}) => {
             <div
               key={index}
               className={clsx(styles['AvatarWrapper'])}
-              data-choosed={avatar.choosed}
+              data-choosed={avatar.url === currentAvatar}
               onClick={() => {
                 chooseAvatar(avatar.url)
-                decorateChoosedAvatar(index)
               }}
             >
               <Image
