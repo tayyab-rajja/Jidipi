@@ -1,7 +1,3 @@
-.PanelTable {
-  height: 1500px;
-}
-
 .PanelTable-TabList[data-reach-tab-list] {
   background-color: transparent;
 }

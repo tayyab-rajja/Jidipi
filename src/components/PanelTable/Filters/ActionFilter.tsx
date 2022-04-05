@@ -1,8 +1,10 @@
+import Image from "next/image";
 import { MenuItem } from "@szhsin/react-menu";
 
 import { DropDown } from "src/components/DropDown/DropDown";
 
 import { categoriesSvg } from "constant/categoriesSvg";
+import actionIcon from "public/images/actionIcon.svg";
 
 import styles from "./Filters.module.css";
 
@@ -24,8 +26,7 @@ const actionOptions = [
 export const ActionFilter = () => {
   return (
     <div className={styles["Filter"]}>
-      {/* TODO: set icon */}
-      {categoriesSvg["DATE"]}
+      <Image src={actionIcon} width={15} height={15} alt="Action" />
       <DropDown
         defaultValue="Action"
         className={styles["Filter_DropDown"]}

@@ -71,7 +71,7 @@ const PanelTable = () => {
     location: "",
     language: "",
     all: "",
-    searchValue: "",
+    searchValues: [],
   });
 
   const updateMyData: UpdateMyData = (value, rowIndex, columnId) => {

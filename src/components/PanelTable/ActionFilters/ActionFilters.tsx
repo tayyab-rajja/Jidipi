@@ -4,7 +4,7 @@ import {
   LanguageFilter,
   LocationFilter,
 } from "../Filters";
-import { Input } from "src/components/Input/Input";
+import { SearchInput } from "src/components/Input/SearchInput";
 
 import styles from "./ActionFilters.module.css";
 
@@ -17,7 +17,7 @@ export const ActionFilters = () => {
         <LocationFilter />
         <AllFilter />
       </div>
-      <Input />
+      <SearchInput onChange={() => {}} />
     </div>
   );
 };

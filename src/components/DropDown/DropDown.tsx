@@ -1,10 +1,12 @@
-import { FC, ReactElement, useEffect, useState } from "react";
-import { Menu, MenuItem, FocusableItem, MenuButton } from "@szhsin/react-menu";
-
-import "@szhsin/react-menu/dist/index.css";
-import styles from "./DropDown.module.css";
-import { categoriesSvg } from "constant/categoriesSvg";
 import clsx from "clsx";
+import Image from "next/image";
+import { FC, ReactElement, useState } from "react";
+import { Menu, FocusableItem, MenuButton } from "@szhsin/react-menu";
+
+import searchIcon from "public/images/searchIcon.svg";
+
+import styles from "./DropDown.module.css";
+import "@szhsin/react-menu/dist/index.css";
 
 interface DropDownProps {
   className?: string;
@@ -53,13 +55,13 @@ export const DropDown: FC<DropDownProps> = ({
           {({ ref }) => (
             <div className={styles["Menu-InputContainer"]}>
               <div className={styles["Menu-InputSearchIcon"]}>
-                {categoriesSvg["DATE"]}
+                <Image src={searchIcon} width={15} height={15} alt="Search" />
               </div>
               <input
                 ref={ref}
                 className={styles["Menu-Input"]}
                 type="text"
-                placeholder="Type to filter"
+                placeholder="Search"
                 value={filter}
                 onChange={(e) => setFilter(e.target.value.trim())}
               />
