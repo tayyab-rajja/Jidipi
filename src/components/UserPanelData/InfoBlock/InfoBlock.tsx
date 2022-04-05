@@ -1,4 +1,4 @@
-import { categoriesSvg } from "constant/categoriesSvg";
+import { infoBlockSvgs } from "constant/infoBlockSvgs";
 import { FC } from "react";
 import styles from "./InfoBlock.module.css";
 
@@ -12,7 +12,7 @@ const InfoBlock: FC<InfoBlockProps> = ({ text, title, type }) => {
   return (
     <div className={styles["InfoBlock"]}>
       <div className={styles["InfoBlock-ImgWrapper"]}>
-        {categoriesSvg[type]}
+        {infoBlockSvgs[type]}
       </div>
       <div className={styles["InfoBlock-Hero"]}>
         <h4>{title}</h4>

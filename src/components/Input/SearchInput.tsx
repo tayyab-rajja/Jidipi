@@ -81,6 +81,7 @@ export const SearchInput: FC<SearchInputProps> = ({ onChange }) => {
         onInputChange={handleInputChange}
         onKeyDown={handleKeyDown}
         components={components}
+        placeholder="Search"
       />
     </div>
   );

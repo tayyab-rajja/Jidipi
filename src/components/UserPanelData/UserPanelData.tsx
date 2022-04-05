@@ -7,22 +7,22 @@ const UserPanelData = () => {
     {
       title: "Title",
       text: "Text text",
-      type: "DESIGNER",
+      type: "USER",
     },
     {
       title: "Title",
       text: "Text text",
-      type: "DESIGNER",
+      type: "HOURS",
     },
     {
       title: "Title",
       text: "Text text",
-      type: "DESIGNER",
+      type: "POSTS",
     },
     {
       title: "Title",
       text: "Text text",
-      type: "DESIGNER",
+      type: "FAVORITE",
     },
   ];
   return (
