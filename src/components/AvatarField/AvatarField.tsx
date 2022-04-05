@@ -12,11 +12,9 @@ const AvatarField:FC = () => {
   const [currentAvatar, setCurrentAvatar] = useState<string | undefined>(undefined);
   let prevAvatar;
 
-  const chooseAvatar = (url:string | undefined): any => {
-    return () => {
-      prevAvatar = currentAvatar
-      setCurrentAvatar(url)
-    }
+  const chooseAvatar = (url:string | undefined): void => {
+    prevAvatar = currentAvatar
+    setCurrentAvatar(url)
   }
   
   return (

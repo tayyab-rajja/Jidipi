@@ -19,13 +19,13 @@ const avatarsArray = [
 ]
 
 interface Props {
-  chooseAvatar: (url: string) => any;
+  chooseAvatar: (url: string) => void;
   choosed?: boolean;
 }
 
 const AvatarsCatalog:FC<Props> = ({chooseAvatar, choosed = false}) => {
   const [isChoosed, setIsChoosed] = useState(choosed);
-  
+
   return (
     <div>
       <p className={clsx(styles['Text'], styles['Body-Text'])}>Or select an avatar from our template</p>
@@ -41,7 +41,7 @@ const AvatarsCatalog:FC<Props> = ({chooseAvatar, choosed = false}) => {
               height={80}
               className={styles['Avatar']}
               data-choosed={isChoosed}
-              onClick={chooseAvatar(avatarsArray[index])}
+              onClick={() => chooseAvatar(avatarsArray[index])}
             />
           )
         })}
