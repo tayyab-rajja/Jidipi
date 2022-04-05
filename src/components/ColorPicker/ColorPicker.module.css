@@ -37,17 +37,35 @@
     height: 28px;
     background-color: #FFFFFF;
     border: 1px solid #D6D6D6;
-    padding: 8px 44px;
+    padding: 6px 20px;
     color: #888888;
     font-size: 9px;
     font-weight: medium;
-    text-align: center;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.ColorPicker-Button svg {
+    margin-right: 16px;
+}
+
+.ColorPicker-Button:last-child svg {
+    margin-right: 13px;
+}
+
+.ColorPicker-Button svg path {
+    fill: #888888;
 }
 
 .ColorPicker-Button:hover {
     background-color: #DEB851;
     color: #fff;
+}
+
+.ColorPicker-Button:hover svg path,
+.ColorPicker-Button:active svg path {
+    fill: #fff;
 }
 
 .ColorPicker-Button:active {
