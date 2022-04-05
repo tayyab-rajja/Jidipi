@@ -14,6 +14,7 @@ import { Post } from "types/postTypes";
 import { fetchPosts } from "src/api/fetchPosts";
 import qs from "qs";
 import { fetchCategoriesList } from "src/api/fetchCategoriesList";
+import Masonry from "react-masonry-css";
 
 interface Props {
   pageFolders: PageFolder[];
@@ -40,18 +41,30 @@ const FolderPage = ({ pageFolders, posts, sidebarCategories }: Props) => {
         SidebarComponent={<Sidebar sidebarCategories={sidebarCategories} />}
         pageFolders={pageFolders}
       >
-        {postsData.map(({ title, categories, image, id, slug }) => (
-          <div key={id} style={{ width: 450, margin: "0 20px 20px 0" }}>
-            <Card
-              id={id}
-              folder={query.folder as string}
-              slug={slug}
-              title={title}
-              categories={categories}
-              image={image}
-            />
-          </div>
-        ))}
+        <Masonry
+          breakpointCols={{
+            default: 5,
+            1980: 4,
+            1268: 3,
+            960: 2,
+            500: 1,
+          }}
+          className="my-masonry-grid"
+          columnClassName="my-masonry-grid_column"
+        >
+          {postsData.map(({ title, categories, image, id, slug }) => (
+            <div key={id}>
+              <Card
+                id={id}
+                folder={query.folder as string}
+                slug={slug}
+                title={title}
+                categories={categories}
+                image={image}
+              />
+            </div>
+          ))}
+        </Masonry>
       </Layout>
     </div>
   );
