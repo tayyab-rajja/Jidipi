@@ -9,14 +9,14 @@ import cloudIcon from 'public/icon-cloud.svg'
 
 interface Props {
   currentAvatar?: string | HTMLImageElement | undefined;
-  chooseAvatar: (url: string | undefined) => void;
+  resetAvatar: () => void;
 }
 
-const AvatarCurrent:FC<Props> = ({currentAvatar, chooseAvatar}) => {
+const AvatarCurrent:FC<Props> = ({currentAvatar, resetAvatar}) => {
   const content = currentAvatar ?
     <>
       <Image src={currentAvatar} alt='avatar' objectFit='cover' width={200} height={200} />
-      <span className={styles['Container-DeleteAvatar']} onClick={() => chooseAvatar(undefined)}>x</span>
+      <span className={styles['Container-DeleteAvatar']} onClick={resetAvatar}>x</span>
     </>
     :
     <>
