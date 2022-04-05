@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
-import LabelsList from "../LabelsList";
 import AddLabelForm from "./AddLabelForm/AddLabelForm";
 import FolderItem from "./FolderItem/FolderItem";
+import LabelItem from "./LabelItem/LabelItem";
 
 import styles from './SaveInFolderSidebar.module.css';
 
@@ -102,7 +102,9 @@ export const SaveInFolderSidebar: FC = () => {
                 </ul>
                 {showElement.addLabelBtn && <div className={`${styles["Sidebar-Button"]} ${styles["Text"]}`} onClick={() => handleClickItem('addLabelForm')}>add label</div>} 
             </div>
-            <LabelsList labelsList={labelsList} />
+            <ul className={styles["LabelsList"]}>
+                {labelsList.map((label, i) => <LabelItem key={i} title={label} />)}
+            </ul>
             {showElement.addLabelForm && <AddLabelForm hideAddLableForm={() => hideAddLableForm('addLabelForm')} createLabel={createLabel}/>}
         </div>
     )

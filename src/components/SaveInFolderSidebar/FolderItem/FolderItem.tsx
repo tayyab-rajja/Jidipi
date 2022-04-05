@@ -2,6 +2,7 @@ import { FC, MouseEvent } from 'react';
 
 import clsx from 'clsx';
 import styles from './FolderItem.module.css';
+import { sidebarSvg } from 'constant/sidebarSvg';
 interface Props {
     folderName: string,
     handleClickItem: () => void,
@@ -24,7 +25,7 @@ const FolderItem: FC<Props> = ({folderName, handleClickItem, isSelected, cancelS
                 {folderName}
             </span>
             <span className={styles["Sidebar-FolderItem_Icon"]} onClick={handleClick}>
-                {/* Icon to be added */}
+                {isSelected ? sidebarSvg["CLOSE"] : sidebarSvg["STAR"]}
             </span>
         </li>
     )
