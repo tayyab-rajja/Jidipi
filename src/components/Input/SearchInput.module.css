@@ -1,0 +1,33 @@
+.Input {
+  padding-left: 30px;
+  width: 100%;
+  display: flex;
+  border: 1px solid #d6d6d6;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Input [class$="-container"] {
+  padding-left: 10px;
+  flex-grow: 1;
+  height: 100%;
+}
+
+.Input [class$="-control"] {
+  border: none;
+  box-shadow: none;
+}
+
+.Input [class$="-control"]:hover {
+  border: none;
+}
+
+.Input [class$="-multiValue"] {
+  background-color: #373737;
+}
+
+.Input [class$="-multiValue"] div {
+  background-color: #373737;
+  color: #fff;
+}
