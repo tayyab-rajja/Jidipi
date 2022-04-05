@@ -10,6 +10,9 @@ import Sidebar from "src/components/Sidebar";
 import { fetchPageFolders } from "src/api/fetchPageFolders";
 
 import { changePostsData } from "helpers/changePostsData";
+import FavoratePost from "src/components/FavoratePost/FavoratePost";
+import UserPanelData from "src/components/UserPanelData/UserPanelData";
+import PanelTable from "src/components/PanelTable/PanelTable";
 
 import { Post } from "types/postTypes";
 import { PageFolder } from "types/pageFolderType";
