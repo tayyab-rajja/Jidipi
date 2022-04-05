@@ -1,0 +1,99 @@
+.Sidebar {
+    width: 300px;
+    background-color: #fff;
+}
+
+.Sidebar-Title {
+    border-bottom: 2px solid #D6D6D6;
+    text-transform: uppercase;
+    color: #888888;
+    font-size: 11px;
+    padding: 20px;
+    margin-top: 60px;
+}
+
+.Sidebar-Links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.Sidebar-LinksItem {
+    color: #888;
+    font-size: 11px;
+    padding: 20px 20px 20px 26px;
+    border-bottom: 2px solid #D6D6D6;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.Sidebar-LinksItem span svg path {
+    fill: #D6D6D6;
+}
+
+.Sidebar-LinksItem:hover {
+    background-color: #DEB851;
+}
+
+.Sidebar-LinksItem:hover a {
+    color: #fff;
+}
+
+.Sidebar-LinksItem:hover .Sidebar-LinksItem_Icon::before,
+.Sidebar-LinksItem:hover .Sidebar-LinksItem_Icon::after {
+    content: '';
+    width: 24px;
+    height: 24px;
+    border: 1px solid rgba(214, 214, 214, 0.6);
+    border-radius: 50%;
+    position: absolute;
+    padding: 5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.Sidebar-LinksItem:hover .Sidebar-LinksItem_Icon::after {
+    padding: 3px;
+}
+
+.Sidebar-LinksItem:last-child:hover .Sidebar-LinksItem_Icon::after {
+    display: none;
+}
+
+.Sidebar-LinksItem:hover span svg path {
+    fill: #fff;
+}
+
+.Sidebar-LinksItem_Icon {
+    position: relative;
+}
+
+.Sidebar-LinksItem_Text {
+    margin-left: 20px;
+}
+
+.Sidebar-LinksItem:last-child:active {
+    background-color: #373737;
+    color: #fff;
+}
+
+.Sidebar-LinksItem:last-child:active .Sidebar-LinksItem_Text::before {
+    content: 'link copied';
+    background-color: #DEB851;
+    position: absolute;
+    box-sizing: border-box;
+    padding: 4px 14px;
+    border-radius: 4px;
+    right: 8px;
+    top: 46px;
+    width: 80px;
+    height: 20px;
+    text-align: center;
+    font-size: 9px;
+    line-height: 12px;
+    color: #fff;    
+}

@@ -1,25 +1,33 @@
-import type { GetServerSideProps } from "next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
+import type { GetServerSideProps } from "next";
 
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
 
 import Card from "src/components/Card";
 import Layout from "src/components/Layout";
+import Sidebar from "src/components/Sidebar";
+import { fetchPageFolders } from "src/api/fetchPageFolders";
 
 import { changePostsData } from "helpers/changePostsData";
 import FavoratePost from "src/components/FavoratePost/FavoratePost";
 import UserPanelData from "src/components/UserPanelData/UserPanelData";
 import PanelTable from "src/components/PanelTable/PanelTable";
 
+import { Post } from "types/postTypes";
+import { PageFolder } from "types/pageFolderType";
 interface Props {
-  posts: any;
+  pageFolders: PageFolder[];
+  posts: {
+    posts: [] | Post[];
+    total: number;
+  };
+  sidebarCategories: any;
 }
 
-const Home = ({ posts }: Props) => {
+const Home = ({ pageFolders, posts, sidebarCategories }: Props) => {
   const { t } = useTranslation();
-
-  const data = changePostsData(posts.posts);
+  const postsData: Post[] = posts.posts;
 
   return (
     <div>
@@ -29,11 +37,22 @@ const Home = ({ posts }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Layout>
-        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-          <UserPanelData />
-          <PanelTable />
-        </div>
+      <Layout
+        SidebarComponent={<Sidebar sidebarCategories={sidebarCategories} />}
+        pageFolders={pageFolders}
+      >
+        {postsData.map(({ title, categories, image, id, slug }, index) => (
+          <div key={index} style={{ width: 450, margin: "0 20px 20px 0" }}>
+            <Card
+              title={title}
+              categories={categories}
+              image={image}
+              id={id}
+              slug={slug}
+              folder={""}
+            />
+          </div>
+        ))}
       </Layout>
     </div>
   );
@@ -42,22 +61,38 @@ const Home = ({ posts }: Props) => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-  const responsePosts = await fetch(
-    "https://api.jidipi.com/api/v1/post/public/603dc78958c5c6279bc2ed9b?pageNumber=0&pageSize=100&language=EN"
-  );
+  let posts = {};
+  let sidebarCategories = [];
+  let pageFolders: PageFolder[] = [];
 
-  const responseSidebarCategories = await fetch(
-    "https://api.jidipi.com/api/v1/category?pageFolderId=603ce60958c5c6279bc2ed96"
-  );
+  try {
+    const responsePosts = await fetch(
+      "https://api.jidipi.com/api/v1/post/public/603ce60958c5c6279bc2ed96?pageNumber=0&pageSize=100&language=EN"
+    );
+    const responseSidebarCategories = await fetch(
+      "https://api.jidipi.com/api/v1/category?pageFolderId=603ce60958c5c6279bc2ed96"
+    );
 
-  const posts = await responsePosts.json();
-  const sidebarCategories = await responseSidebarCategories.json();
+    const postsFromApi = await responsePosts.json();
+    const sidebarCategoriesFromApi = await responseSidebarCategories.json();
+
+    posts = {
+      ...postsFromApi,
+      posts: changePostsData(postsFromApi.posts),
+    };
+    sidebarCategories = sidebarCategoriesFromApi;
+
+    pageFolders = await fetchPageFolders();
+  } catch (e) {
+    console.log(e);
+  }
 
   return {
     props: {
       ...(await serverSideTranslations(locale as string, ["common"])),
-      posts: posts,
-      sidebarCategories: sidebarCategories,
+      posts,
+      sidebarCategories,
+      pageFolders,
     },
   };
 };

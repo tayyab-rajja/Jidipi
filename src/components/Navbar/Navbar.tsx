@@ -1,49 +1,37 @@
 import Link from "next/link";
+import { usePageFolders } from "src/api/usePageFolders";
+
+import { PageFolder } from "types/pageFolderType";
 
 import styles from "./Navbar.module.css";
 
-export const Navbar = () => {
+interface Props {
+  pageFolders: PageFolder[];
+}
+
+export const Navbar = ({ pageFolders }: Props) => {
+  const navBarItems = pageFolders?.filter(
+    (pageFolder) =>
+      pageFolder.pageType === "PROJECT" || pageFolder.pageType === "PRODUCT"
+  );
+
   return (
     <header className={styles["Navbar"]}>
       <h1 className={styles["Navbar-Title"]}>jidipi</h1>
       <nav className={styles["Navbar-Menu"]}>
-        <ul>
-          <li className={styles["Navbar-ActiveTab"]}>
-            <Link href="#">
-              <a>home</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="#">
-              <a>architectures</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="#">
-              <a>interiors</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="#">
-              <a>constructions</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="#">
-              <a>electronics</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="#">
-              <a>furniture</a>
-            </Link>
-          </li>
-          <li>
-            <Link href="#">
-              <a>goods</a>
-            </Link>
-          </li>
-        </ul>
+        {navBarItems && (
+          <ul>
+            {navBarItems.map((item) => {
+              return (
+                <li key={item._id}>
+                  <Link href={`/${item.subDomain}`}>
+                    <a>{item.title}</a>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </nav>
       <div className={styles["Navbar-User"]}>
         <svg

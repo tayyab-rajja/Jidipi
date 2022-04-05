@@ -25,3 +25,7 @@
 .Card-Title {
   margin: 16px 0 0 0;
 }
+
+.Card-Image {
+  object-fit: cover;
+}

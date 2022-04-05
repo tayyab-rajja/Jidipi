@@ -1,6 +1,9 @@
-import { Posts } from "types/postTypes";
+import { Post } from "types/postTypes";
 
 export const getPostCategories = (post: any, withoutCategory?: string) => {
+  if (!post) {
+    return [];
+  }
   const categories = [
     {
       title: new Date(post.publishedDate).toDateString(),
@@ -9,10 +12,11 @@ export const getPostCategories = (post: any, withoutCategory?: string) => {
   ];
 
   for (const key in post) {
-    if (
+    const isWithoutCategory =
       withoutCategory &&
-      key.toLocaleLowerCase().includes(withoutCategory.toLocaleLowerCase())
-    ) {
+      key.toLocaleLowerCase().includes(withoutCategory.toLocaleLowerCase());
+
+    if (isWithoutCategory) {
       continue;
     }
 
@@ -36,21 +40,18 @@ export const getPostCategories = (post: any, withoutCategory?: string) => {
   return categories;
 };
 
-export const changePostsData = (posts: []): Posts[] | [] => {
+export const changePostsData = (posts: any[]): Post[] | [] => {
   if (!posts || !posts.length) {
     return [];
   }
 
-  const newPosts: Posts[] = posts.map((post: any) => {
-    const newPost = {
-      title: post.title,
-      image: post.featuredImage?.liveURL,
-      id: post.postUniqueId,
-      categories: getPostCategories(post),
-    };
-
-    return newPost;
-  });
+  const newPosts: Post[] = posts.map((post: any) => ({
+    title: post.title,
+    image: post.featuredImage?.liveURL || null,
+    id: post.postUniqueId,
+    categories: getPostCategories(post),
+    slug: post.slug,
+  }));
 
   return newPosts;
 };
