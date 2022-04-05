@@ -75,3 +75,63 @@
 .Filter-Menu_Location {
   width: 423px;
 }
+
+.PostsPerPage {
+  display: flex;
+  height: 45px;
+}
+
+.PostsPerPage .Filter-Arrow {
+  margin-bottom: 5px;
+  width: 8px;
+  height: 8px;
+}
+
+.PostsPerPage-Filter {
+  padding: 10px;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: #f1f1f1;
+  border: 1px solid #d6d6d6;
+  border-radius: 0 5px 5px 0;
+  position: relative;
+}
+
+.PostsPerPage-Filter_DropDown {
+  color: #888888;
+  font-weight: 500;
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 3;
+}
+
+.PostsPerPage-Filter_Menu {
+  width: 80px;
+  min-width: 80px;
+}
+
+.PostsPerPage-Filter_MenuItem {
+  padding: 16px 0;
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+  border-bottom: 1px solid #d6d6d6;
+}
+
+.PostsPerPage-Title {
+  padding: 0 17px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  color: #888888;
+  border: 1px solid #d6d6d6;
+  border-right: none;
+  border-radius: 5px 0 0 5px;
+}

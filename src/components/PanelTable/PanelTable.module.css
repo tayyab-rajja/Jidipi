@@ -21,3 +21,9 @@
   border: 1px solid #d6d6d6;
   border-top: none;
 }
+
+.PanelTable-ButtomFilters {
+  padding: 45px 0;
+  display: flex;
+  justify-content: space-between;
+}
