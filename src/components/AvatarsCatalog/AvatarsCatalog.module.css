@@ -1,3 +1,13 @@
+.Text {
+  color: #888888;
+  font-size: 11px;
+}
+.Body-Text {
+  margin: 0 0;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
 .Container {
   background-color: white;
   border: 1px solid #D6D6D6;
@@ -13,4 +23,7 @@
 
 .Avatar {
   cursor: pointer;
+}
+.Avatar[data-choosed="true"] {
+  border: 8px solid #DEB851;
 }

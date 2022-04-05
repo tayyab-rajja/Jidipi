@@ -1,4 +1,5 @@
 import {FC, useState} from 'react'
+import clsx from 'clsx'
 
 import styles from './AvatarField.module.css'
 
@@ -19,7 +20,7 @@ const AvatarField:FC = () => {
   }
   
   return (
-    <div>
+    <div className={clsx(styles['Container'], styles['Body-Container'])}>
       <AvatarCurrent currentAvatar={currentAvatar} chooseAvatar={chooseAvatar} />
       
       <AvatarsCatalog chooseAvatar={chooseAvatar} />

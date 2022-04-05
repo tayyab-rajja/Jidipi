@@ -14,6 +14,12 @@
   padding: 50px 50px;
   position: relative;
 }
+.Body-Container {
+  padding: 30px 30px;
+}
+.Body-ContainerWithImage {
+  padding: 0 0;
+}
 
 .Container-DeleteAvatar {
   color: #888888;

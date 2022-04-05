@@ -1,4 +1,4 @@
-import {FC} from 'react'
+import {FC, useState} from 'react'
 import Image from 'next/image'
 
 import clsx from 'clsx'
@@ -20,24 +20,32 @@ const avatarsArray = [
 
 interface Props {
   chooseAvatar: (url: string) => any;
+  choosed?: boolean;
 }
 
-const AvatarsCatalog:FC<Props> = ({chooseAvatar}) => {
+const AvatarsCatalog:FC<Props> = ({chooseAvatar, choosed = false}) => {
+  const [isChoosed, setIsChoosed] = useState(choosed);
+  
   return (
-    <div className={clsx(styles['Container'], styles['Body-Container'])}>
-      {avatarsArray.map((url, index) => {
-        return (
-          <Image
-            key={index}
-            src={url}
-            alt='avatar'
-            width={80}
-            height={80}
-            className={styles['Avatar']}
-            onClick={chooseAvatar(avatarsArray[index])}
-          />
-        )
-      })}
+    <div>
+      <p className={clsx(styles['Text'], styles['Body-Text'])}>Or select an avatar from our template</p>
+      
+      <div className={clsx(styles['Container'], styles['Body-Container'])}>
+        {avatarsArray.map((url, index) => {
+          return (
+            <Image
+              key={index}
+              src={url}
+              alt='avatar'
+              width={80}
+              height={80}
+              className={styles['Avatar']}
+              data-choosed={isChoosed}
+              onClick={chooseAvatar(avatarsArray[index])}
+            />
+          )
+        })}
+      </div>
     </div>
   )
 }

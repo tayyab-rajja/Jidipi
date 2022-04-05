@@ -45,7 +45,7 @@ const AvatarCurrent:FC<Props> = ({currentAvatar, chooseAvatar}) => {
   
   return (
     <div
-      className={clsx(styles['Container'], styles['Body-Container'])}
+      className={clsx(styles['Container'], styles['Body-Container'], currentAvatar && styles['Body-ContainerWithImage'])}
     >
       {content}
     </div>
