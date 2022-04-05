@@ -21,9 +21,10 @@
   padding: 30px 30px;
 }
 
-.Avatar {
+.AvatarWrapper {
   cursor: pointer;
+  border-radius: 50%;
 }
-.Avatar[data-choosed="true"] {
+.AvatarWrapper[data-choosed="true"] {
   border: 8px solid #DEB851;
 }
