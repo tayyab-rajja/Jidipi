@@ -92,12 +92,24 @@
     fill: #fff;
 }
 
-.Links-Item_Icon {
-    display: block;
+.Links-Item.Selected {
+    background-color: #373737;
+    color: #fff;
+}
+
+.Links-Item.Selected a {
+    color: #fff;
+}
+
+.Links-Item.Selected span svg path {
+    fill: #fff;
 }
 
 .Links-Item_Text {
-    display: block;
     margin-left: 28px;
+}
+
+.Links-Item_Arrow {
+    margin-left: auto;
 }
 
