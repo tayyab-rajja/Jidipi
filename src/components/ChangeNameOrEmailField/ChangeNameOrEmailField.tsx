@@ -4,6 +4,7 @@ import ButtonUserData from 'src/components/ButtonUserData';
 import BarForInput from 'src/components/BarForInput';
 import InputUserData from 'src/components/InputUserData';
 import FormUserData from 'src/components/FormUserData';
+import NoValidationText from 'src/components/NoValidationText'
 
 import styles from './ChangeNameOrEmailField.module.css'
 
@@ -37,8 +38,6 @@ const ChangeNameOrEmailField:FC = () => {
       })
     }
   }
-
-  useEffect(() => console.log(inputsState.name))
   
   return (
     <FormUserData>

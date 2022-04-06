@@ -1,0 +1,8 @@
+.Text {
+  color: red;
+  font-size: 8px;
+}
+
+.Text[data-is-invisible] {
+  display: none;
+}
