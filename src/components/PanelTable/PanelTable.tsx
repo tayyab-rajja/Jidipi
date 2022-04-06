@@ -162,14 +162,17 @@ const PanelTable = () => {
           <ActionFilter />
           <PostsPerPage />
         </div>
-        <Pagination
-          pageSize={1}
-          totalCount={199}
-          currentPage={page}
-          onChange={(page) => {
-            setPage(page);
-          }}
-        />
+        <div className={styles["PanelTable-Pagination"]}>
+          <Pagination
+            siblingCount={3}
+            pageSize={1}
+            totalCount={199}
+            currentPage={page}
+            onChange={(page) => {
+              setPage(page);
+            }}
+          />
+        </div>
       </TabPanels>
     </Tabs>
   );

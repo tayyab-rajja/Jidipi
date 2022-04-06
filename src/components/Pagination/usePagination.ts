@@ -3,7 +3,7 @@ import { useMemo } from "react";
 interface usePaginationProps {
   totalCount: number;
   pageSize: number;
-  siblingCount?: number;
+  siblingCount: number;
   currentPage: number;
 }
 
@@ -21,7 +21,7 @@ const range = (start: number, end: number) => {
 export const usePagination = ({
   totalCount,
   pageSize,
-  siblingCount = 1,
+  siblingCount,
   currentPage,
 }: usePaginationProps) => {
   const paginationRange: paginationRange = useMemo(() => {

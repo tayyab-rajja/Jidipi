@@ -8,6 +8,7 @@ import styles from "./Pagination.module.css";
 interface PaginationProps {
   onChange: (page: number) => void;
   totalCount: number;
+  siblingCount?: number;
   pageSize: number;
   currentPage: number;
 }
@@ -15,10 +16,12 @@ interface PaginationProps {
 const Pagination: FC<PaginationProps> = ({
   onChange,
   totalCount,
+  siblingCount = 1,
   pageSize,
   currentPage,
 }) => {
   const paginationRange = usePagination({
+    siblingCount,
     currentPage,
     totalCount,
     pageSize,

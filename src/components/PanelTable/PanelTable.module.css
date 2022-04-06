@@ -27,3 +27,8 @@
   display: flex;
   justify-content: space-between;
 }
+
+.PanelTable-Pagination {
+  padding: 15px 0;
+  background-color: #f1f1f1;
+}
