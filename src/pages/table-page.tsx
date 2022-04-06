@@ -1,12 +1,16 @@
 import Head from "next/head";
+import { GetServerSideProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import Layout from "src/components/Layout";
-import Sidebar from "src/components/Sidebar";
 
-import FavoratePost from "src/components/FavoratePost/FavoratePost";
 import UserPanelData from "src/components/UserPanelData/UserPanelData";
 import PanelTable from "src/components/PanelTable/PanelTable";
 import SidebarWithAvatar from "src/components/SidebarWithAvatar/SidebarWithAvatar";
+
+import { fetchPageFolders } from "src/api/fetchPageFolders";
+
+import { PageFolder } from "types/pageFolderType";
 
 const Home = () => {
   return (
@@ -25,6 +29,23 @@ const Home = () => {
       </Layout>
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  let pageFolders: PageFolder[] = [];
+
+  try {
+    pageFolders = await fetchPageFolders();
+  } catch (e) {
+    console.log(e);
+  }
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string, ["common"])),
+      pageFolders,
+    },
+  };
 };
 
 export default Home;
