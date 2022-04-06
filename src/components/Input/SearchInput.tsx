@@ -6,8 +6,6 @@ import { OnChangeValue } from "react-select";
 
 import searchIcon from "public/images/searchIcon.svg";
 
-import { categoriesSvg } from "constant/categoriesSvg";
-
 import styles from "./SearchInput.module.css";
 
 const components = {
