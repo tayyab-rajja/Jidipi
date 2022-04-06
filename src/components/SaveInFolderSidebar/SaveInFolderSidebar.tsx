@@ -36,13 +36,18 @@ const defaultFolderNames = [
     },
 ]
 
-type State = string[];
+interface LabelItem {
+    title: string,
+    isSelected: boolean,
+}
+
+type State = LabelItem[];
 
 export const SaveInFolderSidebar: FC = () => {
 
     const [showElement, setShowElement] = useState({
         addLabelBtn: false,
-        addLabelForm: false,
+        addLabelFormAndList: false,
     });
 
     const [folderNames, setFolderNames] = useState(defaultFolderNames);
@@ -69,7 +74,11 @@ export const SaveInFolderSidebar: FC = () => {
     }
 
     const createLabel = (labelName: string) => {
-        setLabelsList(labelsList => [...labelsList, labelName])
+        setLabelsList(labelsList => [...labelsList, {
+            title: labelName,
+            isSelected: false
+        }])
+        console.log(labelsList);
     }
 
     const cancelSelectedFolder = (title:string, isSelected:boolean) => {
@@ -81,9 +90,22 @@ export const SaveInFolderSidebar: FC = () => {
         )
         setShowElement({
             addLabelBtn: false,
-            addLabelForm: false,
+            addLabelFormAndList: false,
         });   
 
+    }
+
+    const setSelectedLabel = (title: string) => {
+        setLabelsList((prevState) => prevState.map(
+            (labelItem) => labelItem.title === title ? {...labelItem, isSelected: true} : {...labelItem, isSelected: false})
+        )
+        
+    }
+
+    const deleteLabel = (title: string) => {
+        setLabelsList((prevState) => prevState.filter(
+            labelsName => labelsName.title !== title 
+        ))
     }
 
     return (
@@ -100,12 +122,26 @@ export const SaveInFolderSidebar: FC = () => {
                             cancelSelectedFolder={() => cancelSelectedFolder(title, isSelected)} 
                         />)}
                 </ul>
-                {showElement.addLabelBtn && <div className={`${styles["Sidebar-Button"]} ${styles["Text"]}`} onClick={() => handleClickItem('addLabelForm')}>add label</div>} 
+                {showElement.addLabelBtn && <div className={`${styles["Sidebar-Button"]} ${styles["Text"]}`} onClick={() => handleClickItem('addLabelFormAndList')}>add label</div>} 
             </div>
-            <ul className={styles["LabelsList"]}>
-                {labelsList.map((label, i) => <LabelItem key={i} title={label} />)}
-            </ul>
-            {showElement.addLabelForm && <AddLabelForm hideAddLableForm={() => hideAddLableForm('addLabelForm')} createLabel={createLabel}/>}
+            {showElement.addLabelFormAndList && 
+                <div>
+                    <ul className={styles["LabelsList"]}>
+                    {labelsList.map((label, i) => 
+                        <LabelItem 
+                            key={i} 
+                            title={label.title} 
+                            setSelectedLabel={() => setSelectedLabel(label.title)} 
+                            deleteLabel={() => deleteLabel(label.title)} 
+                            isSelected={label.isSelected} 
+                        />)}
+                    </ul>
+                    <AddLabelForm 
+                        hideAddLableForm={() => hideAddLableForm('addLabelFormAndList')} 
+                        createLabel={createLabel}
+                    />
+                </div>
+            }
         </div>
     )
 }
