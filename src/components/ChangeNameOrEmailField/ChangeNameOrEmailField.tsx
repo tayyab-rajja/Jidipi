@@ -1,4 +1,4 @@
-import {FC, useState} from 'react';
+import {FC, useEffect, useState} from 'react';
 
 import ButtonUserData from 'src/components/ButtonUserData';
 import BarForInput from 'src/components/BarForInput';
@@ -20,16 +20,32 @@ const ChangeNameOrEmailField:FC = () => {
 
   const changeInputUnlock = (input: string) => {
     setInputsState(prevState => {
-      return {...prevState, [input]: {isUnlock: !prevState[input].isUnlock, value: prevState[input].value}}
+      return {
+        ...prevState,
+        [input]: {isUnlock: !prevState[input].isUnlock, value: prevState[input].value}
+      }
     })
   }
 
+  const returnInputValue = (input: string) => {
+    return (value: string) => {
+      setInputsState(prevState => {
+        return {
+          ...prevState,
+          [input]: {isUnlock: prevState[input].isUnlock, value: value}
+        }
+      })
+    }
+  }
+
+  useEffect(() => console.log(inputsState.name))
+  
   return (
     <FormUserData>
       <>
         <BarForInput label='Name' hasSelector isUnlock={inputsState.name.isUnlock} selectorAction={() => changeInputUnlock('name')}/>
 
-        <InputUserData type='text' isUnlock={inputsState.name.isUnlock}/>
+        <InputUserData type='text' isUnlock={inputsState.name.isUnlock} returnInputValue={returnInputValue('name')} />
 
         <BarForInput label='Email' hasSelector isUnlock={inputsState.email.isUnlock} selectorAction={() => changeInputUnlock('email')}/>
 
