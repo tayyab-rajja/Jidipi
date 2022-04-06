@@ -4,9 +4,10 @@ export const getFormatedList = (
   category: CategoryAPI[] | undefined,
   pageId: string
 ) => {
-  if (!category) {
+  if (!category || !pageId) {
     return { list: [], totalCount: null };
   }
+
   let totalCount = 0;
   const formattedList = category.reduce(
     (list: Category[], current: CategoryAPI) => {
