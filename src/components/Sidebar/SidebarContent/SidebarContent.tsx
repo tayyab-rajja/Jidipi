@@ -8,6 +8,8 @@ import { getFormatedList } from "helpers/getFormatedList";
 import styles from "./SidebarContent.module.css";
 import { Category, CategoryAPI } from "types/categoryTypes";
 import { useRouter } from "next/router";
+import { useCategories } from "src/api/useCategories";
+import { usePageFolderByName } from "src/api/usePageFolderByName";
 
 interface SidebarContentProps {
   title: string;
@@ -65,9 +67,14 @@ export const SidebarContent: FC<SidebarContentProps> = ({
   const { t } = useTranslation();
   const { query } = useRouter();
 
+  const { data: pageFolder } = usePageFolderByName(
+    (query.folder as string) ?? null
+  );
+  // const { data: categories } = useCategories(pageFolder?._id ?? null);
+
   const { list, totalCount } = getFormatedList(
     categories,
-    "603ce60958c5c6279bc2ed96"
+    pageFolder?._id as string
   );
 
   return (
