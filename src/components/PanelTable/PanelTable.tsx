@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@reach/tabs";
+import { Tabs, TabList, Tab, TabPanels } from "@reach/tabs";
 
 import ActionFilters from "./ActionFilters/ActionFilters";
 import Table from "./Table/Table";
+import Pagination from "src/components/Pagination/Pagination";
+import { ActionFilter, PostsPerPage } from "./Filters";
 
 import { UpdateMyData } from "types/updateMyData";
 
 import styles from "./PanelTable.module.css";
 import "@reach/tabs/styles.css";
-import { ActionFilter, PostsPerPage } from "./Filters";
 
 const emptyImage =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAM8AAAD0CAMAAAAL4oIDAAAAOVBMVEXAwMD///+7u7vJycnu7u7Pz8/7+/v19fXS0tK+vr7x8fG6urrd3d34+PjCwsLGxsbl5eXY2Njo6OhvnUvPAAABN0lEQVR4nO3Yy46CMABAUeRd3vj/HzuIksxMlMTNmHbO2SB00xvSBptlAAAAAAAAAAAAAAAAAAAAAAAAAAAAwN8J+blPz+9NYShPddOnZ/ieUF7OxdczVK/VEfa0L5dQ6KPsya/NU+Ocx9nTvFg7Rcw99dAuCfXUcwh5m07PELa7fEymZ917umR6yv3L5t4xJtBzWUI/3Te6bqoT6Nm2hMdrWfMliZ7DHOY6oZ4lz8KSUM+8PS7qZHr2jTsrk+hpyqHYc7Iq/p5xKLIQjoEu9p7rFL4PrLeeSP//bD31Gn4OTF3MPdc5/B5Z61h7QlU9GZmqdopy/VT9cVzwuNzcfvR5lO9nbJpu03RluV2Oc7f7EUKM51XnIuvJ5uLcp+cHAAAAAAAAAAAAAAAAAAAAAAAAAAAA/8cXFZgNlyZfDNsAAAAASUVORK5CYII=";
@@ -125,6 +126,8 @@ const PanelTable = () => {
     searchValues: [],
   });
 
+  const [page, setPage] = useState(1);
+
   const updateMyData: UpdateMyData = (value, rowIndex, columnId) => {
     if (!columnId) {
       return;
@@ -159,6 +162,14 @@ const PanelTable = () => {
           <ActionFilter />
           <PostsPerPage />
         </div>
+        <Pagination
+          pageSize={1}
+          totalCount={199}
+          currentPage={page}
+          onChange={(page) => {
+            setPage(page);
+          }}
+        />
       </TabPanels>
     </Tabs>
   );

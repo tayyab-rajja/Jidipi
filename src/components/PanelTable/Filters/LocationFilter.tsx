@@ -41,8 +41,9 @@ export const LocationFilter = () => {
         onChange={(value) => {}}
         options={locationOptions}
         optionsPropsToFilter={["title", "text"]}
-        renderOptions={({ iconFlag, title, text }) => (
+        renderOptions={({ iconFlag, title, text }, index) => (
           <MenuItem
+            key={text + index}
             value={text}
             className={clsx(
               styles["Filter-MenuItem"],

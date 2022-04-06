@@ -34,8 +34,12 @@ export const LanguageFilter = () => {
         menuClassName={styles["Filter-Menu"]}
         onChange={(value) => {}}
         options={languageOptions}
-        renderOptions={({ title, text }) => (
-          <MenuItem value={text} className={styles["Filter-MenuItem"]}>
+        renderOptions={({ title, text }, index) => (
+          <MenuItem
+            key={text + index}
+            value={text}
+            className={styles["Filter-MenuItem"]}
+          >
             <div>{title}</div>
             <div>{text}</div>
           </MenuItem>

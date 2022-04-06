@@ -26,8 +26,12 @@ export const AllFilter = () => {
         menuClassName={styles["Filter-Menu"]}
         onChange={(value) => {}}
         options={allOptions}
-        renderOptions={({ icon, text }) => (
-          <MenuItem value={text} className={styles["Filter-MenuItem"]}>
+        renderOptions={({ icon, text }, index) => (
+          <MenuItem
+            key={text + index}
+            value={text}
+            className={styles["Filter-MenuItem"]}
+          >
             <div>{icon}</div>
             <div>{text}</div>
           </MenuItem>

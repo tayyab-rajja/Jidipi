@@ -13,7 +13,7 @@ interface DropDownProps {
   menuClassName?: string;
   defaultValue: string;
   options: { [key: string]: any }[];
-  renderOptions: (agr: any) => ReactElement;
+  renderOptions: (agr: any, index?: number) => ReactElement;
   onChange: (value: any) => void;
   withSearch?: boolean;
   optionsPropsToFilter?: string[];

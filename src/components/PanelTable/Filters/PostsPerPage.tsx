@@ -31,8 +31,9 @@ export const PostsPerPage = () => {
           menuClassName={styles["PostsPerPage-Filter_Menu"]}
           onChange={(value) => {}}
           options={postsPerPageOptions}
-          renderOptions={({ count }) => (
+          renderOptions={({ count }, index) => (
             <MenuItem
+              key={count + index}
               value={count}
               className={styles["PostsPerPage-Filter_MenuItem"]}
             >

@@ -58,7 +58,7 @@ export const EditableCell = ({
     case "isSelect":
       return (
         <CustomCheckbox
-          value={value}
+          checked={value}
           defaultChecked={value}
           onChange={onCheckboxCahnge}
           className={styles["Table-Input_Select"]}
