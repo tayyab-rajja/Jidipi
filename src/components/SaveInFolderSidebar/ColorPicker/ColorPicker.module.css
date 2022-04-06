@@ -1,6 +1,7 @@
 .ColorPicker-Wrapper {
     width: 120px;
     height: 148px;
+    margin-top: -12px;
 }
 
 .ColorPicker-ColorsList {

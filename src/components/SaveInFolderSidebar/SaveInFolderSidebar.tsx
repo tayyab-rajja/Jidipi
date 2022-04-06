@@ -36,22 +36,33 @@ const defaultFolderNames = [
     },
 ]
 
+type showElementState = {
+    addLabelBtn: boolean,
+    addLabelFormAndList: boolean
+}
+interface FolderName {
+    title: string,
+    isSelected: boolean
+}
+type folderNamesState = FolderName[];
+
 interface LabelItem {
     title: string,
     isSelected: boolean,
+    id: number
 }
+type labelsListState = LabelItem[];
 
-type State = LabelItem[];
 
 export const SaveInFolderSidebar: FC = () => {
 
-    const [showElement, setShowElement] = useState({
+    const [showElement, setShowElement] = useState<showElementState>({
         addLabelBtn: false,
         addLabelFormAndList: false,
     });
 
-    const [folderNames, setFolderNames] = useState(defaultFolderNames);
-    const [labelsList, setLabelsList] = useState<State>([]);
+    const [folderNames, setFolderNames] = useState<folderNamesState>(defaultFolderNames);
+    const [labelsList, setLabelsList] = useState<labelsListState>([]);
 
     const handleClickItem = (elementName: string, title?: string) => {
         if (title) {
@@ -76,10 +87,16 @@ export const SaveInFolderSidebar: FC = () => {
     const createLabel = (labelName: string) => {
         setLabelsList(labelsList => [...labelsList, {
             title: labelName,
-            isSelected: false
+            isSelected: false,
+            id: Date.now(),
         }])
-        console.log(labelsList);
     }
+
+    const updateLabel = (labelName: string, id: number) => {
+        setLabelsList(prevState => prevState.map(
+            labelsName => labelsName.id === id ? {...labelsName, title: labelName} : {...labelsName}
+        ))
+    } 
 
     const cancelSelectedFolder = (title:string, isSelected:boolean) => {
         if (!isSelected) {
@@ -130,9 +147,11 @@ export const SaveInFolderSidebar: FC = () => {
                     {labelsList.map((label, i) => 
                         <LabelItem 
                             key={i} 
-                            title={label.title} 
+                            title={label.title}
+                            id={label.id} 
                             setSelectedLabel={() => setSelectedLabel(label.title)} 
-                            deleteLabel={() => deleteLabel(label.title)} 
+                            deleteLabel={() => deleteLabel(label.title)}
+                            updateLabel={updateLabel} 
                             isSelected={label.isSelected} 
                         />)}
                     </ul>
