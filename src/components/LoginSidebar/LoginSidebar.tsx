@@ -1,14 +1,17 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-
-import styles from "./LoginSidebar.module.css";
-import { ILoginSuccess } from "types/loginTypes";
-import { useAuth } from "src/providers/AuthProvider";
-import axios from "axios";
 import ReactFacebookLogin, {
   ReactFacebookFailureResponse,
   ReactFacebookLoginInfo,
 } from "react-facebook-login";
-import GoogleLogin from "react-google-login";
+import GoogleLogin, {
+  GoogleLoginResponse,
+  GoogleLoginResponseOffline,
+} from "react-google-login";
+
+import { useAuth } from "src/providers/AuthProvider";
+import { useLoginRequest } from "../../hooks/api/useLoginRequest";
+
+import styles from "./LoginSidebar.module.css";
 
 interface InputValues {
   email: string;
@@ -17,11 +20,11 @@ interface InputValues {
 
 const LoginSidebar = () => {
   const {
-    setSession,
     removeSession,
     session: { status },
-    setLoading,
   } = useAuth();
+
+  const { login } = useLoginRequest();
 
   const { register, reset, handleSubmit } = useForm<InputValues>({
     defaultValues: {
@@ -30,65 +33,51 @@ const LoginSidebar = () => {
     },
   });
 
-  const login: SubmitHandler<InputValues> = async ({ email, password }) => {
-    try {
-      setLoading();
-      const res = await axios.post<ILoginSuccess>(
-        `${process.env.NEXT_PUBLIC_API_URL}user/login`,
-        { email, password }
-      );
-      if (res.status === 200) {
-        const response: ILoginSuccess = res.data;
-        setSession(response);
-        reset();
-        return;
-      }
-      console.log({ ...res });
-    } catch (error: any) {
-      console.log(error?.response?.data?.error);
-      // TODO: show error message
+  const loginHandler: SubmitHandler<InputValues> = async ({
+    email,
+    password,
+  }) => {
+    const result = await login({ email, password });
+    if (result) {
+      // TODO: show error
     }
   };
 
-  const responseFacebook = async (
-    response: any
-    // response: ReactFacebookLoginInfo | ReactFacebookFailureResponse
-  ) => {
+  const responseFacebook = async (response: any) => {
     if (response?.status) {
       const res: ReactFacebookFailureResponse = response;
+      // TODO: show error from Facebook request
     }
     const res: ReactFacebookLoginInfo = response;
-
-    try {
-      setLoading();
-      const body = {
-        type: "social",
-        network: "facebook",
-        //network:google
-        accessToken: res.accessToken,
-      };
-      const socialLoginResponse = await axios.post<ILoginSuccess>(
-        `${process.env.NEXT_PUBLIC_API_URL}user/login`,
-        body
-      );
-      if (socialLoginResponse.status === 200) {
-        const response: ILoginSuccess = socialLoginResponse.data;
-        setSession(response);
-        return;
-      }
-    } catch (error: any) {
-      console.log(error?.response?.data?.error);
-      // TODO: show error message
+    const result = await login({
+      type: "social",
+      network: "facebook",
+      accessToken: res.accessToken,
+    });
+    if (result) {
+      // TODO: show error
     }
-    console.log(response);
   };
 
-  const responseGoogleSuccess = (value: any) => {
-    console.log(value);
+  const responseGoogleSuccess = async (response: any) => {
+    if (!response.accessToken) {
+      const res: GoogleLoginResponseOffline = response;
+      // TODO: show error from Google request
+    }
+    const res: GoogleLoginResponse = response;
+    const result = await login({
+      type: "social",
+      network: "google",
+      credential: res.tokenId,
+    });
+    if (result) {
+      // TODO: show error
+    }
   };
 
   const responseGoogleFailed = (value: any) => {
     console.log(value);
+    // TODO: show error from Google request
   };
 
   return (
@@ -96,7 +85,7 @@ const LoginSidebar = () => {
       {status !== "authenticated" && (
         <form
           className={styles["Main-FormContainer"]}
-          onSubmit={handleSubmit(login)}
+          onSubmit={handleSubmit(loginHandler)}
           noValidate
         >
           <div className={styles["Main-ClientInfo"]}>
@@ -122,20 +111,21 @@ const LoginSidebar = () => {
       )}
       {status !== "authenticated" && (
         <ReactFacebookLogin
-          appId={process.env.FACEBOOK_ID!}
+          appId={process.env.FACEBOOK_CLIENT_ID!}
           fields="name,email,picture"
           callback={responseFacebook}
           autoLoad={false}
         />
       )}
-      {/* <GoogleLogin
-        clientId="460487191198-dimb0m834e5l5n3ql8ltcpqn504j8n7d.apps.googleusercontent.com"
-        buttonText="Login"
-        onSuccess={responseGoogleSuccess}
-        onFailure={responseGoogleFailed}
-        cookiePolicy={"single_host_origin"}
-      /> */}
-
+      {status !== "authenticated" && (
+        <GoogleLogin
+          clientId={process.env.GOOGLE_CLIENT_ID!}
+          buttonText="Login"
+          onSuccess={responseGoogleSuccess}
+          onFailure={responseGoogleFailed}
+          cookiePolicy={"single_host_origin"}
+        />
+      )}
       <div className={styles["Main-Logout"]}>
         <button disabled={status === "unauthenticated"} onClick={removeSession}>
           Sign out
