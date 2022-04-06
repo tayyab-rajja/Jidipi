@@ -71,6 +71,8 @@ export const SearchInput: FC<SearchInputProps> = ({ onChange }) => {
     <div className={clsx(styles["Input"])}>
       <Image src={searchIcon} width={15} height={15} alt="Search" />
       <CreatableSelect
+        id="selectbox"
+        instanceId="selectbox"
         inputValue={inputValue}
         isClearable
         isMulti
