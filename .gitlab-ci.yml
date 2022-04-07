@@ -1,6 +1,6 @@
 before_script:
   - echo $CI_COMMIT_BRANCH
-  - COPY cicd/pro/.env .env.production
+  - cp -rp  cicd/pro/.env .env.production
   # https://gitlab.com/gitlab-org/gitlab-runner/-/issues/27384#note_497228752
   - if [[ $CI_COMMIT_BRANCH != "master" ]]; then sed -i 's/###DEV //g'  Dockerfile; fi
   - if [[ $CI_COMMIT_BRANCH == "master" ]]; then sed -i 's/###PRO //g'  Dockerfile; fi
