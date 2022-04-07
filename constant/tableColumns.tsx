@@ -13,14 +13,19 @@ export const tableColumns = [
     Header: "Image",
     sticky: "left",
     width: 70,
-    Cell: (tableProps: any) => (
-      <Image
-        src={tableProps.row.original.image}
-        width={70}
-        height={70}
-        alt="Table Image"
-      />
-    ),
+    Cell: (tableProps: any) => {
+      if (!tableProps.row.original.image) {
+        return "No image";
+      }
+      return (
+        <Image
+          src={tableProps.row.original.image}
+          width={70}
+          height={70}
+          alt="Table Image"
+        />
+      );
+    },
     accessor: "image",
     defaultCanSort: false,
     disableSortBy: true,

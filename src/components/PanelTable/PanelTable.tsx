@@ -8,6 +8,7 @@ import { ActionFilter, PostsPerPage } from "./Filters";
 
 import { UpdateMyData } from "types/updateMyData";
 import { PageFolder } from "types/pageFolderType";
+import { TableData } from "types/tableDataTypes";
 
 import styles from "./PanelTable.module.css";
 import "@reach/tabs/styles.css";
@@ -17,11 +18,11 @@ const emptyImage =
 
 interface PanelTableProps {
   tabs: PageFolder[];
+  tableData: TableData[];
 }
 
 const PanelTable: FC<PanelTableProps> = ({ tabs, tableData }) => {
-  const [data, setData] = useState(tableData);
-
+  const [data, setData] = useState<TableData[] | []>([]);
   const [filtersValues, setFiltersValues] = useState({
     action: "",
     location: "",
@@ -29,8 +30,8 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableData }) => {
     all: "",
     searchValues: [],
   });
-
   const [page, setPage] = useState(1);
+  const [currentTab, setCurrentTab] = useState(tabs[0]._id);
 
   const updateMyData: UpdateMyData = (value, rowIndex, columnId) => {
     if (!columnId) {
@@ -49,12 +50,21 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableData }) => {
     );
   };
 
+  const handleTabsChange = (index: number) => {
+    if (index === tabs.length) {
+      return;
+    }
+    setCurrentTab(tabs[index]._id);
+  };
+
   useEffect(() => {
-    setData(tableData);
-  }, [tableData]);
+    setData(
+      tableData.filter(({ pageFolderId }) => pageFolderId === currentTab)
+    );
+  }, [tableData, currentTab]);
 
   return (
-    <Tabs className={styles["PanelTable"]}>
+    <Tabs className={styles["PanelTable"]} onChange={handleTabsChange}>
       <TabList className={styles["PanelTable-TabList"]}>
         {tabs.map(({ title, _id }) => (
           <Tab key={_id} className={styles["PanelTable-Tab"]}>

@@ -50,7 +50,7 @@ const TablePage: FC<TablePageProps> = ({ pageFolders, tabs }) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   let pageFolders: PageFolder[] = [];
-  let tabs = [];
+  let tabs: PageFolder[] = [];
 
   try {
     pageFolders = await fetchPageFolders();
