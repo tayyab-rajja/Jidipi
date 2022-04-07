@@ -10,8 +10,8 @@ import FooterUserData from 'src/components/FooterUserData';
 
 import stylesForm from 'src/components/FormUserData/FormUserData.module.css';
 
-import googleIcon from 'public/images/social-icons/google-logo.png';
-import facebookIcon from 'public/images/social-icons/facebook-logo.png';
+import googleIcon from 'public/images/social-icons/Google.svg';
+import facebookIcon from 'public/images/social-icons/Facebook.svg';
 
 interface Props {
   goToRecoverPassword: () => void;
