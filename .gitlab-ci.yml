@@ -1,9 +1,9 @@
 before_script:
   - echo $CI_COMMIT_BRANCH
   # https://gitlab.com/gitlab-org/gitlab-runner/-/issues/27384#note_497228752
-  #  - mv cicd/Dockerfile Dockerfile
   - if [[ $CI_COMMIT_BRANCH != "master" ]]; then sed -i 's/###DEV //g'  Dockerfile; fi
   - if [[ $CI_COMMIT_BRANCH == "master" ]]; then sed -i 's/###PRO //g'  Dockerfile; fi
+  - cat Dockerfile
   - if [[ $CI_COMMIT_BRANCH == "master" ]]; then SLUG="blog"; else SLUG="blog-"$CI_COMMIT_BRANCH; fi
   - if [[ $CI_COMMIT_BRANCH == "master" ]]; then REPLICAS=3; else REPLICAS=1; fi
   - if [[ $CI_COMMIT_BRANCH == "master" ]]; then TIER="live"; else TIER="staging"; fi
@@ -22,13 +22,13 @@ before_script:
   - cat cicd/k8s.yaml
   - echo '+++++++++++++++++++++++++++++'
   - sed -i "s/__localhost:3000__/${SUBDOMAIN}.${DOMAIN}/" cicd/k8s.yaml
-#  - export NEW_VAR=$KUBE_CONFIG
+  - rm -rf package-lock.json
 stages:
   - build
   - release
 #  - cleanup
 #-
-docker_build:
+build:
   stage: build
   only:
     - main
