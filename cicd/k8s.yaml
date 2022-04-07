@@ -63,6 +63,7 @@ metadata:
 spec:
   hosts:
       - '__SUBDOMAIN__.__DOMAIN__'
+      - '*.__SUBDOMAIN__.__DOMAIN__'
   gateways:
     - common-gateway
   http:
