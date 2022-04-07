@@ -21,7 +21,10 @@ before_script:
   - echo '+++++++++++++++++++++++++++++'
   - cat cicd/k8s.yaml
   - echo '+++++++++++++++++++++++++++++'
-  - sed -i "s/__localhost:3000__/${SUBDOMAIN}.${DOMAIN}/" cicd/k8s.yaml
+  - sed -i "s/__localhost:3000__/${SUBDOMAIN}.${DOMAIN}/" .env.development
+  - sed -i "s/__localhost:3000__/${SUBDOMAIN}.${DOMAIN}/" .env.production
+  - cat .env.development
+  - cat .env.production
 #  - rm -rf package-lock.json
 stages:
   - build
