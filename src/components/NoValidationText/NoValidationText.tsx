@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from 'react'
+import {FC} from 'react'
 
 import clsx from 'clsx';
 
@@ -9,18 +9,10 @@ interface Props {
 }
 
 const NoValidationText:FC<Props> = ({label}) => {
-  const [isVisible, setIsVisible] = useState(Boolean(label));
-  
-  useEffect(() => {
-    setTimeout(() => {
-      if (isVisible) setIsVisible(false)
-    }, 3000)
-  })
-
   return (
     <p
       className={clsx(styles['Text'], styles['Form-Text'])}
-      data-is-invisible={isVisible}
+      data-is-invisible={!label}
     >{label}</p>
   )
 }

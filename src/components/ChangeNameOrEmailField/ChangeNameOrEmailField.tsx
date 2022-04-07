@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from 'react';
+import {FC, useState} from 'react';
 
 import ButtonUserData from 'src/components/ButtonUserData';
 import BarForInput from 'src/components/BarForInput';
@@ -9,15 +9,17 @@ import NoValidationText from 'src/components/NoValidationText'
 import styles from './ChangeNameOrEmailField.module.css'
 
 const ChangeNameOrEmailField:FC = () => {
-  interface State {
-    [key: string]: {isUnlock: boolean, value: string | null};
+  interface InputState {
+    [key: string]: {isUnlock: boolean, value: string};
   }
 
-  const [inputsState, setInputsState] = useState<State>({
-    name: {isUnlock: false, value: null},
-    email: {isUnlock: false, value: null},
-    password: {isUnlock: false, value: null},
+  const [inputsState, setInputsState] = useState<InputState>({
+    name: {isUnlock: false, value: ''},
+    email: {isUnlock: false, value: ''},
+    password: {isUnlock: false, value: ''},
   })
+
+  const [noValidationLabel, setNoValidationLabel] = useState<string | null>(null)
 
   const changeInputUnlock = (input: string) => {
     setInputsState(prevState => {
@@ -38,6 +40,37 @@ const ChangeNameOrEmailField:FC = () => {
       })
     }
   }
+
+  const validateAndPostData = async () => {
+    const {name, email} = inputsState
+
+    if (name.value && /@/.test(email.value)) {
+      await fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        body: JSON.stringify({
+          name: inputsState.name.value,
+          email: inputsState.email.value,
+          userId: 1,
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      })
+        .then((response) => response.json())
+        .then((json) => console.log(json))
+      
+      return;
+    }
+
+    if (!name.value) {
+      setNoValidationLabel('Please, write your name.')
+    } else {
+      setNoValidationLabel('Wrong email format! please check and enter a correct one.')
+    }
+
+    setTimeout(() => setNoValidationLabel(null), 3000)
+    
+  }
   
   return (
     <FormUserData>
@@ -48,13 +81,15 @@ const ChangeNameOrEmailField:FC = () => {
 
         <BarForInput label='Email' hasSelector isUnlock={inputsState.email.isUnlock} selectorAction={() => changeInputUnlock('email')}/>
 
-        <InputUserData type='email' isUnlock={inputsState.email.isUnlock}/>
+        <InputUserData type='email' isUnlock={inputsState.email.isUnlock} returnInputValue={returnInputValue('email')} />
 
         <BarForInput label='Current Password' hasSelector isUnlock={inputsState.password.isUnlock} selectorAction={() => alert('write func to go to password chenching')}/>
 
         <InputUserData type='password' isUnlock={inputsState.password.isUnlock}/>
 
-        <ButtonUserData label='Save Change' action={() => alert('your func here')} className={styles['Form-Button']} />
+        <ButtonUserData label='Save Change' action={validateAndPostData} className={styles['Form-Button']} />
+
+        <NoValidationText label={noValidationLabel} />
       </>
     </FormUserData>
   )
