@@ -1,4 +1,16 @@
+.DropDown [class$="szh-menu-container"] {
+  width: 100%;
+}
+
+.Filter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .Menu.Menu {
+  min-width: 100%;
+  width: 100%;
   padding: 0;
   max-height: 500px;
   overflow: hidden;
@@ -48,4 +60,13 @@
   text-overflow: ellipsis;
   position: relative;
   background-color: #f1f1f1;
+}
+
+.Filter-Arrow {
+  height: 10px;
+  width: 10px;
+  border-left: 2px solid;
+  border-bottom: 2px solid;
+  border-color: #888888;
+  transform: rotate(-45deg);
 }

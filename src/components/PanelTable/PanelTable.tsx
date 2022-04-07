@@ -28,8 +28,8 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
     location: "",
     language: "",
     all: "",
-    searchValues: [],
   });
+  const [searchValues, setSearchValues] = useState([]);
   const [page, setPage] = useState(1);
   const [currentTab, setCurrentTab] = useState(tabs[0]._id);
 
@@ -50,7 +50,9 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
     );
   };
 
-  console.log(tableData);
+  // const handleSearch = (value) => {
+  //   setSearchValues(value);
+  // };
 
   const handleTabsChange = (index: number) => {
     if (index === tabs.length) {
@@ -58,6 +60,8 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
     }
     setCurrentTab(tabs[index]._id);
   };
+
+  useEffect(() => {}, [searchValues]);
 
   useEffect(() => {
     setData(

@@ -29,36 +29,30 @@ const locationOptions = [
 
 export const LocationFilter = () => {
   return (
-    <div className={clsx(styles["Filter"], styles["Filter-Location"])}>
-      <Image src={locationIcon} width={15} height={15} alt="Action" />
-      <DropDown
-        defaultValue="Location"
-        className={styles["Filter_DropDown"]}
-        menuClassName={clsx(
-          styles["Filter-Menu"],
-          styles["Filter-Menu_Location"]
-        )}
-        onChange={(value) => {}}
-        options={locationOptions}
-        optionsPropsToFilter={["title", "text"]}
-        renderOptions={({ iconFlag, title, text }, index) => (
-          <MenuItem
-            key={text + index}
-            value={text}
-            className={clsx(
-              styles["Filter-MenuItem"],
-              styles["Filter-MenuItem_Location"]
-            )}
-          >
-            <div>{categoriesSvg["DATE"]}</div>
-            <div>{iconFlag}</div>
-            <div>{title}</div>
-            <div>{text}</div>
-          </MenuItem>
-        )}
-        withSearch
-      />
-      <div className={styles["Filter-Arrow"]} />
-    </div>
+    <DropDown
+      icon={<Image src={locationIcon} width={15} height={15} alt="Action" />}
+      placeholder="Location"
+      className={styles["Filter"]}
+      wrapperClassName={styles["FilterWrapper_Location"]}
+      onChange={(value) => {}}
+      options={locationOptions}
+      optionsPropsToFilter={["title", "text"]}
+      renderOptions={({ iconFlag, title, text }, index) => (
+        <MenuItem
+          key={text + index}
+          value={text}
+          className={clsx(
+            styles["Filter-MenuItem"],
+            styles["Filter-MenuItem_Location"]
+          )}
+        >
+          <div>{categoriesSvg["DATE"]}</div>
+          <div>{iconFlag}</div>
+          <div>{title}</div>
+          <div>{text}</div>
+        </MenuItem>
+      )}
+      withSearch
+    />
   );
 };

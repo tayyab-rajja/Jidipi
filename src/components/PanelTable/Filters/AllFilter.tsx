@@ -18,26 +18,23 @@ const allOptions = [
 
 export const AllFilter = () => {
   return (
-    <div className={styles["Filter"]}>
-      <Image src={menuIcon} width={15} height={15} alt="Menu" />
-      <DropDown
-        defaultValue="All"
-        className={styles["Filter_DropDown"]}
-        menuClassName={styles["Filter-Menu"]}
-        onChange={(value) => {}}
-        options={allOptions}
-        renderOptions={({ icon, text }, index) => (
-          <MenuItem
-            key={text + index}
-            value={text}
-            className={styles["Filter-MenuItem"]}
-          >
-            <div>{icon}</div>
-            <div>{text}</div>
-          </MenuItem>
-        )}
-      />
-      <div className={styles["Filter-Arrow"]} />
-    </div>
+    <DropDown
+      icon={<Image src={menuIcon} width={15} height={15} alt="Menu" />}
+      placeholder="All"
+      className={styles["Filter"]}
+      wrapperClassName={styles["FilterWrapper"]}
+      onChange={(value) => {}}
+      options={allOptions}
+      renderOptions={({ icon, text }, index) => (
+        <MenuItem
+          key={text + index}
+          value={text}
+          className={styles["Filter-MenuItem"]}
+        >
+          <div>{icon}</div>
+          <div>{text}</div>
+        </MenuItem>
+      )}
+    />
   );
 };

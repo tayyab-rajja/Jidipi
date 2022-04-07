@@ -26,26 +26,23 @@ const languageOptions = [
 
 export const LanguageFilter = () => {
   return (
-    <div className={styles["Filter"]}>
-      <Image src={flagIcon} width={15} height={15} alt="Flag" />
-      <DropDown
-        defaultValue="Language"
-        className={styles["Filter_DropDown"]}
-        menuClassName={styles["Filter-Menu"]}
-        onChange={(value) => {}}
-        options={languageOptions}
-        renderOptions={({ title, text }, index) => (
-          <MenuItem
-            key={text + index}
-            value={text}
-            className={styles["Filter-MenuItem"]}
-          >
-            <div>{title}</div>
-            <div>{text}</div>
-          </MenuItem>
-        )}
-      />
-      <div className={styles["Filter-Arrow"]} />
-    </div>
+    <DropDown
+      placeholder="Language"
+      icon={<Image src={flagIcon} width={15} height={15} alt="Flag" />}
+      className={styles["Filter"]}
+      wrapperClassName={styles["FilterWrapper"]}
+      onChange={(value) => {}}
+      options={languageOptions}
+      renderOptions={({ title, text }, index) => (
+        <MenuItem
+          key={text + index}
+          value={text}
+          className={styles["Filter-MenuItem"]}
+        >
+          <div>{title}</div>
+          <div>{text}</div>
+        </MenuItem>
+      )}
+    />
   );
 };
