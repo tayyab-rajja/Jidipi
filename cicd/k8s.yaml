@@ -10,7 +10,7 @@ metadata:
     service: __SLUG__
 spec:
   ports:
-  - port: 80
+  - port: 3000
     name: http
   selector:
     app: __SLUG__
