@@ -27,7 +27,7 @@ export const useLoginRequest = () => {
       setLoading();
 
       const socialLoginResponse = await axios.post<ILoginSuccess>(
-        `${process.env.NEXT_PUBLIC_API_URL}user/login`,
+        `${process.env.NEXT_PUBLIC_API_URL}/user/login`,
         body
       );
       if (socialLoginResponse.status === 200) {

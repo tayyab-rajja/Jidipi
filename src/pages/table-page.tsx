@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { FC } from "react";
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
@@ -9,10 +10,21 @@ import PanelTable from "src/components/PanelTable/PanelTable";
 import SidebarWithAvatar from "src/components/SidebarWithAvatar/SidebarWithAvatar";
 
 import { fetchPageFolders } from "src/api/fetchPageFolders";
+import { useFavoratePosts } from "src/api/useFavoratePosts";
 
+import { getTableData } from "helpers/getTableData";
 import { PageFolder } from "types/pageFolderType";
+import LoginSidebar from "src/components/LoginSidebar/LoginSidebar";
 
-const Home = () => {
+interface TablePageProps {
+  tabs: PageFolder[];
+  pageFolders: PageFolder[];
+}
+
+const TablePage: FC<TablePageProps> = ({ pageFolders, tabs }) => {
+  const { data } = useFavoratePosts();
+  const tableData = getTableData(data?.readerPost, "POSTS");
+
   return (
     <div>
       <Head>
@@ -21,10 +33,15 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Layout SidebarComponent={<SidebarWithAvatar />} pageFolders={[]}>
+      <Layout
+        SidebarComponent={<SidebarWithAvatar />}
+        pageFolders={pageFolders}
+      >
+        <LoginSidebar />
+
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           <UserPanelData />
-          <PanelTable />
+          <PanelTable tabs={tabs} tableData={tableData} />
         </div>
       </Layout>
     </div>
@@ -33,6 +50,7 @@ const Home = () => {
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   let pageFolders: PageFolder[] = [];
+  let tabs = [];
 
   try {
     pageFolders = await fetchPageFolders();
@@ -40,12 +58,17 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
     console.log(e);
   }
 
+  tabs = pageFolders.filter(
+    ({ pageType }) => pageType === "PRODUCT" || pageType === "PROJECT"
+  );
+
   return {
     props: {
       ...(await serverSideTranslations(locale as string, ["common"])),
+      tabs,
       pageFolders,
     },
   };
 };
 
-export default Home;
+export default TablePage;
