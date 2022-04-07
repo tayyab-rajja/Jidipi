@@ -74,4 +74,4 @@ release:
     name: review/$CI_COMMIT_BRANCH
     url: https://$SUBDOMAIN.$DOMAIN
   script:
-    - kubectl  --kubeconfig $KUBE_CONFIG apply -f cicd/k8s.yaml
+    - kubectl  apply -f cicd/k8s.yaml
