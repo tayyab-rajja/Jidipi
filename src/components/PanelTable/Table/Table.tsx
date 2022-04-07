@@ -13,13 +13,15 @@ import clsx from "clsx";
 import { EditableCell } from "./EditableCell";
 
 import { UpdateMyData } from "types/updateMyData";
-import { tableColumns } from "constant/tableColumns";
+import { TableData } from "types/tableDataTypes";
+import { TableColumn } from "types/tableColumnTypes";
 
 import styles from "./Table.module.css";
 import "@reach/checkbox/styles.css";
 
 interface TableProps {
-  data: Array<any>;
+  data: TableData[];
+  tableColumns: TableColumn[];
   updateMyData: UpdateMyData;
 }
 
@@ -28,11 +30,11 @@ interface CustomTableOptions {
   updateMyData: UpdateMyData;
 }
 
-const Table: FC<TableProps> = ({ data, updateMyData }) => {
+const Table: FC<TableProps> = ({ data, tableColumns, updateMyData }) => {
   const defaultColumn = {
     Cell: EditableCell,
   };
-  const columns = useMemo(() => tableColumns, []);
+  const columns = useMemo(() => tableColumns, [tableColumns]);
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(

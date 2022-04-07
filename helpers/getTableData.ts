@@ -1,35 +1,56 @@
+import { tableColumns } from "constant/tableColumns";
+
 import { TableData } from "types/tableDataTypes";
 import { ReaderPost } from "types/readerPostType";
+import { TableColumn } from "types/tableColumnTypes";
 
 type GetTableData = (
   data: ReaderPost[] | undefined,
-  type: string
-) => [] | TableData[];
+  type: "POSTS" | "INFORMATION" | "COMPANY"
+) => {
+  tableData: [] | TableData[];
+  tableColumns: TableColumn[];
+  tableFilters: string[];
+};
 
 export const getTableData: GetTableData = (data, type) => {
-  if (!data) {
-    return [];
-  }
+  const tableOptions = {
+    tableData: [] as [] | TableData[],
+    tableColumns: [] as TableColumn[],
+    tableFilters: [] as string[],
+  };
 
   switch (type) {
     case "POSTS":
-      return data
-        .filter(
-          ({ pageType, postId }) =>
-            (pageType === "PRODUCT" || pageType === "PROJECT") && !!postId
-        )
-        .map(({ isTrashed, postId, label, note }) => ({
-          isTrashed,
-          pageFolderId: postId.pageFolderId,
-          isSelect: false,
-          image: postId.featuredImage.sizes[0],
-          name: postId.title,
-          location: postId.language,
-          compay: "Lorem, ipsum.",
-          label: label?.label || "",
-          note: note || "",
-        }));
-    default:
-      return [];
+      if (data) {
+        tableOptions.tableData = data
+          .filter(
+            ({ pageType, postId }) =>
+              (pageType === "PRODUCT" || pageType === "PROJECT") && !!postId
+          )
+          .map(({ isTrashed, postId, label, note }) => ({
+            isTrashed,
+            pageFolderId: postId.pageFolderId,
+            isSelect: false,
+            image: postId.featuredImage.sizes[0],
+            name: postId.title,
+            location: postId?.location || "",
+            company: postId?.company || "",
+            label: label?.label || "",
+            note: note || "",
+          }));
+      }
+      tableOptions.tableColumns = tableColumns.post;
+      break;
+
+    case "INFORMATION":
+      tableOptions.tableColumns = tableColumns.information;
+      break;
+
+    case "COMPANY":
+      tableOptions.tableColumns = tableColumns.company;
+      break;
   }
+
+  return tableOptions;
 };

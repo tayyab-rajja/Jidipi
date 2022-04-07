@@ -8,7 +8,7 @@ export interface TableData {
   country?: string;
   brand?: string;
   location?: string;
-  compay: string;
+  company: string;
   group?: string;
   label: string;
   note: string;

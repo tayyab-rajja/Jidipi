@@ -23,7 +23,10 @@ interface TablePageProps {
 
 const TablePage: FC<TablePageProps> = ({ pageFolders, tabs }) => {
   const { data } = useFavoratePosts();
-  const tableData = getTableData(data?.readerPost, "POSTS");
+  const { tableColumns, tableData, tableFilters } = getTableData(
+    data?.readerPost,
+    "POSTS"
+  );
 
   return (
     <div>
@@ -41,7 +44,12 @@ const TablePage: FC<TablePageProps> = ({ pageFolders, tabs }) => {
 
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           <UserPanelData />
-          <PanelTable tabs={tabs} tableData={tableData} />
+          <PanelTable
+            tabs={tabs}
+            tableColumns={tableColumns}
+            tableFilters={tableFilters}
+            tableData={tableData}
+          />
         </div>
       </Layout>
     </div>
