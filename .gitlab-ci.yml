@@ -22,7 +22,7 @@ before_script:
   - cat cicd/k8s.yaml
   - echo '+++++++++++++++++++++++++++++'
   - sed -i "s/__localhost:3000__/${SUBDOMAIN}.${DOMAIN}/" cicd/k8s.yaml
-  - rm -rf package-lock.json
+#  - rm -rf package-lock.json
 stages:
   - build
   - release
