@@ -6,6 +6,8 @@ import InputUserData from 'src/components/InputUserData';
 import FormUserData from 'src/components/FormUserData';
 import NoValidationText from 'src/components/NoValidationText'
 
+import {usePutUserData} from 'src/api/usePutUserData'
+
 import styles from './ChangeNameOrEmailField.module.css'
 
 const ChangeNameOrEmailField:FC = () => {
@@ -41,23 +43,16 @@ const ChangeNameOrEmailField:FC = () => {
     }
   }
 
+  const putData = usePutUserData(null);
+
   const validateAndPostData = async () => {
     const {name, email} = inputsState
 
     if (name.value && /@/.test(email.value)) {
-      await fetch('https://jsonplaceholder.typicode.com/posts', {
-        method: 'POST',
-        body: JSON.stringify({
-          name: inputsState.name.value,
-          email: inputsState.email.value,
-          userId: 1,
-        }),
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-        },
+      putData({
+        firstName: name.value,
+        email: email.value,
       })
-        .then((response) => response.json())
-        .then((json) => console.log(json))
       
       return;
     }
