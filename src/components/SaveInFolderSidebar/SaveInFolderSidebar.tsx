@@ -49,7 +49,8 @@ type folderNamesState = FolderName[];
 interface LabelItem {
     title: string,
     isSelected: boolean,
-    id: number
+    id: number,
+    color: string
 }
 type labelsListState = LabelItem[];
 
@@ -89,6 +90,7 @@ export const SaveInFolderSidebar: FC = () => {
             title: labelName,
             isSelected: false,
             id: Date.now(),
+            color: 'F1F1F1'
         }])
     }
 
@@ -96,7 +98,13 @@ export const SaveInFolderSidebar: FC = () => {
         setLabelsList(prevState => prevState.map(
             labelsName => labelsName.id === id ? {...labelsName, title: labelName} : {...labelsName}
         ))
-    } 
+    }
+    
+    const updateLabelColor = (id: number, color: string) => {
+        setLabelsList(prevState => prevState.map(
+            labelsName => labelsName.id === id ? {...labelsName, color} : {...labelsName}
+        ))
+    }
 
     const cancelSelectedFolder = (title:string, isSelected:boolean) => {
         if (!isSelected) {
@@ -149,6 +157,8 @@ export const SaveInFolderSidebar: FC = () => {
                             key={i} 
                             title={label.title}
                             id={label.id} 
+                            color={label.color}
+                            updateLabelColor={updateLabelColor}
                             setSelectedLabel={() => setSelectedLabel(label.title)} 
                             deleteLabel={() => deleteLabel(label.title)}
                             updateLabel={updateLabel} 

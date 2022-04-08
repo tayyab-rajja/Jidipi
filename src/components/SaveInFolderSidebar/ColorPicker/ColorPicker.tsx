@@ -17,13 +17,11 @@ export const ColorPicker: FC<Props> = ({deleteLabel, selectColor, editInput}) =>
     const [selectedColor, setSelectedColor] = useState('');
 
     const handleClickItem = (e: MouseEvent, title:string) => {
-        e.stopPropagation();
         selectColor(title);
         setSelectedColor(title);
     }
 
     const editBtnClick: MouseEventHandler = (e) => {
-        e.stopPropagation();
         editInput()
     }
 
