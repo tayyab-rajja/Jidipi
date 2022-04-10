@@ -15,7 +15,7 @@ interface Props extends Omit<ControllerRenderProps, "ref"> {
   ref: any;
 }
 
-const InputUserDataRHF: FC<Props> = React.forwardRef(
+const InputUserDataRHF: FC<Props> = React.forwardRef<HTMLInputElement, Props>(
   (
     {
       type: originalType,
@@ -70,5 +70,7 @@ const InputUserDataRHF: FC<Props> = React.forwardRef(
     return input;
   }
 );
+
+InputUserDataRHF.displayName = "InputUserDataRHF";
 
 export default InputUserDataRHF;

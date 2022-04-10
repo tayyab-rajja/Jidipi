@@ -20,7 +20,7 @@ export const Portal: React.FC<IPortalProps> = ({
     return () => {
       document.body.removeChild(container);
     };
-  }, []);
+  }, [className, el]);
 
   return container ? ReactDOM.createPortal(children, container) : null;
 };
