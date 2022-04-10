@@ -1,13 +1,15 @@
 import { FC } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import {
+import GoogleLogin, {
   GoogleLoginResponse,
   GoogleLoginResponseOffline,
 } from "react-google-login";
-import {
+import ReactFacebookLogin, {
   ReactFacebookFailureResponse,
   ReactFacebookLoginInfo,
 } from "react-facebook-login";
+import Image from "next/image";
+import clsx from "clsx";
 
 import { useLoginRequest } from "src/hooks/api/useLoginRequest";
 
@@ -23,6 +25,7 @@ import facebookIcon from "public/images/social-icons/Facebook.svg";
 
 import stylesForm from "src/components/FormUserData/FormUserData.module.css";
 import styles from "./LoginField.module.css";
+import styleSocialBtn from "src/components/LoginWithSocialBtn/LoginWithSocialBtn.module.css";
 
 interface InputValues {
   email: string;
@@ -89,20 +92,41 @@ const LoginField: FC<Props> = ({ goToRecoverPassword }) => {
     console.log(value);
     // TODO: show error from Google request
   };
+  const classSocialBtn = clsx(
+    styleSocialBtn["Container"],
+    styleSocialBtn["Body-Container"],
+    stylesForm["Form-Elem"]
+  );
 
   return (
     <>
-      <LoginWithSocialBtn
-        img={googleIcon}
-        socialName="Google"
-        action={() => alert("Write your login function")}
-        className={stylesForm["Form-Elem"]}
+      <ReactFacebookLogin
+        appId={process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_ID!}
+        fields="name,email,picture"
+        callback={responseFacebook}
+        autoLoad={false}
+        cssClass={classSocialBtn}
+        icon={
+          <div className={styles["SocialBtn-Icon"]}>
+            <Image src={facebookIcon} alt="logo" width={20} height={20} />
+          </div>
+        }
       />
-      <LoginWithSocialBtn
-        img={facebookIcon}
-        socialName="Facebook"
-        action={() => alert("Write your login function")}
-        className={stylesForm["Form-Elem"]}
+
+      <GoogleLogin
+        clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}
+        buttonText="Login"
+        onSuccess={responseGoogleSuccess}
+        onFailure={responseGoogleFailed}
+        cookiePolicy={"single_host_origin"}
+        render={({ onClick, disabled }) => (
+          <LoginWithSocialBtn
+            img={googleIcon}
+            socialName="Google"
+            action={onClick}
+            className={stylesForm["Form-Elem"]}
+          />
+        )}
       />
 
       <Divider label="or login with email" />
