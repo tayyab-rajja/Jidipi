@@ -1,0 +1,9 @@
+.Form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.Form-Elem {
+  margin-bottom: 14px;
+}
