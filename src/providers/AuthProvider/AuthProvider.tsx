@@ -9,7 +9,7 @@ import {
   SessionDispatch,
   SessionState,
 } from "./types";
-import { TOKEN } from "../../constant/login";
+import { TOKEN } from "../../../constant/login";
 import { ILoginSuccess, IUserFromToken } from "types/loginTypes";
 
 const setDefaultAuthHeaders = (token: string) => {
