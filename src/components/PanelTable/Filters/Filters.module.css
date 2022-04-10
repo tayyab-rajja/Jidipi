@@ -1,9 +1,9 @@
 .FilterWrapper {
-  flex: 0 0 auto;
   width: 235px;
 }
 
 .FilterWrapper_Location {
+  min-width: 235px;
   flex: 1 1 auto;
 }
 
