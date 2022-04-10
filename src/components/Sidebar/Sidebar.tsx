@@ -4,7 +4,6 @@ import { SidebarTabs } from "./SidebarTabs/SidebarTabs";
 import { SidebarContent } from "./SidebarContent/SidebarContent";
 
 import styles from "./Sidebar.module.css";
-import LoginSidebar from "src/components/LoginSidebar/LoginSidebar";
 
 interface Props {
   sidebarCategories: any;
@@ -38,7 +37,6 @@ export const Sidebar = ({ sidebarCategories }: Props) => {
       />
       <SidebarTabs currentTab={currentTab} handleChange={handleTab} />
       <SidebarContent categories={categories} title="All" />
-      <LoginSidebar />
     </div>
   );
 };

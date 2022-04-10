@@ -2,17 +2,12 @@ import React from "react";
 import { Portal } from "../Portal/Portal";
 import styles from "./SideBarWrapper.module.css";
 import Backdrop from "../Backdrop/Backdrop";
+import { useSideBar } from "src/providers/SidebarProvider/SidebarProvider";
 
-interface ISideBarProps {
-  isOpen: boolean;
-  closeBar: VoidFunction;
-}
+interface ISideBarProps {}
 
-const SideBarWrapper: React.FC<ISideBarProps> = ({
-  isOpen,
-  children,
-  closeBar,
-}) => {
+const SideBarWrapper: React.FC<ISideBarProps> = ({ children }) => {
+  const { close, isOpen } = useSideBar();
   const renderChildren = () => {
     if (isOpen) {
       return <div className={styles.SideBarWrapper}>{isOpen && children}</div>;
@@ -22,7 +17,7 @@ const SideBarWrapper: React.FC<ISideBarProps> = ({
 
   return (
     <Portal>
-      <Backdrop isOpen={isOpen} close={closeBar} />
+      <Backdrop isOpen={isOpen} close={close} />
       {renderChildren()}
     </Portal>
   );

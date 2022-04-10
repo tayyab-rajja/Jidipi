@@ -1,6 +1,7 @@
-import { useAuth } from "src/providers/AuthProvider";
+import { useAuth } from "src/providers/AuthProvider/AuthProvider";
 import axios from "axios";
 import { ILoginSuccess } from "types/loginTypes";
+import { useSideBar } from "src/providers/SidebarProvider/SidebarProvider";
 
 type LoginByCredsParamsType = { email: string; password: string };
 type LoginByFacebookType = {
@@ -21,6 +22,7 @@ type LoginBodyType =
 
 export const useLoginRequest = () => {
   const { setSession, setLoading } = useAuth();
+  const { close } = useSideBar();
 
   const login = async (body: LoginBodyType) => {
     try {
@@ -33,6 +35,7 @@ export const useLoginRequest = () => {
       if (socialLoginResponse.status === 200) {
         const response: ILoginSuccess = socialLoginResponse.data;
         setSession(response);
+        close();
         return;
       }
       return socialLoginResponse;

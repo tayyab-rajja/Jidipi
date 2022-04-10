@@ -7,15 +7,9 @@ import RecoverOrResetPasswordField from "src/components/RecoverOrResetPasswordFi
 import styles from "./SidebarLoginRegister.module.css";
 import SideBarWrapper from "../SideBarWrapper/SideBarWrapper";
 
-interface ISidebarLoginRegisterProps {
-  isOpen: boolean;
-  close: VoidFunction;
-}
+interface ISidebarLoginRegisterProps {}
 
-const SidebarLoginRegister: FC<ISidebarLoginRegisterProps> = ({
-  isOpen,
-  close,
-}) => {
+const SidebarLoginRegister: FC<ISidebarLoginRegisterProps> = ({}) => {
   const [loginForgotten, setLoginForgotten] = useState(false);
 
   const goToRecoverPassword = () =>
@@ -41,7 +35,7 @@ const SidebarLoginRegister: FC<ISidebarLoginRegisterProps> = ({
   ];
 
   return (
-    <SideBarWrapper isOpen={isOpen} closeBar={close}>
+    <SideBarWrapper>
       <aside className={styles["AuthContainer"]}>
         <header className={styles["AuthContainer-Header"]}>
           <h1 className={styles["AuthContainer-Title"]}>JIDIPI</h1>

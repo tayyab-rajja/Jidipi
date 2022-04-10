@@ -7,6 +7,7 @@ import { PageFolder } from "types/pageFolderType";
 
 import styles from "./Navbar.module.css";
 import SidebarLoginRegister from "../SidebarLoginRegister";
+import { SideBarProvider } from "src/providers/SidebarProvider/SidebarProvider";
 
 interface Props {
   pageFolders: PageFolder[];
@@ -56,10 +57,12 @@ export const Navbar = ({ pageFolders }: Props) => {
           </svg>
         </div>
       </header>
-      <SidebarLoginRegister
+      <SideBarProvider
         isOpen={showLoginBar}
         close={() => setShowLoginBar(false)}
-      />
+      >
+        <SidebarLoginRegister />
+      </SideBarProvider>
     </>
   );
 };
