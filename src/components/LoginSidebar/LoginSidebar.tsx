@@ -111,7 +111,7 @@ const LoginSidebar = () => {
       )}
       {status !== "authenticated" && (
         <ReactFacebookLogin
-          appId={process.env.FACEBOOK_CLIENT_ID!}
+          appId={process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_ID!}
           fields="name,email,picture"
           callback={responseFacebook}
           autoLoad={false}
@@ -119,7 +119,7 @@ const LoginSidebar = () => {
       )}
       {status !== "authenticated" && (
         <GoogleLogin
-          clientId={process.env.GOOGLE_CLIENT_ID!}
+          clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}
           buttonText="Login"
           onSuccess={responseGoogleSuccess}
           onFailure={responseGoogleFailed}

@@ -38,7 +38,7 @@ export const Sidebar = ({ sidebarCategories }: Props) => {
       />
       <SidebarTabs currentTab={currentTab} handleChange={handleTab} />
       <SidebarContent categories={categories} title="All" />
-      {/* <LoginSidebar /> */}
+      <LoginSidebar />
     </div>
   );
 };
