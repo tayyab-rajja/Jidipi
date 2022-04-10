@@ -40,9 +40,12 @@ const TablePage: FC<TablePageProps> = ({ pageFolders, tabs }) => {
         SidebarComponent={<SidebarWithAvatar />}
         pageFolders={pageFolders}
       >
-        <LoginSidebar />
         <div
-          style={{ maxWidth: "1200px", minWidth: "840px", margin: "0 auto" }}
+          style={{
+            maxWidth: "1200px",
+            minWidth: "840px",
+            margin: "-20px auto 0 auto",
+          }}
         >
           <UserPanelData />
           <PanelTable
@@ -52,6 +55,7 @@ const TablePage: FC<TablePageProps> = ({ pageFolders, tabs }) => {
             tableData={tableData}
           />
         </div>
+        <LoginSidebar />
       </Layout>
     </div>
   );

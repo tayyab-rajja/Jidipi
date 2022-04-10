@@ -19,9 +19,15 @@
 }
 
 .Filter-MenuItem {
-  padding-left: 45px;
+  color: #373737;
+  padding: 14px 0 14px 45px;
   background-color: #fff;
   border-bottom: 1px solid #d6d6d6;
+}
+
+.Filter-MenuItem_Selected {
+  color: #fff;
+  background-color: #373737;
 }
 
 .Filter-MenuItem div {
