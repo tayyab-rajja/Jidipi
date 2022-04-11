@@ -21,17 +21,13 @@
 .Sidebar-LinksItem {
     color: #888;
     font-size: 11px;
-    padding: 20px 20px 20px 26px;
+    padding: 8px 20px;
     border-bottom: 2px solid #D6D6D6;
     text-decoration: none;
     display: flex;
     align-items: center;
     position: relative;
     cursor: pointer;
-}
-
-.Sidebar-LinksItem span svg path {
-    fill: #D6D6D6;
 }
 
 .Sidebar-LinksItem:hover {
@@ -64,9 +60,27 @@
     display: none;
 }
 
-.Sidebar-LinksItem:hover span svg path {
-    fill: #fff;
+.Icon {
+    fill: #D6D6D6;
 }
+
+.Background {
+    fill: #FFF;
+}
+
+.Sidebar-LinksItem:hover .Background {
+    fill: #DEB851;
+}
+
+.Sidebar-LinksItem:hover .Icon,
+.Sidebar-LinksItem:active .Icon {
+    fill: #FFFFFF;
+}
+
+.Sidebar-LinksItem:active .LinkIcon-Icon {
+    fill: #373737;
+}
+
 
 .Sidebar-LinksItem_Icon {
     position: relative;

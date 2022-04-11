@@ -14,6 +14,7 @@ import { fetchPosts } from "src/api/fetchPosts";
 import qs from "qs";
 import { fetchCategoriesList } from "src/api/fetchCategoriesList";
 import Masonry from "react-masonry-css";
+import ShareSidebar from "src/components/ShareSidebar/ShareSidebar";
 
 interface Props {
   pageFolders: PageFolder[];
@@ -36,8 +37,12 @@ const FolderPage = ({ pageFolders, posts, sidebarCategories }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Layout
+      {/* <Layout
         SidebarComponent={<Sidebar sidebarCategories={sidebarCategories} />}
+        pageFolders={pageFolders}
+      > */}
+      <Layout
+        SidebarComponent={<ShareSidebar />}
         pageFolders={pageFolders}
       >
         <Masonry
