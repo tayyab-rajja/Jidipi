@@ -1,4 +1,5 @@
 import { FC } from "react";
+import clsx from "clsx";
 import Image from "next/image";
 import { MenuItem } from "@szhsin/react-menu";
 
@@ -40,11 +41,14 @@ export const LanguageFilter: FC<LanguageFilterProps> = ({
       wrapperClassName={styles["FilterWrapper"]}
       onChange={(value) => handleFilterChange("filter", value)}
       options={languageOptions}
-      renderOptions={({ title, text }, index) => (
+      renderOptions={({ title, text }, index, selectedItem) => (
         <MenuItem
           key={text + index}
           value={text}
-          className={styles["Filter-MenuItem"]}
+          className={clsx(
+            styles["Filter-MenuItem"],
+            text === selectedItem && styles["Filter-MenuItem_Selected"]
+          )}
         >
           <div>{title}</div>
           <div>{text}</div>

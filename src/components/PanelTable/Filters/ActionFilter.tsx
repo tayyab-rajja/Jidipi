@@ -1,3 +1,4 @@
+import { FC } from "react";
 import Image from "next/image";
 import { MenuItem } from "@szhsin/react-menu";
 
@@ -12,18 +13,25 @@ const actionOptions = [
   {
     icon: actionsSvg["MOVE"],
     text: "Move",
+    value: "move",
   },
   {
     icon: actionsSvg["COPY"],
     text: "Copy",
+    value: "copy",
   },
   {
     icon: actionsSvg["DELETE"],
     text: "Delete",
+    value: "delete",
   },
 ];
 
-export const ActionFilter = () => {
+interface ActionFilterProps {
+  handleAction: (type: string) => void;
+}
+
+export const ActionFilter: FC<ActionFilterProps> = ({ handleAction }) => {
   return (
     <DropDown
       placeholder="Action"
@@ -32,11 +40,11 @@ export const ActionFilter = () => {
       wrapperClassName={styles["FilterWrapper"]}
       options={actionOptions}
       isShouldViewValue={false}
-      onChange={(value) => {}}
-      renderOptions={({ icon, text }, index) => (
+      onChange={(value) => handleAction(value)}
+      renderOptions={({ icon, text, value }, index) => (
         <MenuItem
           key={text + index}
-          value={text}
+          value={value}
           className={styles["Filter-MenuItem"]}
         >
           <div>{icon}</div>

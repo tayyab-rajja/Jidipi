@@ -32,11 +32,14 @@ export const AllFilter: FC<AllFilterProps> = ({ handleFilterChange }) => {
       wrapperClassName={styles["FilterWrapper"]}
       onChange={(value) => handleFilterChange("all", value === "All")}
       options={allOptions}
-      renderOptions={({ icon, text }, index) => (
+      renderOptions={({ icon, text }, index, selectedItem) => (
         <MenuItem
           key={text + index}
           value={text}
-          className={styles["Filter-MenuItem"]}
+          className={clsx(
+            styles["Filter-MenuItem"],
+            text === selectedItem && styles["Filter-MenuItem_Selected"]
+          )}
         >
           <div>{icon}</div>
           <div>{text}</div>

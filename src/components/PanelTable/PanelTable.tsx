@@ -49,7 +49,30 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
     setSearchValue(value);
   };
 
-  const handleChangeAction = useCallback(() => {
+  const handleAction = (type: string) => {
+    const selectedData = data.filter(({ isSelect }) => isSelect);
+
+    if (!selectedData.length) {
+      return;
+    }
+
+    switch (type) {
+      case "move":
+        console.log(selectedData);
+        break;
+
+      case "copy":
+        console.log(selectedData);
+
+        break;
+      case "delete":
+        console.log(selectedData);
+
+        break;
+    }
+  };
+
+  const handleChange = useCallback(() => {
     const { all } = filtersValues;
     const filteredDataWithTab = tableData.filter(
       ({ pageFolderId }) => pageFolderId === currentTab
@@ -109,8 +132,8 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
   };
 
   useEffect(() => {
-    handleChangeAction();
-  }, [tableData, searchValue, currentTab, filtersValues, handleChangeAction]);
+    handleChange();
+  }, [tableData, searchValue, currentTab, filtersValues, handleChange]);
 
   return (
     <Tabs className={styles["PanelTable"]} onChange={handleTabsChange}>
@@ -123,7 +146,10 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
         <Tab className={styles["PanelTable-Tab"]}>{t("mine")}</Tab>
       </TabList>
       <TabPanels className={styles["PanelTable-TabPanels"]}>
-        <ActionFilters handleFilterChange={handleFilterChange} />
+        <ActionFilters
+          handleAction={handleAction}
+          handleFilterChange={handleFilterChange}
+        />
         <SearchInput value={searchValue} onChange={handleSearchChange} />
         <Table
           isDataTrashed={!filtersValues.all}
@@ -132,7 +158,7 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
           updateMyData={updateMyData}
         />
         <div className={styles["PanelTable-ButtomFilters"]}>
-          <ActionFilter />
+          <ActionFilter handleAction={handleAction} />
           <PostsPerPage />
         </div>
         <div className={styles["PanelTable-Pagination"]}>
