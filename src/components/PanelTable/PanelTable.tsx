@@ -24,6 +24,11 @@ interface PanelTableProps {
   tableData: TableData[];
 }
 
+const getKeyValue =
+  <T extends object, U extends keyof T>(obj: T) =>
+  (key: U) =>
+    obj[key];
+
 const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
   const { t } = useTranslation();
   const [data, setData] = useState<TableData[] | []>([]);
@@ -64,8 +69,7 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
 
       for (const key in data) {
         isHasValue = searchValue.some(({ value }) =>
-          //@ts-ignore
-          String(data[key])
+          String(getKeyValue(data)(key as keyof TableData))
             .toLocaleLowerCase()
             .includes(value.toLocaleLowerCase())
         );
