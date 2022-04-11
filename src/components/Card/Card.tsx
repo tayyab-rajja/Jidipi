@@ -7,12 +7,15 @@ import PostCategories from "src/components/PostCategories/PostCategories";
 import { Categories } from "types/postTypes";
 
 import styles from "./Card.module.css";
+import Link from "next/link";
 
 interface CardProps {
   title: string;
   className?: string;
-  image: string;
+  image?: string;
   id: string;
+  folder: string;
+  slug: string;
   categories: Categories[];
 }
 
@@ -23,30 +26,37 @@ export const Card = ({
   className,
   title,
   id,
+  folder,
+  slug,
   categories,
-  image = emptyImage,
+  image,
 }: CardProps) => {
   const { t } = useTranslation();
-  const router = useRouter();
-
-  const handleClick = () => {
-    router.push(`/${id}`);
-  };
 
   return (
-    <div
-      className={clsx(styles.Card, className && className)}
-      onClick={handleClick}
-    >
-      <Image
-        className={styles["Card-Image"]}
-        layout="responsive"
-        width={500}
-        height={500}
-        src={image}
-        alt="Card Img"
-      />
-      <h3 className={styles["Card-Title"]}>{t(title)}</h3>
+    <div className={clsx(styles.Card, className && className)}>
+      <Link
+        href={{
+          pathname: "/[folder]/[postId]/[slug]",
+          query: {
+            folder: folder,
+            postId: id,
+            slug: slug,
+          },
+        }}
+      >
+        <a>
+          <Image
+            className={styles["Card-Image"]}
+            layout="responsive"
+            width={500}
+            height={500}
+            src={image ? image : emptyImage}
+            alt="Card Img"
+          />
+          <h3 className={styles["Card-Title"]}>{t(title)}</h3>
+        </a>
+      </Link>
       <PostCategories categories={categories} />
     </div>
   );

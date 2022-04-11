@@ -7,6 +7,9 @@ import { getFormatedList } from "helpers/getFormatedList";
 
 import styles from "./SidebarContent.module.css";
 import { Category, CategoryAPI } from "types/categoryTypes";
+import { useRouter } from "next/router";
+import { useCategories } from "src/api/useCategories";
+import { usePageFolderByName } from "src/api/usePageFolderByName";
 
 interface SidebarContentProps {
   title: string;
@@ -35,7 +38,7 @@ const CategoryText = ({
         )}
         title={`${text} (${count})`}
       >
-        <Link href="#">
+        <Link href={link}>
           <a className={styles["SidebarContent-Link"]}>
             <span>{t(text)}</span>
             <span className={styles["SidebarContent-Count"]}>{count}</span>
@@ -62,10 +65,16 @@ export const SidebarContent: FC<SidebarContentProps> = ({
   categories,
 }) => {
   const { t } = useTranslation();
+  const { query } = useRouter();
+
+  const { data: pageFolder } = usePageFolderByName(
+    (query.folder as string) ?? null
+  );
+  // const { data: categories } = useCategories(pageFolder?._id ?? null);
 
   const { list, totalCount } = getFormatedList(
     categories,
-    "603ce60958c5c6279bc2ed96"
+    pageFolder?._id as string
   );
 
   return (
@@ -77,12 +86,15 @@ export const SidebarContent: FC<SidebarContentProps> = ({
       {categories && (
         <ul className={styles["SidebarContent-Hero"]}>
           {list.map(
-            ({ title, subCategories, postCount }: Category, index: number) => (
+            (
+              { title, subCategories, postCount, uniqueId }: Category,
+              index: number
+            ) => (
               <li key={index}>
                 <CategoryText
                   text={title}
                   count={postCount}
-                  link={""}
+                  link={`/${query.folder}/categories/${uniqueId}`}
                   isTitle
                 />
                 <ul className={styles["SidebarContent-Hero"]}>

@@ -1,0 +1,52 @@
+.Container {
+  background: white;
+  border-radius: 50%;
+  border: 1px dashed #D6D6D6;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Body-Container {
+  width: 200px;
+  height: 200px;
+  padding: 50px 50px;
+  position: relative;
+}
+.Body-Container {
+  padding: 30px 30px;
+}
+.Body-ContainerWithImage {
+  padding: 0 0;
+}
+
+.Container-DeleteAvatar {
+  color: #888888;
+  font-weight: bold;
+  font-size: 24px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+.Container-TextToDo {
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.Container-TextSize {
+  font-size: 7px;
+  line-height: 10px;
+}
+
+.Text_Gray {
+  color: #888888;
+}
+
+.Container-TextBrowse {
+  color:#DEB851;
+  cursor: pointer;
+  margin: 0 2px;
+}

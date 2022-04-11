@@ -1,0 +1,31 @@
+.InfoBlock {
+  display: flex;
+  color: #37373780;
+}
+
+.InfoBlock-ImgWrapper {
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e3e3e3;
+}
+.InfoBlock-ImgWrapper svg path {
+  fill: #fff;
+}
+
+.InfoBlock-Hero {
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.InfoBlock-Hero h4 {
+  margin: 0;
+}
+
+.InfoBlock-Hero span {
+  font-size: 20px;
+}
