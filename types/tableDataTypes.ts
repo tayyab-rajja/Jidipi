@@ -4,6 +4,7 @@ export interface TableData {
   isSelect: boolean;
   image: string;
   name?: string;
+  language?: string;
   category?: string;
   country?: string;
   brand?: string;

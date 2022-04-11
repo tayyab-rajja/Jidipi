@@ -67,7 +67,7 @@ export const getTableData: GetTableData = (data, type) => {
       break;
 
     case "COMPANY":
-      if (data) {
+      // if (data) {
       //   tableOptions.tableData = data
       //     .filter(
       //       ({ pageType, postId }) =>
