@@ -15,6 +15,7 @@ interface DropDownProps {
   menuClassName?: string;
   placeholder?: string;
   defaultValue?: any;
+  isShouldViewValue?: boolean;
   options: { [key: string]: any }[];
   renderOptions: (
     agr: any,
@@ -34,6 +35,7 @@ export const DropDown: FC<DropDownProps> = ({
   placeholder,
   defaultValue = null,
   wrapperClassName,
+  isShouldViewValue = true,
   onChange,
   renderOptions,
   optionsPropsToFilter,
@@ -55,7 +57,7 @@ export const DropDown: FC<DropDownProps> = ({
         onClick={() => setOpen(!isOpen)}
       >
         {icon}
-        {selectedItem ? selectedItem : placeholder}
+        {selectedItem && isShouldViewValue ? selectedItem : placeholder}
         <div className={styles["Filter-Arrow"]} />
       </div>
 

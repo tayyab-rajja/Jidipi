@@ -31,6 +31,7 @@ export const ActionFilter = () => {
       className={styles["Filter"]}
       wrapperClassName={styles["FilterWrapper"]}
       options={actionOptions}
+      isShouldViewValue={false}
       onChange={(value) => {}}
       renderOptions={({ icon, text }, index) => (
         <MenuItem

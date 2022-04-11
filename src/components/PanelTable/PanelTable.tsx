@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
 import { Tabs, TabList, Tab, TabPanels } from "@reach/tabs";
 
@@ -35,9 +35,6 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
   });
   const [searchValue, setSearchValue] = useState<SearchInputValue>([]);
   const [currentTab, setCurrentTab] = useState(tabs[0]._id);
-  const filteredDataWithTab = tableData.filter(
-    ({ pageFolderId }) => pageFolderId === currentTab
-  );
 
   const handleFilterChange = (type: FilterTypes, value: string | boolean) => {
     setFiltersValues({ ...filtersValues, [type]: value });
@@ -47,8 +44,12 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
     setSearchValue(value);
   };
 
-  const handleChangeAction = () => {
+  const handleChangeAction = useCallback(() => {
     const { all } = filtersValues;
+    const filteredDataWithTab = tableData.filter(
+      ({ pageFolderId }) => pageFolderId === currentTab
+    );
+
     let data = filteredDataWithTab.filter(({ isTrashed }) =>
       all ? !isTrashed : isTrashed
     );
@@ -77,7 +78,7 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
     });
 
     setData(data);
-  };
+  }, [filtersValues, searchValue, currentTab, tableData]);
 
   const updateMyData: UpdateMyData = (value, rowIndex, columnId) => {
     if (!columnId) {
@@ -105,7 +106,7 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
 
   useEffect(() => {
     handleChangeAction();
-  }, [tableData, searchValue, currentTab, filtersValues]);
+  }, [tableData, searchValue, currentTab, filtersValues, handleChangeAction]);
 
   return (
     <Tabs className={styles["PanelTable"]} onChange={handleTabsChange}>
