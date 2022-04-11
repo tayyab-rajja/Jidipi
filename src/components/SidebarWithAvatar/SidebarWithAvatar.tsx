@@ -66,7 +66,7 @@ const SidebarWithAvatar = ({}) => {
               onClick={() => setSelected(title)}
             >
               <span className={styles["Links-Item_Icon"]}>
-                {readerPanelSvg[`${icon}`]}
+                {readerPanelSvg[icon]}
               </span>
               <span className={styles["Links-Item_Text"]}>
                 <Link href="#">

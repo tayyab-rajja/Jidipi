@@ -1,0 +1,32 @@
+.Container {
+  border: 1px solid #D6D6D6;
+  background: #373737;
+  display: grid;
+  grid-template-rows: 100%;
+  grid-template-columns: 100%; 
+}
+.Container[data-type-container="password"] {
+  grid-template-columns: 80% 20%; 
+}
+.Container[data-is-unlock="true"] {
+  background: #E3E3E3;
+}
+
+.Input {
+  outline: none;
+  border: none;
+  background: none;
+}
+
+.Form-Input {
+  padding: 14px 0 14px 20px;
+}
+
+.Container-Btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin: 0 0;
+  padding: 0 0;
+}
