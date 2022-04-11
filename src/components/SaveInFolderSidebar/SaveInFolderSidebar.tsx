@@ -151,20 +151,20 @@ export const SaveInFolderSidebar: FC = () => {
             </div>
             {showElement.addLabelFormAndList && 
                 <div>
-                    <ul className={styles["LabelsList"]}>
-                    {labelsList.map((label, i) => 
-                        <LabelItem 
-                            key={i} 
-                            title={label.title}
-                            id={label.id} 
-                            color={label.color}
-                            updateLabelColor={updateLabelColor}
-                            setSelectedLabel={() => setSelectedLabel(label.title)} 
-                            deleteLabel={() => deleteLabel(label.title)}
-                            updateLabel={updateLabel} 
-                            isSelected={label.isSelected} 
-                        />)}
-                    </ul>
+                        <ul className={styles["LabelsList"]}>
+                        {labelsList.map((label, i) => 
+                            <LabelItem 
+                                key={i} 
+                                title={label.title}
+                                id={label.id} 
+                                color={label.color}
+                                updateLabelColor={updateLabelColor}
+                                setSelectedLabel={() => setSelectedLabel(label.title)} 
+                                deleteLabel={() => deleteLabel(label.title)}
+                                updateLabel={updateLabel} 
+                                isSelected={label.isSelected} 
+                            />)}
+                        </ul>
                     <AddLabelForm 
                         hideAddLableForm={() => hideAddLableForm('addLabelFormAndList')} 
                         createLabel={createLabel}

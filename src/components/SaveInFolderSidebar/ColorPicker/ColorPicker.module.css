@@ -1,3 +1,12 @@
+.ColorPicker-Overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #373737A8;
+}
+
 .ColorPicker-Wrapper {
     width: 120px;
     height: 148px;
