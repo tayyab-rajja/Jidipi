@@ -1,4 +1,5 @@
 export interface TableData {
+  id: string;
   pageFolderId: string;
   isTrashed: boolean;
   isSelect: boolean;
