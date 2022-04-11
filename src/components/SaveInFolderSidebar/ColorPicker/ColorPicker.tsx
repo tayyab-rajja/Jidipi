@@ -26,7 +26,6 @@ export const ColorPicker: FC<Props> = ({deleteLabel, selectColor, editInput}) =>
     }
 
     return (
-        <div className={styles["ColorPicker-Overlay"]}>
             <div className={styles["ColorPicker-Wrapper"]}>
                 <div className={styles["ColorPicker-Button"]} onClick={editBtnClick}>
                     {sidebarSvg["EDIT"]}Edit
@@ -45,6 +44,5 @@ export const ColorPicker: FC<Props> = ({deleteLabel, selectColor, editInput}) =>
                     {sidebarSvg["DELETE"]}Delete
                 </div>
             </div>
-        </div>
     )
 }

@@ -153,17 +153,18 @@ export const SaveInFolderSidebar: FC = () => {
                 <div>
                         <ul className={styles["LabelsList"]}>
                         {labelsList.map((label, i) => 
-                            <LabelItem 
-                                key={i} 
+                                <LabelItem 
                                 title={label.title}
-                                id={label.id} 
+                                id={label.id}
+                                key={i} 
                                 color={label.color}
                                 updateLabelColor={updateLabelColor}
                                 setSelectedLabel={() => setSelectedLabel(label.title)} 
                                 deleteLabel={() => deleteLabel(label.title)}
                                 updateLabel={updateLabel} 
                                 isSelected={label.isSelected} 
-                            />)}
+                            />
+                            )}
                         </ul>
                     <AddLabelForm 
                         hideAddLableForm={() => hideAddLableForm('addLabelFormAndList')} 

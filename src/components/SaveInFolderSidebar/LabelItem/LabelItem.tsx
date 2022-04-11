@@ -1,4 +1,4 @@
-import { FC, KeyboardEventHandler, MouseEventHandler, useState } from "react";
+import { FC, KeyboardEventHandler, MouseEventHandler, useState} from "react";
 
 import styles from './LabelItem.module.css';
 import clsx from "clsx";
@@ -21,6 +21,7 @@ const LabelItem: FC<Props> = ({title, setSelectedLabel, isSelected, id, deleteLa
     const [isEditLabelFormOpen, setEditLabelForm] = useState(false);
     const [isEditable, setEditable] = useState(false);
     const [inputValue, setInputValue] = useState(title);
+
 
     const selectColor = (color: string) => {
         updateLabelColor(id, color);
@@ -45,7 +46,7 @@ const LabelItem: FC<Props> = ({title, setSelectedLabel, isSelected, id, deleteLa
     let className = isSelected ? clsx(styles["LabelItem"], styles["Selected"]) : styles["LabelItem"];
 
     return (
-        <>
+        <div className="LabelItem-Overlay">
         <li className={styles["LabelItem-Wrapper"]}>
             {isEditable ? 
                 <input 
@@ -62,12 +63,14 @@ const LabelItem: FC<Props> = ({title, setSelectedLabel, isSelected, id, deleteLa
                     onContextMenu={showEditLabelForm}>
                 {title}{isSelected && <span onClick={deleteLabel}>{sidebarSvg["CLOSE"]}</span>} 
                 </div>}
-                {isEditLabelFormOpen && <ColorPicker deleteLabel={deleteLabel} selectColor={selectColor} editInput={editInput} />}
+                {isEditLabelFormOpen && <ColorPicker deleteLabel={deleteLabel} selectColor={selectColor} editInput={editInput} />
+                }
         </li>
-        
-        </>
+        </div>
         
     )          
 }
+
+
 
 export default LabelItem;
