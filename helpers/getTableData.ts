@@ -32,6 +32,7 @@ export const getTableData: GetTableData = (data, type) => {
             isTrashed,
             pageFolderId: postId.pageFolderId,
             isSelect: false,
+            language: postId.language,
             image: postId.featuredImage.sizes[0],
             name: postId.title,
             location: postId?.location || "",
@@ -44,10 +45,47 @@ export const getTableData: GetTableData = (data, type) => {
       break;
 
     case "INFORMATION":
+      if (data) {
+        tableOptions.tableData = data
+          .filter(
+            ({ pageType, postId }) => pageType === "INFORMATION" && !!postId
+          )
+          .map(({ isTrashed, postId, label, note }) => ({
+            isTrashed,
+            pageFolderId: postId.pageFolderId,
+            isSelect: false,
+            language: postId.language,
+            image: postId.featuredImage.sizes[0],
+            name: postId.title,
+            category: postId?.category || "",
+            company: postId?.company || "",
+            label: label?.label || "",
+            note: note || "",
+          }));
+      }
       tableOptions.tableColumns = tableColumns.information;
       break;
 
     case "COMPANY":
+      if (data) {
+      //   tableOptions.tableData = data
+      //     .filter(
+      //       ({ pageType, postId }) =>
+      //         (pageType === "PRODUCT" || pageType === "PROJECT") && !!postId
+      //     )
+      //     .map(({ isTrashed, postId, label, note }) => ({
+      //       isTrashed,
+      //       pageFolderId: postId.pageFolderId,
+      //       isSelect: false,
+      //       language: postId.language,
+      //       image: postId.featuredImage.sizes[0],
+      //       name: postId.title,
+      //       location: postId?.location || "",
+      //       company: postId?.company || "",
+      //       label: label?.label || "",
+      //       note: note || "",
+      //     }));
+      // }
       tableOptions.tableColumns = tableColumns.company;
       break;
   }

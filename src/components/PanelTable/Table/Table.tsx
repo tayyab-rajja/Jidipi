@@ -20,6 +20,7 @@ import styles from "./Table.module.css";
 import "@reach/checkbox/styles.css";
 
 interface TableProps {
+  isDataTrashed: boolean;
   data: TableData[];
   tableColumns: TableColumn[];
   updateMyData: UpdateMyData;
@@ -27,10 +28,16 @@ interface TableProps {
 
 interface CustomTableOptions {
   autoResetSortBy: boolean;
+  isDataTrashed: boolean;
   updateMyData: UpdateMyData;
 }
 
-const Table: FC<TableProps> = ({ data, tableColumns, updateMyData }) => {
+const Table: FC<TableProps> = ({
+  data,
+  isDataTrashed,
+  tableColumns,
+  updateMyData,
+}) => {
   const defaultColumn = {
     Cell: EditableCell,
   };
@@ -44,6 +51,7 @@ const Table: FC<TableProps> = ({ data, tableColumns, updateMyData }) => {
         defaultColumn,
         autoResetSortBy: false,
         updateMyData,
+        isDataTrashed,
       } as TableOptions<UseSortByOptions<CustomTableOptions>>,
       useBlockLayout,
       useSortBy,

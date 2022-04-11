@@ -12,8 +12,7 @@ import { UpdateMyData } from "types/updateMyData";
 import { PageFolder } from "types/pageFolderType";
 import { TableData } from "types/tableDataTypes";
 import { TableColumn } from "types/tableColumnTypes";
-
-import { tableColumns } from "constant/tableColumns";
+import { FilterTypes } from "types/filterTypes";
 
 import styles from "./PanelTable.module.css";
 import "@reach/tabs/styles.css";
@@ -31,8 +30,8 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
   const [page, setPage] = useState(1);
   const [filtersValues, setFiltersValues] = useState({
     location: "",
-    language: "",
-    all: "",
+    filter: "",
+    all: true,
   });
   const [searchValue, setSearchValue] = useState<SearchInputValue>([]);
   const [currentTab, setCurrentTab] = useState(tabs[0]._id);
@@ -40,31 +39,44 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
     ({ pageFolderId }) => pageFolderId === currentTab
   );
 
-  const handleSearchChange = (values: SearchInputValue) => {
-    if (!values || !values.length) {
-      setData(filteredDataWithTab);
+  const handleFilterChange = (type: FilterTypes, value: string | boolean) => {
+    setFiltersValues({ ...filtersValues, [type]: value });
+  };
+
+  const handleSearchChange = (value: SearchInputValue) => {
+    setSearchValue(value);
+  };
+
+  const handleChangeAction = () => {
+    const { all } = filtersValues;
+    let data = filteredDataWithTab.filter(({ isTrashed }) =>
+      all ? !isTrashed : isTrashed
+    );
+
+    if (!searchValue || !searchValue.length) {
+      setData(data);
       return;
     }
 
-    setData(
-      filteredDataWithTab.filter((data) => {
-        let isHasValue = false;
+    data = data.filter((data) => {
+      let isHasValue = false;
 
-        for (const key in data) {
-          isHasValue = values.some(({ value }) =>
-            //@ts-ignore
-            String(data[key])
-              .toLocaleLowerCase()
-              .includes(value.toLocaleLowerCase())
-          );
-          if (isHasValue) {
-            return true;
-          }
+      for (const key in data) {
+        isHasValue = searchValue.some(({ value }) =>
+          //@ts-ignore
+          String(data[key])
+            .toLocaleLowerCase()
+            .includes(value.toLocaleLowerCase())
+        );
+        if (isHasValue) {
+          return true;
         }
+      }
 
-        return isHasValue;
-      })
-    );
+      return isHasValue;
+    });
+
+    setData(data);
   };
 
   const updateMyData: UpdateMyData = (value, rowIndex, columnId) => {
@@ -89,10 +101,11 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
       return;
     }
     setCurrentTab(tabs[index]._id);
-    setData(
-      tableData.filter(({ pageFolderId }) => pageFolderId === tabs[index]._id)
-    );
   };
+
+  useEffect(() => {
+    handleChangeAction();
+  }, [tableData, searchValue, currentTab, filtersValues]);
 
   return (
     <Tabs className={styles["PanelTable"]} onChange={handleTabsChange}>
@@ -105,12 +118,10 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
         <Tab className={styles["PanelTable-Tab"]}>{t("mine")}</Tab>
       </TabList>
       <TabPanels className={styles["PanelTable-TabPanels"]}>
-        <ActionFilters />
-        <SearchInput
-          value={searchValue}
-          onChange={(value) => setSearchValue(value)}
-        />
+        <ActionFilters handleFilterChange={handleFilterChange} />
+        <SearchInput value={searchValue} onChange={handleSearchChange} />
         <Table
+          isDataTrashed={!filtersValues.all}
           tableColumns={tableColumns}
           data={data}
           updateMyData={updateMyData}

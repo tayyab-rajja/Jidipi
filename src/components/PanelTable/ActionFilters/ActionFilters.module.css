@@ -1,12 +1,8 @@
 .ActionFilters {
-  padding-bottom: 40px;
-}
-
-.ActionFilters-Filters {
   display: flex;
   margin-bottom: 10px;
 }
 
-.ActionFilters-Filters > div:not(:last-child) {
+.ActionFilters > div:not(:last-child) {
   margin-right: 10px;
 }

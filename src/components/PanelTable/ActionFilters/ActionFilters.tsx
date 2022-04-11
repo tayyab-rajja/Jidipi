@@ -1,3 +1,5 @@
+import { FC } from "react";
+
 import {
   ActionFilter,
   AllFilter,
@@ -6,21 +8,34 @@ import {
   LanguageFilter,
   LocationFilter,
 } from "../Filters";
-import { SearchInput } from "src/components/Input/SearchInput";
+
+import { FilterTypes } from "types/filterTypes";
 
 import styles from "./ActionFilters.module.css";
 
-export const ActionFilters = () => {
-  const type: "post" | "company" | "information" = "information";
+interface ActionFiltersProps {
+  handleFilterChange: (type: FilterTypes, value: string | boolean) => void;
+}
+
+export const ActionFilters: FC<ActionFiltersProps> = ({
+  handleFilterChange,
+}) => {
+  const type: "post" | "company" | "information" = "post";
 
   return (
-    <div className={styles["ActionFilters-Filters"]}>
+    <div className={styles["ActionFilters"]}>
       <ActionFilter />
-      {type === "post" && <LanguageFilter />}
-      {type === "company" && <GroupFilter />}
-      {type === "information" && <CategoryFilter />}
-      <LocationFilter />
-      <AllFilter />
+      {type === "post" && (
+        <LanguageFilter handleFilterChange={handleFilterChange} />
+      )}
+      {/* {type === "company" && (
+        <GroupFilter handleFilterChange={handleFilterChange} />
+      )}
+      {type === "information" && (
+        <CategoryFilter handleFilterChange={handleFilterChange} />
+      )} */}
+      <LocationFilter handleFilterChange={handleFilterChange} />
+      <AllFilter handleFilterChange={handleFilterChange} />
     </div>
   );
 };

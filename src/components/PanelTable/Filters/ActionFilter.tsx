@@ -3,22 +3,22 @@ import { MenuItem } from "@szhsin/react-menu";
 
 import { DropDown } from "src/components/DropDown/DropDown";
 
-import { categoriesSvg } from "constant/categoriesSvg";
+import { actionsSvg } from "constant/actionsSvg";
 import actionIcon from "public/images/actionIcon.svg";
 
 import styles from "./Filters.module.css";
 
 const actionOptions = [
   {
-    icon: categoriesSvg["DATE"],
+    icon: actionsSvg["MOVE"],
     text: "Move",
   },
   {
-    icon: categoriesSvg["DATE"],
+    icon: actionsSvg["COPY"],
     text: "Copy",
   },
   {
-    icon: categoriesSvg["DATE"],
+    icon: actionsSvg["DELETE"],
     text: "Delete",
   },
 ];

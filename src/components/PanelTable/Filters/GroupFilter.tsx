@@ -1,3 +1,5 @@
+import { FC } from "react";
+import clsx from "clsx";
 import Image from "next/image";
 import { MenuItem } from "@szhsin/react-menu";
 
@@ -5,8 +7,9 @@ import { DropDown } from "src/components/DropDown/DropDown";
 
 import groupIcon from "public/images/groupIcon.svg";
 
+import { FilterTypes } from "types/filterTypes";
+
 import styles from "./Filters.module.css";
-import clsx from "clsx";
 
 const groupOptions = [
   {
@@ -38,15 +41,20 @@ const groupOptions = [
   },
 ];
 
-export const GroupFilter = () => {
+interface GroupFilterProps {
+  handleFilterChange: (type: FilterTypes, value: string | boolean) => void;
+}
+
+export const GroupFilter: FC<GroupFilterProps> = ({ handleFilterChange }) => {
   return (
     <DropDown
       placeholder="Group"
       icon={<Image src={groupIcon} width={15} height={15} alt="Group" />}
       className={styles["Filter"]}
+      defaultValue=""
       wrapperClassName={styles["FilterWrapper"]}
       options={groupOptions}
-      onChange={(value) => {}}
+      onChange={(value) => handleFilterChange("filter", value)}
       renderOptions={({ text }, index, selectedItem) => (
         <MenuItem
           key={text + index}

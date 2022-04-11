@@ -19,6 +19,7 @@ export interface ReaderPost {
     title: string;
     slug: string;
     language: string;
+    category: string;
     company: string;
     location: string;
     pageFolderId: string;
