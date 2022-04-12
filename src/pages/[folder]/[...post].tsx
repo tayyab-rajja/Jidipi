@@ -27,6 +27,8 @@ const Post = ({ post, sidebarCategories, pageFolders }: Props) => {
   const companyImg = post?.companyId?.avatar || null;
   const title = post.title;
 
+  console.log(post);
+
   return (
     <div>
       <Head>
@@ -46,7 +48,12 @@ const Post = ({ post, sidebarCategories, pageFolders }: Props) => {
         >
           <div dangerouslySetInnerHTML={{ __html: post.description }} />
         </CardDetails>
-        {companyImg && <CompanyProfile companyImg={companyImg} />}
+        {post?.companyId && (
+          <CompanyProfile
+            comnanyInfo={post?.companyId}
+            companyImg={companyImg}
+          />
+        )}
       </Layout>
       <Script src={process.env.NEXT_PUBLIC_SETKA_SCRIPTS_URL}></Script>
     </div>
