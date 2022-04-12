@@ -1,0 +1,53 @@
+before_script:
+  - echo $CI_COMMIT_BRANCH
+  - cp -rp  cicd/pro/.env .env.production
+  # https://gitlab.com/gitlab-org/gitlab-runner/-/issues/27384#note_497228752
+  - if [[ $CI_COMMIT_BRANCH != "master" ]]; then sed -i 's/###DEV //g'  Dockerfile; fi
+  - if [[ $CI_COMMIT_BRANCH == "master" ]]; then sed -i 's/###PRO //g'  Dockerfile; fi
+  - cat Dockerfile
+  - if [[ $CI_COMMIT_BRANCH == "master" ]]; then SLUG="blog"; else SLUG="blog-"$CI_COMMIT_BRANCH; fi
+  - if [[ $CI_COMMIT_BRANCH == "master" ]]; then REPLICAS=3; else REPLICAS=1; fi
+  - if [[ $CI_COMMIT_BRANCH == "master" ]]; then TIER="live"; else TIER="staging"; fi
+#  - DOMAIN = 'dev.jidipi.com'
+  - if [[ $CI_COMMIT_BRANCH == "master" ]]; then  DOMAIN='jidipi.com'; else  DOMAIN='dev.jidipi.com'; fi
+  - if [[ $CI_COMMIT_BRANCH == "master" ]]; then SUBDOMAIN="blog"; else SUBDOMAIN="blog-"$CI_COMMIT_BRANCH; fi
+  - if [[ $CI_COMMIT_BRANCH == "master" ]]; then BACKENDURL="blog"; else SUBDOMAIN="blog-"$CI_COMMIT_BRANCH; fi
+  - echo ">>>>>>>>>>>>>>"$SLUG$REPLICAS$TIER
+  - sed -i "s/__SLUG__/${SLUG}/" cicd/k8s.yaml
+  - sed -i "s/__REPLICAS__/${REPLICAS}/" cicd/k8s.yaml
+  - sed -i "s/__CI_COMMIT_BRANCH__/${CI_COMMIT_BRANCH}/" cicd/k8s.yaml
+  - sed -i "s/__DOMAIN__/${DOMAIN}/" cicd/k8s.yaml
+  - sed -i "s/__SUBDOMAIN__/${SUBDOMAIN}/" cicd/k8s.yaml
+  - sed -i "s/__CI_COMMIT_SHORT_SHA__/${CI_COMMIT_SHORT_SHA}/" cicd/k8s.yaml
+  - echo '+++++++++++++++++++++++++++++'
+  - cat cicd/k8s.yaml
+  - echo '+++++++++++++++++++++++++++++'
+  - sed -i "s/__localhost:3000__/${SUBDOMAIN}.${DOMAIN}/" .env.development
+  - sed -i "s/__localhost:3000__/${SUBDOMAIN}.${DOMAIN}/" .env.production
+  - cat .env.development
+  - cat .env.production
+#  - rm -rf package-lock.json
+stages:
+  - build
+  - release
+#  - cleanup
+#-
+build:
+  stage: build
+  only:
+    - main
+    - ruo
+  script:
+    - docker build --network host -t blog:${CI_COMMIT_BRANCH} .
+    - docker tag blog:${CI_COMMIT_BRANCH} registry.digitalocean.com/jidipi/blog:${CI_COMMIT_BRANCH}
+    - docker push registry.digitalocean.com/jidipi/blog:${CI_COMMIT_BRANCH}
+release:
+  stage: release
+  only:
+    - main
+    - ruo
+  environment:
+    name: review/$CI_COMMIT_BRANCH
+    url: https://$SUBDOMAIN.$DOMAIN
+  script:
+    - kubectl  apply -f cicd/k8s.yaml

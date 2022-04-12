@@ -2,13 +2,14 @@ import {FC} from 'react';
 
 import TabsFormsUserData from 'src/components/TabsFormsUserData';
 import SettingNameEmail from 'src/components/SettingNameEmail';
+import AvatarField from 'src/components/AvatarField'
 
 import styles from './SidebarSettingAccount.module.css'
 
 const tabsData = [
   {
     name: 'avatar',
-    panel: <h1>Avatar</h1>
+    panel: <AvatarField/>
   },
   
   {
