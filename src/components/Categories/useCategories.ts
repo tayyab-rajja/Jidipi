@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { CategoryAPI, ICategoriesResponse } from "types/categoryTypes";
+import { ICategoriesResponse } from "types/categoryTypes";
 
 export const useCategories = (folderId: string | null) => {
   const { data: categories, error } = useSWR<ICategoriesResponse>(

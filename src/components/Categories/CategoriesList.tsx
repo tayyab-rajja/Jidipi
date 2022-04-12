@@ -3,6 +3,7 @@ import { ICategory, ICategoryTab, ISubCategory } from "types/categoryTypes";
 
 import clsx from "clsx";
 import styles from "./Categories.module.css";
+import { useRouter } from "next/router";
 
 const List: React.FC = ({ children }) => {
   return <ul className={styles["CategoriesList-List"]}>{children}</ul>;
@@ -12,9 +13,11 @@ const Item: React.FC<{
   data: ICategory | ISubCategory;
   hasNestedList?: boolean;
 }> = ({ data, hasNestedList, children }) => {
+  const { query } = useRouter();
+
   return (
     <li>
-      <Link href="#">
+      <Link href={`/${query.folder}/categories/${data.uniqueId}`}>
         <a
           className={clsx(
             styles["CategoriesList-ItemLink"],
@@ -30,9 +33,11 @@ const Item: React.FC<{
 };
 
 export const CategoriesList = ({ category }: { category: ICategoryTab }) => {
+  const { query } = useRouter();
+
   return (
     <div className={styles.CategoriesList}>
-      <Link href="#">
+      <Link href={`/${query.folder}/categories/${category._id}`}>
         <a className={styles["CategoriesList-Header"]}>All {category.count}</a>
       </Link>
       <List>

@@ -36,6 +36,12 @@ export const Categories = (props: Props) => {
 
   const { categories } = useCategories((pageFolder?._id as string) ?? null);
 
+  if (!query.folder) {
+    console.warn("no page folder provided in url to render Categories");
+
+    return null;
+  }
+
   return categories ? (
     <>
       <Tabs className={styles.Tabs}>
