@@ -44,16 +44,13 @@ const Post = ({ post, sidebarCategories, pageFolders }: Props) => {
         <CardDetails
           categories={categories}
           companyImg={companyImg}
+          languages={post?.languages}
+          language={post.language}
           title={title}
         >
           <div dangerouslySetInnerHTML={{ __html: post.description }} />
         </CardDetails>
-        {post?.companyId && (
-          <CompanyProfile
-            comnanyInfo={post?.companyId}
-            companyImg={companyImg}
-          />
-        )}
+        <CompanyProfile comnanyInfo={post?.companyId} companyImg={companyImg} />
       </Layout>
       <Script src={process.env.NEXT_PUBLIC_SETKA_SCRIPTS_URL}></Script>
     </div>

@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import qrCode from "public/images/qrCode.png";
+import { postsActionSvG } from "constant/postsActionSvG";
 
 import styles from "./CompanyProfile.module.css";
 
@@ -49,7 +50,7 @@ const CompanyProfile: FC<CompanyProfileProps> = ({
   companyImg,
   comnanyInfo,
 }) => {
-  if (!comnanyInfo || comnanyInfo.isDeleted) {
+  if (!comnanyInfo || comnanyInfo.isDeleted || !companyImg) {
     return null;
   }
 
@@ -74,10 +75,18 @@ const CompanyProfile: FC<CompanyProfileProps> = ({
             </Link>
           )}
         </div>
-        <p className={styles["CompanyProfile-Phone"]}>
+        <a
+          className={styles["CompanyProfile-Phone"]}
+          href={`tel:${comnanyInfo.telephone}`}
+        >
           {comnanyInfo.telephone}
-        </p>
-        <p className={styles["CompanyProfile-Email"]}>{comnanyInfo.email}</p>
+        </a>
+        <a
+          className={styles["CompanyProfile-Email"]}
+          href={`mailto:${comnanyInfo.email}`}
+        >
+          {comnanyInfo.email}
+        </a>
         <div className={styles["CompanyProfile-Links"]}>
           <div className={styles["CompanyProfile-Links_SocialLinks"]}>
             {links.map((item) => (
@@ -86,27 +95,34 @@ const CompanyProfile: FC<CompanyProfileProps> = ({
                 href={`${item}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                className={styles["CompanyProfile-Button"]}
               >
                 link
               </a>
             ))}
           </div>
-          <div className={styles["CompanyProfile-Links_Actions"]}>
-            {comnanyInfo.IsPartner ? "show" : "not-show"}
-          </div>
+          {comnanyInfo.IsPartner && (
+            <div className={styles["CompanyProfile-Links_Actions"]}>
+              <button className={styles["CompanyProfile-Button"]}>
+                {postsActionSvG["SHARE"]}
+              </button>
+              <button className={styles["CompanyProfile-Button"]}>
+                {postsActionSvG["FAVORITE"]}
+              </button>
+            </div>
+          )}
         </div>
         <p className={styles["CompanyProfile-Name"]}>
           {comnanyInfo.companyName}
         </p>
-        <p className={styles["CompanyProfile-Site"]}>
-          <a
-            href={`https://${comnanyInfo.website}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {comnanyInfo.website}
-          </a>
-        </p>
+        <a
+          href={`https://${comnanyInfo.website}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles["CompanyProfile-Site"]}
+        >
+          {comnanyInfo.website}
+        </a>
         <p className={styles["CompanyProfile-Location"]}>
           {comnanyInfo.address}
         </p>

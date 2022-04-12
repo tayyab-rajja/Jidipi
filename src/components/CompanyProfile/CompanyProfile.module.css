@@ -22,16 +22,32 @@
     "location location location location location qrcode";
 }
 
+.CompanyProfile-Wrapper p {
+  margin: 0;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  background-color: #f1f1f1;
+}
+
 .CompanyProfile-CompanyLogo {
   grid-area: logo;
 }
 
 .CompanyProfile-Phone {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
   grid-area: phone;
+  background-color: #f1f1f1;
 }
 
 .CompanyProfile-Email {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
   grid-area: email;
+  background-color: #f1f1f1;
 }
 
 .CompanyProfile-Links {
@@ -46,8 +62,14 @@
   grid-area: name;
 }
 
-.CompanyProfile-Site {
+.CompanyProfile-Site.CompanyProfile-Site {
   grid-area: site;
+  padding: 0 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background-color: #f1f1f1;
 }
 
 .CompanyProfile-Location {
@@ -65,19 +87,31 @@
   background-color: #f1f1f1;
 }
 
-.CompanyProfile-Link {
+.CompanyProfile-Links > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.CompanyProfile-Button {
   margin-right: 10px;
   height: 30px;
   width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  border: none;
+  outline: none;
   border-radius: 50%;
   background-color: #fff;
 }
 
-.CompanyProfile-Wrapper p {
-  margin: 0;
-  padding: 0 20px;
-  display: flex;
-  align-items: center;
-  background-color: #f1f1f1;
+.CompanyProfile-Button:hover {
+  color: #fff;
+  background-color: #deb851;
+}
+
+.CompanyProfile-Button:hover svg path {
+  fill: #fff;
 }
