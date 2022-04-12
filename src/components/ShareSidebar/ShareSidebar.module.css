@@ -21,17 +21,13 @@
 .Sidebar-LinksItem {
     color: #888;
     font-size: 11px;
-    padding: 20px 20px 20px 26px;
+    padding: 8px 20px;
     border-bottom: 2px solid #D6D6D6;
     text-decoration: none;
     display: flex;
     align-items: center;
     position: relative;
     cursor: pointer;
-}
-
-.Sidebar-LinksItem span svg path {
-    fill: #D6D6D6;
 }
 
 .Sidebar-LinksItem:hover {
@@ -42,31 +38,27 @@
     color: #fff;
 }
 
-.Sidebar-LinksItem:hover .Sidebar-LinksItem_Icon::before,
-.Sidebar-LinksItem:hover .Sidebar-LinksItem_Icon::after {
-    content: '';
-    width: 24px;
-    height: 24px;
-    border: 1px solid rgba(214, 214, 214, 0.6);
-    border-radius: 50%;
-    position: absolute;
-    padding: 5px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.Icon {
+    fill: #D6D6D6;
 }
 
-.Sidebar-LinksItem:hover .Sidebar-LinksItem_Icon::after {
-    padding: 3px;
+.Background {
+    fill: #FFF;
 }
 
-.Sidebar-LinksItem:last-child:hover .Sidebar-LinksItem_Icon::after {
-    display: none;
+.Sidebar-LinksItem:hover .Background {
+    fill: #DEB851;
 }
 
-.Sidebar-LinksItem:hover span svg path {
-    fill: #fff;
+.Sidebar-LinksItem:hover .Icon,
+.Sidebar-LinksItem:active .Icon {
+    fill: #FFFFFF;
 }
+
+.Sidebar-LinksItem:active .LinkIcon-Icon {
+    fill: #373737;
+}
+
 
 .Sidebar-LinksItem_Icon {
     position: relative;
@@ -89,7 +81,7 @@
     padding: 4px 14px;
     border-radius: 4px;
     right: 8px;
-    top: 46px;
+    top: 40px;
     width: 80px;
     height: 20px;
     text-align: center;

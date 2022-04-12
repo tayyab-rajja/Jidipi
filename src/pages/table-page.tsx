@@ -1,14 +1,32 @@
 import Head from "next/head";
+import { FC } from "react";
+import { GetServerSideProps } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import Layout from "src/components/Layout";
-import Sidebar from "src/components/Sidebar";
 
-import FavoratePost from "src/components/FavoratePost/FavoratePost";
 import UserPanelData from "src/components/UserPanelData/UserPanelData";
 import PanelTable from "src/components/PanelTable/PanelTable";
 import SidebarWithAvatar from "src/components/SidebarWithAvatar/SidebarWithAvatar";
 
-const Home = () => {
+import { fetchPageFolders } from "src/api/fetchPageFolders";
+import { useFavoratePosts } from "src/api/useFavoratePosts";
+
+import { getTableData } from "helpers/getTableData";
+import { PageFolder } from "types/pageFolderType";
+
+interface TablePageProps {
+  tabs: PageFolder[];
+  pageFolders: PageFolder[];
+}
+
+const TablePage: FC<TablePageProps> = ({ pageFolders, tabs }) => {
+  const { data } = useFavoratePosts();
+  const { tableColumns, tableData, tableFilters } = getTableData(
+    data?.readerPost,
+    "POSTS"
+  );
+
   return (
     <div>
       <Head>
@@ -17,14 +35,51 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Layout SidebarComponent={<SidebarWithAvatar />} pageFolders={[]}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+      <Layout
+        SidebarComponent={<SidebarWithAvatar />}
+        pageFolders={pageFolders}
+      >
+        <div
+          style={{
+            maxWidth: "1200px",
+            minWidth: "840px",
+            margin: "-20px auto 0 auto",
+          }}
+        >
           <UserPanelData />
-          <PanelTable />
+          <PanelTable
+            tabs={tabs}
+            tableColumns={tableColumns}
+            tableFilters={tableFilters}
+            tableData={tableData}
+          />
         </div>
       </Layout>
     </div>
   );
 };
 
-export default Home;
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  let pageFolders: PageFolder[] = [];
+  let tabs: PageFolder[] = [];
+
+  try {
+    pageFolders = await fetchPageFolders();
+  } catch (e) {
+    console.log(e);
+  }
+
+  tabs = pageFolders.filter(
+    ({ pageType }) => pageType === "PRODUCT" || pageType === "PROJECT"
+  );
+
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string, ["common"])),
+      tabs,
+      pageFolders,
+    },
+  };
+};
+
+export default TablePage;

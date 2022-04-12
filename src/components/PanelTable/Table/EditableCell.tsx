@@ -6,17 +6,21 @@ import { UpdateMyData } from "types/updateMyData";
 
 import styles from "./Table.module.css";
 
+interface EditableCellProps {
+  row: Row;
+  value: CellValue;
+  column: ColumnGroup;
+  updateMyData: UpdateMyData;
+  isDataTrashed: boolean;
+}
+
 export const EditableCell = ({
   value: initialValue,
   row: { index },
   column: { id },
   updateMyData,
-}: {
-  row: Row;
-  value: CellValue;
-  column: ColumnGroup;
-  updateMyData: UpdateMyData;
-}) => {
+  isDataTrashed,
+}: EditableCellProps) => {
   const [value, setValue] = useState(initialValue);
 
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +42,14 @@ export const EditableCell = ({
 
   switch (id) {
     case "edit":
+      if (isDataTrashed) {
+        return (
+          <div className={styles["Table-Column_Edit"]}>
+            <button></button>
+            <button></button>
+          </div>
+        );
+      }
       return (
         <div className={styles["Table-Column_Edit"]}>
           <button></button>
@@ -58,7 +70,7 @@ export const EditableCell = ({
     case "isSelect":
       return (
         <CustomCheckbox
-          value={value}
+          checked={value}
           defaultChecked={value}
           onChange={onCheckboxCahnge}
           className={styles["Table-Input_Select"]}
