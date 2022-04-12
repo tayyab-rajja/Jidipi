@@ -1,39 +1,50 @@
+import { FC } from "react";
+import Image from "next/image";
 import clsx from "clsx";
 import { MenuItem } from "@szhsin/react-menu";
 
 import { DropDown } from "src/components/DropDown/DropDown";
 
-import { categoriesSvg } from "constant/categoriesSvg";
+import { FilterTypes } from "types/filterTypes";
+import { actionsSvg } from "constant/actionsSvg";
+
 import menuIcon from "public/images/menuIcon.svg";
 
 import styles from "./Filters.module.css";
-import Image from "next/image";
 
 const allOptions = [
   {
-    icon: categoriesSvg["DATE"],
-    text: "Move",
+    icon: actionsSvg["DELETE"],
+    text: "Trash",
   },
 ];
 
-export const AllFilter = () => {
+interface AllFilterProps {
+  handleFilterChange: (type: FilterTypes, value: string | boolean) => void;
+}
+
+export const AllFilter: FC<AllFilterProps> = ({ handleFilterChange }) => {
   return (
-    <div className={styles["Filter"]}>
-      <Image src={menuIcon} width={15} height={15} alt="Menu" />
-      <DropDown
-        defaultValue="All"
-        className={styles["Filter_DropDown"]}
-        menuClassName={styles["Filter-Menu"]}
-        onChange={(value) => {}}
-        options={allOptions}
-        renderOptions={({ icon, text }) => (
-          <MenuItem value={text} className={styles["Filter-MenuItem"]}>
-            <div>{icon}</div>
-            <div>{text}</div>
-          </MenuItem>
-        )}
-      />
-      <div className={styles["Filter-Arrow"]} />
-    </div>
+    <DropDown
+      icon={<Image src={menuIcon} width={15} height={15} alt="Menu" />}
+      defaultValue="All"
+      className={styles["Filter"]}
+      wrapperClassName={styles["FilterWrapper"]}
+      onChange={(value) => handleFilterChange("all", value === "All")}
+      options={allOptions}
+      renderOptions={({ icon, text }, index, selectedItem) => (
+        <MenuItem
+          key={text + index}
+          value={text}
+          className={clsx(
+            styles["Filter-MenuItem"],
+            text === selectedItem && styles["Filter-MenuItem_Selected"]
+          )}
+        >
+          <div>{icon}</div>
+          <div>{text}</div>
+        </MenuItem>
+      )}
+    />
   );
 };
