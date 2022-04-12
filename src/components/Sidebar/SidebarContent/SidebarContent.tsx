@@ -8,12 +8,12 @@ import { getFormatedList } from "helpers/getFormatedList";
 import styles from "./SidebarContent.module.css";
 import { Category, CategoryAPI } from "types/categoryTypes";
 import { useRouter } from "next/router";
-import { useCategories } from "src/api/useCategories";
+import { useCategories } from "src/components/Categories/useCategories";
 import { usePageFolderByName } from "src/api/usePageFolderByName";
 
 interface SidebarContentProps {
   title: string;
-  categories?: CategoryAPI[];
+  categories?: any
 }
 
 const CategoryText = ({
@@ -60,10 +60,7 @@ const CategoryText = ({
   );
 };
 
-export const SidebarContent: FC<SidebarContentProps> = ({
-  title,
-  categories,
-}) => {
+export const SidebarContent: FC<SidebarContentProps> = ({ title, categories }) => {
   const { t } = useTranslation();
   const { query } = useRouter();
 
@@ -72,20 +69,20 @@ export const SidebarContent: FC<SidebarContentProps> = ({
   );
   // const { data: categories } = useCategories(pageFolder?._id ?? null);
 
-  const { list, totalCount } = getFormatedList(
-    categories,
-    pageFolder?._id as string
-  );
+  // const { list, totalCount } = getFormatedList(
+  //   categories,
+  //   pageFolder?._id as string
+  // );
 
   return (
     <div className={styles["SidebarContent"]}>
       <h2 className={styles["SidebarContent-Title"]}>
         {t(title)}
-        <span className={styles["SidebarContent-Count"]}>{totalCount}</span>
+        {/* <span className={styles["SidebarContent-Count"]}>{totalCount}</span> */}
       </h2>
       {categories && (
         <ul className={styles["SidebarContent-Hero"]}>
-          {list.map(
+          {/* {list.map(
             (
               { title, subCategories, postCount, uniqueId }: Category,
               index: number
@@ -142,7 +139,7 @@ export const SidebarContent: FC<SidebarContentProps> = ({
                 </ul>
               </li>
             )
-          )}
+          )} */}
         </ul>
       )}
     </div>

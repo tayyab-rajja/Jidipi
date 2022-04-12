@@ -12,7 +12,6 @@ import { PageFolder } from "types/pageFolderType";
 import { Post } from "types/postTypes";
 import { fetchPosts } from "src/api/fetchPosts";
 import qs from "qs";
-import { fetchCategoriesList } from "src/api/fetchCategoriesList";
 import Masonry from "react-masonry-css";
 
 interface Props {
@@ -21,10 +20,9 @@ interface Props {
     posts: [] | Post[];
     total: number;
   };
-  sidebarCategories: any;
 }
 
-const FolderPage = ({ pageFolders, posts, sidebarCategories }: Props) => {
+const FolderPage = ({ pageFolders, posts }: Props) => {
   const postsData: Post[] = posts?.posts ?? [];
   const { query } = useRouter();
 
@@ -36,10 +34,7 @@ const FolderPage = ({ pageFolders, posts, sidebarCategories }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Layout
-        SidebarComponent={<Sidebar sidebarCategories={sidebarCategories} />}
-        pageFolders={pageFolders}
-      >
+      <Layout SidebarComponent={<Sidebar />} pageFolders={pageFolders}>
         <Masonry
           breakpointCols={{
             default: 5,
@@ -78,7 +73,6 @@ export const getServerSideProps: GetServerSideProps = async ({
 }) => {
   let pageFolders: PageFolder[] = [];
   let posts = {};
-  let sidebarCategories = [];
 
   try {
     pageFolders = await fetchPageFolders();
@@ -90,27 +84,20 @@ export const getServerSideProps: GetServerSideProps = async ({
     (pageFolder) => pageFolder.subDomain === params?.folder
   );
 
-  const responseSidebarCategories = await fetchCategoriesList(
-    currentPageFolder?._id
-  );
-
   const postsFromApi = await fetchPosts(
     currentPageFolder?._id,
-    qs.stringify(query)
+    qs.stringify({...query, pageSize: 40})
   );
 
   posts = {
     posts: changePostsData(postsFromApi.posts),
   };
 
-  console.log(responseSidebarCategories);
-
   return {
     notFound: !currentPageFolder,
     props: {
       ...(await serverSideTranslations(locale as string, ["common"])),
       posts,
-      sidebarCategories: responseSidebarCategories,
       pageFolders,
     },
   };

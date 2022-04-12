@@ -10,7 +10,6 @@ import Sidebar from "src/components/Sidebar";
 
 import { fetchPageFolders } from "src/api/fetchPageFolders";
 import { fetchPost } from "src/api/fetchPost";
-import { fetchCategoriesList } from "src/api/fetchCategoriesList";
 
 import { getPostCategories } from "helpers/changePostsData";
 
@@ -35,10 +34,7 @@ const Post = ({ post, sidebarCategories, pageFolders }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Layout
-        pageFolders={pageFolders}
-        SidebarComponent={<Sidebar sidebarCategories={sidebarCategories} />}
-      >
+      <Layout pageFolders={pageFolders} SidebarComponent={<Sidebar />}>
         <CardDetails
           categories={categories}
           companyImg={companyImg}
@@ -72,14 +68,9 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   );
 
   try {
-    const sidebarCategoriesFromApi = await fetchCategoriesList(
-      currentPageFolder?._id
-    );
-
     const postFromApi = await fetchPost(postId);
 
     post = postFromApi;
-    sidebarCategories = sidebarCategoriesFromApi;
   } catch (e) {
     console.log(e);
   }
@@ -88,7 +79,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     props: {
       notFound: !currentPageFolder,
       post,
-      sidebarCategories,
       pageFolders,
     },
   };
