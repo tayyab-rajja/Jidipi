@@ -43,16 +43,17 @@ const ChangeNameOrEmailField:FC = () => {
     }
   }
 
-  const putData = usePutUserData(null);
+  const {data, error, isValidating, putData} = usePutUserData()
+  console.log({data}, {error}, {isValidating});
 
   const validateAndPostData = async () => {
     const {name, email} = inputsState
 
     if (name.value && /@/.test(email.value)) {
-      putData({
-        firstName: name.value,
-        email: email.value,
-      })
+      // putData({
+      //   firstName: name.value,
+      //   email: email.value,
+      // })
       
       return;
     }

@@ -1,31 +1,34 @@
 import axios from "axios";
-// import { useAuth } from "src/providers/AuthProvider";
 import useSWR from "swr";
-
+import { useAuth } from "src/providers/AuthProvider";
 interface Request {
   firstName?: string;
   lastName?: string;
   email?: string;
   avatar?: string;
+  logoId?: string;
 }
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Imdvb2dsZUVtYWlsIjoiZGFuaWwuemF5Y2hlbmtvQGhlYWR3b3Jrcy5jb20udWEiLCJnb29nbGVJZCI6IjEwOTA0ODA4Njc5NTA3MzM2NjEzNCIsImZpcnN0TmFtZSI6IkRhbmlsIFpheWNoZW5rbyIsInVzZXJuYW1lIjoiZGFuaWwuemF5Y2hlbmtvQGhlYWR3b3Jrcy5jb20udWEiLCJhdmF0YXIiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp5dDJvakRnS0lhUWFBc1AyckQzMF9BSDlfR1AzekRSaHdUcXhZNz1zOTYtYyIsImVtYWlsIjoiZGFuaWwuemF5Y2hlbmtvQGhlYWR3b3Jrcy5jb20udWEiLCJpc1ZlcmlmaWVkIjp0cnVlLCJfaWQiOiI2MjRkYWFjNWNmOTE1MzAwMDk0OTg5MTYiLCJyb2xlcyI6W3siX2lkIjoiNjA3NzY3ZGRkM2U1ZWZmYzU1YjYxNTIyIiwidGl0bGUiOiJyZWFkZXIifV19LCJpYXQiOjE2NDkzMTc5NDgsImV4cCI6MTY1MTkwOTk0OH0.RHLV9Ovxawv7XRrgYSWOqoq-lR1SJRkZIGl60SjNnL0'
+const url = `${process.env.NEXT_PUBLIC_API_URL}/user/`
 
-const fetcher = (request: Request) => {
-  const url = `${process.env.NEXT_PUBLIC_API_URL}/user`
+const fetcher = (url: string, token: string) => axios
+    .get(url, { headers: { Authorization: "Bearer " + token } })
+    .then((res) => res.data);
+
+export const usePutUserData = () => {
+  const {
+    session: { token, user },
+  } = useAuth();
+
+  const {data, error, isValidating} = useSWR(user?._id ? [`${url}${user._id}`, token] : null, fetcher);
+
+  const putData = (request: Request) => {
+    axios({
+      method: 'put',
+      url: `${url}${user?._id}`,
+      data: request
+    });
+  }
   
-  axios.put(url, {
-    headers: {Authorization: "Bearer " + token},
-    request,
-  })
-}
-
-export const usePutUserData = (request: Request | null) => {
-  // const {
-  //   session: { token },
-  // } = useAuth();
-
-  const { mutate } = useSWR(request, fetcher);
-  
-  return mutate;
+  return {data, error, isValidating, putData};
 };
