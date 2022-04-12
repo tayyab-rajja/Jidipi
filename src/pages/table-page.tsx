@@ -14,7 +14,6 @@ import { useFavoratePosts } from "src/api/useFavoratePosts";
 
 import { getTableData } from "helpers/getTableData";
 import { PageFolder } from "types/pageFolderType";
-import LoginSidebar from "src/components/LoginSidebar/LoginSidebar";
 
 interface TablePageProps {
   tabs: PageFolder[];
@@ -55,7 +54,6 @@ const TablePage: FC<TablePageProps> = ({ pageFolders, tabs }) => {
             tableData={tableData}
           />
         </div>
-        <LoginSidebar />
       </Layout>
     </div>
   );

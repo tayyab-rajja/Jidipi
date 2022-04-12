@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useAuth } from "src/providers/AuthProvider";
+import { useAuth } from "src/providers/AuthProvider/AuthProvider";
 import useSWR from "swr";
 
 import { ReaderPost } from "types/readerPostType";
