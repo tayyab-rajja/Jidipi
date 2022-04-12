@@ -58,7 +58,7 @@ const SidebarWithAvatar = () => {
                     {links.map(({title, icon, isSelected}, i) => 
                         <li key={i} className={clsx(styles["Links-Item"], isSelected && styles["Selected"])} onClick={() => setSelected(title)}>
                             <span className={styles["Links-Item_Icon"]}>
-                                {readerPanelSvg[`${icon}`]}
+                                {readerPanelSvg[icon]}
                             </span>
                             <span className={styles["Links-Item_Text"]}>
                                 <Link href="#"><a>{title}</a></Link>
