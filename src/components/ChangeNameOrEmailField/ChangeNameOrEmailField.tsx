@@ -1,4 +1,4 @@
-import {FC, useState} from 'react';
+import {FC, useEffect, useState} from 'react';
 
 import ButtonUserData from 'src/components/ButtonUserData';
 import BarForInput from 'src/components/BarForInput';
@@ -15,11 +15,22 @@ const ChangeNameOrEmailField:FC = () => {
     [key: string]: {isUnlock: boolean, value: string};
   }
 
+  const {data: serverData, error, isValidating, putData} = usePutUserData()
+  console.log(serverData);
+
   const [inputsState, setInputsState] = useState<InputState>({
     name: {isUnlock: false, value: ''},
     email: {isUnlock: false, value: ''},
-    password: {isUnlock: false, value: ''},
   })
+
+  useEffect(() => {
+    if (serverData) {
+      setInputsState((prev) => ({
+        name: {...prev.name, value: serverData.user.firstName},
+        email: {...prev.email, value: serverData.user.email}
+      }));
+    }
+  }, [isValidating, serverData])
 
   const [noValidationLabel, setNoValidationLabel] = useState<string | null>(null)
 
@@ -43,17 +54,14 @@ const ChangeNameOrEmailField:FC = () => {
     }
   }
 
-  const {data, error, isValidating, putData} = usePutUserData()
-  console.log({data}, {error}, {isValidating});
-
-  const validateAndPostData = async () => {
+  const validateAndPostData = () => {
     const {name, email} = inputsState
 
     if (name.value && /@/.test(email.value)) {
-      // putData({
-      //   firstName: name.value,
-      //   email: email.value,
-      // })
+      putData({
+        firstName: name.value,
+        email: email.value,
+      })
       
       return;
     }
@@ -73,15 +81,15 @@ const ChangeNameOrEmailField:FC = () => {
       <>
         <BarForInput label='Name' hasSelector isUnlock={inputsState.name.isUnlock} selectorAction={() => changeInputUnlock('name')}/>
 
-        <InputUserData type='text' isUnlock={inputsState.name.isUnlock} returnInputValue={returnInputValue('name')} />
+        <InputUserData type='text' isUnlock={inputsState.name.isUnlock} returnInputValue={returnInputValue('name')} value={inputsState.name.value}/>
 
         <BarForInput label='Email' hasSelector isUnlock={inputsState.email.isUnlock} selectorAction={() => changeInputUnlock('email')}/>
 
-        <InputUserData type='email' isUnlock={inputsState.email.isUnlock} returnInputValue={returnInputValue('email')} />
+        <InputUserData type='email' isUnlock={inputsState.email.isUnlock} returnInputValue={returnInputValue('email')} value={inputsState.email.value}/>
 
-        <BarForInput label='Current Password' hasSelector isUnlock={inputsState.password.isUnlock} selectorAction={() => alert('write func to go to password chenching')}/>
+        <BarForInput label='Current Password' hasSelector isUnlock={false} selectorAction={() => alert('write func to go to password chenching')}/>
 
-        <InputUserData type='password' isUnlock={inputsState.password.isUnlock}/>
+        <InputUserData type='password' isUnlock={false} value={''}/>
 
         <ButtonUserData label='Save Change' action={validateAndPostData} className={styles['Form-Button']} />
 

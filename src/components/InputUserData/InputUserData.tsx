@@ -8,13 +8,14 @@ import formStyles from 'src/components/FormUserData/FormUserData.module.css';
 interface Props {
   type: string;
   placeholder?: string;
+  value?: string;
   isUnlock?: boolean;
   canShowPassword?: boolean;
   returnInputValue?: (value: string) => any;
   className?: string;
 }
 
-const InputUserData:FC<Props> = ({type: originalType, placeholder, isUnlock = true, canShowPassword = true, returnInputValue = (value) => {}, className}) => {
+const InputUserData:FC<Props> = ({type: originalType, placeholder, value, isUnlock = true, canShowPassword = true, returnInputValue = (value) => {}, className}) => {
   const [newType, setNewType] = useState(originalType);
   const [inputValue, setInputValue] = useState('');
 
@@ -39,7 +40,8 @@ const InputUserData:FC<Props> = ({type: originalType, placeholder, isUnlock = tr
     >
       <input 
         type={newType} 
-        placeholder={placeholder} 
+        placeholder={placeholder}
+        value={value}
         className={classInput} 
         readOnly={readOnly} 
         onInput={(e) => {
