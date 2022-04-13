@@ -35,10 +35,7 @@ const TablePage: FC<TablePageProps> = ({ pageFolders, tabs }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Layout
-        SidebarComponent={<SidebarWithAvatar />}
-        pageFolders={pageFolders}
-      >
+      <Layout sidebarComponent={<SidebarWithAvatar />}>
         <div
           style={{
             maxWidth: "1200px",

@@ -34,7 +34,7 @@ const FolderPage = ({ pageFolders, posts }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* <Layout SidebarComponent={<Sidebar />} pageFolders={pageFolders}> */}
+      {/* <Layout sidebarComponent={<Sidebar />} pageFolders={pageFolders}> */}
       <Masonry
         breakpointCols={{
           default: 5,
@@ -66,7 +66,7 @@ const FolderPage = ({ pageFolders, posts }: Props) => {
 
 FolderPage.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout SidebarComponent={<Sidebar />}>
+    <Layout sidebarComponent={<Sidebar />}>
       <div>{page}</div>
     </Layout>
   );
