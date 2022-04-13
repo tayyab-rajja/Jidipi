@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { FC, ReactElement } from "react";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
@@ -30,9 +29,6 @@ const CardDetails: FC<CardDetailsProps> = ({
   companyImg,
   postId,
 }) => {
-  const {
-    query: { post },
-  } = useRouter();
   const { t } = useTranslation();
 
   return (
