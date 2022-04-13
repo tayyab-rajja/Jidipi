@@ -9,14 +9,14 @@ interface Props {
     title: string,
     color: string,
     deleteLabel: () => void,
-    setSelectedLabel: () => void,
+    selectLabel: () => void,
     isSelected: boolean,
     id: string,
     updateLabel: (title: string, id: string) => void,
     updateLabelColor: (id: string, color: string) => void,
 }
 
-const LabelItem: FC<Props> = ({title, setSelectedLabel, isSelected, id, deleteLabel, updateLabel, updateLabelColor, color}) => {
+const LabelItem: FC<Props> = ({title, selectLabel, isSelected, id, deleteLabel, updateLabel, updateLabelColor, color}) => {
 
     const [isEditLabelFormOpen, setEditLabelForm] = useState(false);
     const [isEditable, setEditable] = useState(false);
@@ -58,13 +58,12 @@ const LabelItem: FC<Props> = ({title, setSelectedLabel, isSelected, id, deleteLa
                 /> : 
                 <div 
                     className={className} 
-                    onClick={setSelectedLabel} 
+                    onClick={selectLabel} 
                     style={{backgroundColor: `${color}`}} 
                     onContextMenu={showEditLabelForm}>
                 {title}{isSelected && <span onClick={deleteLabel}>{sidebarSvg["CLOSE"]}</span>} 
                 </div>}
-                {isEditLabelFormOpen && <ColorPicker deleteLabel={deleteLabel} selectColor={selectColor} editInput={editInput} />
-                }
+                {isEditLabelFormOpen && <ColorPicker deleteLabel={deleteLabel} selectColor={selectColor} editInput={editInput} />}
         </li>
         </div>
         

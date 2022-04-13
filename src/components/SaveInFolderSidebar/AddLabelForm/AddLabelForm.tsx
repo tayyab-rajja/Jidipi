@@ -1,12 +1,11 @@
 import { FC, KeyboardEventHandler, useState } from 'react';
 import styles from './AddLabelForm.module.css';
-import { sidebarSvg } from 'constant/sidebarSvg';
 
 interface Props {
-    createLabel: (labelName: string) => void,
+    addNewLabel: (labelName: string) => void,
 }
 
-const AddLabelForm: FC<Props> = ({createLabel}) => {
+const AddLabelForm: FC<Props> = ({addNewLabel}) => {
 
     const [inputValue, setInputValue] = useState('');
 
@@ -15,7 +14,7 @@ const AddLabelForm: FC<Props> = ({createLabel}) => {
             return
         }
         if (e.key === 'Enter') {
-            createLabel(inputValue);
+            addNewLabel(inputValue);
             setInputValue('');
         }
     }
