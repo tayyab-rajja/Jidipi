@@ -7,17 +7,12 @@ import clsx from 'clsx'
 import styles from './AvatarCurrent.module.css'
 
 import cloudIcon from 'public/icon-cloud.svg'
-// import {useAuth} from 'src/providers/AuthProvider'
-
-// import {usePutUserData} from 'src/api/usePutUserData'
 interface Props {
   currentAvatar: string | null;
   chooseAvatar: (arg: null | string) => void;
 }
 
-const AvatarCurrent:FC<Props> = ({currentAvatar, chooseAvatar}) => {
-  // const {data, error, isValidating} = usePutUserData()
-    
+const AvatarCurrent:FC<Props> = ({currentAvatar, chooseAvatar}) => {    
   const {
     getRootProps,
     open,
