@@ -36,6 +36,7 @@ const Post = ({ post }: Props) => {
 
       {/* <Layout sidebarComponent={<Sidebar />}> */}
       <CardDetails
+        postId={post._id}
         categories={categories}
         companyImg={companyImg}
         languages={post?.languages}

@@ -2,6 +2,7 @@ export interface ComnanyInfo {
   avatar: string;
   fax: string;
   address: string;
+  isMember: string;
   IsPartner: boolean;
   companyName: string;
   email: string;

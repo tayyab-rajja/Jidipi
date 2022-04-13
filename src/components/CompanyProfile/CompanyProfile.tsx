@@ -53,7 +53,10 @@ const CompanyProfile: FC<CompanyProfileProps> = ({ comnanyInfo }) => {
       {!viewGoogleMap ? (
         <div className={styles["CompanyProfile"]}>
           <div className={styles["CompanyProfile-CompanyLogo"]}>
-            <Link href={"#"}>
+            {/* TODO: Add link to company page in our site */}
+            <Link
+              href={comnanyInfo?.isMember && !comnanyInfo.IsPartner ? "#" : "#"}
+            >
               <a>
                 {companyImg && (
                   <Image
@@ -80,7 +83,7 @@ const CompanyProfile: FC<CompanyProfileProps> = ({ comnanyInfo }) => {
               {links.map(({ icon, link }) => (
                 <a
                   key={link}
-                  href={`${link}`}
+                  href={link}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles["CompanyProfile-Button"]}
@@ -89,7 +92,7 @@ const CompanyProfile: FC<CompanyProfileProps> = ({ comnanyInfo }) => {
                 </a>
               ))}
             </div>
-            {comnanyInfo?.IsPartner && (
+            {comnanyInfo?.IsPartner && !comnanyInfo.isMember && (
               <div className={styles["CompanyProfile-Links_Actions"]}>
                 <button className={styles["CompanyProfile-Button"]}>
                   {postsActionSvG["SHARE"]}

@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { FC, ReactElement } from "react";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
@@ -17,6 +18,7 @@ interface CardDetailsProps {
   categories: Categories[];
   title: string;
   companyImg?: string;
+  postId: string;
 }
 
 const CardDetails: FC<CardDetailsProps> = ({
@@ -26,7 +28,11 @@ const CardDetails: FC<CardDetailsProps> = ({
   languages,
   title,
   companyImg,
+  postId,
 }) => {
+  const {
+    query: { post },
+  } = useRouter();
   const { t } = useTranslation();
 
   return (
@@ -53,9 +59,14 @@ const CardDetails: FC<CardDetailsProps> = ({
                 {t(language)}
               </button>
             )}
-            <button className={clsx(styles["CardDetails-Button"])}>
+            <a
+              href={`${process.env.NEXT_PUBLIC_API_URL}/post/${postId}/gallery/download`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={clsx(styles["CardDetails-Button"])}
+            >
               {postsActionSvG["DOWNLOAD"]}
-            </button>
+            </a>
             <button className={clsx(styles["CardDetails-Button"])}>
               {postsActionSvG["SHARE"]}
             </button>
