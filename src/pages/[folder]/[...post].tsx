@@ -46,11 +46,11 @@ const Post = ({ post }: Props) => {
         <div dangerouslySetInnerHTML={{ __html: post.description }} />
       </CardDetails>
       <div style={{ marginTop: 20, width: "100%" }}>
-        <CompanyProfile comnanyInfo={post?.companyId} />
+        <CompanyProfile companyInfo={post?.companyId} />
       </div>
       {companies.map((comnanyInfo: any) => (
         <div key={comnanyInfo._id} style={{ marginTop: 20, width: "100%" }}>
-          <CompanyProfile comnanyInfo={comnanyInfo} />
+          <CompanyProfile companyInfo={comnanyInfo} />
         </div>
       ))}
       {/* </Layout> */}

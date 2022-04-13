@@ -1,6 +1,6 @@
 import axios from "axios";
 import useSWR from "swr";
-import { useAuth } from "src/providers/AuthProvider";
+import { useAuth } from "src/providers/AuthProvider/AuthProvider";
 interface Request {
   firstName?: string;
   lastName?: string;
