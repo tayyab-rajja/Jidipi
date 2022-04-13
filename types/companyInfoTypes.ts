@@ -1,4 +1,4 @@
-export interface ComnanyInfo {
+export interface CompanyInfo {
   avatar: string;
   fax: string;
   address: string;

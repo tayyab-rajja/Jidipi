@@ -5,13 +5,13 @@ import Link from "next/link";
 import QRCode from "react-qr-code";
 
 import { postsActionSvG } from "constant/postsActionSvG";
-import { ComnanyInfo } from "types/companyInfoTypes";
+import { CompanyInfo } from "types/companyInfoTypes";
 
 import closeIcon from "public/images/closeIcon.svg";
 import styles from "./CompanyProfile.module.css";
 
 interface CompanyProfileProps {
-  comnanyInfo?: ComnanyInfo | null;
+  comnanyInfo?: CompanyInfo | null;
 }
 
 const getLinks = (comnanyInfo: any) => {
