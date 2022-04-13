@@ -1,6 +1,7 @@
 .Text {
   color: red;
-  font-size: 8px;
+  font-size: 12px;
+  /* FIXME: по дизайну здесь 8 px шрифт, но выглядит он слишком мелко */
 }
 .Form-Text {
   text-align: center;

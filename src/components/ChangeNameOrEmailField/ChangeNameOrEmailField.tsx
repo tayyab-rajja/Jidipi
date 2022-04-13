@@ -16,7 +16,6 @@ const ChangeNameOrEmailField:FC = () => {
   }
 
   const {data: serverData, error, isValidating, putData} = usePutUserData()
-  console.log(serverData);
 
   const [inputsState, setInputsState] = useState<InputState>({
     name: {isUnlock: false, value: ''},
@@ -54,6 +53,12 @@ const ChangeNameOrEmailField:FC = () => {
     }
   }
 
+  const showNoValidationText = (label: string) => {
+    setNoValidationLabel(label)
+
+    setTimeout(() => setNoValidationLabel(null), 3000)
+  }
+
   const validateAndPostData = () => {
     const {name, email} = inputsState
 
@@ -67,13 +72,10 @@ const ChangeNameOrEmailField:FC = () => {
     }
 
     if (!name.value) {
-      setNoValidationLabel('Please, write your name.')
+      showNoValidationText('Please, write your name.')
     } else {
-      setNoValidationLabel('Wrong email format! please check and enter a correct one.')
+      showNoValidationText('Wrong email format! please check and enter a correct one.')
     }
-
-    setTimeout(() => setNoValidationLabel(null), 3000)
-    
   }
   
   return (
@@ -83,7 +85,17 @@ const ChangeNameOrEmailField:FC = () => {
 
         <InputUserData type='text' isUnlock={inputsState.name.isUnlock} returnInputValue={returnInputValue('name')} value={inputsState.name.value}/>
 
-        <BarForInput label='Email' hasSelector isUnlock={inputsState.email.isUnlock} selectorAction={() => changeInputUnlock('email')}/>
+        <BarForInput label='Email' hasSelector isUnlock={inputsState.email.isUnlock} selectorAction={() => {
+          if (!isValidating) {
+            if (serverData.user.googleId || serverData.user.facebookId) {
+              showNoValidationText('You can not change email if you logged in by social network')
+            } else {
+              changeInputUnlock('email')
+            }
+          } else {
+            showNoValidationText('Please wait for data loading')
+          }
+      }}/>
 
         <InputUserData type='email' isUnlock={inputsState.email.isUnlock} returnInputValue={returnInputValue('email')} value={inputsState.email.value}/>
 
