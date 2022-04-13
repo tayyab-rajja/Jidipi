@@ -1,4 +1,4 @@
-import {FC, useState, ChangeEvent} from 'react';
+import {FC, useState, FormEvent} from 'react';
 
 import clsx from "clsx";
 
@@ -8,12 +8,14 @@ import formStyles from 'src/components/FormUserData/FormUserData.module.css';
 interface Props {
   type: string;
   placeholder?: string;
+  value?: string;
   isUnlock?: boolean;
   canShowPassword?: boolean;
+  returnInputValue?: (value: string) => any;
   className?: string;
 }
 
-const InputUserData:FC<Props> = ({type: originalType, placeholder, isUnlock = true, canShowPassword = true, className}) => {
+const InputUserData:FC<Props> = ({type: originalType, placeholder, value, isUnlock = true, canShowPassword = true, returnInputValue = (value) => {}, className}) => {
   const [newType, setNewType] = useState(originalType);
   const [inputValue, setInputValue] = useState('');
 
@@ -21,7 +23,7 @@ const InputUserData:FC<Props> = ({type: originalType, placeholder, isUnlock = tr
 
   const iconShowPassword = newType === 'password' ? 'Show' : 'Hide';
 
-  const setValue = (e:ChangeEvent<HTMLInputElement>) => {
+  const setValue = (e:FormEvent<HTMLInputElement>) => {
     setInputValue(`${(e.target as HTMLInputElement).value}`)
   }
 
@@ -31,11 +33,28 @@ const InputUserData:FC<Props> = ({type: originalType, placeholder, isUnlock = tr
   const readOnly = isUnlock ? false : true;
 
   const input = (
-    <div className={classContainer} data-type-container={originalType} data-is-unlock={isUnlock}>
-      <input type={newType} placeholder={placeholder} className={classInput} readOnly={readOnly} onInput={setValue}/>
+    <div
+      className={classContainer}
+      data-type-container={originalType}
+      data-is-unlock={isUnlock}
+    >
+      <input 
+        type={newType} 
+        placeholder={placeholder}
+        value={value}
+        className={classInput} 
+        readOnly={readOnly} 
+        onInput={(e) => {
+          setValue(e)
+          returnInputValue(`${(e.target as HTMLInputElement).value}`)
+        }}
+      />
       
       {isBtnShowPassword && (
-        <div className={styles['Container-Btn']} onClick={() => setNewType(s => s === 'password' ? 'text' : 'password')}>
+        <div
+          className={styles['Container-Btn']}
+          onClick={() => setNewType(s => s === 'password' ? 'text' : 'password')}
+        >
           {iconShowPassword}
         </div>
       )}
