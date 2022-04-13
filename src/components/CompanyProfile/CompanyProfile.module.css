@@ -16,16 +16,16 @@
     "location location location location location qrcode";
 }
 
-.CompanyProfile p {
+.CompanyProfile > div {
   margin: 0;
-  padding: 0 20px;
   display: flex;
   align-items: center;
   background-color: #f1f1f1;
 }
 
-.CompanyProfile-CompanyLogo {
+.CompanyProfile-CompanyLogo.CompanyProfile-CompanyLogo {
   grid-area: logo;
+  background-color: transparent;
 }
 
 .CompanyProfile-Phone {
@@ -33,15 +33,18 @@
   align-items: center;
   padding: 0 20px;
   grid-area: phone;
-  background-color: #f1f1f1;
 }
 
 .CompanyProfile-Email {
+  grid-area: email;
+}
+
+.CompanyProfile-Email a {
+  padding: 0 20px;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
-  padding: 0 20px;
-  grid-area: email;
-  background-color: #f1f1f1;
 }
 
 .CompanyProfile-Links {
@@ -53,20 +56,25 @@
 }
 
 .CompanyProfile-Name {
+  padding: 0 20px;
   grid-area: name;
 }
 
-.CompanyProfile-Site.CompanyProfile-Site {
+.CompanyProfile-Site {
   grid-area: site;
+}
+
+.CompanyProfile-Site a {
   padding: 0 20px;
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
-  background-color: #f1f1f1;
 }
 
 .CompanyProfile-Location {
+  padding: 0 20px;
+  cursor: pointer;
   grid-area: location;
 }
 
@@ -75,10 +83,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.CompanyProfile div {
-  background-color: #f1f1f1;
 }
 
 .CompanyProfile-Links > div {

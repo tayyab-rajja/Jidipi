@@ -46,8 +46,6 @@ const CompanyProfile: FC<CompanyProfileProps> = ({ comnanyInfo }) => {
   const companyImg = comnanyInfo?.avatar;
   const links = getLinks(comnanyInfo);
 
-  console.log(comnanyInfo);
-
   return (
     <>
       {!viewGoogleMap ? (
@@ -69,15 +67,14 @@ const CompanyProfile: FC<CompanyProfileProps> = ({ comnanyInfo }) => {
               </a>
             </Link>
           </div>
-          <p className={styles["CompanyProfile-Phone"]}>
+          <div className={styles["CompanyProfile-Phone"]}>
             {t(comnanyInfo?.telephone)} {t(comnanyInfo?.fax)}
-          </p>
-          <a
-            className={styles["CompanyProfile-Email"]}
-            href={`mailto:${comnanyInfo?.email}`}
-          >
-            {t(comnanyInfo?.email)}
-          </a>
+          </div>
+          <div className={styles["CompanyProfile-Email"]}>
+            {comnanyInfo?.email && (
+              <a href={`mailto:${comnanyInfo.email}`}>{t(comnanyInfo.email)}</a>
+            )}
+          </div>
           <div className={styles["CompanyProfile-Links"]}>
             <div className={styles["CompanyProfile-Links_SocialLinks"]}>
               {links.map(({ icon, link }) => (
@@ -92,7 +89,7 @@ const CompanyProfile: FC<CompanyProfileProps> = ({ comnanyInfo }) => {
                 </a>
               ))}
             </div>
-            {comnanyInfo?.IsPartner && !comnanyInfo.isMember && (
+            {comnanyInfo?.IsPartner && !comnanyInfo?.isMember && (
               <div className={styles["CompanyProfile-Links_Actions"]}>
                 <button className={styles["CompanyProfile-Button"]}>
                   {postsActionSvG["SHARE"]}
@@ -103,31 +100,36 @@ const CompanyProfile: FC<CompanyProfileProps> = ({ comnanyInfo }) => {
               </div>
             )}
           </div>
-          <p className={styles["CompanyProfile-Name"]}>
+          <div className={styles["CompanyProfile-Name"]}>
             {t(comnanyInfo?.companyName)}
-          </p>
-          <a
-            href={`https://${comnanyInfo?.website}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles["CompanyProfile-Site"]}
-          >
-            {t(comnanyInfo?.website)}
-          </a>
-          <p
+          </div>
+          <div className={styles["CompanyProfile-Site"]}>
+            {comnanyInfo?.website && (
+              <a
+                href={`https://${comnanyInfo.website}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {t(comnanyInfo.website)}
+              </a>
+            )}
+          </div>
+          <div
             className={styles["CompanyProfile-Location"]}
             onClick={() => setViewGoogleMap(true)}
           >
             {t(comnanyInfo?.address)}
-          </p>
+          </div>
           <div className={styles["CompanyProfile-QrCode"]}>
-            <a
-              href={`https://${comnanyInfo?.website}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <QRCode size={70} value={comnanyInfo?.website} />
-            </a>
+            {comnanyInfo?.website && (
+              <a
+                href={`https://${comnanyInfo.website}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <QRCode size={70} value={comnanyInfo.website} />
+              </a>
+            )}
           </div>
         </div>
       ) : (
