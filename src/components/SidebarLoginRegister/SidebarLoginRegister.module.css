@@ -1,5 +1,33 @@
-.Body-LoginRegisterContainer {
-  width: 280px;
+.AuthContainer {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  height: 100%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  z-index: 11;
+}
+
+.AuthContainer-Header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 86px;
+}
+
+.AuthContainer-Title {
+  margin: 64px 67px 0 0;
+  font-size: 48px;
+  color: #d6d6d6;
+  font-weight: 400;
+}
+
+.AuthContainer-Content {
+  /* margin */
+  margin: 0 1rem;
+  height: 700px;
+  overflow: hidden;
 }
 
 .LoginRegisterContainer-BackToLogin {

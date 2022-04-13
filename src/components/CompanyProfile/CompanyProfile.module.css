@@ -1,14 +1,8 @@
 .CompanyProfile {
-  padding: 40px 0;
+  padding: 40px;
   margin-top: 20px;
   width: 100%;
   background-color: #fff;
-}
-
-.CompanyProfile-Wrapper {
-  margin: 0 auto;
-  max-width: 940px;
-  height: 100%;
   display: grid;
   grid-template-columns: 105px 1fr 1fr 1fr 1fr 105px;
   grid-template-rows: repeat(4, 45px);
@@ -22,11 +16,22 @@
     "location location location location location qrcode";
 }
 
-.CompanyProfile-CompanyLogo {
+.CompanyProfile > div {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  background-color: #f1f1f1;
+}
+
+.CompanyProfile-CompanyLogo.CompanyProfile-CompanyLogo {
   grid-area: logo;
+  background-color: transparent;
 }
 
 .CompanyProfile-Phone {
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
   grid-area: phone;
 }
 
@@ -34,14 +39,24 @@
   grid-area: email;
 }
 
-.CompanyProfile-Links {
+.CompanyProfile-Email a {
   padding: 0 20px;
-  grid-area: links;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
 }
 
+.CompanyProfile-Links {
+  padding: 0 20px;
+  grid-area: links;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .CompanyProfile-Name {
+  padding: 0 20px;
   grid-area: name;
 }
 
@@ -49,31 +64,97 @@
   grid-area: site;
 }
 
+.CompanyProfile-Site a {
+  padding: 0 20px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
 .CompanyProfile-Location {
+  padding: 0 20px;
+  cursor: pointer;
   grid-area: location;
 }
 
 .CompanyProfile-QrCode {
   grid-area: qrcode;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.CompanyProfile-Wrapper div {
-  background-color: #f1f1f1;
+.CompanyProfile-Links > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.CompanyProfile-Link {
+.CompanyProfile-Button {
   margin-right: 10px;
   height: 30px;
   width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  border: none;
+  outline: none;
   border-radius: 50%;
   background-color: #fff;
 }
 
-.CompanyProfile-Wrapper p {
-  margin: 0;
-  padding: 0 20px;
+.CompanyProfile-Button:hover {
+  color: #fff;
+  background-color: #deb851;
+}
+
+.CompanyProfile-Button:hover svg path {
+  fill: #fff;
+}
+
+.GoogleMap {
+  margin-top: 20px;
+  width: 100%;
+  height: 300px;
+  position: relative;
+  background-color: #fff;
+  z-index: 0;
+}
+
+.GoogleMap div {
+  width: 100%;
+  height: 100%;
+}
+
+.GoogleMap iframe {
+  width: 100% !important;
+  height: 100% !important;
+  border: none;
+  outline: none;
+}
+
+.GoogleMap-CloseButton {
+  width: 30px;
+  height: 30px;
+  border: none;
+  outline: none;
   display: flex;
   align-items: center;
-  background-color: #f1f1f1;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #373737;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.GoogleMap-Loading {
+  height: 20px;
+  width: 75px;
+  position: absolute;
+  top: calc(50% - 20px);
+  left: calc(50% - 37.5px);
+  z-index: -1;
 }

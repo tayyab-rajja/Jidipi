@@ -1,129 +1,111 @@
-import { useState } from "react";
-import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@reach/tabs";
+import { FC, useCallback, useEffect, useState } from "react";
+import { useTranslation } from "next-i18next";
+import { Tabs, TabList, Tab, TabPanels } from "@reach/tabs";
 
+import Pagination from "src/components/Pagination/Pagination";
+import { SearchInput } from "src/components/Input/SearchInput";
 import ActionFilters from "./ActionFilters/ActionFilters";
+import { ActionFilter, PostsPerPage } from "./Filters";
 import Table from "./Table/Table";
 
 import { UpdateMyData } from "types/updateMyData";
+import { PageFolder } from "types/pageFolderType";
+import { TableData } from "types/tableDataTypes";
+import { TableColumn } from "types/tableColumnTypes";
+import { FilterTypes } from "types/filterTypes";
 
 import styles from "./PanelTable.module.css";
 import "@reach/tabs/styles.css";
-import { ActionFilter, PostsPerPage } from "./Filters";
+import { SearchInputValue } from "types/searcInputTypes";
+interface PanelTableProps {
+  tabs: PageFolder[];
+  tableColumns: TableColumn[];
+  tableFilters: string[];
+  tableData: TableData[];
+}
 
-const emptyImage =
-  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAM8AAAD0CAMAAAAL4oIDAAAAOVBMVEXAwMD///+7u7vJycnu7u7Pz8/7+/v19fXS0tK+vr7x8fG6urrd3d34+PjCwsLGxsbl5eXY2Njo6OhvnUvPAAABN0lEQVR4nO3Yy46CMABAUeRd3vj/HzuIksxMlMTNmHbO2SB00xvSBptlAAAAAAAAAAAAAAAAAAAAAAAAAAAAwN8J+blPz+9NYShPddOnZ/ieUF7OxdczVK/VEfa0L5dQ6KPsya/NU+Ocx9nTvFg7Rcw99dAuCfXUcwh5m07PELa7fEymZ917umR6yv3L5t4xJtBzWUI/3Te6bqoT6Nm2hMdrWfMliZ7DHOY6oZ4lz8KSUM+8PS7qZHr2jTsrk+hpyqHYc7Iq/p5xKLIQjoEu9p7rFL4PrLeeSP//bD31Gn4OTF3MPdc5/B5Z61h7QlU9GZmqdopy/VT9cVzwuNzcfvR5lO9nbJpu03RluV2Oc7f7EUKM51XnIuvJ5uLcp+cHAAAAAAAAAAAAAAAAAAAAAAAAAAAA/8cXFZgNlyZfDNsAAAAASUVORK5CYII=";
+const getKeyValue =
+  <T extends object, U extends keyof T>(obj: T) =>
+  (key: U) =>
+    obj[key];
 
-const PanelTable = () => {
-  const [data, setData] = useState([
-    {
-      isSelect: true,
-      image: emptyImage,
-      name: "Aaaa Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita!",
-      location: "Lorem ipsum dolor sit.",
-      compay: "Lorem, ipsum.",
-      label: "",
-      note: "",
-      edit: "complicated",
-    },
-    {
-      isSelect: false,
-      image: emptyImage,
-      name: "Bbbb Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita!",
-      location: "Lorem ipsum dolor sit.",
-      compay: "Lorem, ipsum.",
-      label: "",
-      note: "",
-      edit: "complicated",
-    },
-    {
-      isSelect: false,
-      image: emptyImage,
-      name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita!",
-      location: "Lorem ipsum dolor sit.",
-      compay: "Lorem, ipsum.",
-      label: "",
-      note: "",
-      edit: "complicated",
-    },
-    {
-      isSelect: false,
-      image: emptyImage,
-      name: "Dsdcsd Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita!",
-      location: "Lorem ipsum dolor sit.",
-      compay: "Lorem, ipsum.",
-      label: "",
-      note: "",
-      edit: "complicated",
-    },
-    {
-      isSelect: false,
-      image: emptyImage,
-      name: "MdmLorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita!",
-      location: "Lorem ipsum dolor sit.",
-      compay: "Lorem, ipsum.",
-      label: "",
-      note: "",
-      edit: "complicated",
-    },
-    {
-      isSelect: true,
-      image: emptyImage,
-      name: "Aaaa Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita!",
-      location: "Lorem ipsum dolor sit.",
-      compay: "Lorem, ipsum.",
-      label: "",
-      note: "",
-      edit: "complicated",
-    },
-    {
-      isSelect: false,
-      image: emptyImage,
-      name: "Bbbb Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita!",
-      location: "Lorem ipsum dolor sit.",
-      compay: "Lorem, ipsum.",
-      label: "",
-      note: "",
-      edit: "complicated",
-    },
-    {
-      isSelect: false,
-      image: emptyImage,
-      name: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita!",
-      location: "Lorem ipsum dolor sit.",
-      compay: "Lorem, ipsum.",
-      label: "",
-      note: "",
-      edit: "complicated",
-    },
-    {
-      isSelect: false,
-      image: emptyImage,
-      name: "Dsdcsd Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita!",
-      location: "Lorem ipsum dolor sit.",
-      compay: "Lorem, ipsum.",
-      label: "",
-      note: "",
-      edit: "complicated",
-    },
-    {
-      isSelect: false,
-      image: emptyImage,
-      name: "MdmLorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam, expedita!",
-      location: "Lorem ipsum dolor sit.",
-      compay: "Lorem, ipsum.",
-      label: "",
-      note: "",
-      edit: "complicated",
-    },
-  ]);
-
+const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
+  const { t } = useTranslation();
+  const [data, setData] = useState<TableData[] | []>([]);
+  const [page, setPage] = useState(1);
   const [filtersValues, setFiltersValues] = useState({
-    action: "",
     location: "",
-    language: "",
-    all: "",
-    searchValues: [],
+    filter: "",
+    all: true,
   });
+  const [searchValue, setSearchValue] = useState<SearchInputValue>([]);
+  const [currentTab, setCurrentTab] = useState(tabs[0]._id);
+
+  const handleFilterChange = (type: FilterTypes, value: string | boolean) => {
+    setFiltersValues({ ...filtersValues, [type]: value });
+  };
+
+  const handleSearchChange = (value: SearchInputValue) => {
+    setSearchValue(value);
+  };
+
+  const handleAction = (type: string) => {
+    const selectedData = data.filter(({ isSelect }) => isSelect);
+
+    if (!selectedData.length) {
+      return;
+    }
+
+    switch (type) {
+      case "move":
+        console.log(selectedData);
+        break;
+
+      case "copy":
+        console.log(selectedData);
+
+        break;
+      case "delete":
+        console.log(selectedData);
+
+        break;
+    }
+  };
+
+  const handleChange = useCallback(() => {
+    const { all } = filtersValues;
+    const filteredDataWithTab = tableData.filter(
+      ({ pageFolderId }) => pageFolderId === currentTab
+    );
+
+    let data = filteredDataWithTab.filter(({ isTrashed }) =>
+      all ? !isTrashed : isTrashed
+    );
+
+    if (!searchValue || !searchValue.length) {
+      setData(data);
+      return;
+    }
+
+    data = data.filter((data) => {
+      let isHasValue = false;
+
+      for (const key in data) {
+        isHasValue = searchValue.some(({ value }) =>
+          String(getKeyValue(data)(key as keyof TableData))
+            .toLocaleLowerCase()
+            .includes(value.toLocaleLowerCase())
+        );
+        if (isHasValue) {
+          return true;
+        }
+      }
+
+      return isHasValue;
+    });
+
+    setData(data);
+  }, [filtersValues, searchValue, currentTab, tableData]);
 
   const updateMyData: UpdateMyData = (value, rowIndex, columnId) => {
     if (!columnId) {
@@ -142,22 +124,53 @@ const PanelTable = () => {
     );
   };
 
+  const handleTabsChange = (index: number) => {
+    if (index === tabs.length) {
+      return;
+    }
+    setCurrentTab(tabs[index]._id);
+  };
+
+  useEffect(() => {
+    handleChange();
+  }, [tableData, searchValue, currentTab, filtersValues, handleChange]);
+
   return (
-    <Tabs className={styles["PanelTable"]}>
+    <Tabs className={styles["PanelTable"]} onChange={handleTabsChange}>
       <TabList className={styles["PanelTable-TabList"]}>
-        <Tab className={styles["PanelTable-Tab"]}>One</Tab>
-        <Tab className={styles["PanelTable-Tab"]}>One2</Tab>
-        <Tab className={styles["PanelTable-Tab"]}>One3</Tab>
-        <Tab className={styles["PanelTable-Tab"]}>One3</Tab>
-        <Tab className={styles["PanelTable-Tab"]}>One3</Tab>
-        <Tab className={styles["PanelTable-Tab"]}>One3</Tab>
+        {tabs.map(({ title, _id }) => (
+          <Tab key={_id} className={styles["PanelTable-Tab"]}>
+            {t(title)}
+          </Tab>
+        ))}
+        <Tab className={styles["PanelTable-Tab"]}>{t("mine")}</Tab>
       </TabList>
       <TabPanels className={styles["PanelTable-TabPanels"]}>
-        <ActionFilters />
-        <Table data={data} updateMyData={updateMyData} />
+        <ActionFilters
+          handleAction={handleAction}
+          handleFilterChange={handleFilterChange}
+        />
+        <SearchInput value={searchValue} onChange={handleSearchChange} />
+        <Table
+          isDataTrashed={!filtersValues.all}
+          tableColumns={tableColumns}
+          data={data}
+          updateMyData={updateMyData}
+        />
         <div className={styles["PanelTable-ButtomFilters"]}>
-          <ActionFilter />
+          <ActionFilter handleAction={handleAction} />
           <PostsPerPage />
+        </div>
+        <div className={styles["PanelTable-Pagination"]}>
+          <Pagination
+            siblingCount={3}
+            pageSize={10}
+            totalCount={data.length ? data.length : 1}
+            currentPage={page}
+            onChange={(page) => {
+              setPage(page);
+            }}
+          />
         </div>
       </TabPanels>
     </Tabs>
