@@ -1,7 +1,8 @@
 import {FC} from 'react';
 
 import TabsFormsUserData from 'src/components/TabsFormsUserData';
-import SettingNameEmail from 'src/components/SettingNameEmail';
+// import SettingNameEmail from 'src/components/SettingNameEmail';
+import ChangeNameOrEmailField from 'src/components/ChangeNameOrEmailField'
 import AvatarField from 'src/components/AvatarField'
 
 import styles from './SidebarSettingAccount.module.css'
@@ -14,7 +15,8 @@ const tabsData = [
   
   {
     name: 'account',
-    panel: <SettingNameEmail/>
+    // panel: <SettingNameEmail/>
+    panel: <ChangeNameOrEmailField/>
   },
 ]
 
