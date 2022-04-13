@@ -11,9 +11,9 @@ interface Props {
     deleteLabel: () => void,
     setSelectedLabel: () => void,
     isSelected: boolean,
-    id: number,
-    updateLabel: (title: string, id: number) => void,
-    updateLabelColor: (id: number, color: string) => void,
+    id: string,
+    updateLabel: (title: string, id: string) => void,
+    updateLabelColor: (id: string, color: string) => void,
 }
 
 const LabelItem: FC<Props> = ({title, setSelectedLabel, isSelected, id, deleteLabel, updateLabel, updateLabelColor, color}) => {

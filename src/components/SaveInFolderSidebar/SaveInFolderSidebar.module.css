@@ -1,11 +1,14 @@
 .Sidebar {
+    position: fixed;
+    right: 0;
+    bottom: 0;
     width: 300px;
-    height: calc(100vh - 64px);
+    height: 100%;
     background-color: #fff;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    /* overflow-y: auto; */
+    z-index: 11;
+    overflow-y: auto;
 }
 
 .Text {
@@ -54,6 +57,48 @@
     border-top: 50px solid #E3E3E3;
 }
 
+.AddLabelForm-ButtonWrapper {
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 47px;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.AddLabelForm-InputWrapper_Button {
+    width: 120px;
+    height: 28px;
+    background-color: #F1F1F1;
+    border: 1px solid #D6D6D6;
+    padding: 8px 24px;
+    color: #888888;
+    font-size: 9px;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.AddLabelForm-InputWrapper_Button svg path {
+    fill: #888888;
+}
+
+.AddLabelForm-InputWrapper_Button:hover {
+    background-color: #DEB851;
+    color: #fff;
+}
+
+.AddLabelForm-InputWrapper_Button:active {
+    background-color: #373737;
+    color: #fff;
+}
+
+.AddLabelForm-InputWrapper_Button:hover svg path,
+.AddLabelForm-InputWrapper_Button:active svg path {
+    fill: #fff;
+}
 
 
 

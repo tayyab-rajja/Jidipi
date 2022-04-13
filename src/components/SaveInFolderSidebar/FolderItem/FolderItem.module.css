@@ -7,7 +7,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    cursor: pointer;
+    cursor: default;
 }
 
 .Sidebar-FolderItem span svg path {
@@ -17,6 +17,7 @@
 .Sidebar-FolderItem.Active {
     background-color: #F1F1F1;
     color: #373737;
+    cursor: pointer;
 }
 
 .Sidebar-FolderItem.Active span svg path {
@@ -32,17 +33,18 @@
     fill: #fff;
 }
 
-.Sidebar-FolderItem:hover {
+.Sidebar-FolderItem.Active:hover {
     background-color: #DEB851;
     color: #fff;
 }
 
-.Sidebar-FolderItem:hover span svg path {
+.Sidebar-FolderItem.Active:hover span svg path {
     fill: #fff;
 }
 
 .Sidebar-FolderItem_Text {
     margin-left: 62px;
+    text-transform: capitalize;
 }
 
 .Sidebar-FolderItem_Icon {

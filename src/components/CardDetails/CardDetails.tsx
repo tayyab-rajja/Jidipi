@@ -1,4 +1,4 @@
-import { FC, ReactElement } from "react";
+import { FC, ReactElement, useState } from "react";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
 import clsx from "clsx";
@@ -14,6 +14,7 @@ interface CardDetailsProps {
   categories: Categories[];
   title: string;
   companyImg?: string;
+  handleOpen: () => void;
 }
 
 const CardDetails: FC<CardDetailsProps> = ({
@@ -21,6 +22,7 @@ const CardDetails: FC<CardDetailsProps> = ({
   categories,
   title,
   companyImg,
+  handleOpen
 }) => {
   const { t } = useTranslation();
 
@@ -34,7 +36,7 @@ const CardDetails: FC<CardDetailsProps> = ({
             >
               EN
             </button>
-            <button className={clsx(styles["CardDetails-Button"])}>EN</button>
+            <button className={clsx(styles["CardDetails-Button"])} onClick={handleOpen}>EN</button>
             <button className={clsx(styles["CardDetails-Button"])}>EN</button>
             <button className={clsx(styles["CardDetails-Button"])}>EN</button>
           </div>

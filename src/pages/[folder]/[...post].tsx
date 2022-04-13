@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import Script from "next/script";
 import { GetServerSideProps } from "next/types";
@@ -15,18 +15,26 @@ import { fetchCategoriesList } from "src/api/fetchCategoriesList";
 import { getPostCategories } from "helpers/changePostsData";
 
 import { PageFolder } from "types/pageFolderType";
+import { SideBarProvider } from "src/providers/SidebarProvider/SidebarProvider";
+import SaveInFolderSidebar from "src/components/SaveInFolderSidebar";
 
 type Props = {
   post: any;
   pageFolders: PageFolder[];
   sidebarCategories: any;
+  currentPageFolder: PageFolder;
 };
 
-const Post = ({ post, sidebarCategories, pageFolders }: Props) => {
+const Post = ({ post, sidebarCategories, pageFolders, currentPageFolder }: Props) => {
   const categories = getPostCategories(post, "oldCategories");
   const companyImg = post?.companyId?.avatar || null;
   const title = post.title;
 
+  const [showSaveBar, setShowSaveBar] = useState(false);
+  const handleOpen = () => {
+    setShowSaveBar(true);
+  }
+  
   return (
     <div>
       <Head>
@@ -43,11 +51,18 @@ const Post = ({ post, sidebarCategories, pageFolders }: Props) => {
           categories={categories}
           companyImg={companyImg}
           title={title}
+          handleOpen={handleOpen}
         >
           <div dangerouslySetInnerHTML={{ __html: post.description }} />
         </CardDetails>
         {companyImg && <CompanyProfile companyImg={companyImg} />}
       </Layout>
+      <SideBarProvider
+        isOpen={showSaveBar}
+        close={() => setShowSaveBar(false)}
+      >
+        <SaveInFolderSidebar pageFolders={pageFolders} currentPageFolder='architectures' postId={post.postId} />
+      </SideBarProvider>
       <Script src={process.env.NEXT_PUBLIC_SETKA_SCRIPTS_URL}></Script>
     </div>
   );
@@ -90,6 +105,8 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
       post,
       sidebarCategories,
       pageFolders,
+      currentPageFolder,
+      postId
     },
   };
 };

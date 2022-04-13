@@ -8,11 +8,14 @@ interface Props {
     handleClickItem: () => void,
     isSelected: boolean,
     cancelSelectedFolder: () => void,
+    activeFolders: string[]
 }
 
-const FolderItem: FC<Props> = ({folderName, handleClickItem, isSelected, cancelSelectedFolder}) => { 
+const FolderItem: FC<Props> = ({folderName, handleClickItem, isSelected, cancelSelectedFolder, activeFolders}) => { 
 
-    let className = isSelected ? clsx(styles["Sidebar-FolderItem"], styles["Choosen"]) : styles["Sidebar-FolderItem"];
+    let activeClass = activeFolders.includes(folderName) && clsx(styles["Active"]);
+    let className = activeFolders.includes(folderName) && isSelected ? clsx(styles["Sidebar-FolderItem"], styles["Choosen"]) : styles["Sidebar-FolderItem"];
+    
 
     const handleClick = (e: MouseEvent) => {
         e.stopPropagation();
@@ -20,7 +23,7 @@ const FolderItem: FC<Props> = ({folderName, handleClickItem, isSelected, cancelS
     }
 
     return (
-        <li className={className} onClick={handleClickItem}>
+        <li className={`${className} ${activeClass}`} onClick={handleClickItem}>
             <span className={styles["Sidebar-FolderItem_Text"]}>
                 {folderName}
             </span>
