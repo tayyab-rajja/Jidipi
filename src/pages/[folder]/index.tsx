@@ -66,7 +66,7 @@ const FolderPage = ({ pageFolders, posts }: Props) => {
 
 FolderPage.getLayout = function getLayout(page: ReactElement) {
   return (
-    <Layout SidebarComponent={<Sidebar />}>
+    <Layout sidebarComponent={<Sidebar />}>
       <div>{page}</div>
     </Layout>
   );

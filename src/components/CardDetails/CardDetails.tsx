@@ -9,7 +9,6 @@ import { Categories } from "types/postTypes";
 import { postsActionSvG } from "constant/postsActionSvG";
 
 import styles from "./CardDetails.module.css";
-import { categoriesSvg } from "constant/categoriesSvg";
 
 interface CardDetailsProps {
   children: ReactElement | ReactElement[];
@@ -30,8 +29,6 @@ const CardDetails: FC<CardDetailsProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  console.log(languages);
-
   return (
     <div className={styles["CardDetails"]}>
       <div className={styles["CardDetails-Wrapper"]}>
@@ -46,14 +43,14 @@ const CardDetails: FC<CardDetailsProps> = ({
                     languageFromArray === language && styles["Active"]
                   )}
                 >
-                  {languageFromArray}
+                  {t(languageFromArray)}
                 </button>
               ))
             ) : (
               <button
                 className={clsx(styles["CardDetails-Button"], styles["Active"])}
               >
-                {language}
+                {t(language)}
               </button>
             )}
             <button className={clsx(styles["CardDetails-Button"])}>

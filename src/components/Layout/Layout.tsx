@@ -6,15 +6,15 @@ import styles from "./Layout.module.css";
 
 interface LayoutProps {
   children: ReactElement | ReactElement[];
-  SidebarComponent: ReactElement;
+  sidebarComponent: ReactElement;
 }
 
-export const Layout: FC<LayoutProps> = ({ children, SidebarComponent }) => {
+export const Layout: FC<LayoutProps> = ({ children, sidebarComponent }) => {
   return (
     <>
       <Navbar />
       <main className={styles["Layout-Container"]}>
-        {SidebarComponent}
+        {sidebarComponent}
         <div className={styles["Layout-Content"]}>{children}</div>
       </main>
     </>
