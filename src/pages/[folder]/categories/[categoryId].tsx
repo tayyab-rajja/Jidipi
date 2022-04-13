@@ -40,7 +40,7 @@ const CategoryId = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Layout SidebarComponent={<Sidebar />} pageFolders={pageFolders}>
+      <Layout sidebarComponent={<Sidebar />}>
         <Masonry
           breakpointCols={{
             default: 5,

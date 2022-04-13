@@ -34,7 +34,7 @@ const FolderPage = ({ pageFolders, posts }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* <Layout SidebarComponent={<Sidebar />} pageFolders={pageFolders}> */}
+      {/* <Layout sidebarComponent={<Sidebar />} pageFolders={pageFolders}> */}
       <Masonry
         breakpointCols={{
           default: 5,
