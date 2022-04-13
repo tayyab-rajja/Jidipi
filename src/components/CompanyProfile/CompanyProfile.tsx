@@ -5,29 +5,35 @@ import Link from "next/link";
 import QRCode from "react-qr-code";
 
 import { postsActionSvG } from "constant/postsActionSvG";
-import { ComnanyInfo } from "types/companyInfoTypes";
+import { CompanyInfo } from "types/companyInfoTypes";
 
 import closeIcon from "public/images/closeIcon.svg";
 import styles from "./CompanyProfile.module.css";
+import { socialSvg } from "constant/socialSvg";
 
 interface CompanyProfileProps {
-  comnanyInfo?: ComnanyInfo | null;
+  companyInfo?: CompanyInfo | null;
 }
 
-const getLinks = (comnanyInfo: any) => {
+const getLinks = (companyInfo: any) => {
   let links = [];
 
-  for (const key in comnanyInfo) {
+  for (const key in companyInfo) {
     const isAvlailablekKey =
       key.toLocaleLowerCase().includes("link") &&
-      comnanyInfo[key] &&
+      companyInfo[key] &&
       key !== "googleMapLink";
 
     if (isAvlailablekKey) {
+      const svgKey = 
+        key === "linkedLink"
+        ? "LINKEDIN"
+        : key.replace("Link" ,"").toLocaleUpperCase();
+
       links.push({
         //TODO: Set icons for sosial sites
-        icon: key.slice(0, 3),
-        link: comnanyInfo[key],
+        icon: socialSvg[svgKey],
+        link: companyInfo[key],
       });
     }
   }
@@ -35,16 +41,16 @@ const getLinks = (comnanyInfo: any) => {
   return links;
 };
 
-const CompanyProfile: FC<CompanyProfileProps> = ({ comnanyInfo }) => {
+const CompanyProfile: FC<CompanyProfileProps> = ({ companyInfo }) => {
   const { t } = useTranslation();
   const [viewGoogleMap, setViewGoogleMap] = useState(false);
 
-  if (!comnanyInfo) {
+  if (!companyInfo) {
     return null;
   }
 
-  const companyImg = comnanyInfo?.avatar;
-  const links = getLinks(comnanyInfo);
+  const companyImg = companyInfo?.avatar;
+  const links = getLinks(companyInfo);
 
   return (
     <>
@@ -53,7 +59,7 @@ const CompanyProfile: FC<CompanyProfileProps> = ({ comnanyInfo }) => {
           <div className={styles["CompanyProfile-CompanyLogo"]}>
             {/* TODO: Add link to company page in our site */}
             <Link
-              href={comnanyInfo?.isMember && !comnanyInfo.IsPartner ? "#" : "#"}
+              href={companyInfo?.isMember && !companyInfo.IsPartner ? "#" : "#"}
             >
               <a>
                 {companyImg && (
@@ -68,11 +74,11 @@ const CompanyProfile: FC<CompanyProfileProps> = ({ comnanyInfo }) => {
             </Link>
           </div>
           <div className={styles["CompanyProfile-Phone"]}>
-            {t(comnanyInfo?.telephone)} {t(comnanyInfo?.fax)}
+            {t(companyInfo?.telephone)} {t(companyInfo?.fax)}
           </div>
           <div className={styles["CompanyProfile-Email"]}>
-            {comnanyInfo?.email && (
-              <a href={`mailto:${comnanyInfo.email}`}>{t(comnanyInfo.email)}</a>
+            {companyInfo?.email && (
+              <a href={`mailto:${companyInfo.email}`}>{t(companyInfo.email)}</a>
             )}
           </div>
           <div className={styles["CompanyProfile-Links"]}>
@@ -89,7 +95,7 @@ const CompanyProfile: FC<CompanyProfileProps> = ({ comnanyInfo }) => {
                 </a>
               ))}
             </div>
-            {comnanyInfo?.IsPartner && !comnanyInfo?.isMember && (
+            {companyInfo?.IsPartner && !companyInfo?.isMember && (
               // TODO: add logic to share and add to favorite companies
               <div className={styles["CompanyProfile-Links_Actions"]}>
                 <button className={styles["CompanyProfile-Button"]}>
@@ -102,16 +108,16 @@ const CompanyProfile: FC<CompanyProfileProps> = ({ comnanyInfo }) => {
             )}
           </div>
           <div className={styles["CompanyProfile-Name"]}>
-            {t(comnanyInfo?.companyName)}
+            {t(companyInfo?.companyName)}
           </div>
           <div className={styles["CompanyProfile-Site"]}>
-            {comnanyInfo?.website && (
+            {companyInfo?.website && (
               <a
-                href={`https://${comnanyInfo.website}`}
+                href={`https://${companyInfo.website}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {t(comnanyInfo.website)}
+                {t(companyInfo.website)}
               </a>
             )}
           </div>
@@ -119,28 +125,28 @@ const CompanyProfile: FC<CompanyProfileProps> = ({ comnanyInfo }) => {
             className={styles["CompanyProfile-Location"]}
             onClick={() => setViewGoogleMap(true)}
           >
-            {t(comnanyInfo?.address)}
+            {t(companyInfo?.address)}
           </div>
           <div className={styles["CompanyProfile-QrCode"]}>
-            {comnanyInfo?.website && (
+            {companyInfo?.website && (
               <a
-                href={`https://${comnanyInfo.website}`}
+                href={`https://${companyInfo.website}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <QRCode size={70} value={comnanyInfo.website} />
+                <QRCode size={70} value={companyInfo.website} />
               </a>
             )}
           </div>
         </div>
       ) : (
         <div className={styles["GoogleMap"]}>
-          {comnanyInfo?.googleMapLink.includes("iframe") ? (
+          {companyInfo?.googleMapLink.includes("iframe") ? (
             <div
-              dangerouslySetInnerHTML={{ __html: comnanyInfo?.googleMapLink }}
+              dangerouslySetInnerHTML={{ __html: companyInfo?.googleMapLink }}
             />
           ) : (
-            <iframe src={comnanyInfo?.googleMapLink} />
+            <iframe src={companyInfo?.googleMapLink} />
           )}
           <button
             className={styles["GoogleMap-CloseButton"]}
@@ -149,7 +155,7 @@ const CompanyProfile: FC<CompanyProfileProps> = ({ comnanyInfo }) => {
             <Image src={closeIcon} width={17} height={17} alt="Close" />
           </button>
           <p className={styles["GoogleMap-Loading"]}>
-            {comnanyInfo?.googleMapLink ? "Loading..." : "No location"}
+            {companyInfo?.googleMapLink ? "Loading..." : "No location"}
           </p>
         </div>
       )}
