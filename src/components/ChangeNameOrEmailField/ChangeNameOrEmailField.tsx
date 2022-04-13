@@ -1,4 +1,4 @@
-import {FC, useState} from 'react';
+import {FC, useEffect, useState} from 'react';
 
 import axios from 'axios'
 
@@ -17,11 +17,21 @@ const ChangeNameOrEmailField:FC = () => {
     [key: string]: {isUnlock: boolean, value: string};
   }
 
+  const {data: serverData, error, isValidating, putData} = usePutUserData()
+
   const [inputsState, setInputsState] = useState<InputState>({
     name: {isUnlock: false, value: ''},
     email: {isUnlock: false, value: ''},
-    password: {isUnlock: false, value: ''},
   })
+
+  useEffect(() => {
+    if (serverData) {
+      setInputsState((prev) => ({
+        name: {...prev.name, value: serverData.user.firstName},
+        email: {...prev.email, value: serverData.user.email}
+      }));
+    }
+  }, [isValidating, serverData])
 
   const [noValidationLabel, setNoValidationLabel] = useState<string | null>(null)
 
@@ -45,9 +55,13 @@ const ChangeNameOrEmailField:FC = () => {
     }
   }
 
-  const {putData} = usePutUserData()
-  
-  const validateAndPostData = async () => {
+  const showNoValidationText = (label: string) => {
+    setNoValidationLabel(label)
+
+    setTimeout(() => setNoValidationLabel(null), 3000)
+  }
+
+  const validateAndPostData = () => {
     const {name, email} = inputsState
 
     if (name.value && /@/.test(email.value)) {
@@ -60,13 +74,10 @@ const ChangeNameOrEmailField:FC = () => {
     }
 
     if (!name.value) {
-      setNoValidationLabel('Please, write your name.')
+      showNoValidationText('Please, write your name.')
     } else {
-      setNoValidationLabel('Wrong email format! please check and enter a correct one.')
+      showNoValidationText('Wrong email format! please check and enter a correct one.')
     }
-
-    setTimeout(() => setNoValidationLabel(null), 3000)
-    
   }
   
   return (
@@ -74,15 +85,25 @@ const ChangeNameOrEmailField:FC = () => {
       <>
         <BarForInput label='Name' hasSelector isUnlock={inputsState.name.isUnlock} selectorAction={() => changeInputUnlock('name')}/>
 
-        <InputUserData type='text' isUnlock={inputsState.name.isUnlock} returnInputValue={returnInputValue('name')} />
+        <InputUserData type='text' isUnlock={inputsState.name.isUnlock} returnInputValue={returnInputValue('name')} value={inputsState.name.value}/>
 
-        <BarForInput label='Email' hasSelector isUnlock={inputsState.email.isUnlock} selectorAction={() => changeInputUnlock('email')}/>
+        <BarForInput label='Email' hasSelector isUnlock={inputsState.email.isUnlock} selectorAction={() => {
+          if (!isValidating) {
+            if (serverData.user.googleId || serverData.user.facebookId) {
+              showNoValidationText('You can not change email if you logged in by social network')
+            } else {
+              changeInputUnlock('email')
+            }
+          } else {
+            showNoValidationText('Please wait for data loading')
+          }
+      }}/>
 
-        <InputUserData type='email' isUnlock={inputsState.email.isUnlock} returnInputValue={returnInputValue('email')} />
+        <InputUserData type='email' isUnlock={inputsState.email.isUnlock} returnInputValue={returnInputValue('email')} value={inputsState.email.value}/>
 
-        <BarForInput label='Current Password' hasSelector isUnlock={inputsState.password.isUnlock} selectorAction={() => alert('write func to go to password chenching')}/>
+        <BarForInput label='Current Password' hasSelector isUnlock={false} selectorAction={() => alert('write func to go to password chenching')}/>
 
-        <InputUserData type='password' isUnlock={inputsState.password.isUnlock}/>
+        <InputUserData type='password' isUnlock={false} value={''}/>
 
         <ButtonUserData label='Save Change' action={validateAndPostData} className={styles['Form-Button']} />
 
