@@ -36,6 +36,7 @@ const CardDetails: FC<CardDetailsProps> = ({
       <div className={styles["CardDetails-Wrapper"]}>
         <div className={styles["CardDetails-Header"]}>
           <div className={styles["CardDetails-Buttons"]}>
+            {/* TODO: added logic to change post language */}
             {languages ? (
               languages.map(({ language: languageFromArray, _id }) => (
                 <button

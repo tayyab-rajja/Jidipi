@@ -90,6 +90,7 @@ const CompanyProfile: FC<CompanyProfileProps> = ({ comnanyInfo }) => {
               ))}
             </div>
             {comnanyInfo?.IsPartner && !comnanyInfo?.isMember && (
+              // TODO: add logic to share and add to favorite companies
               <div className={styles["CompanyProfile-Links_Actions"]}>
                 <button className={styles["CompanyProfile-Button"]}>
                   {postsActionSvG["SHARE"]}
