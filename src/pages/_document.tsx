@@ -5,6 +5,10 @@ export default function Document() {
     <Html>
       <Head>
         <link
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+          rel="stylesheet"
+        />
+        <link
           href={process.env.NEXT_PUBLIC_SETKA_STYLES_URL}
           rel="stylesheet"
         />

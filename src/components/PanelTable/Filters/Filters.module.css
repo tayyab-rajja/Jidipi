@@ -1,43 +1,36 @@
+.FilterWrapper {
+  width: 235px;
+}
+
+.FilterWrapper_Location {
+  min-width: 235px;
+  flex: 1 1 auto;
+}
+
 .Filter {
   padding: 0 20px;
   height: 40px;
-  width: 235px;
   border: 1px solid #d6d6d6;
   border-radius: 5px;
   color: #888888;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-}
-
-.Filter_DropDown {
-  padding: 0 50px 0 50px;
-  color: #888888;
-  font-weight: 500;
-  background-color: transparent;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  border: none;
-  position: absolute;
-  right: 0;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 3;
-}
-
-.Filter-Menu {
-  width: 235px;
 }
 
 .Filter-MenuItem {
-  padding-left: 45px;
-  display: flex;
-  align-items: center;
+  color: #373737;
+  padding: 14px 0 14px 45px;
   background-color: #fff;
+}
+
+.Filter-MenuItem:not(:last-child) {
   border-bottom: 1px solid #d6d6d6;
+}
+
+.Filter-MenuItem_Selected {
+  color: #fff;
+  background-color: #373737;
 }
 
 .Filter-MenuItem div {
@@ -54,26 +47,12 @@
   background-color: #deb851;
 }
 
-.Filter-Arrow {
-  height: 10px;
-  width: 10px;
-  border-left: 2px solid;
-  border-bottom: 2px solid;
-  border-color: #888888;
-  transform: rotate(-45deg);
-}
-
-.Filter-Location {
-  width: 423px;
-}
-
 .Filter-MenuItem_Location {
   padding-left: 20px;
-  background-color: #f1f1f1;
 }
 
-.Filter-Menu_Location {
-  width: 423px;
+.Filter-MenuItem_Location-Pinned {
+  background-color: #f1f1f1;
 }
 
 .PostsPerPage {
@@ -81,40 +60,14 @@
   height: 45px;
 }
 
-.PostsPerPage .Filter-Arrow {
-  margin-bottom: 5px;
-  width: 8px;
-  height: 8px;
-}
-
 .PostsPerPage-Filter {
-  padding: 10px;
+  height: 100%;
+  padding: 0 15px;
   width: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  color: #888888;
   background-color: #f1f1f1;
   border: 1px solid #d6d6d6;
   border-radius: 0 5px 5px 0;
-  position: relative;
-}
-
-.PostsPerPage-Filter_DropDown {
-  color: #888888;
-  font-weight: 500;
-  background-color: transparent;
-  border: none;
-  position: absolute;
-  right: 0;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 3;
-}
-
-.PostsPerPage-Filter_Menu {
-  width: 80px;
-  min-width: 80px;
 }
 
 .PostsPerPage-Filter_MenuItem {
@@ -134,4 +87,9 @@
   border: 1px solid #d6d6d6;
   border-right: none;
   border-radius: 5px 0 0 5px;
+}
+
+.PostsPerPage-Filter_Selected-MenuItem {
+  color: #fff;
+  background-color: #373737;
 }
