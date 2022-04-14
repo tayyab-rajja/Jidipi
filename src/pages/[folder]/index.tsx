@@ -13,19 +13,20 @@ import { Post } from "types/postTypes";
 import { fetchPosts } from "src/api/fetchPosts";
 import qs from "qs";
 import Masonry from "react-masonry-css";
+import Pagination from "src/components/Pagination/Pagination";
+import Posts from "src/components/Posts";
+import { SWRConfig } from "swr";
 
 interface Props {
-  pageFolders: PageFolder[];
+  // pageFolders: PageFolder[];
   posts: {
     posts: [] | Post[];
     total: number;
   };
+  fallback: any;
 }
 
-const FolderPage = ({ pageFolders, posts }: Props) => {
-  const postsData: Post[] = posts?.posts ?? [];
-  const { query } = useRouter();
-
+const FolderPage = ({ posts }: Props) => {
   return (
     <div>
       <Head>
@@ -34,32 +35,7 @@ const FolderPage = ({ pageFolders, posts }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* <Layout SidebarComponent={<Sidebar />} pageFolders={pageFolders}> */}
-      <Masonry
-        breakpointCols={{
-          default: 5,
-          1980: 4,
-          1268: 3,
-          960: 2,
-          500: 1,
-        }}
-        className="my-masonry-grid"
-        columnClassName="my-masonry-grid_column"
-      >
-        {postsData.map(({ title, categories, image, id, slug }) => (
-          <div key={id}>
-            <Card
-              id={id}
-              folder={query.folder as string}
-              slug={slug}
-              title={title}
-              categories={categories}
-              image={image}
-            />
-          </div>
-        ))}
-      </Masonry>
-      {/* </Layout> */}
+      <Posts fallbackData={posts} />
     </div>
   );
 };
@@ -80,7 +56,6 @@ export const getServerSideProps: GetServerSideProps = async ({
   query,
 }) => {
   let pageFolders: PageFolder[] = [];
-  let posts = {};
 
   try {
     pageFolders = await fetchPageFolders();
@@ -92,21 +67,22 @@ export const getServerSideProps: GetServerSideProps = async ({
     (pageFolder) => pageFolder.subDomain === params?.folder
   );
 
-  const postsFromApi = await fetchPosts(
-    currentPageFolder?._id,
-    qs.stringify({ ...query, pageSize: 40 })
-  );
+  const parameters = qs.stringify({
+    pageSize: 50,
+    pageNumber: query.page ?? 0,
+  });
 
-  posts = {
-    posts: changePostsData(postsFromApi.posts),
-  };
+  const posts = await fetchPosts(currentPageFolder?._id, parameters);
 
   return {
     notFound: !currentPageFolder,
     props: {
       ...(await serverSideTranslations(locale as string, ["common"])),
       posts,
-      pageFolders,
+      fallback: {
+        [`${process.env.NEXT_PUBLIC_API_URL}/post/public/${currentPageFolder?._id}?${parameters}`]:
+          posts,
+      },
     },
   };
 };
