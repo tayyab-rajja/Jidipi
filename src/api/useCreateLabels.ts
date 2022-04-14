@@ -20,5 +20,11 @@ export const useCreateLabels = () => {
                 .then((res) => res.data);
     }
 
-    return {createLabel}
+    const deleteLabel = async (id: string) => {
+        return axios
+                .delete(`${process.env.NEXT_PUBLIC_API_URL}/reader/label/${id}`, {headers: {Authorization: "Bearer " + token}})
+                .then((res) => res.data);
+    }
+
+    return {createLabel, deleteLabel}
 }

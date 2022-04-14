@@ -1,5 +1,5 @@
 import { sidebarSvg } from "constant/sidebarSvg";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import SideBarWrapper from "../SideBarWrapper/SideBarWrapper";
 import AddLabelForm from "./AddLabelForm/AddLabelForm";
 import FolderItem from "./FolderItem/FolderItem";
@@ -25,26 +25,18 @@ interface Props {
 export const SaveInFolderSidebar: FC<Props> = ({pageFolders, currentPageFolder, postId}) => {
     const { labelsList, mutate } = useFetchLabels();
     const { addPostToFavourites } = useSavePost();
-    const { createLabel } = useCreateLabels();
+    const { createLabel, deleteLabel } = useCreateLabels();
 
-    console.log(labelsList);
     const [showElement, setShowElement] = useState<showElementState>({
         addLabelBtn: false,
         addLabelFormAndList: false,
     });
     const [selectedFolder, setSelectedFolder] = useState('');
     const [selectedLabel, setSelectedLabel] = useState('');
-    // const [labelsList, setLabelsList] = useState(data.labels);
 
     const pageFoldersPP = pageFolders?.filter(pageFolder => pageFolder.pageType === "PROJECT" || pageFolder.pageType === "PRODUCT");
     const activePageFolders = [currentPageFolder, "Mine"];
     const pageFolderId = "603ce60958c5c6279bc2ed96";
-   
-    // useEffect(() => {
-    //     if(data) {
-    //         setLabelsList(data.labels);
-    //     }
-    // }, [data])
 
     const handleClickItem = (elementName: string, title?: string) => {
         if(title && !activePageFolders.includes(title)) {
@@ -67,11 +59,6 @@ export const SaveInFolderSidebar: FC<Props> = ({pageFolders, currentPageFolder, 
 
     const addNewLabel = async (labelName: string) => {
         const defaultColor = "F1F1F1";
-        const labelData = {
-            label: labelName,
-            colour: defaultColor,
-            pageType: "PROJECT"
-        }
         const response = await createLabel(labelName, defaultColor, "PROJECT");
         mutate({...labelsList, response})
     }
@@ -102,10 +89,10 @@ export const SaveInFolderSidebar: FC<Props> = ({pageFolders, currentPageFolder, 
         setSelectedLabel(id);
     }
 
-    const deleteLabel = (title: string) => {
-        setLabelsList((prevState) => prevState.filter(
-            labelsName => labelsName.title !== title 
-        ))
+    const removeLabel = async (id: string) => {
+        const response = await deleteLabel(id);
+        mutate({ ...labelsList, labelsList: [...labelsList.labels.splice(id, 1)] })
+        console.log(response);
     }
 
     return (
@@ -136,7 +123,7 @@ export const SaveInFolderSidebar: FC<Props> = ({pageFolders, currentPageFolder, 
                                     key={label._id} 
                                     color={label.colour}
                                     updateLabelColor={updateLabelColor}
-                                    deleteLabel={() => deleteLabel(label._id)}
+                                    deleteLabel={() => removeLabel(label._id)}
                                     updateLabel={updateLabel} 
                                     selectLabel={() => selectLabel(label._id)} 
                                     isSelected={label._id === selectedLabel} 
