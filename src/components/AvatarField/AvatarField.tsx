@@ -10,10 +10,9 @@ import ButtonUserData from 'src/components/ButtonUserData'
 import {usePutUserData} from 'src/api/usePutUserData'
 
 const AvatarField:FC = () => {
-  const {data: serverData, error, isValidating} = usePutUserData()
+  const {data: serverData, error, isValidating, putData} = usePutUserData()
 
   const [currentAvatar, setCurrentAvatar] = useState<string | null>(null);
-  // console.log(serverData)
 
   useEffect(() => {
     if (serverData?.user.avatar) setCurrentAvatar(serverData.user.avatar)
@@ -30,7 +29,9 @@ const AvatarField:FC = () => {
       
       <ButtonUserData
         label='Save Change'
-        action={() => alert('write your func')}
+        action={() => putData({
+          avatar: currentAvatar || ''
+        })}
         className={styles['Container-Button']}
       />
     </div>
