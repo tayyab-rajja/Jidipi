@@ -19,13 +19,14 @@ interface InputsValue {
 }
 
 interface InputsUnlock {
-  name: boolean;
-  email: boolean;
-  passwords: boolean;
+  // name: boolean;
+  // email: boolean;
+  // passwords: boolean;
+  [key: string]: any;
 }
 
 const ChangePasswordField:FC = () => {
-  const {data: serverData, error, isValidating, putData} = usePutUserData()
+  const {data: serverData, error, isValidating, putData, updatePassword} = usePutUserData()
 
   const [inputsValue, setInputsValue] = useState<InputsValue>({
     name: '',
@@ -73,6 +74,7 @@ const ChangePasswordField:FC = () => {
 
   const validateAndPostData = () => {
     const {name, email, currentPassword, newPassword, newPasswordConfirmation} = inputsValue
+    console.log(currentPassword);
 
     interface NewUserData {
       firstName?: string;
@@ -89,7 +91,13 @@ const ChangePasswordField:FC = () => {
 
     if (currentPassword) {
       if (newPassword === newPasswordConfirmation) {
-        alert('your change passwords func')
+        console.log(currentPassword);
+        updatePassword({
+          currentPassword,
+          password: newPassword
+        })
+      } else {
+        showNoValidationText('Password confirmation is not equal to new password')
       }
     }
     
@@ -137,7 +145,7 @@ const ChangePasswordField:FC = () => {
 
         <BarForInput label='Current Password' hasSelector isUnlock={inputsUnlock.passwords} selectorAction={changeInputUnlock('passwords')} />
 
-        <InputUserData type='password' isUnlock={inputsUnlock.passwords} returnInputValue={returnInputValue('password')} />
+        <InputUserData type='password' isUnlock={inputsUnlock.passwords} returnInputValue={returnInputValue('currentPassword')} />
         
         <BarForInput label='New Password'/>
 
