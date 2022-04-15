@@ -4,27 +4,27 @@ import styles from './LabelItem.module.css';
 import clsx from "clsx";
 import { sidebarSvg } from 'constant/sidebarSvg';
 import { ColorPicker } from "../ColorPicker/ColorPicker";
+import { Label } from "types/labelType";
 
 interface Props {
-    title: string,
-    color: string,
+    labelItem: Label,
+    isSelected: boolean,
     deleteLabel: () => void,
     selectLabel: () => void,
-    isSelected: boolean,
-    id: string,
-    updateLabel: (title: string, id: string) => void,
-    updateLabelColor: (id: string, color: string) => void,
+    updateLabel: (updatedItem: string, updatedValue: string, id: string) => void,
 }
 
-const LabelItem: FC<Props> = ({title, selectLabel, isSelected, id, deleteLabel, updateLabel, updateLabelColor, color}) => {
+const LabelItem: FC<Props> = ({labelItem, isSelected,  deleteLabel, selectLabel, updateLabel}) => {
+
+    const {_id, label, colour } = labelItem;
 
     const [isEditLabelFormOpen, setEditLabelForm] = useState(false);
     const [isEditable, setEditable] = useState(false);
-    const [inputValue, setInputValue] = useState(title);
+    const [inputValue, setInputValue] = useState(label);
 
 
     const selectColor = (color: string) => {
-        updateLabelColor(id, color);
+        updateLabel("colour", color, _id);
     }
 
     const showEditLabelForm: MouseEventHandler<HTMLDivElement> = (e) => {
@@ -38,7 +38,7 @@ const LabelItem: FC<Props> = ({title, selectLabel, isSelected, id, deleteLabel, 
 
     const saveOnEnter: KeyboardEventHandler<HTMLDivElement> = (e) => {
         if (e.key === 'Enter') {
-            updateLabel(inputValue, id);
+            updateLabel("label", inputValue, _id);
             setEditable(false);
         }   
     }
@@ -59,9 +59,9 @@ const LabelItem: FC<Props> = ({title, selectLabel, isSelected, id, deleteLabel, 
                 <div 
                     className={className} 
                     onClick={selectLabel} 
-                    style={{backgroundColor: `${color}`}} 
+                    style={{backgroundColor: `${colour}`}} 
                     onContextMenu={showEditLabelForm}>
-                {title}{isSelected && <span onClick={deleteLabel}>{sidebarSvg["CLOSE"]}</span>} 
+                {label}{isSelected && <span onClick={deleteLabel}>{sidebarSvg["CLOSE"]}</span>} 
                 </div>}
                 {isEditLabelFormOpen && <ColorPicker deleteLabel={deleteLabel} selectColor={selectColor} editInput={editInput} />}
         </li>
