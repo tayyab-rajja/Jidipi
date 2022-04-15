@@ -13,6 +13,14 @@ import PanelDropdown from "src/components/PanelDropdown"
 
 import {usePutUserData} from "src/api/usePutUserData"
 
+import Cookies from "js-cookie";
+
+const deleteAllCookies = () => {
+  const names = Object.keys(Cookies.get())
+
+  names.map(name => Cookies.remove(name))
+}
+
 interface Props {
   pageFolders: PageFolder[];
 }
@@ -74,7 +82,11 @@ export const Navbar = () => {
       {userAuthorized
         ? <PanelDropdown
             isOpen={showLoginBar}
-            close={() => setShowLoginBar(false)}
+            logOut={() => {
+              deleteAllCookies()
+              setShowLoginBar(false)
+              setUserAuthorized(false)
+            }}
           />
         : <SideBarProvider
             isOpen={showLoginBar}
