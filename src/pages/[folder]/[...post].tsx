@@ -45,10 +45,10 @@ const Post = ({ post }: Props) => {
       >
         <div dangerouslySetInnerHTML={{ __html: post.description }} />
       </CardDetails>
-      <CompanyProfile comnanyInfo={post?.companyId} />
+      <CompanyProfile companyInfo={post?.companyId} />
       {!!companies.length &&
-        companies.map((comnanyInfo: any) => (
-          <CompanyProfile key={comnanyInfo._id} comnanyInfo={comnanyInfo} />
+        companies.map((companyInfo: any) => (
+          <CompanyProfile key={companyInfo._id} companyInfo={companyInfo} />
         ))}
       {/* </Layout> */}
       <Script src={process.env.NEXT_PUBLIC_SETKA_SCRIPTS_URL} />
