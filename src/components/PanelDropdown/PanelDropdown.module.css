@@ -1,0 +1,28 @@
+.Container {
+  border-radius: 6px;
+  border: 1px solid #D6D6D6;
+}
+.Body-Container {
+  width: 100%;
+  max-width: 80px;
+}
+
+.Container-List {
+  padding: 9px 9px 9px 20px;
+  font-size: 9px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.Container-List:first-child {
+  border-radius: 5px 5px 0 0;
+}
+.Container-List:last-child {
+  border-radius: 0 0 5px 5px;
+}
+.Container-List:not(.Container-List:first-child, .Container-List:last-child) {
+  border-top: 1px solid #D6D6D6;
+  border-bottom: 1px solid #D6D6D6;
+}
+.Container-List:hover {
+  background: #DEB851;
+}
