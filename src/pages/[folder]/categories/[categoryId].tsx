@@ -4,7 +4,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { ReactElement } from "react";
 import { fetchPageFolders } from "src/api/fetchPageFolders";
 import { fetchPosts } from "src/api/fetchPosts";
 import Card from "src/components/Card";
@@ -24,11 +24,7 @@ interface ICategoryIdProps {
   sidebarCategories: any;
 }
 
-const CategoryId = ({
-  pageFolders,
-  posts,
-  sidebarCategories,
-}: ICategoryIdProps) => {
+const CategoryId = ({ posts }: ICategoryIdProps) => {
   const postsData: Post[] = posts?.posts ?? [];
   const { query } = useRouter();
 
@@ -40,36 +36,39 @@ const CategoryId = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Layout SidebarComponent={<Sidebar />} pageFolders={pageFolders}>
-        <Masonry
-          breakpointCols={{
-            default: 5,
-            1980: 4,
-            1268: 3,
-            960: 2,
-            500: 1,
-          }}
-          className="my-masonry-grid"
-          columnClassName="my-masonry-grid_column"
-        >
-          {postsData.map(({ title, categories, image, id, slug }) => (
-            <div key={id}>
-              <Card
-                folder={query.folder as string}
-                slug={slug}
-                title={title}
-                categories={categories}
-                image={image}
-                id={id}
-              />
-            </div>
-          ))}
-        </Masonry>
-      </Layout>
+      <Masonry
+        breakpointCols={{
+          default: 5,
+          1980: 4,
+          1268: 3,
+          960: 2,
+          500: 1,
+        }}
+        className="my-masonry-grid"
+        columnClassName="my-masonry-grid_column"
+      >
+        {postsData.map(({ title, categories, image, id, slug }) => (
+          <div key={id}>
+            <Card
+              folder={query.folder as string}
+              slug={slug}
+              title={title}
+              categories={categories}
+              image={image}
+              id={id}
+            />
+          </div>
+        ))}
+      </Masonry>
     </div>
   );
 };
+
 export default CategoryId;
+
+CategoryId.getLayout = function getLayout(page: ReactElement) {
+  return <Layout SidebarComponent={<Sidebar />}>{page}</Layout>;
+};
 
 export const getServerSideProps: GetServerSideProps = async ({
   params,
@@ -78,7 +77,6 @@ export const getServerSideProps: GetServerSideProps = async ({
 }) => {
   let pageFolders: PageFolder[] = [];
   let posts = {};
-  let sidebarCategories = [];
 
   try {
     pageFolders = await fetchPageFolders();
@@ -90,10 +88,15 @@ export const getServerSideProps: GetServerSideProps = async ({
     (pageFolder) => pageFolder.subDomain === params?.folder
   );
 
-  const postsFromApi = await fetchPosts(
-    currentPageFolder?._id,
-    qs.stringify(query)
-  );
+  
+
+  const parameters = qs.stringify({
+    pageSize: 50,
+    pageNumber: query.page ?? 0,
+
+  });
+
+  const postsFromApi = await fetchPosts(currentPageFolder?._id, parameters);
 
   posts = {
     posts: changePostsData(postsFromApi.posts),

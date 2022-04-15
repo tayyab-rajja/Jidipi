@@ -41,11 +41,7 @@ const FolderPage = ({ posts }: Props) => {
 };
 
 FolderPage.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <Layout SidebarComponent={<Sidebar />}>
-      <div>{page}</div>
-    </Layout>
-  );
+  return <Layout SidebarComponent={<Sidebar />}>{page}</Layout>;
 };
 
 export default FolderPage;
