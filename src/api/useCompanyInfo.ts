@@ -17,6 +17,7 @@ export const useCompanyInfo = (partnerId?: string) => {
   //   session: { token },
   // } = useAuth();
   let pages = [];
+  let content = [];
 
   const {
     data: company,
@@ -33,11 +34,13 @@ export const useCompanyInfo = (partnerId?: string) => {
 
   if (company?.about) {
     pages = [...pages, { title: "about" }];
+    content = [{ id: "about", ...company.about }];
   }
 
   const data = {
     company: company?.company || company,
     pages,
+    content,
   };
 
   return { data, error, isValidating };

@@ -32,7 +32,7 @@ const FolderPage = ({}: Props) => {
         </div>
       </div>
 
-      <CompanyBoard tabs={data.pages} content={[]} />
+      <CompanyBoard tabs={data.pages} content={data.content} />
     </>
   );
 };

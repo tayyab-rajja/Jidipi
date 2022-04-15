@@ -14,7 +14,6 @@
   background-color: transparent;
 }
 
-.CompanyBoard-Content[data-reach-tab-panels] {
-  height: 300px;
-  height: min-content;
+.CompanyBoard-TabPanels[data-reach-tab-panels] {
+  margin-top: 20px;
 }
