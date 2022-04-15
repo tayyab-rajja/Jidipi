@@ -1,10 +1,10 @@
 import "../styles/globals.css";
 import "../styles/nprogress.css";
-import {ReactElement, ReactNode, useEffect} from "react";
-import type {NextPage} from "next";
-import type {AppProps} from "next/app";
-import {AuthProvider} from "src/providers/AuthProvider";
-import {SWRConfig} from "swr";
+import { ReactElement, ReactNode, useEffect } from "react";
+import type { NextPage } from "next";
+import type { AppProps } from "next/app";
+import { AuthProvider } from "src/providers/AuthProvider/AuthProvider";
+import { SWRConfig } from "swr";
 import NProgress from "nprogress";
 import {Router} from "next/router";
 import {appWithTranslation} from "next-i18next";
