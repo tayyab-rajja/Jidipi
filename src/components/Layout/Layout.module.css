@@ -5,7 +5,7 @@
 
 .Layout-Content {
   width: calc(100% - 300px);
-  padding: 20px 40px;
+  padding: 20px;
   background-color: rgb(0, 0, 0, 0.1);
   display: flex;
   flex-wrap: wrap;

@@ -12,7 +12,6 @@ import Layout from "src/components/Layout";
 import Sidebar from "src/components/Sidebar";
 import { Post } from "types/postTypes";
 import qs from "qs";
-import { fetchCategoriesList } from "src/api/fetchCategoriesList";
 import { PageFolder } from "types/pageFolderType";
 import Masonry from "react-masonry-css";
 
@@ -41,10 +40,7 @@ const CategoryId = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Layout
-        SidebarComponent={<Sidebar sidebarCategories={sidebarCategories} />}
-        pageFolders={pageFolders}
-      >
+      <Layout sidebarComponent={<Sidebar />}>
         <Masonry
           breakpointCols={{
             default: 5,
@@ -94,10 +90,6 @@ export const getServerSideProps: GetServerSideProps = async ({
     (pageFolder) => pageFolder.subDomain === params?.folder
   );
 
-  const responseSidebarCategories = await fetchCategoriesList(
-    currentPageFolder?._id
-  );
-
   const postsFromApi = await fetchPosts(
     currentPageFolder?._id,
     qs.stringify(query)
@@ -106,14 +98,12 @@ export const getServerSideProps: GetServerSideProps = async ({
   posts = {
     posts: changePostsData(postsFromApi.posts),
   };
-  sidebarCategories = responseSidebarCategories;
 
   return {
     notFound: !currentPageFolder,
     props: {
       ...(await serverSideTranslations(locale as string, ["common"])),
       posts,
-      sidebarCategories,
       pageFolders,
     },
   };

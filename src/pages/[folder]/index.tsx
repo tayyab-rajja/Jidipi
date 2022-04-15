@@ -3,7 +3,7 @@ import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { ReactElement } from "react";
 import { fetchPageFolders } from "src/api/fetchPageFolders";
 import Card from "src/components/Card";
 import Layout from "src/components/Layout";
@@ -12,7 +12,6 @@ import { PageFolder } from "types/pageFolderType";
 import { Post } from "types/postTypes";
 import { fetchPosts } from "src/api/fetchPosts";
 import qs from "qs";
-import { fetchCategoriesList } from "src/api/fetchCategoriesList";
 import Masonry from "react-masonry-css";
 
 interface Props {
@@ -21,10 +20,9 @@ interface Props {
     posts: [] | Post[];
     total: number;
   };
-  sidebarCategories: any;
 }
 
-const FolderPage = ({ pageFolders, posts, sidebarCategories }: Props) => {
+const FolderPage = ({ pageFolders, posts }: Props) => {
   const postsData: Post[] = posts?.posts ?? [];
   const { query } = useRouter();
 
@@ -36,36 +34,41 @@ const FolderPage = ({ pageFolders, posts, sidebarCategories }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Layout
-        SidebarComponent={<Sidebar sidebarCategories={sidebarCategories} />}
-        pageFolders={pageFolders}
+      {/* <Layout sidebarComponent={<Sidebar />} pageFolders={pageFolders}> */}
+      <Masonry
+        breakpointCols={{
+          default: 5,
+          1980: 4,
+          1268: 3,
+          960: 2,
+          500: 1,
+        }}
+        className="my-masonry-grid"
+        columnClassName="my-masonry-grid_column"
       >
-        <Masonry
-          breakpointCols={{
-            default: 5,
-            1980: 4,
-            1268: 3,
-            960: 2,
-            500: 1,
-          }}
-          className="my-masonry-grid"
-          columnClassName="my-masonry-grid_column"
-        >
-          {postsData.map(({ title, categories, image, id, slug }) => (
-            <div key={id}>
-              <Card
-                id={id}
-                folder={query.folder as string}
-                slug={slug}
-                title={title}
-                categories={categories}
-                image={image}
-              />
-            </div>
-          ))}
-        </Masonry>
-      </Layout>
+        {postsData.map(({ title, categories, image, id, slug }) => (
+          <div key={id}>
+            <Card
+              id={id}
+              folder={query.folder as string}
+              slug={slug}
+              title={title}
+              categories={categories}
+              image={image}
+            />
+          </div>
+        ))}
+      </Masonry>
+      {/* </Layout> */}
     </div>
+  );
+};
+
+FolderPage.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <Layout sidebarComponent={<Sidebar />}>
+      <div>{page}</div>
+    </Layout>
   );
 };
 
@@ -78,7 +81,6 @@ export const getServerSideProps: GetServerSideProps = async ({
 }) => {
   let pageFolders: PageFolder[] = [];
   let posts = {};
-  let sidebarCategories = [];
 
   try {
     pageFolders = await fetchPageFolders();
@@ -90,27 +92,20 @@ export const getServerSideProps: GetServerSideProps = async ({
     (pageFolder) => pageFolder.subDomain === params?.folder
   );
 
-  const responseSidebarCategories = await fetchCategoriesList(
-    currentPageFolder?._id
-  );
-
   const postsFromApi = await fetchPosts(
     currentPageFolder?._id,
-    qs.stringify(query)
+    qs.stringify({ ...query, pageSize: 40 })
   );
 
   posts = {
     posts: changePostsData(postsFromApi.posts),
   };
 
-  console.log(responseSidebarCategories);
-
   return {
     notFound: !currentPageFolder,
     props: {
       ...(await serverSideTranslations(locale as string, ["common"])),
       posts,
-      sidebarCategories: responseSidebarCategories,
       pageFolders,
     },
   };

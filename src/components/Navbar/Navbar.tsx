@@ -13,8 +13,10 @@ interface Props {
   pageFolders: PageFolder[];
 }
 
-export const Navbar = ({ pageFolders }: Props) => {
+export const Navbar = () => {
   const [showLoginBar, setShowLoginBar] = useState(false);
+
+  const { data: pageFolders } = usePageFolders();
 
   const navBarItems = pageFolders?.filter(
     (pageFolder) =>
