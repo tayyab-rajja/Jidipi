@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { usePageFolders } from "src/api/usePageFolders";
 
@@ -9,11 +9,17 @@ import styles from "./Navbar.module.css";
 import SidebarLoginRegister from "../SidebarLoginRegister";
 import { SideBarProvider } from "src/providers/SidebarProvider/SidebarProvider";
 
+import PanelDropdown from "src/components/PanelDropdown"
+
+import {usePutUserData} from "src/api/usePutUserData"
+
 interface Props {
   pageFolders: PageFolder[];
 }
 
 export const Navbar = () => {
+  const [userAuthorized, setUserAuthorized] = useState(false);
+
   const [showLoginBar, setShowLoginBar] = useState(false);
 
   const { data: pageFolders } = usePageFolders();
@@ -22,6 +28,12 @@ export const Navbar = () => {
     (pageFolder) =>
       pageFolder.pageType === "PROJECT" || pageFolder.pageType === "PRODUCT"
   );
+
+  const {data: serverData} = usePutUserData()
+
+  useEffect(() => {
+    if (serverData) setUserAuthorized(true)
+  }, [serverData])
 
   return (
     <>
@@ -44,7 +56,7 @@ export const Navbar = () => {
         </nav>
         <div
           className={styles["Navbar-User"]}
-          onClick={() => setShowLoginBar(true)}
+          onClick={() => setShowLoginBar(prev => !prev)}
         >
           <svg
             data-name="icon people"
@@ -59,12 +71,18 @@ export const Navbar = () => {
           </svg>
         </div>
       </header>
-      <SideBarProvider
-        isOpen={showLoginBar}
-        close={() => setShowLoginBar(false)}
-      >
-        <SidebarLoginRegister />
-      </SideBarProvider>
+      {userAuthorized
+        ? <PanelDropdown
+            isOpen={showLoginBar}
+            close={() => setShowLoginBar(false)}
+          />
+        : <SideBarProvider
+            isOpen={showLoginBar}
+            close={() => setShowLoginBar(false)}
+          >
+            <SidebarLoginRegister />
+          </SideBarProvider>
+      }
     </>
   );
 };
