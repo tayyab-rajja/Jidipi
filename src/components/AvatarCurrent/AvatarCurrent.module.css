@@ -14,9 +14,6 @@
   padding: 50px 50px;
   position: relative;
 }
-.Body-Container {
-  padding: 30px 30px;
-}
 .Body-ContainerWithImage {
   padding: 0 0;
 }
@@ -49,4 +46,8 @@
   color:#DEB851;
   cursor: pointer;
   margin: 0 2px;
+}
+
+.Avatar {
+  border-radius: 50%;
 }

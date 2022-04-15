@@ -40,7 +40,7 @@ const ShareSidebar: FC = () => {
                 </li>
                 <li className={styles["Sidebar-LinksItem"]}>
                     <span className={styles["Sidebar-LinksItem_Icon"]}>
-                        {socialSvg["PINTEREST"]}
+                        {socialSvg["PININTEREST"]}
                     </span>
                     <span className={styles["Sidebar-LinksItem_Text"]}>
                         <Link href="#"><a>Pinterest</a></Link>

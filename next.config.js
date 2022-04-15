@@ -4,7 +4,7 @@ const nextConfig = {
   reactStrictMode: true,
   i18n,
   images: {
-    domains: ["upload.jidipi.com"],
+    domains: ["upload.jidipi.com", "lh3.googleusercontent.com"],
   },
 };
 
