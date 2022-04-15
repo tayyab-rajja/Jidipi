@@ -69,7 +69,7 @@ const CardDetails: FC<CardDetailsProps> = ({
             <button className={clsx(styles["CardDetails-Button"])}>
               {postsActionSvG["SHARE"]}
             </button>
-            <button className={clsx(styles["CardDetails-Button"])}>
+            <button className={clsx(styles["CardDetails-Button"])} onClick={handleOpen}>
               {postsActionSvG["FAVORITE"]}
             </button>
           </div>

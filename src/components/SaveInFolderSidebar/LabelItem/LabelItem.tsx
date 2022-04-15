@@ -22,7 +22,6 @@ const LabelItem: FC<Props> = ({labelItem, isSelected,  deleteLabel, selectLabel,
     const [isEditable, setEditable] = useState(false);
     const [inputValue, setInputValue] = useState(label);
 
-
     const selectColor = (color: string) => {
         updateLabel("colour", color, _id);
     }

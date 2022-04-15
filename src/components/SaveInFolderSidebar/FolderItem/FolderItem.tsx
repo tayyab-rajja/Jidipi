@@ -34,4 +34,5 @@ const FolderItem: FC<Props> = ({folderName, handleClickItem, isSelected, cancelS
     )
 }
 
+
 export default FolderItem;

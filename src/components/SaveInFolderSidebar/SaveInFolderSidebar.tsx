@@ -1,15 +1,16 @@
 import { sidebarSvg } from "constant/sidebarSvg";
 import { FC, useState } from "react";
+import { useRouter } from "next/router";
 import SideBarWrapper from "../SideBarWrapper/SideBarWrapper";
 import AddLabelForm from "./AddLabelForm/AddLabelForm";
 import FolderItem from "./FolderItem/FolderItem";
 import LabelItem from "./LabelItem/LabelItem";
-import { PageFolder } from "types/pageFolderType";
 
 import styles from './SaveInFolderSidebar.module.css';
 import { useSavePost } from "src/api/useSavePost";
 import { useFetchLabels } from "src/api/useFetchLabels";
 import { useLabels } from "src/api/useLabels";
+import { usePageFolders } from "src/api/usePageFolders";
 import { Label } from "types/labelType";
 
 type showElementState = {
@@ -17,15 +18,16 @@ type showElementState = {
     addLabelFormAndList: boolean
 }
 interface Props {
-    pageFolders: PageFolder[],
-    currentPageFolder: string,
     postId: string
 }
 
-export const SaveInFolderSidebar: FC<Props> = ({pageFolders, currentPageFolder, postId}) => {
+export const SaveInFolderSidebar: FC<Props> = ({postId}) => {
+    const { data } = usePageFolders();
     const { labelsList, mutate } = useFetchLabels();
     const { addPostToFavourites } = useSavePost();
     const { createLabel, deleteLabel, updateLabel } = useLabels();
+    const router = useRouter();
+    const currentPageFolder = router.query.folder;
 
     const [showElement, setShowElement] = useState<showElementState>({
         addLabelBtn: false,
@@ -34,9 +36,9 @@ export const SaveInFolderSidebar: FC<Props> = ({pageFolders, currentPageFolder, 
     const [selectedFolder, setSelectedFolder] = useState('');
     const [selectedLabel, setSelectedLabel] = useState('');
 
-    const pageFoldersPP = pageFolders?.filter(pageFolder => pageFolder.pageType === "PROJECT" || pageFolder.pageType === "PRODUCT");
+    const pageFoldersPP = data?.filter(pageFolder => pageFolder.pageType === "PROJECT" || pageFolder.pageType === "PRODUCT");
+    const pageFolderId = data?.filter(pageFolder => pageFolder.title === currentPageFolder)[0]._id;
     const activePageFolders = [currentPageFolder, "Mine"];
-    const pageFolderId = "603ce60958c5c6279bc2ed96";
 
     const handleClickItem = (elementName: string, title?: string) => {
         if(title && !activePageFolders.includes(title)) {
@@ -79,9 +81,7 @@ export const SaveInFolderSidebar: FC<Props> = ({pageFolders, currentPageFolder, 
 
     const changeLabel = async (updatedItem: string, updatedValue: string, id: string) => {
         const updatedLabel = labelsList.labels.filter((labelItem: Label) => labelItem._id === id)[0];
-        console.log(updatedLabel);
-        const response = await updateLabel({...updatedLabel, updatedItem: updatedValue});
-        console.log(response);
+        await updateLabel({...updatedLabel, updatedItem: updatedValue});
         mutate({...labelsList});
     }
     
