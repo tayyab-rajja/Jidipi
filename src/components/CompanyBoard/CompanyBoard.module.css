@@ -1,0 +1,20 @@
+.CompanyBoard[data-reach-tabs] {
+  width: 100%;
+  margin-top: 25px;
+}
+
+.CompanyBoard-Tab[data-reach-tab] {
+  text-transform: uppercase;
+}
+
+.CompanyBoard-Tabs[data-reach-tab-list] {
+  color: #373737;
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+}
+
+.CompanyBoard-Content[data-reach-tab-panels] {
+  height: 300px;
+  height: min-content;
+}

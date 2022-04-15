@@ -6,15 +6,14 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Layout from "src/components/Layout";
 import CompanyProfile from "src/components/CompanyProfile/CompanyProfile";
 
-import { fetchCompanyInfo } from "src/api/fetchCompanyInfo";
+import { useCompanyInfo } from "src/api/useCompanyInfo";
+import { CompanyBoard } from "src/components/CompanyBoard/CompanyBoard";
 
-import { CompanyInfo } from "types/companyInfoTypes";
+interface Props {}
 
-interface Props {
-  companyInfo: CompanyInfo;
-}
+const FolderPage = ({}: Props) => {
+  const { data, isValidating } = useCompanyInfo("8e9-4m8");
 
-const FolderPage = ({ companyInfo }: Props) => {
   return (
     <>
       <Head>
@@ -23,11 +22,17 @@ const FolderPage = ({ companyInfo }: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div style={{ width: "100%", backgroundColor: "#fff" }}>
-        <div style={{ maxWidth: "900px", margin: "0 auto" }}>
-          <CompanyProfile comnanyInfo={companyInfo} />
+      <div style={{ backgroundColor: "#fff", width: "100%" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto", minHeight: 300 }}>
+          {isValidating ? (
+            "Loading..."
+          ) : (
+            <CompanyProfile companyInfo={data.company} />
+          )}
         </div>
       </div>
+
+      <CompanyBoard tabs={data.pages} content={[]} />
     </>
   );
 };
@@ -39,18 +44,9 @@ FolderPage.getLayout = function getLayout(page: ReactElement) {
 export default FolderPage;
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-  let companyInfo: CompanyInfo | {} = {};
-
-  try {
-    companyInfo = await fetchCompanyInfo("8e9-4m8");
-  } catch (e) {
-    console.log(e);
-  }
-
   return {
     props: {
       ...(await serverSideTranslations(locale as string, ["common"])),
-      companyInfo,
     },
   };
 };
