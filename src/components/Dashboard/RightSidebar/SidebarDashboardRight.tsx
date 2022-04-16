@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {isJudge, isPartner, isReader, isStaff} from "../../lib/user/role";
-import {PostStatus} from "../../lib/models/post";
+import {isJudge, isPartner, isReader, isStaff} from "../../../lib/user/role";
+import {PostStatus} from "../../../lib/models/post";
 import {inspect} from "util";
 import styles from "./SidebarDashboardRight.module.css";
-import {PUT} from "../../lib/common/api";
+import {PUT} from "../../../lib/common/api";
 
 /**
  * @param props
@@ -29,7 +29,6 @@ const SidebarDashboardRight = (props: any) => {
         }
         if (isPartner(user)  ) {
             // If partner, load the application data from post.
-            console.log(competition,competition._id);
             const application = {
                 postId: post._id,
                 competitionId: competition._id,

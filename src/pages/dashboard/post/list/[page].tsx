@@ -1,20 +1,16 @@
 import styles from '../post.module.scss';
 import {GetServerSideProps, PreviewData} from "next";
-import {ActivityStatus, CoverStatus, MessageStatus, PostStatus} from "../../../../lib/models/post";
 import {GET} from "../../../../lib/common/api";
 import useSWR from "swr";
 import {useRouter} from "next/router";
 import {FilterItem} from "../../../../lib/models/filter";
 import Layout from "../../../../components/Layout";
-import Sidebar from "../../../../components/Sidebar";
-import CardDetails from "../../../../components/CardDetails/CardDetails";
-import CompanyProfile from "../../../../components/CompanyProfile/CompanyProfile";
 import React, {useContext} from "react";
-import SidebarDashboard from "../../../../components/SidebarDashboard/SidebarDashboard";
+import SidebarDashboard from "../../../../components/Dashboard/Sidebar/SidebarDashboard";
 import {UserContext} from "../../../../providers/UserProvider";
 import {isJudge, isPartner} from "../../../../lib/user/role";
 import Link from 'next/link';
-import Masonry from 'react-masonry-css';
+import {generateSidebarMenus} from "../../../../lib/common/menu";
 
 export default function Posts(props: any) {
 
@@ -26,38 +22,8 @@ export default function Posts(props: any) {
     if (!data) return <div>loading...</div>;
 
     // MENU of the sidebar
-    let menus = {};
-    if (isJudge(user))
-        menus = [{
-            title: 'CANDIDATE', links: props.competitions.map((c: any) => {
-                // IF competitionId length is 4, API handle the competitionId as competition title.
-                return {
-                    title: c.title,
-                    icon: 'INFORMATION',
-                    isSelected: false,
-                    link: `/dashboard/post/list/architectures?competitionId=${c.title}`,
-                }
-            })
-        }];
-    else if (isPartner(user))
-        menus = [{
-            title: 'BLOG', links: [
-                {
-                    title: 'OVERVIEW',
-                    icon: 'INFORMATION',
-                    isSelected: false,
-                    link: `/dashboard/partner/overview`,
-                },
-                {
-                    title: 'POST',
-                    icon: 'POST',
-                    isSelected: false,
-                    link: `/dashboard/post/list/architectures`,
-                }
-            ]
-        }];
+    const menus = generateSidebarMenus({user,competitions:props.competitions})
 
-    // EOF MENU of the sidebar
 
 
     //FILTER of the post list
@@ -84,9 +50,6 @@ export default function Posts(props: any) {
             comment: [],
         }
     //EOF FILTER of the post list
-
-
-    console.log(data.posts);
     const gotoPost = (id: string) => {
         router.push('/dashboard/post/' + id).then(() => {
         });

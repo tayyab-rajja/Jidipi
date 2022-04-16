@@ -2,8 +2,6 @@ import {createContext, useReducer, useContext, useEffect, useState} from "react"
 import jwtDecode from "jwt-decode";
 import axios from "axios";
 import {Cookies} from "react-cookie";
-
-import {SessionState} from "./types";
 import {loadUserFromLocalStorage, User} from "../lib/user/action";
 import {useDispatch} from "react-redux";
 

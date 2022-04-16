@@ -9,8 +9,8 @@ import {makeSelectBasicUser} from "../../../lib/user/selector";
 import React from "react";
 import {UserContext} from "../../../providers/UserProvider";
 import Layout from "../../../components/Layout";
-import SidebarDashboard from "../../../components/SidebarDashboard/SidebarDashboard";
-import SidebarDashboardRight from "../../../components/SidebarDashboardRight/SidebarDashboardRight";
+import SidebarDashboard from "../../../components/Dashboard/Sidebar/SidebarDashboard";
+import SidebarDashboardRight from "../../../components/Dashboard/RightSidebar/SidebarDashboardRight";
 
 export default function Post(props: any) {
     // get user from context
