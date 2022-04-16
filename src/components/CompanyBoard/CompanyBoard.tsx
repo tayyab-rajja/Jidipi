@@ -3,11 +3,11 @@ import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@reach/tabs";
 
 import { CardsTab } from "./CardsTab/CardsTab";
 
-import styles from "./CompanyBoard.module.css";
 import { InfoTab } from "./InfoTab/InfoTab";
 import { PageFolder } from "types/pageFolderType";
 import { infoPages } from "types/companyInfoPages";
 
+import styles from "./CompanyBoard.module.css";
 interface CompanyBoardProps {
   pages: {
     cardPages: PageFolder[];

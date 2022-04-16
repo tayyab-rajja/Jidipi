@@ -2,10 +2,10 @@ import useSWR from "swr";
 
 import { changePostsData } from "helpers/changePostsData";
 
-export const useCompanyPosts = (pageFolderId: string) => {
+export const useCompanyPosts = (pageFolderId: string, partnerId: string) => {
   const { data, error, isValidating } = useSWR(
-    pageFolderId
-      ? `${process.env.NEXT_PUBLIC_API_URL}/post/public/${pageFolderId}?pageNumber=0&pageSize=100&language=EN&partnerId=8e9-4m8`
+    pageFolderId && partnerId
+      ? `${process.env.NEXT_PUBLIC_API_URL}/post/public/${pageFolderId}?pageNumber=0&pageSize=100&language=EN&partnerId=${partnerId}`
       : null
   );
 

@@ -5,6 +5,14 @@
 
 .CompanyBoard-Tab[data-reach-tab] {
   text-transform: uppercase;
+  color: #313232;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.CompanyBoard-Tab[data-selected] {
+  border-width: 2px;
+  border-color: #373737;
 }
 
 .CompanyBoard-Tabs[data-reach-tab-list] {
@@ -15,5 +23,5 @@
 }
 
 .CompanyBoard-TabPanels[data-reach-tab-panels] {
-  margin-top: 20px;
+  /* margin-top: 20px; */
 }
