@@ -9,13 +9,15 @@ import CompanyProfile from "src/components/CompanyProfile/CompanyProfile";
 import { useCompanyInfo } from "src/api/useCompanyInfo";
 import { CompanyBoard } from "src/components/CompanyBoard/CompanyBoard";
 
-interface Props {}
+interface Props {
+  partnerId: string;
+}
 
-const FolderPage = ({}: Props) => {
+const PartnerPage = ({ partnerId }: Props) => {
   const {
     data: { cardPages, company, infoPages },
     isValidating,
-  } = useCompanyInfo("8e9-4m8");
+  } = useCompanyInfo(partnerId);
 
   return (
     <>
@@ -40,16 +42,21 @@ const FolderPage = ({}: Props) => {
   );
 };
 
-FolderPage.getLayout = function getLayout(page: ReactElement) {
+PartnerPage.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>;
 };
 
-export default FolderPage;
+export default PartnerPage;
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  query,
+  locale,
+}) => {
   return {
+    notFound: !query.partner,
     props: {
       ...(await serverSideTranslations(locale as string, ["common"])),
+      partnerId: query.partner,
     },
   };
 };

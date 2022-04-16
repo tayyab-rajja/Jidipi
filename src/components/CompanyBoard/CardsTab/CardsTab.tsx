@@ -9,7 +9,11 @@ interface CardsTabProps {
 }
 
 export const CardsTab: FC<CardsTabProps> = ({ pageFolderId, folder }) => {
-  const { data } = useCompanyPosts(pageFolderId);
+  const { data, isValidating } = useCompanyPosts(pageFolderId);
+
+  if (isValidating) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <Masonry

@@ -4,6 +4,8 @@ import ActionPostButtons from "src/components/ActionPostButtons/ActionPostButton
 
 import { ContentInfoPages } from "types/companyInfoPages";
 
+import styles from "./InfoTab.module.css";
+
 interface InfoTabProps {
   content: ContentInfoPages;
 }
@@ -11,14 +13,16 @@ interface InfoTabProps {
 export const InfoTab: FC<InfoTabProps> = ({ content }) => {
   const { description, language, languages, _id } = content;
   return (
-    <div>
-      <ActionPostButtons
-        language={language}
-        postId={_id}
-        languages={languages}
-        // className={styles["CardDetails-Buttons"]}
-      />
-      <div dangerouslySetInnerHTML={{ __html: description }} />
+    <div className={styles["InfoTab"]}>
+      <div className={styles["InfoTab-Wrapper"]}>
+        <ActionPostButtons
+          language={language}
+          postId={_id}
+          languages={languages}
+          className={styles["InfoTab-Buttons"]}
+        />
+        <div dangerouslySetInnerHTML={{ __html: description }} />
+      </div>
     </div>
   );
 };
