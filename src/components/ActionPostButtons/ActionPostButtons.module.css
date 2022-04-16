@@ -1,0 +1,35 @@
+.ActionPostButtons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ActionPostButtons-Button {
+  height: 35px;
+  width: 35px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 50%;
+  background-color: #e3e3e3;
+}
+
+.ActionPostButtons-Button svg path {
+  fill: #fff;
+}
+
+.ActionPostButtons-Button.Active {
+  color: #fff;
+  background-color: #373737;
+}
+
+.ActionPostButtons-Button:hover {
+  background-color: #deb851;
+}
+
+.ActionPostButtons-Button:not(:last-child) {
+  margin-right: 10px;
+}

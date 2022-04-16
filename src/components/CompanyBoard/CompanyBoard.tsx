@@ -1,48 +1,48 @@
 import { FC, useEffect, useState } from "react";
-import { Tabs, TabList, Tab, TabPanels } from "@reach/tabs";
+import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@reach/tabs";
 
 import { CardsTab } from "./CardsTab/CardsTab";
 
 import styles from "./CompanyBoard.module.css";
 import { InfoTab } from "./InfoTab/InfoTab";
+import { PageFolder } from "types/pageFolderType";
+import { infoPages } from "types/companyInfoPages";
 
 interface CompanyBoardProps {
-  tabs: {}[];
-  content: {}[];
+  pages: {
+    cardPages: PageFolder[];
+    infoPages: infoPages[];
+  };
 }
 
-export const CompanyBoard: FC<CompanyBoardProps> = ({ tabs, content }) => {
-  const [currentTab, setCurrentTab] = useState({});
-
-  const handleTab = (index: number) => {
-    setCurrentTab(tabs[index]);
-  };
-
-  useEffect(() => {
-    if (tabs) {
-      setCurrentTab(tabs[0]);
-    }
-  }, [tabs]);
-
-  console.log(content);
+export const CompanyBoard: FC<CompanyBoardProps> = ({ pages }) => {
+  const { cardPages, infoPages } = pages;
 
   return (
-    <Tabs onChange={handleTab} className={styles["CompanyBoard"]}>
+    <Tabs className={styles["CompanyBoard"]}>
       <TabList className={styles["CompanyBoard-Tabs"]}>
-        {tabs.map((item) => (
-          <Tab className={styles["CompanyBoard-Tab"]} key={item.title}>
-            {item.title}
+        {cardPages.map(({ title, _id }) => (
+          <Tab className={styles["CompanyBoard-Tab"]} key={_id}>
+            {title}
+          </Tab>
+        ))}
+        {infoPages.map(({ title }, index) => (
+          <Tab className={styles["CompanyBoard-Tab"]} key={title + index}>
+            {title}
           </Tab>
         ))}
       </TabList>
       <TabPanels className={styles["CompanyBoard-TabPanels"]}>
-        {currentTab?.pageType ? (
-          <CardsTab pageFolderId={currentTab._id} folder={currentTab.title} />
-        ) : (
-          <InfoTab
-            content={content.find((item) => item.id === currentTab?.title)}
-          />
-        )}
+        {cardPages.map(({ title, _id }) => (
+          <TabPanel key={_id}>
+            <CardsTab pageFolderId={_id} folder={title} />
+          </TabPanel>
+        ))}
+        {infoPages.map(({ content }) => (
+          <TabPanel key={content._id}>
+            <InfoTab key={content._id} content={content} />
+          </TabPanel>
+        ))}
       </TabPanels>
     </Tabs>
   );

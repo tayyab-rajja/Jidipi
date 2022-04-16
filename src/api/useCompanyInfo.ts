@@ -1,6 +1,8 @@
-import { CompanyInfo } from "types/companyInfoTypes";
 import axios from "axios";
 import useSWR from "swr";
+
+import { PageFolder } from "types/pageFolderType";
+import { infoPages } from "types/companyInfoPages";
 
 import { useAuth } from "src/providers/AuthProvider/AuthProvider";
 
@@ -16,8 +18,9 @@ export const useCompanyInfo = (partnerId?: string) => {
   // const {
   //   session: { token },
   // } = useAuth();
-  let pages = [];
-  let content = [];
+
+  let cardPages: PageFolder[] = [];
+  let infoPages: infoPages[] = [];
 
   const {
     data: company,
@@ -29,18 +32,17 @@ export const useCompanyInfo = (partnerId?: string) => {
   );
 
   if (company?.pages) {
-    pages = company.pages;
+    cardPages = company.pages;
   }
 
   if (company?.about) {
-    pages = [...pages, { title: "about" }];
-    content = [{ id: "about", ...company.about }];
+    infoPages = [{ title: "about", content: company.about }];
   }
 
   const data = {
-    company: company?.company || company,
-    pages,
-    content,
+    company: company?.company || company || null,
+    cardPages,
+    infoPages,
   };
 
   return { data, error, isValidating };

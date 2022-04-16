@@ -12,7 +12,10 @@ import { CompanyBoard } from "src/components/CompanyBoard/CompanyBoard";
 interface Props {}
 
 const FolderPage = ({}: Props) => {
-  const { data, isValidating } = useCompanyInfo("8e9-4m8");
+  const {
+    data: { cardPages, company, infoPages },
+    isValidating,
+  } = useCompanyInfo("8e9-4m8");
 
   return (
     <>
@@ -27,12 +30,12 @@ const FolderPage = ({}: Props) => {
           {isValidating ? (
             "Loading..."
           ) : (
-            <CompanyProfile companyInfo={data.company} />
+            <CompanyProfile companyInfo={company} />
           )}
         </div>
       </div>
 
-      <CompanyBoard tabs={data.pages} content={data.content} />
+      <CompanyBoard pages={{ cardPages, infoPages }} />
     </>
   );
 };
