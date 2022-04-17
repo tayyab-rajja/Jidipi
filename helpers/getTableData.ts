@@ -6,7 +6,7 @@ import { TableColumn } from "types/tableColumnTypes";
 
 type GetTableData = (
   data: ReaderPost[] | undefined,
-  type: "POSTS" | "INFORMATION" | "COMPANY"
+  type: "post" | "company" | "information"
 ) => {
   tableData: [] | TableData[];
   tableColumns: TableColumn[];
@@ -21,7 +21,7 @@ export const getTableData: GetTableData = (data, type) => {
   };
 
   switch (type) {
-    case "POSTS":
+    case "post":
       if (data) {
         tableOptions.tableData = data
           .filter(
@@ -45,7 +45,7 @@ export const getTableData: GetTableData = (data, type) => {
       tableOptions.tableColumns = tableColumns.post;
       break;
 
-    case "INFORMATION":
+    case "company":
       if (data) {
         tableOptions.tableData = data
           .filter(
@@ -65,10 +65,11 @@ export const getTableData: GetTableData = (data, type) => {
             note: note || "",
           }));
       }
-      tableOptions.tableColumns = tableColumns.information;
+      tableOptions.tableColumns = tableColumns.company;
+
       break;
 
-    case "COMPANY":
+    case "information":
       // if (data) {
       //   tableOptions.tableData = data
       //     .filter(
@@ -88,7 +89,8 @@ export const getTableData: GetTableData = (data, type) => {
       //       note: note || "",
       //     }));
       // }
-      tableOptions.tableColumns = tableColumns.company;
+      tableOptions.tableColumns = tableColumns.information;
+
       break;
   }
 
