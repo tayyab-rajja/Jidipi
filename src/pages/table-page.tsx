@@ -24,6 +24,7 @@ const TablePage: FC<TablePageProps> = ({ tabs }) => {
     data: { tableColumns, tableData },
     params,
     setParams,
+    deleteFavorite,
   } = useFavoratePosts();
 
   return (
@@ -48,6 +49,7 @@ const TablePage: FC<TablePageProps> = ({ tabs }) => {
             tableData={tableData}
             tableColumns={tableColumns}
             params={params}
+            deleteFavorite={deleteFavorite}
             setParams={(params) =>
               setParams((prev) => ({ ...prev, ...params }))
             }

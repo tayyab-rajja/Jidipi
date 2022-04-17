@@ -26,9 +26,10 @@ export const getTableData: GetTableData = (data, type) => {
             ({ pageType, postId }) =>
               (pageType === "PRODUCT" || pageType === "PROJECT") && !!postId
           )
-          .map(({ isTrashed, postId, label, note }) => ({
+          .map(({ isTrashed, postId, label, note, _id }) => ({
             isTrashed,
-            id: postId._id,
+            id: _id,
+            postId: postId._id,
             pageFolderId: postId.pageFolderId,
             isSelect: false,
             language: postId.language,

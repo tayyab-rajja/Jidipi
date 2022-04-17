@@ -22,18 +22,20 @@ interface PanelTableProps {
   tableColumns: TableColumn[];
   tableData: TableData[];
   params: any;
+  deleteFavorite: (postId: string) => void;
   setParams: ({}) => void;
 }
 
-const getKeyValue =
-  <T extends object, U extends keyof T>(obj: T) =>
-  (key: U) =>
-    obj[key];
-
-const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
+const PanelTable: FC<PanelTableProps> = ({
+  tabs,
+  tableColumns,
+  tableData,
+  params,
+  deleteFavorite,
+  setParams,
+}) => {
   const { t } = useTranslation();
   const [data, setData] = useState<TableData[] | []>([]);
-  const [page, setPage] = useState(1);
   const [filtersValues, setFiltersValues] = useState({
     location: "",
     filter: "",
@@ -43,15 +45,27 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
   const [searchValue, setSearchValue] = useState<SearchInputValue>([]);
   const [currentTab, setCurrentTab] = useState(tabs[0]._id);
 
-  const handleFilterChange = (type: FilterTypes, value: string | boolean) => {
+  const handleFilterChange = (
+    type: FilterTypes,
+    value: string | boolean | number
+  ) => {
     setFiltersValues({ ...filtersValues, [type]: value });
+
+    if (type === "postsPerPage") {
+      setParams({
+        pageSize: value,
+      });
+    }
   };
 
   const handleSearchChange = (value: SearchInputValue) => {
     setSearchValue(value);
+    setParams({
+      searchKey: value.map(({ value }) => value).join(" "),
+    });
   };
 
-  const handleAction = (type: string) => {
+  const handleAction = async (type: string, postId?: string) => {
     const selectedData = data.filter(({ isSelect }) => isSelect);
 
     if (!selectedData.length) {
@@ -60,54 +74,26 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
 
     switch (type) {
       case "move":
+        if (postId) {
+          break;
+        }
         console.log(selectedData);
         break;
 
       case "copy":
+        if (postId) {
+          break;
+        }
         console.log(selectedData);
-
         break;
       case "delete":
-        console.log(selectedData);
-
+        if (postId) {
+          deleteFavorite(postId);
+        }
+        selectedData.forEach(({ id }) => deleteFavorite(id));
         break;
     }
   };
-
-  const handleChange = useCallback(() => {
-    const { all } = filtersValues;
-    const filteredDataWithTab = tableData.filter(
-      ({ pageFolderId }) => pageFolderId === currentTab
-    );
-
-    let data = filteredDataWithTab.filter(({ isTrashed }) =>
-      all ? !isTrashed : isTrashed
-    );
-
-    if (!searchValue || !searchValue.length) {
-      setData(data);
-      return;
-    }
-
-    data = data.filter((data) => {
-      let isHasValue = false;
-
-      for (const key in data) {
-        isHasValue = searchValue.some(({ value }) =>
-          String(getKeyValue(data)(key as keyof TableData))
-            .toLocaleLowerCase()
-            .includes(value.toLocaleLowerCase())
-        );
-        if (isHasValue) {
-          return true;
-        }
-      }
-
-      return isHasValue;
-    });
-
-    setData(data);
-  }, [filtersValues, searchValue, currentTab, tableData]);
 
   const updateMyData: UpdateMyData = (value, rowIndex, columnId) => {
     if (!columnId) {
@@ -134,8 +120,10 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
   };
 
   useEffect(() => {
-    handleChange();
-  }, [tableData, searchValue, currentTab, filtersValues, handleChange]);
+    if (tableData) {
+      setData(tableData);
+    }
+  }, [tableData]);
 
   return (
     <Tabs className={styles["PanelTable"]} onChange={handleTabsChange}>
@@ -166,11 +154,13 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
         <div className={styles["PanelTable-Pagination"]}>
           <Pagination
             siblingCount={3}
-            pageSize={10}
-            totalCount={data.length ? data.length : 1}
-            currentPage={page}
+            pageSize={params.pageSize}
+            totalCount={tableData.length ? tableData.length : 1}
+            currentPage={params.pageNumber + 1}
             onChange={(page) => {
-              setPage(page);
+              setParams({
+                pageNumber: page - 1,
+              });
             }}
           />
         </div>

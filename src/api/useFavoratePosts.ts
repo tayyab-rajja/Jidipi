@@ -23,16 +23,23 @@ export const useFavoratePosts = () => {
 
   const [params, setParams] = useState({
     searchKey: "",
-    pageSize: 10,
+    pageSize: 0,
     pageNumber: 0,
   });
 
   const qsParams = qs.stringify(params);
 
-  const { data, error } = useSWR<{ readerPost: ReaderPost[] }>(
+  const { data, error, mutate } = useSWR<{ readerPost: ReaderPost[] }>(
     [`${url}?${qsParams}`, token],
     fetcher
   );
 
-  return { data, error, params, setParams };
+  const deleteFavorite = async (postId: string) => {
+    await axios.delete(`${url}/${postId}`, {
+      headers: { Authorization: "Bearer " + token },
+    });
+    mutate();
+  };
+
+  return { data, error, params, setParams, deleteFavorite };
 };

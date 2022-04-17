@@ -36,7 +36,7 @@ const getTabs = (type: string, pageFolders: PageFolder[]) => {
 };
 
 const TablePage: FC<TablePageProps> = ({ tabs, pageType }) => {
-  const { data, params, setParams } = useFavoratePosts();
+  const { data, params, setParams, deleteFavorite } = useFavoratePosts();
   const { tableColumns, tableData } = getTableData(data?.readerPost, pageType);
 
   return (
@@ -57,6 +57,7 @@ const TablePage: FC<TablePageProps> = ({ tabs, pageType }) => {
         >
           <UserPanelData />
           <PanelTable
+            deleteFavorite={deleteFavorite}
             params={params}
             setParams={(param) =>
               setParams((prev) => ({
