@@ -20,8 +20,9 @@ import { SearchInputValue } from "types/searcInputTypes";
 interface PanelTableProps {
   tabs: PageFolder[];
   tableColumns: TableColumn[];
-  tableFilters: string[];
   tableData: TableData[];
+  params: any;
+  setParams: ({}) => void;
 }
 
 const getKeyValue =
@@ -37,6 +38,7 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
     location: "",
     filter: "",
     all: true,
+    postsPerPage: 20,
   });
   const [searchValue, setSearchValue] = useState<SearchInputValue>([]);
   const [currentTab, setCurrentTab] = useState(tabs[0]._id);
@@ -159,7 +161,7 @@ const PanelTable: FC<PanelTableProps> = ({ tabs, tableColumns, tableData }) => {
         />
         <div className={styles["PanelTable-ButtomFilters"]}>
           <ActionFilter handleAction={handleAction} />
-          <PostsPerPage />
+          <PostsPerPage handleFilterChange={handleFilterChange} />
         </div>
         <div className={styles["PanelTable-Pagination"]}>
           <Pagination

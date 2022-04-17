@@ -10,14 +10,12 @@ type GetTableData = (
 ) => {
   tableData: [] | TableData[];
   tableColumns: TableColumn[];
-  tableFilters: string[];
 };
 
 export const getTableData: GetTableData = (data, type) => {
   const tableOptions = {
     tableData: [] as [] | TableData[],
     tableColumns: [] as TableColumn[],
-    tableFilters: [] as string[],
   };
 
   switch (type) {

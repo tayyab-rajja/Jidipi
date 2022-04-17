@@ -17,15 +17,14 @@ import { PageFolder } from "types/pageFolderType";
 
 interface TablePageProps {
   tabs: PageFolder[];
-  pageFolders: PageFolder[];
 }
 
-const TablePage: FC<TablePageProps> = ({ pageFolders, tabs }) => {
-  const { data } = useFavoratePosts();
-  const { tableColumns, tableData, tableFilters } = getTableData(
-    data?.readerPost,
-    "POSTS"
-  );
+const TablePage: FC<TablePageProps> = ({ tabs }) => {
+  const {
+    data: { tableColumns, tableData },
+    params,
+    setParams,
+  } = useFavoratePosts();
 
   return (
     <div>
@@ -46,9 +45,12 @@ const TablePage: FC<TablePageProps> = ({ pageFolders, tabs }) => {
           <UserPanelData />
           <PanelTable
             tabs={tabs}
-            tableColumns={tableColumns}
-            tableFilters={tableFilters}
             tableData={tableData}
+            tableColumns={tableColumns}
+            params={params}
+            setParams={(params) =>
+              setParams((prev) => ({ ...prev, ...params }))
+            }
           />
         </div>
       </Layout>
