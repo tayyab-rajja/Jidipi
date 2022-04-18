@@ -6,8 +6,10 @@ import Masonry from "react-masonry-css";
 import { usePageFolderByName } from "src/api/usePageFolderByName";
 import useSWR from "swr";
 import { Post } from "types/postTypes";
-import Card from "../Card";
-import Pagination from "../Pagination/Pagination";
+import Card from "src/components/Card";
+import Pagination from "src/components/Pagination/Pagination";
+
+import styles from "./Posts.module.css";
 
 type Props = { fallbackData: any };
 
@@ -18,7 +20,7 @@ export const Posts = ({ fallbackData }: Props) => {
 
   const page = router.query.page ?? 0;
 
-  const { data: pageFolder, isValidating } = usePageFolderByName(
+  const { data: pageFolder } = usePageFolderByName(
     (router.query.folder as string) ?? null
   );
 
@@ -39,6 +41,18 @@ export const Posts = ({ fallbackData }: Props) => {
       : null,
     { fallbackData: hasMounted.current ? undefined : fallbackData }
   );
+
+  const handlePage = (page: number) => {
+    router.push(
+      {
+        pathname: `/${router.query.folder}`,
+        query: { page },
+      },
+      undefined,
+      { shallow: true }
+    );
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   if (!postsData) {
     return <p>loading...</p>;
@@ -74,21 +88,14 @@ export const Posts = ({ fallbackData }: Props) => {
         )}
       </Masonry>
       <Pagination
+        className={styles["Pagination"]}
         siblingCount={3}
+        arrowHeight={8}
+        arrowWidth={5}
         pageSize={PAGE_SIZE}
         totalCount={postsData.total}
-        currentPage={+page + 1}
-        onChange={(page) => {
-          router.push(
-            {
-              pathname: `/${router.query.folder}`,
-              query: { page: page - 1 },
-            },
-            undefined,
-            { shallow: true }
-          );
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }}
+        currentPage={+page}
+        onChange={handlePage}
       />
     </>
   );
