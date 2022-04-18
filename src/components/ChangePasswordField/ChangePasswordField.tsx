@@ -74,7 +74,6 @@ const ChangePasswordField:FC = () => {
 
   const validateAndPostData = () => {
     const {name, email, currentPassword, newPassword, newPasswordConfirmation} = inputsValue
-    console.log(currentPassword);
 
     interface NewUserData {
       firstName?: string;
@@ -91,7 +90,6 @@ const ChangePasswordField:FC = () => {
 
     if (currentPassword) {
       if (newPassword === newPasswordConfirmation) {
-        console.log(currentPassword);
         updatePassword({
           currentPassword,
           password: newPassword

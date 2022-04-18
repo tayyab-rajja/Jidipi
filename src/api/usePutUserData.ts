@@ -31,17 +31,15 @@ export const usePutUserData = () => {
     axios({
       method: 'put',
       url: `${url}${user?._id}`,
-      data: request
+      data: request,
     });
   }
   
-  const updatePassword = (request: UpdatePassword) => {
-    axios({
-      method: 'put',
-      url: `${url}${user?._id}/updatePassword`,
-      data: request
+  const updatePassword = (request: UpdatePassword) => axios({
+    method: 'put',
+    url: `${url}${user?._id}/updatePassword`,
+    data: request,
     });
-  }
   
   return {data, error, isValidating, putData, updatePassword};
 };
