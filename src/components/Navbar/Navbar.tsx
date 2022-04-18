@@ -82,9 +82,9 @@ export const Navbar = () => {
       {userAuthorized
         ? <PanelDropdown
             isOpen={showLoginBar}
+            setShowLoginBar={setShowLoginBar}
             logOut={() => {
               deleteAllCookies()
-              setShowLoginBar(false)
               setUserAuthorized(false)
             }}
           />
