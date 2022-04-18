@@ -36,7 +36,7 @@ const Pagination: FC<PaginationProps> = ({
 
   const paginationRange = usePagination({
     siblingCount,
-    currentPage,
+    currentPage: page,
     reverse,
     totalCount,
     pageSize,
