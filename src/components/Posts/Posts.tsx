@@ -45,14 +45,14 @@ export const Posts = ({ fallbackData }: Props) => {
   }
 
   return (
-    <div>
+    <>
       <Masonry
         breakpointCols={{
           default: 5,
-          1980: 4,
-          1268: 3,
-          960: 2,
-          500: 1,
+          1800: 4,
+          1520: 3,
+          1220: 2,
+          620: 1,
         }}
         className="my-masonry-grid"
         columnClassName="my-masonry-grid_column"
@@ -77,12 +77,12 @@ export const Posts = ({ fallbackData }: Props) => {
         siblingCount={3}
         pageSize={PAGE_SIZE}
         totalCount={postsData.total}
-        currentPage={+page}
+        currentPage={+page + 1}
         onChange={(page) => {
           router.push(
             {
               pathname: `/${router.query.folder}`,
-              query: { page },
+              query: { page: page - 1 },
             },
             undefined,
             { shallow: true }
@@ -90,6 +90,6 @@ export const Posts = ({ fallbackData }: Props) => {
           window.scrollTo({ top: 0, behavior: "smooth" });
         }}
       />
-    </div>
+    </>
   );
 };
