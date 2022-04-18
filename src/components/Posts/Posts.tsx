@@ -42,6 +42,18 @@ export const Posts = ({ fallbackData }: Props) => {
     { fallbackData: hasMounted.current ? undefined : fallbackData }
   );
 
+  const handlePage = (page: number) => {
+    router.push(
+      {
+        pathname: `/${router.query.folder}`,
+        query: { page },
+      },
+      undefined,
+      { shallow: true }
+    );
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   if (!postsData) {
     return <p>loading...</p>;
   }
@@ -83,17 +95,7 @@ export const Posts = ({ fallbackData }: Props) => {
         pageSize={PAGE_SIZE}
         totalCount={postsData.total}
         currentPage={+page}
-        onChange={(page) => {
-          router.push(
-            {
-              pathname: `/${router.query.folder}`,
-              query: { page },
-            },
-            undefined,
-            { shallow: true }
-          );
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }}
+        onChange={handlePage}
       />
     </>
   );
