@@ -17,7 +17,7 @@ const Item: FC<{
 
   return (
     <li>
-      <Link href={`/${query.folder}/categories/${data.partnerId}`}>
+      <Link href={`/${query.folder}/${data.slug}`}>
         <a className={styles["CategoriesList-ItemLink"]}>
           {data.title} <span>{data.count}</span>
         </a>
