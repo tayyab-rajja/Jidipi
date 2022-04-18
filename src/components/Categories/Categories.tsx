@@ -9,6 +9,8 @@ import {
 } from "types/categoryTypes";
 import { useCategories } from "./useCategories";
 import { CategoriesList } from "./CategoriesList";
+import { CompaniesList } from "./CompaniesList";
+import { categoriesSvg } from "constant/categoriesSvg";
 
 type Props = {};
 
@@ -46,17 +48,41 @@ export const Categories = (props: Props) => {
     <>
       <Tabs className={styles.Tabs}>
         <TabList>
+          <Tab>
+            {categoriesSvg["DATE"]}
+            <span>DATE</span>
+          </Tab>
           {convertCategoriesToTabsData(categories.categories).map((item) => (
-            <Tab key={item.id}>{item.label}</Tab>
+            <Tab key={item.id}>
+              {categoriesSvg[item.label]}
+              <span>{item.label}</span>
+            </Tab>
           ))}
+          <Tab>
+            {
+              categoriesSvg[
+                query.folder === "architectures" ? "ARCHITECTS" : "BRAND"
+              ]
+            }
+            <span>
+              {query.folder === "architectures" ? "ARCHITECT" : "BRAND"}
+            </span>
+          </Tab>
         </TabList>
 
         <TabPanels>
+          <TabPanel>DATE</TabPanel>
           {convertCategoriesToTabsData(categories.categories).map((item) => (
             <TabPanel key={item.id}>
               <CategoriesList category={item.content} />
             </TabPanel>
           ))}
+          <TabPanel>
+            <CompaniesList
+              companies={categories?.companies}
+              companiesCount={categories?.companiesCount}
+            />
+          </TabPanel>
         </TabPanels>
       </Tabs>
     </>
