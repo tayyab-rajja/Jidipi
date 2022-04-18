@@ -1,0 +1,27 @@
+.CompanyBoard[data-reach-tabs] {
+  width: 100%;
+  margin-top: 25px;
+}
+
+.CompanyBoard-Tab[data-reach-tab] {
+  text-transform: uppercase;
+  color: #313232;
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.CompanyBoard-Tab[data-selected] {
+  border-width: 2px;
+  border-color: #373737;
+}
+
+.CompanyBoard-Tabs[data-reach-tab-list] {
+  color: #373737;
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+}
+
+.CompanyBoard-TabPanels[data-reach-tab-panels] {
+  /* margin-top: 20px; */
+}

@@ -10,3 +10,9 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+.Layout-Content_FullWith {
+  display: block;
+  width: 100%;
+  min-height: calc(100vh - 64px);
+}
