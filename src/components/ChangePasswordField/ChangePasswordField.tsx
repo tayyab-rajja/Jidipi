@@ -110,7 +110,16 @@ const ChangePasswordField:FC<Props> = ({switchToChangePassword}) => {
         updatePassword({
           currentPassword,
           password: newPassword
+        }).then(res => {
+          if (res.response?.data?.error) {
+            showNoValidationText(res.response.data.error)
+          }
         })
+        
+        console.log(updatePassword({
+          currentPassword,
+          password: newPassword
+        }))
       } else {
         showNoValidationText('Password confirmation is not equal to new password')
       }
