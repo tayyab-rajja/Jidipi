@@ -25,7 +25,11 @@ interface InputsUnlock {
   [key: string]: any;
 }
 
-const ChangePasswordField:FC = () => {
+interface Props {
+  switchToChangePassword: () => void;
+}
+
+const ChangePasswordField:FC<Props> = ({switchToChangePassword}) => {
   const {data: serverData, error, isValidating, putData, updatePassword} = usePutUserData()
 
   const [inputsValue, setInputsValue] = useState<InputsValue>({
@@ -88,7 +92,20 @@ const ChangePasswordField:FC = () => {
     
     if (Object.keys(newUserData).length) putData(newUserData)
 
+    if (!name) {
+      showNoValidationText('Please, write your name.')
+    } else {
+      if (!/@/.test(email)) {
+        showNoValidationText('Wrong email format! please check and enter a correct one.')
+      }
+    }
+
     if (currentPassword) {
+      if (!newPassword) {
+        showNoValidationText('Please, write new password.')
+        return;
+      }
+
       if (newPassword === newPasswordConfirmation) {
         updatePassword({
           currentPassword,
@@ -99,13 +116,6 @@ const ChangePasswordField:FC = () => {
       }
     }
     
-    if (!name) {
-      showNoValidationText('Please, write your name.')
-    } else {
-      if (!/@/.test(email)) {
-        showNoValidationText('Wrong email format! please check and enter a correct one.')
-      }
-    }
   }
 
   useEffect(() => {
@@ -141,7 +151,10 @@ const ChangePasswordField:FC = () => {
 
         <InputUserData type='email' isUnlock={inputsUnlock.email} value={inputsValue.email} returnInputValue={returnInputValue('email')} />
 
-        <BarForInput label='Current Password' hasSelector isUnlock={inputsUnlock.passwords} selectorAction={changeInputUnlock('passwords')} />
+        <BarForInput label='Current Password' hasSelector isUnlock={inputsUnlock.passwords} selectorAction={() => {
+          changeInputUnlock('passwords')()
+          switchToChangePassword()
+      }} />
 
         <InputUserData type='password' isUnlock={inputsUnlock.passwords} returnInputValue={returnInputValue('currentPassword')} />
         
