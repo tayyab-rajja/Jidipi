@@ -9,6 +9,7 @@ import {
 } from "types/categoryTypes";
 import { useCategories } from "./useCategories";
 import { CategoriesList } from "./CategoriesList";
+import { categoriesSvg } from "constant/categoriesSvg";
 
 type Props = {};
 
@@ -47,7 +48,10 @@ export const Categories = (props: Props) => {
       <Tabs className={styles.Tabs}>
         <TabList>
           {convertCategoriesToTabsData(categories.categories).map((item) => (
-            <Tab key={item.id}>{item.label}</Tab>
+            <Tab key={item.id}>
+              {categoriesSvg[item.label]}
+              <span>{item.label}</span>
+            </Tab>
           ))}
         </TabList>
 

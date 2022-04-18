@@ -13,7 +13,7 @@
 }
 
 .Tabs [data-reach-tab] {
-  padding: 15px 16px;
+  height: 45px;
   font-weight: 400;
   font-size: 11px;
   line-height: 16px;
@@ -21,6 +21,17 @@
   background: var(--surface-color);
   border: 1px solid var(--border-color);
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Tabs [data-reach-tab] span {
+  margin-left: 10px;
+}
+
+.Tabs [data-reach-tab] svg path {
+  fill: #d6d6d6;
 }
 
 .Tabs [data-reach-tab][data-selected] {
