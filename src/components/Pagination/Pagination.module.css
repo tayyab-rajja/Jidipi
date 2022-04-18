@@ -21,7 +21,7 @@
   justify-content: center;
 }
 
-.Pagination-Item_Selected {
+.Pagination-Item_Selected.Pagination-Item_Selected {
   color: #ffffff;
   background-color: #373737;
 }
