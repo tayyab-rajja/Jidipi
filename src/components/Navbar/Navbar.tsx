@@ -6,7 +6,9 @@ import { usePageFolders } from "src/api/usePageFolders";
 import { PageFolder } from "types/pageFolderType";
 
 import styles from "./Navbar.module.css";
-import SidebarLoginRegister from "../SidebarLoginRegister";
+import SidebarLoginRegister from "src/components/SidebarLoginRegister";
+import SidebarSettingAccount from "src/components/SidebarSettingAccount";
+
 import { SideBarProvider } from "src/providers/SidebarProvider/SidebarProvider";
 
 import PanelDropdown from "src/components/PanelDropdown"
@@ -29,6 +31,8 @@ export const Navbar = () => {
   const [userAuthorized, setUserAuthorized] = useState(false);
 
   const [showLoginBar, setShowLoginBar] = useState(false);
+
+  const [showSetting, setShowSetting] = useState(false);
 
   const { data: pageFolders } = usePageFolders();
 
@@ -83,6 +87,7 @@ export const Navbar = () => {
         ? <PanelDropdown
             isOpen={showLoginBar}
             setShowLoginBar={setShowLoginBar}
+            setShowSetting={setShowSetting}
             logOut={() => {
               deleteAllCookies()
               setUserAuthorized(false)
@@ -94,6 +99,15 @@ export const Navbar = () => {
           >
             <SidebarLoginRegister />
           </SideBarProvider>
+      }
+
+      {showSetting &&
+        <SideBarProvider
+          isOpen={showSetting}
+          close={() => setShowSetting(false)}
+        >
+          <SidebarSettingAccount />
+        </SideBarProvider>
       }
     </>
   );

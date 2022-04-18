@@ -1,3 +1,8 @@
 .Body-SettingAccountContainer {
   width: 280px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 11;
+  overflow: auto;
 }
