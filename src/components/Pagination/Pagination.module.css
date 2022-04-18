@@ -1,7 +1,7 @@
 .Pagination {
   padding: 0;
   margin: 0 auto;
-  max-width: 400px;
+  max-width: 600px;
   display: flex;
   justify-content: center;
   list-style: none;
@@ -16,6 +16,9 @@
   cursor: pointer;
   background-color: transparent;
   border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .Pagination-Item_Selected {
@@ -29,14 +32,13 @@
 }
 
 .Dots {
-  padding-bottom: 10px;
+  margin: 0 5px;
+  width: 35px;
+  height: 35px;
+  padding-bottom: 6px;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  cursor: none;
-}
-
-.Dots:hover {
   color: #373737;
-  background-color: #fff;
+  background-color: transparent;
 }

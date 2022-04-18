@@ -9,20 +9,25 @@ interface PaginationProps {
   onChange: (page: number) => void;
   totalCount: number;
   siblingCount?: number;
+  reverse?: boolean;
   pageSize: number;
   currentPage: number;
+  className?: string;
 }
 
 const Pagination: FC<PaginationProps> = ({
   onChange,
   totalCount,
+  reverse,
   siblingCount = 1,
   pageSize,
   currentPage,
+  className,
 }) => {
   const paginationRange = usePagination({
     siblingCount,
     currentPage,
+    reverse,
     totalCount,
     pageSize,
   });
@@ -55,7 +60,10 @@ const Pagination: FC<PaginationProps> = ({
   return (
     <ul className={styles["Pagination"]}>
       <li>
-        <button onClick={onNext} className={styles["Pagination-Item"]}>
+        <button
+          onClick={onNext}
+          className={clsx(styles["Pagination-Item"], className)}
+        >
           <svg
             width="6"
             height="10"
@@ -72,10 +80,7 @@ const Pagination: FC<PaginationProps> = ({
       {paginationRange.map((pageNumber: number | string, index: number) => {
         if (pageNumber === "dots") {
           return (
-            <li
-              key={index}
-              className={clsx(styles["Pagination-Item"], styles["Dots"])}
-            >
+            <li key={index} className={clsx(styles["Dots"], className)}>
               &#8230;
             </li>
           );
@@ -86,6 +91,7 @@ const Pagination: FC<PaginationProps> = ({
             <button
               className={clsx(
                 styles["Pagination-Item"],
+                className,
                 currentPage === pageNumber && styles["Pagination-Item_Selected"]
               )}
               onClick={() => handleClick(pageNumber as number)}
@@ -96,7 +102,10 @@ const Pagination: FC<PaginationProps> = ({
         );
       })}
       <li>
-        <button onClick={onPrevious} className={styles["Pagination-Item"]}>
+        <button
+          onClick={onPrevious}
+          className={clsx(styles["Pagination-Item"], className)}
+        >
           <svg
             width="7"
             height="10"
