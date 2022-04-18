@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse, AxiosPromise } from "axios";
 import useSWR from "swr";
 import { useAuth } from "src/providers/AuthProvider/AuthProvider";
 interface UserData {
@@ -35,11 +35,10 @@ export const usePutUserData = () => {
     });
   }
   
-  const updatePassword = (request: UpdatePassword) => axios({
-    method: 'put',
-    url: `${url}${user?._id}/updatePassword`,
-    data: request,
-    });
+  const updatePassword = (request: UpdatePassword) => axios.put(
+    `${url}${user?._id}/updatePassword`,
+    request
+  );
   
   return {data, error, isValidating, putData, updatePassword};
 };
