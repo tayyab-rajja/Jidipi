@@ -21,7 +21,7 @@
 .Sidebar-LinksItem {
     color: #888;
     font-size: 11px;
-    padding: 20px 20px 20px 26px;
+    padding: 14px 20px;
     border-bottom: 2px solid #D6D6D6;
     text-decoration: none;
     display: flex;
@@ -38,37 +38,19 @@
     background-color: #DEB851;
 }
 
+.Sidebar-LinksItem:hover span svg path,
+.Sidebar-LinksItem:active span svg path {
+    fill: #FFFFFF;
+}
+
 .Sidebar-LinksItem:hover a {
     color: #fff;
 }
 
-.Sidebar-LinksItem:hover .Sidebar-LinksItem_Icon::before,
-.Sidebar-LinksItem:hover .Sidebar-LinksItem_Icon::after {
-    content: '';
-    width: 24px;
-    height: 24px;
-    border: 1px solid rgba(214, 214, 214, 0.6);
-    border-radius: 50%;
-    position: absolute;
-    padding: 5px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.Sidebar-LinksItem:hover .Sidebar-LinksItem_Icon::after {
-    padding: 3px;
-}
-
-.Sidebar-LinksItem:last-child:hover .Sidebar-LinksItem_Icon::after {
-    display: none;
-}
-
-.Sidebar-LinksItem:hover span svg path {
-    fill: #fff;
-}
 
 .Sidebar-LinksItem_Icon {
+    display: flex;
+    align-items: center;
     position: relative;
 }
 
@@ -76,7 +58,7 @@
     margin-left: 20px;
 }
 
-.Sidebar-LinksItem:last-child:active {
+.Sidebar-LinksItem:active {
     background-color: #373737;
     color: #fff;
 }
@@ -89,7 +71,7 @@
     padding: 4px 14px;
     border-radius: 4px;
     right: 8px;
-    top: 46px;
+    top: 40px;
     width: 80px;
     height: 20px;
     text-align: center;

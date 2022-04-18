@@ -22,48 +22,48 @@ type AppPropsWithLayout = AppProps & {
 // @ts-ignore
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-function MyApp({Component, pageProps}: AppPropsWithLayout) {
-    useEffect(() => {
-        NProgress.configure({showSpinner: false});
-        const delay = 500; // in milliseconds
-        let timer: NodeJS.Timeout;
-        const load = () => {
-            timer = setTimeout(function () {
-                NProgress.start();
-            }, delay);
-        };
-        const stop = () => {
-            clearTimeout(timer);
-            NProgress.done();
-        };
-        Router.events.on("routeChangeStart", () => load());
-        Router.events.on("routeChangeComplete", () => stop());
-        Router.events.on("routeChangeError", () => stop());
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+  useEffect(() => {
+    NProgress.configure({ showSpinner: false });
+    const delay = 500; // in milliseconds
+    let timer: NodeJS.Timeout;
+    const load = () => {
+      timer = setTimeout(function () {
+        NProgress.start();
+      }, delay);
+    };
+    const stop = () => {
+      clearTimeout(timer);
+      NProgress.done();
+    };
+    Router.events.on("routeChangeStart", () => load());
+    Router.events.on("routeChangeComplete", () => stop());
+    Router.events.on("routeChangeError", () => stop());
+  }, []);
 
-    }, []);
-    // Use the layout defined at the page level, if available
-    const getLayout = Component.getLayout ?? ((page) => page);
+  // Use the layout defined at the page level, if available
+  const getLayout = Component.getLayout ?? ((page) => page);
 
-    return getLayout(
-        <AuthProvider>
-            <UserProvider>
-                <SWRConfig value={{
-                    fetcher, onError(error,key,config) {
+  return (
+      <AuthProvider>
+          <UserProvider>
+              <SWRConfig value={{
+                  fetcher, onError(error,key,config) {
 
-                        // TODO handle error
-                        // redirect to login page if no permission
-                        // console.log('swr error', error,key);
-                        // if (error.status !== 403 && error.status !== 404) {
-                        //     // We can send the error to Sentry,
-                        //     // or show a notification UI.
-                        // }
-                    }
-                }}>
-                    <Component {...pageProps} />
-                </SWRConfig>
-            </UserProvider>
-        </AuthProvider>
-    );
+                      // TODO handle error
+                      // redirect to login page if no permission
+                      // console.log('swr error', error,key);
+                      // if (error.status !== 403 && error.status !== 404) {
+                      //     // We can send the error to Sentry,
+                      //     // or show a notification UI.
+                      // }
+                  }
+              }}>
+                  <Component {...pageProps} />
+              </SWRConfig>
+          </UserProvider>
+      </AuthProvider>
+  );
 }
 
 // @ts-ignore

@@ -22,3 +22,54 @@ export interface Category {
   subCategories?: Category[];
   postCount: number;
 }
+
+export type CategoryTypes =
+  | "CATEGORIES"
+  | "FUNCTION"
+  | "YEAR"
+  | "LOCATION"
+  | "GROUP"
+  | "SINCE"
+  | "COUNTRY"
+  | "STYLE"
+  | "MATERIAL"
+  | "COLOUR"
+  | "LANGUAGE"
+  | "DESIGNER"
+  | "PUBLICATION"
+  | "PUBLISHER"
+  | "Type"
+  | "PEOPLE"
+  | "Author";
+
+export interface ISubCategory {
+  count: number;
+  subCategories: ISubCategory[];
+  title: string;
+  type: CategoryTypes;
+  uniqueId: string;
+  url: string;
+}
+
+export interface ICategory {
+  count: number;
+  subCategories: ISubCategory[];
+  title: string;
+  type: CategoryTypes;
+  uniqueId: string;
+  url: string;
+}
+
+export interface ICategoryTab {
+  _id: string;
+  count: number;
+  pageFolderId: string;
+  type: CategoryTypes;
+  categories: ICategory[];
+}
+
+export interface ICategoriesResponse {
+  categories: ICategoryTab[];
+  companies: [];
+  companiesCount: number;
+}
