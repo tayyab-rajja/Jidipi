@@ -53,14 +53,16 @@ export const Cards: FC<CardsProps> = ({ pageFolderId, pageName }) => {
         columnClassName="my-masonry-grid_column"
       >
         {changePostsData(postsData.posts).map(
-          ({ title, categories, image, id, slug }) => (
+          ({ title, categories, image, id, slug, companyAvatar }) => (
             <div key={id}>
               <Card
+                withCompanyImage
                 id={id}
                 folder={pageName}
                 slug={slug}
                 title={title}
                 categories={categories}
+                companyAvatar={companyAvatar}
                 image={image}
               />
             </div>
