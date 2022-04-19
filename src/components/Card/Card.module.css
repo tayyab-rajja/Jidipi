@@ -28,9 +28,13 @@
   fill: #fff;
 }
 
+.Card a img {
+  width: 100%;
+}
+
 .Card-Title {
   margin: 16px 0 0 0;
   font-size: 1.125rem;
-  line-heigh: 1.2;
+  line-height: 1.2;
   font-weight: bold;
 }

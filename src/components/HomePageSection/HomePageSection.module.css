@@ -1,0 +1,26 @@
+.HomePageSection-Content {
+  display: flex;
+}
+
+.HomePageSection-TitleWrapper {
+  height: 100%;
+  width: 300px;
+  min-height: 1400px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.HomePageSection-Title {
+  text-transform: uppercase;
+  transform: rotate(-90deg);
+  font-size: 118px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.Cards {
+  padding: 60px 60px 60px 60px;
+  width: calc(100% - 300px);
+}
