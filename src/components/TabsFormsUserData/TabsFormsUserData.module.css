@@ -7,17 +7,18 @@
   height: 1000px;
 }
 
+.TabList[data-reach-tab-list] {
+  background: white;
+}
+
 .Tabs-Tab[data-reach-tab] {
   width: 50%;
   height: 44px;
-  background: white;
   border: 1px solid #D6D6D6;
   text-transform: uppercase;
 }
 
 .Tabs-Tab[data-reach-tab][data-selected] {
-  width: 50%;
-  height: 44px;
-  background: none;
   border: 1px solid #D6D6D6;
+  background: #F1F1F1;
 }

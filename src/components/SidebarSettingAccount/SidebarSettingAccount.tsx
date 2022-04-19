@@ -5,6 +5,8 @@ import ChangeNameOrEmailField from 'src/components/ChangeNameOrEmailField'
 import ChangePasswordField from 'src/components/ChangePasswordField'
 import AvatarField from 'src/components/AvatarField'
 
+import SideBarWrapper from "src/components/SideBarWrapper/SideBarWrapper";
+
 import styles from './SidebarSettingAccount.module.css'
 
 
@@ -28,11 +30,13 @@ const SidebarSettingAccount:FC = () => {
   ]
   
   return (
-    <div className={styles['Body-SettingAccountContainer']}>
-      <TabsFormsUserData
-        tabsData={tabsData}
-      />
-    </div>
+    <SideBarWrapper>
+      <aside className={styles['Body-SettingAccountContainer']}>
+        <TabsFormsUserData
+          tabsData={tabsData}
+        />
+      </aside>
+    </SideBarWrapper>
   )
 }
 
