@@ -73,3 +73,20 @@ export interface ICategoriesResponse {
   companies: [];
   companiesCount: number;
 }
+
+export interface ICompany {
+  _id: string;
+  count: number;
+  partnerId: string;
+  slug: string;
+  title: string;
+  logoId: {
+    liveURL: string;
+    _id: string;
+  };
+}
+
+export interface ICompanyTab {
+  companiesCount: number;
+  companies: ICompany[];
+}

@@ -4,8 +4,12 @@ import { PageFolder } from "types/pageFolderType";
 
 export const usePageFolderByName = (
   name: string | null
-): { data?: PageFolder; error: any } => {
-  const { data: pageFolder, error } = useSWR<{ pageFolder: PageFolder }>(
+): { data?: PageFolder; error: any; isValidating: boolean } => {
+  const {
+    data: pageFolder,
+    error,
+    isValidating,
+  } = useSWR<{ pageFolder: PageFolder }>(
     name
       ? `${process.env.NEXT_PUBLIC_API_URL}/pages/filterByDomain/${name}`
       : null
@@ -13,5 +17,5 @@ export const usePageFolderByName = (
 
   const data = pageFolder?.pageFolder;
 
-  return { data, error };
+  return { data, error, isValidating };
 };

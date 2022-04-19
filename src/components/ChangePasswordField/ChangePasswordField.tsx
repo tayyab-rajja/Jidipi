@@ -25,7 +25,11 @@ interface InputsUnlock {
   [key: string]: any;
 }
 
-const ChangePasswordField:FC = () => {
+interface Props {
+  switchToChangePassword: () => void;
+}
+
+const ChangePasswordField:FC<Props> = ({switchToChangePassword}) => {
   const {data: serverData, error, isValidating, putData, updatePassword} = usePutUserData()
 
   const [inputsValue, setInputsValue] = useState<InputsValue>({
@@ -74,7 +78,6 @@ const ChangePasswordField:FC = () => {
 
   const validateAndPostData = () => {
     const {name, email, currentPassword, newPassword, newPasswordConfirmation} = inputsValue
-    console.log(currentPassword);
 
     interface NewUserData {
       firstName?: string;
@@ -89,18 +92,6 @@ const ChangePasswordField:FC = () => {
     
     if (Object.keys(newUserData).length) putData(newUserData)
 
-    if (currentPassword) {
-      if (newPassword === newPasswordConfirmation) {
-        console.log(currentPassword);
-        updatePassword({
-          currentPassword,
-          password: newPassword
-        })
-      } else {
-        showNoValidationText('Password confirmation is not equal to new password')
-      }
-    }
-    
     if (!name) {
       showNoValidationText('Please, write your name.')
     } else {
@@ -108,6 +99,27 @@ const ChangePasswordField:FC = () => {
         showNoValidationText('Wrong email format! please check and enter a correct one.')
       }
     }
+
+    if (currentPassword) {
+      if (!newPassword) {
+        showNoValidationText('Please, write new password.')
+        return;
+      }
+
+      if (newPassword === newPasswordConfirmation) {
+        updatePassword({
+          currentPassword,
+          password: newPassword
+        }).then((res: {[key: string]: any}) => {
+          if (res.response?.data?.error) {
+            showNoValidationText(res.response.data.error)
+          }
+        })        
+      } else {
+        showNoValidationText('Password confirmation is not equal to new password')
+      }
+    }
+    
   }
 
   useEffect(() => {
@@ -143,7 +155,10 @@ const ChangePasswordField:FC = () => {
 
         <InputUserData type='email' isUnlock={inputsUnlock.email} value={inputsValue.email} returnInputValue={returnInputValue('email')} />
 
-        <BarForInput label='Current Password' hasSelector isUnlock={inputsUnlock.passwords} selectorAction={changeInputUnlock('passwords')} />
+        <BarForInput label='Current Password' hasSelector isUnlock={inputsUnlock.passwords} selectorAction={() => {
+          changeInputUnlock('passwords')()
+          switchToChangePassword()
+      }} />
 
         <InputUserData type='password' isUnlock={inputsUnlock.passwords} returnInputValue={returnInputValue('currentPassword')} />
         

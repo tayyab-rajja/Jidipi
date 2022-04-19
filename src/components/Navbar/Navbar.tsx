@@ -10,6 +10,8 @@ import SidebarLoginRegister from "src/components/SidebarLoginRegister";
 import SidebarSettingAccount from "src/components/SidebarSettingAccount";
 
 import { SideBarProvider } from "src/providers/SidebarProvider/SidebarProvider";
+import clsx from "clsx";
+import { useRouter } from "next/router";
 
 import PanelDropdown from "src/components/PanelDropdown"
 
@@ -31,6 +33,7 @@ export const Navbar = () => {
   const [userAuthorized, setUserAuthorized] = useState(false);
 
   const [showLoginBar, setShowLoginBar] = useState(false);
+  const { query } = useRouter();
 
   const [showSetting, setShowSetting] = useState(false);
 
@@ -56,7 +59,13 @@ export const Navbar = () => {
             <ul>
               {navBarItems.map((item) => {
                 return (
-                  <li key={item._id}>
+                  <li
+                    key={item._id}
+                    className={clsx(
+                      query.folder === item.subDomain &&
+                        styles["Navbar-ActiveTab"]
+                    )}
+                  >
                     <Link href={`/${item.subDomain}`}>
                       <a>{item.title}</a>
                     </Link>
