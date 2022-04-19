@@ -11,11 +11,11 @@ import Pagination from "src/components/Pagination/Pagination";
 
 import styles from "./Posts.module.css";
 
-type Props = { fallbackData: any };
+type Props = { postsParams?: object; fallbackData: any };
 
 const PAGE_SIZE = 50;
 
-export const Posts = ({ fallbackData }: Props) => {
+export const Posts = ({ fallbackData, postsParams }: Props) => {
   const router = useRouter();
 
   const page = router.query.page ?? 0;
@@ -27,6 +27,7 @@ export const Posts = ({ fallbackData }: Props) => {
   const requestParams = qs.stringify({
     pageNumber: page,
     pageSize: PAGE_SIZE,
+    ...postsParams,
   });
 
   const hasMounted = useRef(false);
@@ -45,8 +46,8 @@ export const Posts = ({ fallbackData }: Props) => {
   const handlePage = (page: number) => {
     router.push(
       {
-        pathname: `/${router.query.folder}`,
-        query: { page },
+        pathname: router.pathname,
+        query: { ...router.query, page },
       },
       undefined,
       { shallow: true }
@@ -76,8 +77,7 @@ export const Posts = ({ fallbackData }: Props) => {
             <div key={id}>
               <Card
                 id={id}
-                // folder={query.folder as string}
-                folder={"sss"}
+                folder={router.query.folder as string}
                 slug={slug}
                 title={title}
                 categories={categories}
