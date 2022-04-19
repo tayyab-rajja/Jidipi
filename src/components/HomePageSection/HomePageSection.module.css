@@ -27,9 +27,39 @@
 
 .Caregories {
   padding: 100px 60px;
-  background-color: red;
+  /* background-image: url("https://source.unsplash.com/random/1920x1080"); */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .Caregories-Content {
+  padding: 0;
+  list-style: none;
   height: 240px;
+  overflow-y: auto;
+}
+
+.Caregories-Content li {
+  height: 30px;
+  margin: 0 7px 7px 0;
+  display: inline-block;
+  background: transparent;
+}
+
+.Caregories-ItemLink {
+  padding: 0 10px;
+  height: 100%;
+  width: 100%;
+  display: inline-block;
+  border: 1px solid #fff;
+  color: #fff;
+  line-height: 30px;
+  vertical-align: middle;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: transparent;
 }

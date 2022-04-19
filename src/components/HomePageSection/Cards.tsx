@@ -10,6 +10,7 @@ import { Post } from "types/postTypes";
 import { changePostsData } from "helpers/changePostsData";
 
 import styles from "./HomePageSection.module.css";
+import PostsLoading from "src/components/PostsLoading/PostsLoading";
 
 const PAGE_SIZE = 9;
 
@@ -31,7 +32,11 @@ export const Cards: FC<CardsProps> = ({ pageFolderId, pageName }) => {
   );
 
   if (!postsData) {
-    return <p>loading...</p>;
+    return (
+      <div className={styles["Cards"]}>
+        <PostsLoading />
+      </div>
+    );
   }
 
   return (

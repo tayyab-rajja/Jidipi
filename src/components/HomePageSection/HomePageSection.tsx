@@ -20,7 +20,7 @@ const HomePageSection: FC<Props> = ({ pageFolderId, pageName }) => {
         <Cards pageFolderId={pageFolderId} pageName={pageName} />
       </section>
       <section>
-        <Caregories />
+        <Caregories pageFolderId={pageFolderId} pageName={pageName} />
       </section>
     </section>
   );
