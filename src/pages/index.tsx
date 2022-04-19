@@ -6,9 +6,10 @@ import Head from "next/head";
 import { fetchPageFolders } from "src/api/fetchPageFolders";
 
 import Layout from "src/components/Layout";
+import HomePageSection from "src/components/HomePageSection/HomePageSection";
+import HomePageFooter from "src/components/HomePageFooter/HomePageFooter";
 
 import { PageFolder } from "types/pageFolderType";
-import HomePageSection from "src/components/HomePageSection/HomePageSection";
 
 interface Props {
   pageFolders: PageFolder[];
@@ -27,6 +28,7 @@ const Home = ({ pageFolders }: Props) => {
         {pageFolders.map(({ title, _id }) => (
           <HomePageSection key={_id} pageFolderId={_id} pageName={title} />
         ))}
+        <HomePageFooter />
       </>
     </>
   );

@@ -23,7 +23,7 @@ export const Caregories: FC<CaregoriesProps> = ({
       ?.categories || [];
 
   return (
-    <div
+    <section
       className={styles["Caregories"]}
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
@@ -31,14 +31,23 @@ export const Caregories: FC<CaregoriesProps> = ({
       <ul className={styles["Caregories-Content"]}>
         {categories.map(({ subCategories }) =>
           subCategories.map(({ title, uniqueId, subCategories }) => (
-            <li key={uniqueId}>
-              <Link href={`/${pageName}/${uniqueId}`}>
-                <a className={styles["Caregories-ItemLink"]}>{title}</a>
-              </Link>
-            </li>
+            <>
+              <li key={uniqueId}>
+                <Link href={`/${pageName}/categories/${uniqueId}`}>
+                  <a className={styles["Caregories-ItemLink"]}>{title}</a>
+                </Link>
+              </li>
+              {subCategories.map(({ title, uniqueId }) => (
+                <li key={uniqueId + title}>
+                  <Link href={`/${pageName}/categories/${uniqueId}`}>
+                    <a className={styles["Caregories-ItemLink"]}>{title}</a>
+                  </Link>
+                </li>
+              ))}
+            </>
           ))
         )}
       </ul>
-    </div>
+    </section>
   );
 };
