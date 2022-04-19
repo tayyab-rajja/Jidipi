@@ -15,7 +15,7 @@ import { useRouter } from "next/router";
 
 import PanelDropdown from "src/components/PanelDropdown"
 
-import {usePutUserData} from "src/api/usePutUserData"
+import {useUserData} from "src/api/useUserData"
 
 import Cookies from "js-cookie";
 
@@ -44,7 +44,7 @@ export const Navbar = () => {
       pageFolder.pageType === "PROJECT" || pageFolder.pageType === "PRODUCT"
   );
 
-  const {data: serverData} = usePutUserData()
+  const {data: serverData} = useUserData()
 
   useEffect(() => {
     if (serverData) setUserAuthorized(true)

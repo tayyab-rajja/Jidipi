@@ -20,7 +20,7 @@ const fetcher = (url: string, token: string) => axios
     .get(url, { headers: { Authorization: "Bearer " + token } })
     .then((res) => res.data);
 
-export const usePutUserData = () => {
+export const useUserData = () => {
   const {
     session: { token, user },
   } = useAuth();
