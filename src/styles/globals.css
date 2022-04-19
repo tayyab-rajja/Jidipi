@@ -80,7 +80,7 @@ img {
   display: -ms-flexbox; /* Not needed if autoprefixing */
   display: flex;
   margin-left: -20px; /* gutter size offset */
-  width: auto;
+  width: 100%;
 }
 .my-masonry-grid_column {
   padding-left: 20px;

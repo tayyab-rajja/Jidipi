@@ -42,7 +42,7 @@ const Pagination: FC<PaginationProps> = ({
     pageSize,
   });
 
-  if (page === 0) {
+  if (page === 0 || totalCount <= 0) {
     return null;
   }
 
