@@ -24,3 +24,12 @@
   padding: 60px 60px 60px 60px;
   width: calc(100% - 300px);
 }
+
+.Caregories {
+  padding: 100px 60px;
+  background-color: red;
+}
+
+.Caregories-Content {
+  height: 240px;
+}

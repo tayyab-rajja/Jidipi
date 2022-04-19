@@ -1,6 +1,7 @@
 import { FC } from "react";
 
 import { Cards } from "./Cards";
+import { Caregories } from "./Caregories";
 
 import styles from "./HomePageSection.module.css";
 
@@ -18,7 +19,9 @@ const HomePageSection: FC<Props> = ({ pageFolderId, pageName }) => {
         </div>
         <Cards pageFolderId={pageFolderId} pageName={pageName} />
       </section>
-      <section>{/* Categor */}</section>
+      <section>
+        <Caregories />
+      </section>
     </section>
   );
 };
