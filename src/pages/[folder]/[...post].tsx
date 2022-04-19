@@ -54,11 +54,14 @@ const Post = ({ post }: Props) => {
       >
         <div dangerouslySetInnerHTML={{ __html: post.description }} />
       </CardDetails>
-      <CompanyProfile companyInfo={post?.companyId} />
-      {!!companies.length &&
-        companies.map((companyInfo: any) => (
-          <CompanyProfile key={companyInfo._id} companyInfo={companyInfo} />
-        ))}
+      <div style={{ marginTop: 20, width: "100%" }}>
+        <CompanyProfile companyInfo={post?.companyId} />
+      </div>
+      {companies.map((comnanyInfo: any) => (
+        <div key={comnanyInfo._id} style={{ marginTop: 20, width: "100%" }}>
+          <CompanyProfile companyInfo={comnanyInfo} />
+        </div>
+      ))}
       {/* </Layout> */}
       <SideBarProvider
         isOpen={showSaveBar}

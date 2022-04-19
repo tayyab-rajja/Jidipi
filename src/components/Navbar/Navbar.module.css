@@ -3,7 +3,7 @@
   height: 64px;
   display: flex;
   align-items: center;
-  background-color: #fff;
+  background-color: var(--surface-color);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -41,7 +41,7 @@
 .Navbar-Menu li:hover::before {
   right: 0;
   left: 0;
-  background-color: #deb851;
+  background-color: var(--accent-color);
 }
 
 .Navbar-Menu li:not(:last-child) {
@@ -50,7 +50,7 @@
 
 .Navbar-Menu a {
   text-transform: uppercase;
-  font-weight: 600;
+  font-size: 0.875rem;
 }
 
 .Navbar-User {
@@ -67,7 +67,7 @@
 .Navbar-ActiveTab::after {
   content: "";
   height: 2px;
-  background-color: #373737;
+  background-color: var(--main-color);
   position: absolute;
   right: 0;
   left: 0;

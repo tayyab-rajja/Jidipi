@@ -1,26 +1,32 @@
-import {FC} from 'react';
+import {FC, useState} from 'react';
 
 import TabsFormsUserData from 'src/components/TabsFormsUserData';
-// import SettingNameEmail from 'src/components/SettingNameEmail';
 import ChangeNameOrEmailField from 'src/components/ChangeNameOrEmailField'
+import ChangePasswordField from 'src/components/ChangePasswordField'
 import AvatarField from 'src/components/AvatarField'
 
 import styles from './SidebarSettingAccount.module.css'
 
-const tabsData = [
-  {
-    name: 'avatar',
-    panel: <AvatarField/>
-  },
-  
-  {
-    name: 'account',
-    // panel: <SettingNameEmail/>
-    panel: <ChangeNameOrEmailField/>
-  },
-]
 
 const SidebarSettingAccount:FC = () => {
+  const [showChangePassword, setShowChangePassword] = useState(false)
+
+  const accountPanel = showChangePassword
+    ? <ChangePasswordField switchToChangePassword={() => setShowChangePassword(false)} />
+    : <ChangeNameOrEmailField switchToChangePassword={() => setShowChangePassword(true)} />
+  
+  const tabsData = [
+    {
+      name: 'avatar',
+      panel: <AvatarField/>
+    },
+    
+    {
+      name: 'account',
+      panel: accountPanel
+    },
+  ]
+  
   return (
     <div className={styles['Body-SettingAccountContainer']}>
       <TabsFormsUserData

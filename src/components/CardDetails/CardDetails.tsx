@@ -1,12 +1,11 @@
 import { FC, ReactElement, useState } from "react";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
-import clsx from "clsx";
 
 import PostCategories from "src/components/PostCategories/PostCategories";
+import ActionPostButtons from "src/components/ActionPostButtons/ActionPostButtons";
 
 import { Categories } from "types/postTypes";
-import { postsActionSvG } from "constant/postsActionSvG";
 
 import styles from "./CardDetails.module.css";
 
@@ -37,42 +36,12 @@ const CardDetails: FC<CardDetailsProps> = ({
     <div className={styles["CardDetails"]}>
       <div className={styles["CardDetails-Wrapper"]}>
         <div className={styles["CardDetails-Header"]}>
-          <div className={styles["CardDetails-Buttons"]}>
-            {/* TODO: added logic to change post language */}
-            {languages ? (
-              languages.map(({ language: languageFromArray, _id }) => (
-                <button
-                  key={_id}
-                  className={clsx(
-                    styles["CardDetails-Button"],
-                    languageFromArray === language && styles["Active"]
-                  )}
-                >
-                  {t(languageFromArray)}
-                </button>
-              ))
-            ) : (
-              <button
-                className={clsx(styles["CardDetails-Button"], styles["Active"])}
-              >
-                {t(language)}
-              </button>
-            )}
-            <a
-              href={`${process.env.NEXT_PUBLIC_API_URL}/post/${postId}/gallery/download`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={clsx(styles["CardDetails-Button"])}
-            >
-              {postsActionSvG["DOWNLOAD"]}
-            </a>
-            <button className={clsx(styles["CardDetails-Button"])}>
-              {postsActionSvG["SHARE"]}
-            </button>
-            <button className={clsx(styles["CardDetails-Button"])} onClick={handleOpen}>
-              {postsActionSvG["FAVORITE"]}
-            </button>
-          </div>
+          <ActionPostButtons
+            language={language}
+            postId={postId}
+            languages={languages}
+            className={styles["CardDetails-Buttons"]}
+          />
           <div className={styles["CardDetails-TitleWrapper"]}>
             {companyImg && (
               <div className={styles["CardDetails-CompanyLogo"]}>

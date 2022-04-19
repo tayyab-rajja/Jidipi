@@ -8,6 +8,8 @@ import { PageFolder } from "types/pageFolderType";
 import styles from "./Navbar.module.css";
 import SidebarLoginRegister from "../SidebarLoginRegister";
 import { SideBarProvider } from "src/providers/SidebarProvider/SidebarProvider";
+import clsx from "clsx";
+import { useRouter } from "next/router";
 
 interface Props {
   pageFolders: PageFolder[];
@@ -15,6 +17,7 @@ interface Props {
 
 export const Navbar = () => {
   const [showLoginBar, setShowLoginBar] = useState(false);
+  const { query } = useRouter();
 
   const { data: pageFolders } = usePageFolders();
 
@@ -32,7 +35,13 @@ export const Navbar = () => {
             <ul>
               {navBarItems.map((item) => {
                 return (
-                  <li key={item._id}>
+                  <li
+                    key={item._id}
+                    className={clsx(
+                      query.folder === item.subDomain &&
+                        styles["Navbar-ActiveTab"]
+                    )}
+                  >
                     <Link href={`/${item.subDomain}`}>
                       <a>{item.title}</a>
                     </Link>
