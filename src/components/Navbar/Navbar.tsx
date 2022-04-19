@@ -1,23 +1,41 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { usePageFolders } from "src/api/usePageFolders";
 
 import { PageFolder } from "types/pageFolderType";
 
 import styles from "./Navbar.module.css";
-import SidebarLoginRegister from "../SidebarLoginRegister";
+import SidebarLoginRegister from "src/components/SidebarLoginRegister";
+import SidebarSettingAccount from "src/components/SidebarSettingAccount";
+
 import { SideBarProvider } from "src/providers/SidebarProvider/SidebarProvider";
 import clsx from "clsx";
 import { useRouter } from "next/router";
+
+import PanelDropdown from "src/components/PanelDropdown"
+
+import {usePutUserData} from "src/api/usePutUserData"
+
+import Cookies from "js-cookie";
+
+const deleteAllCookies = () => {
+  const names = Object.keys(Cookies.get())
+
+  names.map(name => Cookies.remove(name))
+}
 
 interface Props {
   pageFolders: PageFolder[];
 }
 
 export const Navbar = () => {
+  const [userAuthorized, setUserAuthorized] = useState(false);
+
   const [showLoginBar, setShowLoginBar] = useState(false);
   const { query } = useRouter();
+
+  const [showSetting, setShowSetting] = useState(false);
 
   const { data: pageFolders } = usePageFolders();
 
@@ -25,6 +43,12 @@ export const Navbar = () => {
     (pageFolder) =>
       pageFolder.pageType === "PROJECT" || pageFolder.pageType === "PRODUCT"
   );
+
+  const {data: serverData} = usePutUserData()
+
+  useEffect(() => {
+    if (serverData) setUserAuthorized(true)
+  }, [serverData])
 
   return (
     <>
@@ -53,7 +77,7 @@ export const Navbar = () => {
         </nav>
         <div
           className={styles["Navbar-User"]}
-          onClick={() => setShowLoginBar(true)}
+          onClick={() => setShowLoginBar(prev => !prev)}
         >
           <svg
             data-name="icon people"
@@ -68,12 +92,32 @@ export const Navbar = () => {
           </svg>
         </div>
       </header>
-      <SideBarProvider
-        isOpen={showLoginBar}
-        close={() => setShowLoginBar(false)}
-      >
-        <SidebarLoginRegister />
-      </SideBarProvider>
+      {userAuthorized
+        ? <PanelDropdown
+            isOpen={showLoginBar}
+            setShowLoginBar={setShowLoginBar}
+            setShowSetting={setShowSetting}
+            logOut={() => {
+              deleteAllCookies()
+              setUserAuthorized(false)
+            }}
+          />
+        : <SideBarProvider
+            isOpen={showLoginBar}
+            close={() => setShowLoginBar(false)}
+          >
+            <SidebarLoginRegister />
+          </SideBarProvider>
+      }
+
+      {showSetting &&
+        <SideBarProvider
+          isOpen={showSetting}
+          close={() => setShowSetting(false)}
+        >
+          <SidebarSettingAccount />
+        </SideBarProvider>
+      }
     </>
   );
 };

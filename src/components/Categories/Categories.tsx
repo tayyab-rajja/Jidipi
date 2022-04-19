@@ -14,6 +14,16 @@ import { categoriesSvg } from "constant/categoriesSvg";
 
 type Props = {};
 
+const LoadingCategories = () => {
+  return (
+    <div className={styles["Categories_SkeletonContainer"]}>
+      {[1, 2, 3, 4, 5, 6].map((item) => (
+        <div key={item} className={styles["Categories_SkeletonTab"]} />
+      ))}
+    </div>
+  );
+};
+
 interface CategoriesTabData {
   id: string;
   label: string;
@@ -87,6 +97,6 @@ export const Categories = (props: Props) => {
       </Tabs>
     </>
   ) : (
-    <p>Loading</p>
+    <LoadingCategories />
   );
 };

@@ -13,7 +13,7 @@ interface Props {
 const TabsFormsContainer:FC<Props> = ({tabsData}) => {
   return (
     <Tabs>
-      <TabList>
+      <TabList className={styles['TabList']}>
         {tabsData.map(({name}, index) => (
           <Tab key={index} className={styles['Tabs-Tab']}>{name}</Tab>
         ))}
