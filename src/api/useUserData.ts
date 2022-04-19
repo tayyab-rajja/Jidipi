@@ -39,6 +39,11 @@ export const useUserData = () => {
     `${url}${user?._id}/updatePassword`,
     request
   );
+
+  const sendEmailToRecoverPassword = (email: string) => axios.post(
+    `${url}/forgetPassword`,
+    {email}
+  )
   
-  return {data, error, isValidating, putData, updatePassword};
+  return {data, error, isValidating, putData, updatePassword, sendEmailToRecoverPassword};
 };
