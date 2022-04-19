@@ -19,6 +19,8 @@ const LabelItem: FC<Props> = ({labelItem, isSelected,  deleteLabel, selectLabel,
     const {_id, label, colour } = labelItem;
 
     const [isEditLabelFormOpen, setEditLabelForm] = useState(false);
+    const [overlay, setOverlay] = useState(false);
+    
     const [isEditable, setEditable] = useState(false);
     const [inputValue, setInputValue] = useState(label);
 
@@ -29,6 +31,7 @@ const LabelItem: FC<Props> = ({labelItem, isSelected,  deleteLabel, selectLabel,
     const showEditLabelForm: MouseEventHandler<HTMLDivElement> = (e) => {
         e.preventDefault();
         setEditLabelForm(true);
+        setOverlay(true);
     }
 
     const editInput = () => {
@@ -42,11 +45,18 @@ const LabelItem: FC<Props> = ({labelItem, isSelected,  deleteLabel, selectLabel,
         }   
     }
 
+    const handleOverlay = () => {
+        setOverlay(false);
+        setEditLabelForm(false);
+    }
+
     let className = isSelected ? clsx(styles["LabelItem"], styles["Selected"]) : styles["LabelItem"];
+    let zIndex = isEditLabelFormOpen ? {zIndex: 25} : {zIndex: 0};
 
     return (
-        <div className="LabelItem-Overlay">
-        <li className={styles["LabelItem-Wrapper"]}>
+        <>
+        {overlay && <div className={styles["LabelItem-Overlay"]} onClick={handleOverlay}></div>}
+        <li className={styles["LabelItem-Wrapper"]} style={zIndex}>
             {isEditable ? 
                 <input 
                     value={inputValue} 
@@ -62,10 +72,9 @@ const LabelItem: FC<Props> = ({labelItem, isSelected,  deleteLabel, selectLabel,
                     onContextMenu={showEditLabelForm}>
                 {label}{isSelected && <span onClick={deleteLabel}>{sidebarSvg["CLOSE"]}</span>} 
                 </div>}
-                {isEditLabelFormOpen && <ColorPicker deleteLabel={deleteLabel} selectColor={selectColor} editInput={editInput} />}
+                {(isEditLabelFormOpen && overlay) && <ColorPicker deleteLabel={deleteLabel} selectColor={selectColor} editInput={editInput} />}
         </li>
-        </div>
-        
+        </>
     )          
 }
 

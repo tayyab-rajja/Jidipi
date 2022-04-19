@@ -9,7 +9,7 @@ export const useSavePost = () => {
     //     session: { token },
     // } = useAuth();
 
-    const addPostToFavourites = async (postId: string, pageFolderId: string, label?: string) => {
+    const addPostToFavourites = async (postId: string, pageFolderId?: string, label?: string) => {
         let postData = {};
         label ? postData = {postId, pageFolderId, label} : postData = {postId, pageFolderId};
         

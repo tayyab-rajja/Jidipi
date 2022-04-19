@@ -110,18 +110,18 @@ export const SaveInFolderSidebar: FC<Props> = ({postId}) => {
             </div>
             {showElement.addLabelFormAndList && 
                 <div>
-                        <ul className={styles["LabelsList"]}>
+                    <ul className={styles["LabelsList"]}>
                         {labelsList.labels?.map((label: Label) => 
-                                <LabelItem
-                                    key={label._id}
-                                    labelItem={label}
-                                    isSelected={label._id === selectedLabel}  
-                                    updateLabel={changeLabel}
-                                    deleteLabel={() => removeLabel(label._id)}
-                                    selectLabel={() => selectLabel(label._id)} 
+                            <LabelItem
+                                key={label._id}
+                                labelItem={label}
+                                isSelected={label._id === selectedLabel}  
+                                updateLabel={changeLabel}
+                                deleteLabel={() => removeLabel(label._id)}
+                                selectLabel={() => selectLabel(label._id)} 
                             />
-                            )}
-                        </ul>
+                        )}
+                    </ul>
                     <AddLabelForm addNewLabel={addNewLabel} />
                 </div>
             }
