@@ -15,6 +15,36 @@ type Props = { postsParams?: object; fallbackData: any };
 
 const PAGE_SIZE = 50;
 
+function randomNumber(min: number, max: number) {
+  return Math.random() * (max - min) + min;
+}
+
+const PostsLoading = () => {
+  return (
+    <Masonry
+      breakpointCols={{
+        default: 5,
+        1800: 4,
+        1520: 3,
+        1220: 2,
+        620: 1,
+      }}
+      className="my-masonry-grid"
+      columnClassName="my-masonry-grid_column"
+    >
+      {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+        <div key={item} className={styles["Posts_SkeletonConatiner"]}>
+          <div
+            className={styles["Posts_SkeletonImage"]}
+            style={{ height: randomNumber(100, 300) }}
+          ></div>
+          <div className={styles["Posts_SkeletonTitle"]}></div>
+        </div>
+      ))}
+    </Masonry>
+  );
+};
+
 export const Posts = ({ fallbackData, postsParams }: Props) => {
   const router = useRouter();
 
@@ -36,7 +66,7 @@ export const Posts = ({ fallbackData, postsParams }: Props) => {
     hasMounted.current = true;
   }, []);
 
-  const { data: postsData } = useSWR<{ posts: Post[]; total: 17795 }>(
+  const { data: postsData } = useSWR<{ posts: Post[]; total: number }>(
     pageFolder?._id
       ? `${process.env.NEXT_PUBLIC_API_URL}/post/public/${pageFolder?._id}?${requestParams}`
       : null,
@@ -56,7 +86,7 @@ export const Posts = ({ fallbackData, postsParams }: Props) => {
   };
 
   if (!postsData) {
-    return <p>loading...</p>;
+    return <PostsLoading />;
   }
 
   return (
