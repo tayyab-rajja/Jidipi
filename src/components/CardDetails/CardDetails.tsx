@@ -41,6 +41,7 @@ const CardDetails: FC<CardDetailsProps> = ({
             postId={postId}
             languages={languages}
             className={styles["CardDetails-Buttons"]}
+            favoriteButton={handleOpen}
           />
           <div className={styles["CardDetails-TitleWrapper"]}>
             {companyImg && (
