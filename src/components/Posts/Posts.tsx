@@ -8,42 +8,13 @@ import useSWR from "swr";
 import { Post } from "types/postTypes";
 import Card from "src/components/Card";
 import Pagination from "src/components/Pagination/Pagination";
+import PostsLoading from "src/components/PostsLoading/PostsLoading";
 
 import styles from "./Posts.module.css";
 
 type Props = { postsParams?: object; fallbackData: any };
 
 const PAGE_SIZE = 50;
-
-function randomNumber(min: number, max: number) {
-  return Math.random() * (max - min) + min;
-}
-
-const PostsLoading = () => {
-  return (
-    <Masonry
-      breakpointCols={{
-        default: 5,
-        1800: 4,
-        1520: 3,
-        1220: 2,
-        620: 1,
-      }}
-      className="my-masonry-grid"
-      columnClassName="my-masonry-grid_column"
-    >
-      {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
-        <div key={item} className={styles["Posts_SkeletonConatiner"]}>
-          <div
-            className={styles["Posts_SkeletonImage"]}
-            style={{ height: randomNumber(100, 300) }}
-          ></div>
-          <div className={styles["Posts_SkeletonTitle"]}></div>
-        </div>
-      ))}
-    </Masonry>
-  );
-};
 
 export const Posts = ({ fallbackData, postsParams }: Props) => {
   const router = useRouter();
