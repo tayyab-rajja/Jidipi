@@ -10,9 +10,9 @@ import ActionPostButtons from "src/components/ActionPostButtons/ActionPostButton
 
 import { Categories } from "types/postTypes";
 
-import styles from "./CardDetails.module.css";
+import styles from "./PostDetails.module.css";
 
-interface CardDetailsProps {
+interface PostDetailsProps {
   children: ReactElement | ReactElement[];
   languages?: {
     language: string;
@@ -26,7 +26,7 @@ interface CardDetailsProps {
   postId: string;
 }
 
-const CardDetails: FC<CardDetailsProps> = ({
+const PostDetails: FC<PostDetailsProps> = ({
   children,
   categories,
   language,
@@ -40,12 +40,12 @@ const CardDetails: FC<CardDetailsProps> = ({
   const { pathname, query } = useRouter();
 
   return (
-    <div className={styles["CardDetails"]}>
-      <div className={styles["CardDetails-Wrapper"]}>
-        <div className={styles["CardDetails-Header"]}>
+    <div className={styles["PostDetails"]}>
+      <div className={styles["PostDetails-Wrapper"]}>
+        <div className={styles["PostDetails-Header"]}>
           <ActionPostButtons
             postId={postId}
-            className={styles["CardDetails-Buttons"]}
+            className={styles["PostDetails-Buttons"]}
             favoriteButton={handleOpen}
           >
             {languages ? (
@@ -68,7 +68,7 @@ const CardDetails: FC<CardDetailsProps> = ({
                 >
                   <a
                     className={clsx(
-                      styles["CardDetails-LanguageLink"],
+                      styles["PostDetails-LanguageLink"],
                       languageFromArray === language && styles["Active"]
                     )}
                   >
@@ -88,7 +88,7 @@ const CardDetails: FC<CardDetailsProps> = ({
               >
                 <a
                   className={clsx(
-                    styles["CardDetails-LanguageLink"],
+                    styles["PostDetails-LanguageLink"],
                     styles["Active"]
                   )}
                 >
@@ -98,9 +98,9 @@ const CardDetails: FC<CardDetailsProps> = ({
             )}
           </ActionPostButtons>
 
-          <div className={styles["CardDetails-TitleWrapper"]}>
+          <div className={styles["PostDetails-TitleWrapper"]}>
             {companyImg && (
-              <div className={styles["CardDetails-CompanyLogo"]}>
+              <div className={styles["PostDetails-CompanyLogo"]}>
                 <Image
                   src={companyImg}
                   width={105}
@@ -109,7 +109,7 @@ const CardDetails: FC<CardDetailsProps> = ({
                 />
               </div>
             )}
-            <h1 className={styles["CardDetails-Title"]}>{t(title)}</h1>
+            <h1 className={styles["PostDetails-Title"]}>{t(title)}</h1>
           </div>
           <PostCategories categories={categories} />
         </div>
@@ -119,4 +119,4 @@ const CardDetails: FC<CardDetailsProps> = ({
   );
 };
 
-export default CardDetails;
+export default PostDetails;
