@@ -32,8 +32,8 @@ const Post = ({ post }: Props) => {
   const [showSaveBar, setShowSaveBar] = useState(false);
   const handleOpen = () => {
     setShowSaveBar(true);
-  }
-  
+  };
+
   return (
     <>
       <Head>
@@ -63,11 +63,8 @@ const Post = ({ post }: Props) => {
         </div>
       ))}
       {/* </Layout> */}
-      <SideBarProvider
-        isOpen={showSaveBar}
-        close={() => setShowSaveBar(false)}
-      >
-        <SaveInFolderSidebar postId={post.postId} />
+      <SideBarProvider isOpen={showSaveBar} close={() => setShowSaveBar(false)}>
+        <SaveInFolderSidebar postId={post._id} />
       </SideBarProvider>
       <Script src={process.env.NEXT_PUBLIC_SETKA_SCRIPTS_URL} />
     </>
