@@ -18,6 +18,8 @@ interface CardProps {
   folder: string;
   slug: string;
   categories: Categories[];
+  withCompanyImage?: boolean;
+  companyAvatar?: string;
 }
 
 const emptyImage =
@@ -31,6 +33,8 @@ export const Card = ({
   slug,
   categories,
   image,
+  companyAvatar,
+  withCompanyImage,
 }: CardProps) => {
   const { t } = useTranslation();
 
@@ -55,6 +59,18 @@ export const Card = ({
         </a>
       </Link>
       <PostCategories categories={categories} />
+      {withCompanyImage && companyAvatar && (
+        <Link href={"#"}>
+          <a className={styles["Card-CompanyAvatar"]}>
+            <Image
+              src={companyAvatar}
+              height={80}
+              width={80}
+              alt="Company Avatar"
+            />
+          </a>
+        </Link>
+      )}
     </div>
   );
 };

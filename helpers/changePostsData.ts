@@ -51,6 +51,7 @@ export const changePostsData = (posts: any[]): Post[] | [] => {
     id: post.postUniqueId,
     categories: getPostCategories(post),
     slug: post.slug,
+    companyAvatar: post.companyId?.avatar || "",
   }));
 
   return newPosts;

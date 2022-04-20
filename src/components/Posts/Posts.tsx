@@ -8,6 +8,7 @@ import useSWR from "swr";
 import { Post } from "types/postTypes";
 import Card from "src/components/Card";
 import Pagination from "src/components/Pagination/Pagination";
+import PostsLoading from "src/components/PostsLoading/PostsLoading";
 
 import styles from "./Posts.module.css";
 
@@ -36,7 +37,7 @@ export const Posts = ({ fallbackData, postsParams }: Props) => {
     hasMounted.current = true;
   }, []);
 
-  const { data: postsData } = useSWR<{ posts: Post[]; total: 17795 }>(
+  const { data: postsData } = useSWR<{ posts: Post[]; total: number }>(
     pageFolder?._id
       ? `${process.env.NEXT_PUBLIC_API_URL}/post/public/${pageFolder?._id}?${requestParams}`
       : null,
@@ -56,7 +57,7 @@ export const Posts = ({ fallbackData, postsParams }: Props) => {
   };
 
   if (!postsData) {
-    return <p>loading...</p>;
+    return <PostsLoading />;
   }
 
   return (

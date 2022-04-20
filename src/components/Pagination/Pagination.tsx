@@ -16,7 +16,7 @@ interface PaginationProps {
   reverse?: boolean;
   pageSize: number;
   currentPage: number;
-  className?: string;
+  className?: any; // TODO: extdent it from react element
   arrowHeight?: number | string;
   arrowWidth?: number | string;
 }
