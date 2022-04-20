@@ -61,9 +61,16 @@
   height: 30px;
 }
 
+.Table-Column_Edit {
+  display: flex;
+}
+
 .Table-Column_Edit button {
   height: 30px;
   width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   background-color: #fff;
   border-radius: 50%;

@@ -24,6 +24,8 @@
 
 .InfoBlock-Hero h4 {
   margin: 0;
+  font-size: 13px;
+  font-weight: 400;
 }
 
 .InfoBlock-Hero span {

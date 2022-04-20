@@ -1,1 +1,1 @@
-export type FilterTypes = "location" | "all" | "filter";
+export type FilterTypes = "location" | "all" | "filter" | "postsPerPage";
