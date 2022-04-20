@@ -22,7 +22,7 @@ interface PostDetailsProps {
   categories: Categories[];
   title: string;
   companyImg?: string;
-  handleOpen: () => void;
+  handleOpen: (sidebarType: string) => void;
   postId: string;
 }
 
@@ -46,7 +46,7 @@ const PostDetails: FC<PostDetailsProps> = ({
           <ActionPostButtons
             postId={postId}
             className={styles["PostDetails-Buttons"]}
-            favoriteButton={handleOpen}
+            openSidebar={handleOpen}
           >
             {languages ? (
               languages.map(({ language: languageFromArray, _id }) => (

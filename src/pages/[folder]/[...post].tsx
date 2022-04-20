@@ -7,6 +7,8 @@ import Layout from "src/components/Layout";
 import PostDetails from "src/components/PostDetails/PostDetails";
 import CompanyProfile from "src/components/CompanyProfile/CompanyProfile";
 import Sidebar from "src/components/Sidebar";
+import SaveInFolderSidebar from "src/components/SaveInFolderSidebar";
+import ShareSidebar from "src/components/ShareSidebar/ShareSidebar";
 
 import { fetchPost } from "src/api/fetchPost";
 
@@ -14,7 +16,7 @@ import { getPostCategories } from "helpers/changePostsData";
 
 import { PageFolder } from "types/pageFolderType";
 import { SideBarProvider } from "src/providers/SidebarProvider/SidebarProvider";
-import SaveInFolderSidebar from "src/components/SaveInFolderSidebar";
+
 
 type Props = {
   post: any;
@@ -29,9 +31,12 @@ const Post = ({ post }: Props) => {
   const companies = post.companies || [];
   const title = post.title;
 
-  const [showSaveBar, setShowSaveBar] = useState(false);
-  const handleOpen = () => {
-    setShowSaveBar(true);
+  const [showSidebar, setShowSidebar] = useState(false);
+  const [sidebarType, setSidebarType] = useState('');
+
+  const handleOpen = (sidebarType: string) => {
+    setSidebarType(sidebarType);
+    setShowSidebar(true);
   };
 
   return (
@@ -63,8 +68,8 @@ const Post = ({ post }: Props) => {
         </div>
       ))}
       {/* </Layout> */}
-      <SideBarProvider isOpen={showSaveBar} close={() => setShowSaveBar(false)}>
-        <SaveInFolderSidebar postId={post._id} />
+      <SideBarProvider isOpen={showSidebar} close={() => setShowSidebar(false)}>
+        {sidebarType === "share" ? <ShareSidebar /> : <SaveInFolderSidebar postId={post._id} />}
       </SideBarProvider>
       <Script src={process.env.NEXT_PUBLIC_SETKA_SCRIPTS_URL} />
     </>
