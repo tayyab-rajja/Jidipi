@@ -42,11 +42,12 @@ export const Card = ({
     <div className={clsx(styles.Card, className && className)}>
       <Link
         href={{
-          pathname: "/[folder]/[postId]/[slug]",
+          pathname: "/[folder]/[postId]/[language]/[slug]/",
           query: {
             folder: folder,
             postId: id,
             slug: slug,
+            language: "en",
           },
         }}
       >

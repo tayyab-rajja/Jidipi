@@ -4,7 +4,7 @@ import Script from "next/script";
 import { GetServerSideProps } from "next/types";
 
 import Layout from "src/components/Layout";
-import CardDetails from "src/components/CardDetails/CardDetails";
+import PostDetails from "src/components/PostDetails/PostDetails";
 import CompanyProfile from "src/components/CompanyProfile/CompanyProfile";
 import Sidebar from "src/components/Sidebar";
 
@@ -26,7 +26,7 @@ type Props = {
 const Post = ({ post }: Props) => {
   const categories = getPostCategories(post, "oldCategories");
   const companyImg = post?.companyId?.avatar || null;
-  const companies = post.companies;
+  const companies = post.companies || [];
   const title = post.title;
 
   const [showSaveBar, setShowSaveBar] = useState(false);
@@ -43,7 +43,7 @@ const Post = ({ post }: Props) => {
       </Head>
 
       {/* <Layout sidebarComponent={<Sidebar />}> */}
-      <CardDetails
+      <PostDetails
         postId={post._id}
         categories={categories}
         companyImg={companyImg}
@@ -53,7 +53,7 @@ const Post = ({ post }: Props) => {
         title={title}
       >
         <div dangerouslySetInnerHTML={{ __html: post.description }} />
-      </CardDetails>
+      </PostDetails>
       <div style={{ marginTop: 20, width: "100%" }}>
         <CompanyProfile companyInfo={post?.companyId} />
       </div>
@@ -79,9 +79,11 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   let post = {};
   //@ts-ignore
   const postId = query?.post[0];
+  //@ts-ignore
+  const language = query.post[1];
 
   try {
-    const postFromApi = await fetchPost(postId);
+    const postFromApi = await fetchPost(postId, language);
     post = postFromApi;
   } catch (e) {
     console.log(e);
