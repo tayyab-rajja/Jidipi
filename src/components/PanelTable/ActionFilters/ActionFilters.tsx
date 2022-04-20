@@ -12,6 +12,9 @@ import {
 import { FilterTypes } from "types/filterTypes";
 
 import styles from "./ActionFilters.module.css";
+import { useRouter } from "next/router";
+
+type PageTypes = "post" | "company" | "information";
 
 interface ActionFiltersProps {
   handleAction: (type: string) => void;
@@ -22,7 +25,9 @@ export const ActionFilters: FC<ActionFiltersProps> = ({
   handleFilterChange,
   handleAction,
 }) => {
-  const type: "post" | "company" | "information" = "post";
+  const { query } = useRouter();
+  //@ts-ignore
+  const type = query.panel[0] as PageTypes;
 
   return (
     <div className={styles["ActionFilters"]}>
@@ -30,12 +35,12 @@ export const ActionFilters: FC<ActionFiltersProps> = ({
       {type === "post" && (
         <LanguageFilter handleFilterChange={handleFilterChange} />
       )}
-      {/* {type === "company" && (
+      {type === "company" && (
         <GroupFilter handleFilterChange={handleFilterChange} />
       )}
       {type === "information" && (
         <CategoryFilter handleFilterChange={handleFilterChange} />
-      )} */}
+      )}
       <LocationFilter handleFilterChange={handleFilterChange} />
       <AllFilter handleFilterChange={handleFilterChange} />
     </div>

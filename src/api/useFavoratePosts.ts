@@ -5,8 +5,6 @@ import useSWR from "swr";
 
 import { useAuth } from "src/providers/AuthProvider/AuthProvider";
 
-import { getTableData } from "helpers/getTableData";
-
 import { ReaderPost } from "types/readerPostType";
 
 const fetcher = (url: string, token: string) =>
@@ -16,7 +14,7 @@ const fetcher = (url: string, token: string) =>
 
 const url = `${process.env.NEXT_PUBLIC_API_URL}/reader`;
 
-export const useFavoratePosts = () => {
+export const useFavoratePosts = (initianPageFolderId: string) => {
   const {
     session: { token },
   } = useAuth();
@@ -24,15 +22,16 @@ export const useFavoratePosts = () => {
   const [params, setParams] = useState({
     searchKey: "",
     pageSize: 0,
+    pageFolderId: initianPageFolderId,
     pageNumber: 0,
   });
 
   const qsParams = qs.stringify(params);
 
-  const { data, error, mutate } = useSWR<{ readerPost: ReaderPost[] }>(
-    [`${url}?${qsParams}`, token],
-    fetcher
-  );
+  const { data, error, mutate } = useSWR<{
+    readerPost: ReaderPost[];
+    total: number;
+  }>([`${url}?${qsParams}`, token], fetcher);
 
   const deleteFavorite = async (postId: string) => {
     await axios.delete(`${url}/${postId}`, {

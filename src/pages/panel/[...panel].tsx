@@ -27,7 +27,7 @@ const getTabs = (type: string, pageFolders: PageFolder[]) => {
         ({ pageType }) => pageType === "PRODUCT" || pageType === "PROJECT"
       );
     case "company":
-      return [{ title: "all", _id: "all" }];
+      return [{ title: "all", _id: "" }];
     case "information":
       return pageFolders.filter(({ pageType }) => pageType === "INFORMATION");
     default:
@@ -36,7 +36,9 @@ const getTabs = (type: string, pageFolders: PageFolder[]) => {
 };
 
 const TablePage: FC<TablePageProps> = ({ tabs, pageType }) => {
-  const { data, params, setParams, deleteFavorite } = useFavoratePosts();
+  const { data, params, setParams, deleteFavorite } = useFavoratePosts(
+    tabs[0]._id
+  );
   const { tableColumns, tableData } = getTableData(data?.readerPost, pageType);
 
   return (
@@ -65,6 +67,7 @@ const TablePage: FC<TablePageProps> = ({ tabs, pageType }) => {
                 ...param,
               }))
             }
+            total={data?.total}
             tabs={tabs}
             tableColumns={tableColumns}
             tableData={tableData}

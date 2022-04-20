@@ -19,6 +19,7 @@ import "@reach/tabs/styles.css";
 import { SearchInputValue } from "types/searcInputTypes";
 interface PanelTableProps {
   tabs: PageFolder[];
+  total?: number;
   tableColumns: TableColumn[];
   tableData: TableData[];
   params: any;
@@ -28,6 +29,7 @@ interface PanelTableProps {
 
 const PanelTable: FC<PanelTableProps> = ({
   tabs,
+  total = 0,
   tableColumns,
   tableData,
   params,
@@ -35,21 +37,30 @@ const PanelTable: FC<PanelTableProps> = ({
   setParams,
 }) => {
   const { t } = useTranslation();
-  const [data, setData] = useState<TableData[] | []>([]);
   const [filtersValues, setFiltersValues] = useState({
     location: "",
     filter: "",
     all: true,
     postsPerPage: 20,
   });
+  const [data, setData] = useState<TableData[] | []>([]);
   const [searchValue, setSearchValue] = useState<SearchInputValue>([]);
-  const [currentTab, setCurrentTab] = useState(tabs[0]._id);
 
   const handleFilterChange = (
     type: FilterTypes,
     value: string | boolean | number
   ) => {
     setFiltersValues({ ...filtersValues, [type]: value });
+    switch (type) {
+      case "postsPerPage":
+        setParams({
+          pageSize: value,
+        });
+      case "all":
+        setParams({
+          isTrashed: !value,
+        });
+    }
 
     if (type === "postsPerPage") {
       setParams({
@@ -116,7 +127,9 @@ const PanelTable: FC<PanelTableProps> = ({
     if (index === tabs.length) {
       return;
     }
-    setCurrentTab(tabs[index]._id);
+    setParams({
+      pageFolderId: tabs[index]._id,
+    });
   };
 
   useEffect(() => {
@@ -145,6 +158,7 @@ const PanelTable: FC<PanelTableProps> = ({
           isDataTrashed={!filtersValues.all}
           tableColumns={tableColumns}
           data={data}
+          handleAction={handleAction}
           updateMyData={updateMyData}
         />
         <div className={styles["PanelTable-ButtomFilters"]}>
@@ -155,11 +169,11 @@ const PanelTable: FC<PanelTableProps> = ({
           <Pagination
             siblingCount={3}
             pageSize={params.pageSize}
-            totalCount={tableData.length ? tableData.length : 1}
-            currentPage={params.pageNumber + 1}
+            totalCount={total}
+            currentPage={params.pageNumber}
             onChange={(page) => {
               setParams({
-                pageNumber: page - 1,
+                pageNumber: page,
               });
             }}
           />
