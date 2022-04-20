@@ -9,6 +9,7 @@ interface ActionPostButtonsProps {
   languages?: [];
   postId: string;
   className?: string;
+  favoriteButton?: () => void;
 }
 
 const ActionPostButtons: FC<ActionPostButtonsProps> = ({
@@ -16,6 +17,7 @@ const ActionPostButtons: FC<ActionPostButtonsProps> = ({
   languages,
   postId,
   className,
+  favoriteButton
 }) => {
   const { t } = useTranslation();
 
@@ -52,7 +54,7 @@ const ActionPostButtons: FC<ActionPostButtonsProps> = ({
       <button className={clsx(styles["ActionPostButtons-Button"])}>
         {postsActionSvG["SHARE"]}
       </button>
-      <button className={clsx(styles["ActionPostButtons-Button"])}>
+      <button className={clsx(styles["ActionPostButtons-Button"])} onClick={favoriteButton}>
         {postsActionSvG["FAVORITE"]}
       </button>
     </div>

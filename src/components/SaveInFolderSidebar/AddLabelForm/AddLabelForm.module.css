@@ -1,9 +1,5 @@
-.AddLabelForm {
-    margin-top: 20px;
-}
-
 .AddLabelForm-InputWrapper {
-    width: 300px;
+    width: 100%;
     height: 56px;
     background-color: #F1F1F1;
     border: 1px solid #D6D6D6;
@@ -14,34 +10,15 @@
 
 .AddLabelForm-InputWrapper_Input {
     border: 1px solid #D6D6D6;
-    width: 276px;
+    margin: 12px;
+    width: 100%;
     height: 32px;
     font-size: 9px;
     padding: 12px;
-    color: #D6D6D6;
+    color: #3A63DEE8;
     outline: none;
 }
 
 .AddLabelForm-InputWrapper_Input::placeholder {
     color: #D6D6D6;
-}
-
-.AddLabelForm-ButtonWrapper {
-    margin-top: 40px;
-    margin-bottom: 47px;
-    display: flex;
-    justify-content: center;
-}
-
-.AddLabelForm-InputWrapper_Button {
-    margin-right: 12px;
-    width: 120px;
-    height: 28px;
-    background-color: #F1F1F1;
-    border: 1px solid #D6D6D6;
-    padding: 8px 44px;
-    color: #888888;
-    font-size: 9px;
-    text-align: center;
-    cursor: pointer;
 }
