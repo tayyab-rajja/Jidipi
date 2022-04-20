@@ -16,10 +16,6 @@ import LabelItem from "./LabelItem/LabelItem";
 
 import styles from './SaveInFolderSidebar.module.css';
 
-type showElementsState = {
-    addLabelBtn: boolean,
-    addLabelFormAndList: boolean
-}
 interface Props {
     postId: string
 }
@@ -33,69 +29,56 @@ export const SaveInFolderSidebar: FC<Props> = ({postId}) => {
     const currentPageFolder = query.folder;
     const {data: pageFolder} = usePageFolderByName((query.folder as string) ?? null);
 
-    const [showElements, setShowElements] = useState<showElementsState>({
-        addLabelBtn: false,
-        addLabelFormAndList: false,
-    });
+    const [showLabelsFlow, setShowLabelsFlow] = useState(false);
     const [selectedFolder, setSelectedFolder] = useState('');
     const [selectedLabel, setSelectedLabel] = useState('');
 
     const pageFolders = data?.filter(pageFolder => pageFolder.pageType === "PROJECT" || pageFolder.pageType === "PRODUCT");
     const pageFolderId = pageFolder?._id;
-    const activePageFolders = [currentPageFolder, "Mine"];
+    const activePageFolders = [currentPageFolder, "mine"];
 
-    const handleClickItem = (elementName: string, title?: string) => {
-        if(title && activePageFolders.includes(title)) {
+    const selectFolder = (title: string) => {
+        if(activePageFolders.includes(title)) {
             setSelectedFolder(title);
         }
-        setShowElements({
-            ...showElements,
-            [elementName]: true,
-        });
     }
 
     const cancelSelectedFolder = (title:string) => {
         if (title === selectedFolder) {
             setSelectedFolder('');
-            setShowElements({
-                addLabelBtn: false,
-                addLabelFormAndList: false,
-            });   
+            setShowLabelsFlow(false);   
         }
     }
 
     const cancelAllSelected = () => {
         setSelectedFolder('');
-            setShowElements({
-                addLabelBtn: false,
-                addLabelFormAndList: false,
-            }); 
+        setShowLabelsFlow(false);
     }
 
-    const selectLabel = (id: string) => {
+    const selectLabel = (id: any) => {
         setSelectedLabel(id);
     }
 
     const addNewLabel = (labelName: string) => {
-        const defaultColor = "F1F1F1";
-        createLabel(labelName, defaultColor, "PROJECT");
+        createLabel({
+            label: labelName, 
+            colour: "F1F1F1",
+            pageType: "PROJECT"
+         });
     }
 
     const changeLabel = (updatedItem: string, updatedValue: string, id: string) => {
         const updatedLabel = labelsList.labels.filter((labelItem: Label) => labelItem._id === id)[0];
-        updateLabel({...updatedLabel, updatedItem: updatedValue});
+        updateLabel({...updatedLabel, [updatedItem]: updatedValue});
     }
     
-    const removeLabel = (id: string) => {
+    const removeLabel = (id: any) => {
         deleteLabel(id);
     }
 
     const savePostToFavorites = () => {
-        const postData = {
-            postId, 
-            pageFolderId, 
-            label: selectedLabel
-        }
+        let postData;
+        selectedLabel ? postData = {postId, pageFolderId, label: selectedLabel} : postData = {postId, pageFolderId}
         addPostToFavourites(postData);
     }
  
@@ -109,19 +92,26 @@ export const SaveInFolderSidebar: FC<Props> = ({postId}) => {
                         <FolderItem 
                             key={_id} 
                             folderName={title} 
-                            handleClickItem={() => handleClickItem('addLabelBtn', title)} 
+                            selectFolder={() => selectFolder(title)} 
                             isSelected={title === selectedFolder}
                             isActive={activePageFolders.includes(title)}
                             cancelSelectedFolder={() => cancelSelectedFolder(title)}
                         />)}
+                     <FolderItem 
+                        folderName="Mine" 
+                        selectFolder={() => setSelectedFolder("mine")} 
+                        isSelected={"mine" === selectedFolder}
+                        isActive={activePageFolders.includes("mine")}
+                        cancelSelectedFolder={() => cancelSelectedFolder("mine")} 
+                    />
                 </ul>
-                {showElements.addLabelBtn && <div className={`${styles["Sidebar-Button"]} ${styles["Text"]}`} onClick={() => handleClickItem('addLabelFormAndList')}>add label</div>} 
+                {selectedFolder && <div className={`${styles["Sidebar-Button"]} ${styles["Text"]}`} onClick={() => setShowLabelsFlow(true)}>add label</div>} 
             </div>
-            {showElements.addLabelFormAndList && 
+            {showLabelsFlow && 
                 <div>
                     {isValidating && <p>Loading...</p>}
                     <ul className={styles["LabelsList"]}>
-                        {labelsList.labels?.map((label: Label) => 
+                        {labelsList?.map((label: Label) => 
                             <LabelItem
                                 key={label._id}
                                 labelItem={label}
@@ -135,7 +125,7 @@ export const SaveInFolderSidebar: FC<Props> = ({postId}) => {
                     <AddLabelForm addNewLabel={addNewLabel} />
                 </div>
             }
-            {showElements.addLabelBtn && 
+            {selectedFolder && 
                 <div className={styles["AddLabelForm-ButtonWrapper"]}>
                     <button className={styles["AddLabelForm-InputWrapper_Button"]} onClick={cancelAllSelected}>
                         {sidebarSvg["CANCEL"]}Cancel
