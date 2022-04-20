@@ -28,11 +28,16 @@ export const usePutUserData = () => {
   const {data, error, isValidating} = useSWR(user?._id ? [`${url}${user._id}`, token] : null, fetcher);
 
   const putData = (request: UserData) => {
-    axios({
-      method: 'put',
-      url: `${url}${user?._id}`,
-      data: request,
-    });
+    const formData = new FormData();
+    
+    for (let key in request) {
+      formData.append(key, request[key]);
+    }
+    
+    return axios.put(
+      `${url}${user?._id}`,
+      formData,
+    );
   }
   
   const updatePassword = (request: UpdatePassword) => axios.put(
