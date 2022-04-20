@@ -1,10 +1,10 @@
 import { FC, MouseEventHandler, MouseEvent, useState } from "react";
-
-import styles from './ColorPicker.module.css';
-import { sidebarSvg } from "constant/sidebarSvg";
 import clsx from "clsx";
 
-const colorsList = ["#FF8982", "#FFBF66", "#FFF079", "#68EBA9", "#66F9F2", "#9CDEFC", "#79BFFC", "#AEAFFF", "#FC7095", "#F1F1F1"]
+import { sidebarSvg } from "constant/sidebarSvg";
+import { colorsList } from "constant/colorsList";
+
+import styles from './ColorPicker.module.css';
     
 interface Props {
     deleteLabel: () => void,

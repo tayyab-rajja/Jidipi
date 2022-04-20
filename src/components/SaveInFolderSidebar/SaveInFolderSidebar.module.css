@@ -38,10 +38,10 @@
 }
 
 .LabelsList {
-    padding: 0 24px;
-    margin: 10px 0;
+    padding: 10px 24px;
     width: 100%;
-    max-height: 200px;
+    min-height: 150px;
+    max-height: 300px;
     list-style: none;
     display: flex;
     flex-wrap: wrap;

@@ -1,10 +1,12 @@
 import { FC, KeyboardEventHandler, MouseEventHandler, useState} from "react";
+import clsx from "clsx";
+
+import { Label } from "types/labelType";
+import { sidebarSvg } from 'constant/sidebarSvg';
+
+import { ColorPicker } from "../ColorPicker/ColorPicker";
 
 import styles from './LabelItem.module.css';
-import clsx from "clsx";
-import { sidebarSvg } from 'constant/sidebarSvg';
-import { ColorPicker } from "../ColorPicker/ColorPicker";
-import { Label } from "types/labelType";
 
 interface Props {
     labelItem: Label,
@@ -19,7 +21,6 @@ const LabelItem: FC<Props> = ({labelItem, isSelected,  deleteLabel, selectLabel,
     const {_id, label, colour } = labelItem;
 
     const [isEditLabelFormOpen, setEditLabelForm] = useState(false);
-    const [overlay, setOverlay] = useState(false);
     
     const [isEditable, setEditable] = useState(false);
     const [inputValue, setInputValue] = useState(label);
@@ -31,7 +32,6 @@ const LabelItem: FC<Props> = ({labelItem, isSelected,  deleteLabel, selectLabel,
     const showEditLabelForm: MouseEventHandler<HTMLDivElement> = (e) => {
         e.preventDefault();
         setEditLabelForm(true);
-        setOverlay(true);
     }
 
     const editInput = () => {
@@ -45,17 +45,11 @@ const LabelItem: FC<Props> = ({labelItem, isSelected,  deleteLabel, selectLabel,
         }   
     }
 
-    const handleOverlay = () => {
-        setOverlay(false);
-        setEditLabelForm(false);
-    }
-
-    let className = isSelected ? clsx(styles["LabelItem"], styles["Selected"]) : styles["LabelItem"];
-    let zIndex = isEditLabelFormOpen ? {zIndex: 25} : {zIndex: 0};
+    const zIndex = isEditLabelFormOpen ? {zIndex: 25} : {zIndex: 0};
 
     return (
         <>
-        {overlay && <div className={styles["LabelItem-Overlay"]} onClick={handleOverlay}></div>}
+        {isEditLabelFormOpen && <div className={styles["LabelItem-Overlay"]} onClick={() => setEditLabelForm(false)}></div>}
         <li className={styles["LabelItem-Wrapper"]} style={zIndex}>
             {isEditable ? 
                 <input 
@@ -66,13 +60,13 @@ const LabelItem: FC<Props> = ({labelItem, isSelected,  deleteLabel, selectLabel,
                     onKeyUp={saveOnEnter} 
                 /> : 
                 <div 
-                    className={className} 
+                    className={clsx(styles["LabelItem"], isSelected && styles["Selected"])} 
                     onClick={selectLabel} 
                     style={{backgroundColor: `${colour}`}} 
                     onContextMenu={showEditLabelForm}>
                 {label}{isSelected && <span onClick={deleteLabel}>{sidebarSvg["CLOSE"]}</span>} 
                 </div>}
-                {(isEditLabelFormOpen && overlay) && <ColorPicker deleteLabel={deleteLabel} selectColor={selectColor} editInput={editInput} />}
+                {isEditLabelFormOpen && <ColorPicker deleteLabel={deleteLabel} selectColor={selectColor} editInput={editInput} />}
         </li>
         </>
     )          

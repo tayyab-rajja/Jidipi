@@ -9,7 +9,7 @@ interface ActionPostButtonsProps {
   languages?: [];
   postId: string;
   className?: string;
-  favoriteButton: () => void;
+  favoriteButton?: () => void;
 }
 
 const ActionPostButtons: FC<ActionPostButtonsProps> = ({

@@ -1,21 +1,18 @@
 import { FC, MouseEvent } from 'react';
-
 import clsx from 'clsx';
-import styles from './FolderItem.module.css';
+
 import { sidebarSvg } from 'constant/sidebarSvg';
+
+import styles from './FolderItem.module.css';
 interface Props {
     folderName: string,
-    handleClickItem: () => void,
     isSelected: boolean,
+    isActive: boolean,
+    handleClickItem: () => void,
     cancelSelectedFolder: () => void,
-    activeFolders: string[]
 }
 
-const FolderItem: FC<Props> = ({folderName, handleClickItem, isSelected, cancelSelectedFolder, activeFolders}) => { 
-
-    let activeClass = activeFolders.includes(folderName) && clsx(styles["Active"]);
-    let className = activeFolders.includes(folderName) && isSelected ? clsx(styles["Sidebar-FolderItem"], styles["Choosen"]) : styles["Sidebar-FolderItem"];
-    
+const FolderItem: FC<Props> = ({folderName, handleClickItem, isSelected, cancelSelectedFolder, isActive}) => { 
 
     const handleClick = (e: MouseEvent) => {
         e.stopPropagation();
@@ -23,7 +20,7 @@ const FolderItem: FC<Props> = ({folderName, handleClickItem, isSelected, cancelS
     }
 
     return (
-        <li className={`${className} ${activeClass}`} onClick={handleClickItem}>
+        <li className={clsx(styles["Sidebar-FolderItem"], isActive && styles["Active"], (isActive && isSelected) && styles["Choosen"])} onClick={handleClickItem}>
             <span className={styles["Sidebar-FolderItem_Text"]}>
                 {folderName}
             </span>
