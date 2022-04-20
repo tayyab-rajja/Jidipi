@@ -19,7 +19,7 @@ interface SearchInputProps {
   onChange: (value: SearchInputValue) => void;
 }
 
-const createOption = (label: string) => ({
+export const createOption = (label: string) => ({
   label,
   value: label,
 });
