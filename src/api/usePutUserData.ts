@@ -15,6 +15,7 @@ interface UpdatePassword {
 }
 
 const url = `${process.env.NEXT_PUBLIC_API_URL}/user/`
+const avatarUrl = `${process.env.NEXT_PUBLIC_API_URL}/reader/`
 
 const fetcher = (url: string, token: string) => axios
     .get(url, { headers: { Authorization: "Bearer " + token } })
@@ -28,10 +29,29 @@ export const usePutUserData = () => {
   const {data, error, isValidating} = useSWR(user?._id ? [`${url}${user._id}`, token] : null, fetcher);
 
   const putData = (request: UserData) => {
-    axios({
-      method: 'put',
-      url: `${url}${user?._id}`,
-      data: request,
+    return axios.put(
+      `${url}${user?._id}`,
+      request,
+    );
+  }
+
+  const putAvatar = (request: File | string) => {
+    if (typeof request === 'string') {
+      return putData({
+        avatar: request
+      })
+    }
+
+    const formData = new FormData();
+    formData.append("file", request);
+
+    return axios.post(
+      `${avatarUrl}${user?._id}/upload`,
+      formData,
+    ).then(res => {
+      putData({
+        avatar: res.data.logo.liveURL
+      })
     });
   }
   
@@ -40,5 +60,5 @@ export const usePutUserData = () => {
     request
   );
   
-  return {data, error, isValidating, putData, updatePassword};
+  return {data, error, isValidating, putData, putAvatar, updatePassword};
 };
