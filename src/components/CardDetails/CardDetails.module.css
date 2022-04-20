@@ -44,3 +44,31 @@
 .CardDetails-Title:hover {
   color: #373737;
 }
+
+.CardDetails-LanguageLink {
+  height: 35px;
+  width: 35px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  background-color: #e3e3e3;
+}
+
+.CardDetails-LanguageLink.Active {
+  color: #fff;
+  background-color: #373737;
+}
+
+.CardDetails-LanguageLink:hover {
+  background-color: #deb851;
+}
+
+.CardDetails-LanguageLink {
+  margin-right: 10px;
+}

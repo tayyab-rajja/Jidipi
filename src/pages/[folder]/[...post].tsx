@@ -26,7 +26,7 @@ type Props = {
 const Post = ({ post }: Props) => {
   const categories = getPostCategories(post, "oldCategories");
   const companyImg = post?.companyId?.avatar || null;
-  const companies = post.companies;
+  const companies = post.companies || [];
   const title = post.title;
 
   const [showSaveBar, setShowSaveBar] = useState(false);
@@ -79,9 +79,11 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   let post = {};
   //@ts-ignore
   const postId = query?.post[0];
+  //@ts-ignore
+  const language = query.post[1];
 
   try {
-    const postFromApi = await fetchPost(postId);
+    const postFromApi = await fetchPost(postId, language);
     post = postFromApi;
   } catch (e) {
     console.log(e);

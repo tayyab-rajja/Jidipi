@@ -1,5 +1,8 @@
-import { FC, ReactElement, useState } from "react";
+import { FC, ReactElement } from "react";
+import Link from "next/link";
 import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
+import clsx from "clsx";
 import Image from "next/image";
 
 import PostCategories from "src/components/PostCategories/PostCategories";
@@ -11,7 +14,10 @@ import styles from "./CardDetails.module.css";
 
 interface CardDetailsProps {
   children: ReactElement | ReactElement[];
-  languages: [] | undefined;
+  languages?: {
+    language: string;
+    _id: string;
+  }[];
   language: string;
   categories: Categories[];
   title: string;
@@ -31,18 +37,67 @@ const CardDetails: FC<CardDetailsProps> = ({
   postId,
 }) => {
   const { t } = useTranslation();
+  const { pathname, query } = useRouter();
 
   return (
     <div className={styles["CardDetails"]}>
       <div className={styles["CardDetails-Wrapper"]}>
         <div className={styles["CardDetails-Header"]}>
           <ActionPostButtons
-            language={language}
             postId={postId}
-            languages={languages}
             className={styles["CardDetails-Buttons"]}
             favoriteButton={handleOpen}
-          />
+          >
+            {languages ? (
+              languages.map(({ language: languageFromArray, _id }) => (
+                <Link
+                  key={_id}
+                  href={{
+                    pathname: `${pathname}`,
+                    query: {
+                      folder: query.folder,
+                      post: [
+                        //@ts-ignore
+                        query?.post[0],
+                        languageFromArray.toLocaleLowerCase(),
+                        //@ts-ignore
+                        query?.post[2],
+                      ],
+                    },
+                  }}
+                >
+                  <a
+                    className={clsx(
+                      styles["CardDetails-LanguageLink"],
+                      languageFromArray === language && styles["Active"]
+                    )}
+                  >
+                    {languageFromArray}
+                  </a>
+                </Link>
+              ))
+            ) : (
+              <Link
+                href={{
+                  pathname: `${pathname}/[language]`,
+                  query: {
+                    ...query,
+                    language,
+                  },
+                }}
+              >
+                <a
+                  className={clsx(
+                    styles["CardDetails-LanguageLink"],
+                    styles["Active"]
+                  )}
+                >
+                  {language}
+                </a>
+              </Link>
+            )}
+          </ActionPostButtons>
+
           <div className={styles["CardDetails-TitleWrapper"]}>
             {companyImg && (
               <div className={styles["CardDetails-CompanyLogo"]}>
