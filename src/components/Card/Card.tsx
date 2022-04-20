@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import clsx from "clsx";
@@ -17,6 +18,8 @@ interface CardProps {
   folder: string;
   slug: string;
   categories: Categories[];
+  withCompanyImage?: boolean;
+  companyAvatar?: string;
 }
 
 const emptyImage =
@@ -30,6 +33,8 @@ export const Card = ({
   slug,
   categories,
   image,
+  companyAvatar,
+  withCompanyImage,
 }: CardProps) => {
   const { t } = useTranslation();
 
@@ -46,18 +51,26 @@ export const Card = ({
         }}
       >
         <a>
-          <Image
-            className={styles["Card-Image"]}
-            layout="responsive"
-            width={500}
-            height={500}
+          <img
             src={image ? image : emptyImage}
-            alt="Card Img"
+            alt={`${title} - cover image`}
           />
-          <h3 className={styles["Card-Title"]}>{t(title)}</h3>
+          <h3 className={styles["Card-Title"]}>{title}</h3>
         </a>
       </Link>
       <PostCategories categories={categories} />
+      {withCompanyImage && companyAvatar && (
+        <Link href={"#"}>
+          <a className={styles["Card-CompanyAvatar"]}>
+            <Image
+              src={companyAvatar}
+              height={80}
+              width={80}
+              alt="Company Avatar"
+            />
+          </a>
+        </Link>
+      )}
     </div>
   );
 };

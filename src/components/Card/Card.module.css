@@ -1,20 +1,27 @@
 .Card {
   padding: 16px 16px 24px 16px;
-  background-color: #fff;
+  background-color: var(--surface-color);
   cursor: pointer;
-  color: #bababa;
+  color: var(--grey-400);
+  position: relative;
 }
 
 .Card ul {
   margin-top: 16px;
 }
 
+.Card ul li {
+  font-size: 0.688rem;
+  margin-bottom: 4px;
+}
+/* TODO: ajust svg size */
+
 .Card:hover {
   color: #fff;
-  background-color: #deb851;
+  background-color: var(--accent-color);
 }
 
-.Card:hover a {
+.Card:hover ul li a {
   color: #fff;
 }
 
@@ -22,10 +29,20 @@
   fill: #fff;
 }
 
-.Card-Title {
-  margin: 16px 0 0 0;
+.Card a img {
+  width: 100%;
 }
 
-.Card-Image {
-  object-fit: cover;
+.Card-Title {
+  margin: 16px 0 0 0;
+  font-size: 1.125rem;
+  line-height: 1.2;
+  font-weight: bold;
+}
+
+.Card-CompanyAvatar {
+  position: absolute;
+  top: 35px;
+  right: 35px;
+  z-index: 10;
 }

@@ -1,0 +1,15 @@
+.InfoTab {
+  padding-top: 40px;
+  width: 100%;
+  background-color: #fff;
+  color: #d6d6d6;
+}
+
+.InfoTab-Wrapper {
+  margin: 0 auto;
+  max-width: 940px;
+}
+
+.InfoTab-Buttons {
+  padding: 0 20px;
+}

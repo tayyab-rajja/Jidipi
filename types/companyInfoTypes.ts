@@ -1,4 +1,6 @@
 export interface CompanyInfo {
+  _id: string;
+  partnerId: string;
   avatar: string;
   fax: string;
   address: string;

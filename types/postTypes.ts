@@ -8,4 +8,5 @@ export interface Post {
   id: string;
   categories: Categories[];
   slug: string;
+  companyAvatar: string;
 }
