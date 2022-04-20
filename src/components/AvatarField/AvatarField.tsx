@@ -10,16 +10,21 @@ import ButtonUserData from "src/components/ButtonUserData";
 import { usePutUserData } from "src/api/usePutUserData";
 
 const AvatarField: FC = () => {
-  const { data: serverData, error, isValidating, putData } = usePutUserData();
+  const {
+    data: serverData,
+    error,
+    isValidating,
+    putData,
+    putAvatar,
+  } = usePutUserData();
 
-  const [currentAvatar, setCurrentAvatar] = useState<string | null>(null);
-  console.log(currentAvatar);
+  const [currentAvatar, setCurrentAvatar] = useState<string | File>("");
 
   useEffect(() => {
     if (serverData?.user.avatar) setCurrentAvatar(serverData.user.avatar);
   }, [serverData?.user.avatar]);
 
-  const chooseAvatar = (url: string | null): void => {
+  const chooseAvatar = (url: string | File): void => {
     setCurrentAvatar(url);
   };
 
@@ -36,11 +41,11 @@ const AvatarField: FC = () => {
 
       <ButtonUserData
         label="Save Change"
-        action={() =>
-          putData({
-            avatar: currentAvatar,
-          })
-        }
+        action={() => {
+          const formData = new FormData();
+          formData.append("file", currentAvatar);
+          putAvatar(formData);
+        }}
         className={styles["Container-Button"]}
       />
     </div>

@@ -8,8 +8,8 @@ import styles from "./AvatarCurrent.module.css";
 
 import cloudIcon from "public/icon-cloud.svg";
 interface Props {
-  currentAvatar: string | null;
-  chooseAvatar: (arg: null | string) => void;
+  currentAvatar: string | File | null;
+  chooseAvatar: (arg: string | File) => void;
 }
 
 const AvatarCurrent: FC<Props> = ({ currentAvatar, chooseAvatar }) => {
@@ -35,7 +35,7 @@ const AvatarCurrent: FC<Props> = ({ currentAvatar, chooseAvatar }) => {
       />
       <span
         className={styles["Container-DeleteAvatar"]}
-        onClick={() => chooseAvatar(null)}
+        onClick={() => chooseAvatar("")}
       >
         x
       </span>
