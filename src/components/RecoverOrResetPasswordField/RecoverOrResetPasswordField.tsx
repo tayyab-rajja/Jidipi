@@ -4,11 +4,13 @@ import Divider from "src/components/Divider";
 import FormUserData from "src/components/FormUserData";
 import InputUserData from "src/components/InputUserData";
 import ButtonUserData from "src/components/ButtonUserData";
+import NoValidationText from "src/components/NoValidationText";
 import FooterUserData from "src/components/FooterUserData";
 
 import LoginMessage from "src/components/LoginMessage";
 
 import { useUserData } from "src/api/useUserData";
+import clsx from "clsx";
 
 interface Props {
   type: string;
@@ -22,6 +24,16 @@ const RecoverOrResetPasswordField: FC<Props> = ({
   const [dataSended, setDataSended] = useState(false);
 
   const [email, setEmail] = useState("");
+
+  const [noValidationLabel, setNoValidationLabel] = useState("");
+
+  const showNoValidation = (label: string) => {
+    setNoValidationLabel(label);
+
+    setTimeout(() => {
+      setNoValidationLabel("");
+    }, 3000);
+  };
 
   const returnInputValue = (value: string) => setEmail(value);
 
@@ -37,15 +49,26 @@ const RecoverOrResetPasswordField: FC<Props> = ({
           type="email"
           placeholder="Email"
           returnInputValue={returnInputValue}
+          redBorder={Boolean(noValidationLabel)}
         />
+
+        <NoValidationText label={noValidationLabel} />
+
         <ButtonUserData
           label="recover password"
           action={() => {
-            sendEmailToRecoverPassword(email).then((data) => {
-              if (data.request.status >= 200 && data.request.status <= 299) {
-                setDataSended(true);
+            if (/@/.test(email) === false) {
+              showNoValidation("Wrong email format.");
+              return;
+            }
+
+            sendEmailToRecoverPassword(email).then(
+              (data: { [key: string]: any }) => {
+                if (data.request.status >= 200 && data.request.status <= 299) {
+                  setDataSended(true);
+                } else showNoValidation(data.response.data.error);
               }
-            });
+            );
           }}
         />
       </>
