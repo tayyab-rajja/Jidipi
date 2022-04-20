@@ -5,6 +5,7 @@ interface usePaginationProps {
   pageSize: number;
   siblingCount: number;
   currentPage: number;
+  reverse?: boolean;
 }
 
 type paginationRange =
@@ -21,6 +22,7 @@ const range = (start: number, end: number) => {
 export const usePagination = ({
   totalCount,
   pageSize,
+  reverse,
   siblingCount,
   currentPage,
 }: usePaginationProps) => {
@@ -68,5 +70,9 @@ export const usePagination = ({
     return [];
   }, [totalCount, pageSize, siblingCount, currentPage]);
 
-  return paginationRange.reverse();
+  if (reverse) {
+    return paginationRange.reverse();
+  }
+
+  return paginationRange;
 };

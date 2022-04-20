@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useRouter } from "next/router";
 import { useTranslation } from "next-i18next";
 import clsx from "clsx";
@@ -46,15 +47,11 @@ export const Card = ({
         }}
       >
         <a>
-          <Image
-            className={styles["Card-Image"]}
-            layout="responsive"
-            width={500}
-            height={500}
+          <img
             src={image ? image : emptyImage}
-            alt="Card Img"
+            alt={`${title} - cover image`}
           />
-          <h3 className={styles["Card-Title"]}>{t(title)}</h3>
+          <h3 className={styles["Card-Title"]}>{title}</h3>
         </a>
       </Link>
       <PostCategories categories={categories} />

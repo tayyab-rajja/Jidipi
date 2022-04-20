@@ -20,39 +20,6 @@
 
 .CardDetails-Buttons {
   padding: 20px 0;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.CardDetails-Button {
-  height: 35px;
-  width: 35px;
-  font-size: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  outline: none;
-  border: none;
-  border-radius: 50%;
-  background-color: #e3e3e3;
-}
-
-.CardDetails-Button svg path {
-  fill: #fff;
-}
-
-.CardDetails-Button.Active {
-  color: #fff;
-  background-color: #373737;
-}
-
-.CardDetails-Button:hover {
-  background-color: #deb851;
-}
-
-.CardDetails-Button:not(:last-child) {
-  margin-right: 10px;
 }
 
 .CardDetails-TitleWrapper {

@@ -1,0 +1,39 @@
+.Pagination {
+  font-size: 11px;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.Posts_SkeletonConatiner {
+  background-color: #ffffff;
+  padding: 15px;
+}
+
+.Posts_SkeletonImage {
+  margin-bottom: 20px;
+  background-color: var(--grey-100);
+  animation-name: color;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+.Posts_SkeletonTitle {
+  height: 20px;
+  margin-bottom: 10px;
+  background-color: var(--grey-100);
+  animation-name: color;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes color {
+  0% {
+    background-color: var(--grey-100);
+  }
+  50% {
+    background-color: var(--grey-200);
+  }
+  100 {
+    background-color: var(--grey-100);
+  }
+}

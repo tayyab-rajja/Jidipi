@@ -6,25 +6,58 @@ import Masonry from "react-masonry-css";
 import { usePageFolderByName } from "src/api/usePageFolderByName";
 import useSWR from "swr";
 import { Post } from "types/postTypes";
-import Card from "../Card";
-import Pagination from "../Pagination/Pagination";
+import Card from "src/components/Card";
+import Pagination from "src/components/Pagination/Pagination";
 
-type Props = { fallbackData: any };
+import styles from "./Posts.module.css";
+
+type Props = { postsParams?: object; fallbackData: any };
 
 const PAGE_SIZE = 50;
 
-export const Posts = ({ fallbackData }: Props) => {
+function randomNumber(min: number, max: number) {
+  return Math.random() * (max - min) + min;
+}
+
+const PostsLoading = () => {
+  return (
+    <Masonry
+      breakpointCols={{
+        default: 5,
+        1800: 4,
+        1520: 3,
+        1220: 2,
+        620: 1,
+      }}
+      className="my-masonry-grid"
+      columnClassName="my-masonry-grid_column"
+    >
+      {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+        <div key={item} className={styles["Posts_SkeletonConatiner"]}>
+          <div
+            className={styles["Posts_SkeletonImage"]}
+            style={{ height: randomNumber(100, 300) }}
+          ></div>
+          <div className={styles["Posts_SkeletonTitle"]}></div>
+        </div>
+      ))}
+    </Masonry>
+  );
+};
+
+export const Posts = ({ fallbackData, postsParams }: Props) => {
   const router = useRouter();
 
   const page = router.query.page ?? 0;
 
-  const { data: pageFolder, isValidating } = usePageFolderByName(
+  const { data: pageFolder } = usePageFolderByName(
     (router.query.folder as string) ?? null
   );
 
   const requestParams = qs.stringify({
     pageNumber: page,
     pageSize: PAGE_SIZE,
+    ...postsParams,
   });
 
   const hasMounted = useRef(false);
@@ -33,26 +66,38 @@ export const Posts = ({ fallbackData }: Props) => {
     hasMounted.current = true;
   }, []);
 
-  const { data: postsData } = useSWR<{ posts: Post[]; total: 17795 }>(
+  const { data: postsData } = useSWR<{ posts: Post[]; total: number }>(
     pageFolder?._id
       ? `${process.env.NEXT_PUBLIC_API_URL}/post/public/${pageFolder?._id}?${requestParams}`
       : null,
     { fallbackData: hasMounted.current ? undefined : fallbackData }
   );
 
+  const handlePage = (page: number) => {
+    router.push(
+      {
+        pathname: router.pathname,
+        query: { ...router.query, page },
+      },
+      undefined,
+      { shallow: true }
+    );
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   if (!postsData) {
-    return <p>loading...</p>;
+    return <PostsLoading />;
   }
 
   return (
-    <div>
+    <>
       <Masonry
         breakpointCols={{
           default: 5,
-          1980: 4,
-          1268: 3,
-          960: 2,
-          500: 1,
+          1800: 4,
+          1520: 3,
+          1220: 2,
+          620: 1,
         }}
         className="my-masonry-grid"
         columnClassName="my-masonry-grid_column"
@@ -62,8 +107,7 @@ export const Posts = ({ fallbackData }: Props) => {
             <div key={id}>
               <Card
                 id={id}
-                // folder={query.folder as string}
-                folder={"sss"}
+                folder={router.query.folder as string}
                 slug={slug}
                 title={title}
                 categories={categories}
@@ -74,22 +118,15 @@ export const Posts = ({ fallbackData }: Props) => {
         )}
       </Masonry>
       <Pagination
+        className={styles["Pagination"]}
         siblingCount={3}
+        arrowHeight={8}
+        arrowWidth={5}
         pageSize={PAGE_SIZE}
         totalCount={postsData.total}
         currentPage={+page}
-        onChange={(page) => {
-          router.push(
-            {
-              pathname: `/${router.query.folder}`,
-              query: { page },
-            },
-            undefined,
-            { shallow: true }
-          );
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }}
+        onChange={handlePage}
       />
-    </div>
+    </>
   );
 };

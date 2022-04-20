@@ -3,27 +3,40 @@
   height: calc(100% - 5rem);
 }
 
-.Tabs [data-reach-tab-list] {
+.Tabs [data-reach-tab-list],
+.Categories_SkeletonContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
   row-gap: 12px;
   column-gap: 12px;
   margin-bottom: 20px;
+  background: none;
 }
 
 .Tabs [data-reach-tab] {
-  padding: 15px 16px;
+  height: 45px;
   font-weight: 400;
   font-size: 11px;
   line-height: 16px;
-  color: #888888;
-  background: #ffffff;
-  border: 1px solid #d6d6d6;
+  color: var(--grey-500);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Tabs [data-reach-tab] span {
+  margin-left: 10px;
+}
+
+.Tabs [data-reach-tab] svg path {
+  fill: #d6d6d6;
 }
 
 .Tabs [data-reach-tab][data-selected] {
-  background: #f1f1f1;
+  background: var(--grey-100);
 }
 
 .Tabs [data-reach-tab-panel] {
@@ -72,11 +85,35 @@
 }
 
 .CategoriesList-ItemLink:hover {
-  background: yellow;
+  background: var(--accent-color);
+  color: var(--white);
 }
 
 .CategoriesList-ItemLink_heading {
   position: sticky;
   top: 0;
   background: lightgrey;
+}
+
+.Categories_SkeletonTab {
+  height: 45px;
+  background-color: var(--grey-100);
+  animation-name: color;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+.Categories_SkeletonTab {
+}
+
+@keyframes color {
+  0% {
+    background-color: var(--grey-100);
+  }
+  50% {
+    background-color: var(--grey-200);
+  }
+  100 {
+    background-color: var(--grey-100);
+  }
 }

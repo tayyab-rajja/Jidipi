@@ -12,7 +12,11 @@ import {usePutUserData} from 'src/api/usePutUserData'
 
 import styles from './ChangeNameOrEmailField.module.css'
 
-const ChangeNameOrEmailField:FC = () => {
+interface Props {
+  switchToChangePassword: () => void;
+}
+
+const ChangeNameOrEmailField:FC<Props> = ({switchToChangePassword}) => {
   interface InputState {
     [key: string]: {isUnlock: boolean, value: string};
   }
@@ -101,7 +105,7 @@ const ChangeNameOrEmailField:FC = () => {
 
         <InputUserData type='email' isUnlock={inputsState.email.isUnlock} returnInputValue={returnInputValue('email')} value={inputsState.email.value}/>
 
-        <BarForInput label='Current Password' hasSelector isUnlock={false} selectorAction={() => alert('write func to go to password chenching')}/>
+        <BarForInput label='Current Password' hasSelector isUnlock={false} selectorAction={() => switchToChangePassword()}/>
 
         <InputUserData type='password' isUnlock={false} value={''}/>
 

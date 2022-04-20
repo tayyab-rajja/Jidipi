@@ -25,10 +25,10 @@ const getLinks = (companyInfo: any) => {
       key !== "googleMapLink";
 
     if (isAvlailablekKey) {
-      const svgKey = 
+      const svgKey =
         key === "linkedLink"
-        ? "LINKEDIN"
-        : key.replace("Link" ,"").toLocaleUpperCase();
+          ? "LINKEDIN"
+          : key.replace("Link", "").toLocaleUpperCase();
 
       links.push({
         //TODO: Set icons for sosial sites
