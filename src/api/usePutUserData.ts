@@ -30,9 +30,8 @@ export const usePutUserData = () => {
   const putData = (request: UserData) => {
     const formData = new FormData();
     
-    for (let key in request) {
-      formData.append(key, request[key]);
-    }
+    Object.keys(request).map(key => formData.append(key, request[key]))
+    console.log(formData, request);
     
     return axios.put(
       `${url}${user?._id}`,
