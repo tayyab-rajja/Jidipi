@@ -35,7 +35,16 @@ export const usePutUserData = () => {
     );
   }
 
-  const putAvatar = (formData: {[key: string]: any}) => {
+  const putAvatar = (request: File | string) => {
+    if (typeof request === 'string') {
+      return putData({
+        avatar: request
+      })
+    }
+
+    const formData = new FormData();
+    formData.append("file", request);
+
     return axios.post(
       `${avatarUrl}${user?._id}/upload`,
       formData,
