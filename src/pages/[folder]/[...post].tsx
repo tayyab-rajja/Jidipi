@@ -16,6 +16,7 @@ import { getPostCategories } from "helpers/changePostsData";
 
 import { PageFolder } from "types/pageFolderType";
 import { SideBarProvider } from "src/providers/SidebarProvider/SidebarProvider";
+import { SidebarType } from 'types/sidebarType';
 
 
 type Props = {
@@ -33,7 +34,7 @@ const Post = ({ post }: Props) => {
 
   const [sidebarType, setSidebarType] = useState('');
 
-  const handleOpen = (sidebarType: string) => {
+  const handleOpen = (sidebarType: SidebarType) => {
     setSidebarType(sidebarType);
   };
 

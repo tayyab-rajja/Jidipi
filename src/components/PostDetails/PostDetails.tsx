@@ -9,8 +9,10 @@ import PostCategories from "src/components/PostCategories/PostCategories";
 import ActionPostButtons from "src/components/ActionPostButtons/ActionPostButtons";
 
 import { Categories } from "types/postTypes";
+import { SidebarType } from "types/sidebarType";
 
 import styles from "./PostDetails.module.css";
+
 
 interface PostDetailsProps {
   children: ReactElement | ReactElement[];
@@ -22,7 +24,7 @@ interface PostDetailsProps {
   categories: Categories[];
   title: string;
   companyImg?: string;
-  handleOpen: (sidebarType: string) => void;
+  handleOpen: (sidebarType: SidebarType) => void;
   postId: string;
 }
 

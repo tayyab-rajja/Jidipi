@@ -2,13 +2,15 @@ import { FC } from "react";
 import clsx from "clsx";
 
 import { postsActionSvG } from "constant/postsActionSvG";
+import { SidebarType } from "types/sidebarType";
 
 import styles from "./ActionPostButtons.module.css";
+
 
 interface ActionPostButtonsProps {
   postId: string;
   className?: string;
-  openSidebar?: (sidebarType: string) => void;
+  openSidebar?: (sidebarType: SidebarType) => void;
 }
 
 const ActionPostButtons: FC<ActionPostButtonsProps> = ({
