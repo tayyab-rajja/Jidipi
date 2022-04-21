@@ -46,6 +46,17 @@ export const Navbar = () => {
 
   const { data: serverData } = usePutUserData();
 
+  const closePanel = (e: any) => {
+    if (e.clientY > 165 || document.body.clientWidth - e.clientX > 90) {
+      setShowLoginBar(false);
+      removeClosePanel();
+    }
+  };
+
+  const removeClosePanel = () => {
+    document.removeEventListener("mousemove", closePanel);
+  };
+
   useEffect(() => {
     if (serverData) setUserAuthorized(true);
   }, [serverData]);
@@ -81,11 +92,7 @@ export const Navbar = () => {
             setShowLoginBar((prev) => !prev);
 
             if (userAuthorized) {
-              document.addEventListener(
-                "mousemove",
-                (e) => console.log(e.clientX, e.clientY),
-                false
-              );
+              document.addEventListener("mousemove", closePanel);
             }
           }}
         >

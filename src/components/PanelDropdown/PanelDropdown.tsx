@@ -18,17 +18,6 @@ const PanelDropdown: FC<Props> = ({
   setShowSetting,
   logOut,
 }) => {
-  useEffect(() => {
-    return () => {
-      document.removeEventListener(
-        "mousemove",
-        (e) => console.log(e.clientX, e.clientY),
-        false
-      );
-      console.log("Effect");
-    };
-  });
-
   return isOpen ? (
     <div
       className={clsx(styles["Container"], styles["Body-Container"])}
