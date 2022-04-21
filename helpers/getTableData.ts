@@ -6,31 +6,30 @@ import { TableColumn } from "types/tableColumnTypes";
 
 type GetTableData = (
   data: ReaderPost[] | undefined,
-  type: "POSTS" | "INFORMATION" | "COMPANY"
+  type: "post" | "company" | "information"
 ) => {
   tableData: [] | TableData[];
   tableColumns: TableColumn[];
-  tableFilters: string[];
 };
 
 export const getTableData: GetTableData = (data, type) => {
   const tableOptions = {
     tableData: [] as [] | TableData[],
     tableColumns: [] as TableColumn[],
-    tableFilters: [] as string[],
   };
 
   switch (type) {
-    case "POSTS":
+    case "post":
       if (data) {
         tableOptions.tableData = data
           .filter(
             ({ pageType, postId }) =>
               (pageType === "PRODUCT" || pageType === "PROJECT") && !!postId
           )
-          .map(({ isTrashed, postId, label, note }) => ({
+          .map(({ isTrashed, postId, label, note, _id }) => ({
             isTrashed,
-            id: postId._id,
+            id: _id,
+            postId: postId._id,
             pageFolderId: postId.pageFolderId,
             isSelect: false,
             language: postId.language,
@@ -45,7 +44,7 @@ export const getTableData: GetTableData = (data, type) => {
       tableOptions.tableColumns = tableColumns.post;
       break;
 
-    case "INFORMATION":
+    case "company":
       if (data) {
         tableOptions.tableData = data
           .filter(
@@ -65,10 +64,11 @@ export const getTableData: GetTableData = (data, type) => {
             note: note || "",
           }));
       }
-      tableOptions.tableColumns = tableColumns.information;
+      tableOptions.tableColumns = tableColumns.company;
+
       break;
 
-    case "COMPANY":
+    case "information":
       // if (data) {
       //   tableOptions.tableData = data
       //     .filter(
@@ -88,7 +88,8 @@ export const getTableData: GetTableData = (data, type) => {
       //       note: note || "",
       //     }));
       // }
-      tableOptions.tableColumns = tableColumns.company;
+      tableOptions.tableColumns = tableColumns.information;
+
       break;
   }
 

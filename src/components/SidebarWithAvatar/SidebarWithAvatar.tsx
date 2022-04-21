@@ -7,6 +7,7 @@ import avatar from "./mock-avatar.png";
 import { readerPanelSvg } from "constant/readerPanelSvg";
 
 import styles from "./SidebarWithAvatar.module.css";
+import { useRouter } from "next/router";
 
 const defaultData = [
   {
@@ -24,11 +25,12 @@ const defaultData = [
 ];
 
 const SidebarWithAvatar = ({}) => {
-  const [selectedLink, setSelectedLinks] = useState("post");
+  const {
+    query: { panel },
+  } = useRouter();
 
-  const setSelected = (title: string) => {
-    setSelectedLinks(title);
-  };
+  //@ts-ignore
+  const currentPage = panel[0];
 
   return (
     <div className={styles["Sidebar"]}>
@@ -57,25 +59,23 @@ const SidebarWithAvatar = ({}) => {
         <div className={styles["Title"]}>favorate</div>
         <ul className={styles["Links"]}>
           {defaultData.map(({ title, icon }, i) => (
-            <li
-              key={i}
-              className={clsx(
-                styles["Links-Item"],
-                title === selectedLink && styles["Selected"]
-              )}
-              onClick={() => setSelected(title)}
-            >
-              <span className={styles["Links-Item_Icon"]}>
-                {readerPanelSvg[icon]}
-              </span>
-              <span className={styles["Links-Item_Text"]}>
-                <Link href="#">
-                  <a>{title}</a>
-                </Link>
-              </span>
-              <span className={styles["Links-Item_Arrow"]}>
-                {readerPanelSvg["ARROW"]}
-              </span>
+            <li key={i}>
+              <Link href={`/panel/${title}`}>
+                <a
+                  className={clsx(
+                    styles["Links-Item"],
+                    title === currentPage && styles["Selected"]
+                  )}
+                >
+                  <span className={styles["Links-Item_Icon"]}>
+                    {readerPanelSvg[icon]}
+                  </span>
+                  <span className={styles["Links-Item_Text"]}>{title}</span>
+                  <span className={styles["Links-Item_Arrow"]}>
+                    {readerPanelSvg["ARROW"]}
+                  </span>
+                </a>
+              </Link>
             </li>
           ))}
         </ul>

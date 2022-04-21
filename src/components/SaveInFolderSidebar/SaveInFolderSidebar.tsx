@@ -1,99 +1,170 @@
 import { FC, useState } from "react";
+import { useRouter } from "next/router";
+
+import { useSavePost } from "src/api/useSavePost";
+import { useLabels } from "src/api/useLabels";
+import { usePageFolders } from "src/api/usePageFolders";
+import { usePageFolderByName } from "src/api/usePageFolderByName";
+
+import { sidebarSvg } from "constant/sidebarSvg";
+import { Label } from "types/labelType";
+
+import SideBarWrapper from "../SideBarWrapper/SideBarWrapper";
 import AddLabelForm from "./AddLabelForm/AddLabelForm";
 import FolderItem from "./FolderItem/FolderItem";
+import LabelItem from "./LabelItem/LabelItem";
 
-import styles from './SaveInFolderSidebar.module.css';
+import styles from "./SaveInFolderSidebar.module.css";
 
-const defaultFolderNames = [
-    {
-        title: "Architectures",
-        isSelected: false,
-    },
-    {
-        title: "Interiors",
-        isSelected: false,
-    },
-    {
-        title: "Construction",
-        isSelected: false,
-    },
-    {
-        title: "Electronics",
-        isSelected: false,
-    },
-    {
-        title: "Furniture",
-        isSelected: false,
-    },
-    {
-        title: "Goods",
-        isSelected: false,
-    },
-    {
-        title: "Mine",
-        isSelected: false,
-    },
-]
-
-export const SaveInFolderSidebar: FC = () => {
-
-    const [showElement, setShowElement] = useState({
-        addLabelBtn: false,
-        addLabelForm: false,
-    });
-
-    const [folderNames, setFolderNames] = useState(defaultFolderNames);
-
-    const handleClickItem = (elementName: string, title?: string) => {
-        if (title) {
-            setFolderNames((prevState) => prevState.map(
-                (folderName) => folderName.title === title ? {...folderName, isSelected: true} : {...folderName, isSelected: false})
-            )
-        }
-        setShowElement({
-            ...showElement,
-            [elementName]: true,
-        });
-
-    }
-
-    const hideAddLableForm = (elementName: string) => {
-        setShowElement({
-            ...showElement,
-            [elementName]: false
-        })
-    }
-
-    const cancelSelectedFolder = (title:string, isSelected:boolean) => {
-        if (!isSelected) {
-            return
-        }
-        setFolderNames((prevState) => prevState.map(
-            (folderName) => folderName.title === title ? {...folderName, isSelected: false} : {...folderName})
-        )
-        setShowElement({
-            addLabelBtn: false,
-            addLabelForm: false,
-        });   
-    }
-
-    return (
-        <div className={styles["Sidebar"]}>
-            <div>
-                <div className={`${styles["Sidebar-Title"]} ${styles["Text"]}`}>save in folder</div>
-                <ul className={styles["Sidebar-Folders"]}>
-                    {folderNames.map(({title, isSelected}, i) => 
-                        <FolderItem 
-                            key={i} 
-                            folderName={title} 
-                            handleClickItem={() => handleClickItem('addLabelBtn', title)} 
-                            isSelected={isSelected}
-                            cancelSelectedFolder={() => cancelSelectedFolder(title, isSelected)} 
-                        />)}
-                </ul>
-                {showElement.addLabelBtn && <div className={`${styles["Sidebar-Button"]} ${styles["Text"]}`} onClick={() => handleClickItem('addLabelForm')}>add label</div>} 
-            </div>
-            {showElement.addLabelForm && <AddLabelForm hideAddLableForm={() => hideAddLableForm('addLabelForm')} />}
-        </div>
-    )
+interface Props {
+  postId: string;
 }
+
+export const SaveInFolderSidebar: FC<Props> = ({ postId }) => {
+  const { data } = usePageFolders();
+  const { labelsList, isValidating, createLabel, deleteLabel, updateLabel } =
+    useLabels();
+  const { addPostToFavourites } = useSavePost();
+
+  const { query } = useRouter();
+  const currentPageFolder = query.folder;
+  const { data: pageFolder } = usePageFolderByName(
+    (query.folder as string) ?? null
+  );
+
+  const [showLabelsFlow, setShowLabelsFlow] = useState(false);
+  const [selectedFolder, setSelectedFolder] = useState("");
+  const [selectedLabel, setSelectedLabel] = useState("");
+
+  const pageFolders = data?.filter(
+    (pageFolder) =>
+      pageFolder.pageType === "PROJECT" || pageFolder.pageType === "PRODUCT"
+  );
+  const pageFolderId = pageFolder?._id;
+  const activePageFolders = [currentPageFolder, "mine"];
+
+  const selectFolder = (title: string) => {
+    if (activePageFolders.includes(title)) {
+      setSelectedFolder(title);
+    }
+  };
+
+  const cancelSelectedFolder = (title: string) => {
+    if (title === selectedFolder) {
+      setSelectedFolder("");
+      setShowLabelsFlow(false);
+    }
+  };
+
+  const cancelAllSelected = () => {
+    setSelectedFolder("");
+    setShowLabelsFlow(false);
+  };
+
+  const selectLabel = (id: any) => {
+    setSelectedLabel(id);
+  };
+
+  const addNewLabel = (labelName: string) => {
+    createLabel({
+      label: labelName,
+      colour: "F1F1F1",
+      pageType: "PROJECT",
+    });
+  };
+
+  const changeLabel = (
+    updatedItem: string,
+    updatedValue: string,
+    id: string
+  ) => {
+    const updatedLabel = labelsList.filter(
+      (labelItem: Label) => labelItem._id === id
+    )[0];
+    updateLabel({ ...updatedLabel, [updatedItem]: updatedValue });
+  };
+
+  const removeLabel = (id: any) => {
+    deleteLabel(id);
+  };
+
+  const savePostToFavorites = () => {
+    const postData = selectedLabel
+      ? { postId, pageFolderId, label: selectedLabel }
+      : { postId, pageFolderId };
+
+    addPostToFavourites(postData);
+  };
+
+  return (
+    <SideBarWrapper>
+      <div className={styles["Sidebar"]}>
+        <div>
+          <div className={`${styles["Sidebar-Title"]} ${styles["Text"]}`}>
+            save in folder
+          </div>
+          <ul className={styles["Sidebar-Folders"]}>
+            {pageFolders?.map(({ title, _id }) => (
+              <FolderItem
+                key={_id}
+                folderName={title}
+                selectFolder={() => selectFolder(title)}
+                isSelected={title === selectedFolder}
+                isActive={activePageFolders.includes(title)}
+                cancelSelectedFolder={() => cancelSelectedFolder(title)}
+              />
+            ))}
+            <FolderItem
+              folderName="Mine"
+              selectFolder={() => setSelectedFolder("mine")}
+              isSelected={"mine" === selectedFolder}
+              isActive={activePageFolders.includes("mine")}
+              cancelSelectedFolder={() => cancelSelectedFolder("mine")}
+            />
+          </ul>
+          {selectedFolder && (
+            <div
+              className={`${styles["Sidebar-Button"]} ${styles["Text"]}`}
+              onClick={() => setShowLabelsFlow(true)}
+            >
+              add label
+            </div>
+          )}
+        </div>
+        {showLabelsFlow && (
+          <div>
+            <ul className={styles["LabelsList"]}>
+              {labelsList?.map((label: Label) => (
+                <LabelItem
+                  key={label._id}
+                  labelItem={label}
+                  isSelected={label._id === selectedLabel}
+                  updateLabel={changeLabel}
+                  deleteLabel={() => removeLabel(label._id)}
+                  selectLabel={() => selectLabel(label._id)}
+                />
+              ))}
+            </ul>
+            <AddLabelForm addNewLabel={addNewLabel} />
+          </div>
+        )}
+        {selectedFolder && (
+          <div className={styles["AddLabelForm-ButtonWrapper"]}>
+            <button
+              className={styles["AddLabelForm-InputWrapper_Button"]}
+              onClick={cancelAllSelected}
+            >
+              {sidebarSvg["CANCEL"]}Cancel
+            </button>
+            <button
+              className={styles["AddLabelForm-InputWrapper_Button"]}
+              onClick={savePostToFavorites}
+            >
+              {sidebarSvg["CONFIRM"]}Confirm
+            </button>
+          </div>
+        )}
+      </div>
+    </SideBarWrapper>
+  );
+};

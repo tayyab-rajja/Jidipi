@@ -5,6 +5,7 @@ import { Row, CellValue, ColumnGroup } from "react-table";
 import { UpdateMyData } from "types/updateMyData";
 
 import styles from "./Table.module.css";
+import { actionsSvg } from "constant/actionsSvg";
 
 interface EditableCellProps {
   row: Row;
@@ -16,7 +17,7 @@ interface EditableCellProps {
 
 export const EditableCell = ({
   value: initialValue,
-  row: { index },
+  row: { values, index },
   column: { id },
   updateMyData,
   isDataTrashed,
@@ -52,9 +53,9 @@ export const EditableCell = ({
       }
       return (
         <div className={styles["Table-Column_Edit"]}>
-          <button></button>
-          <button></button>
-          <button></button>
+          <button>{actionsSvg["MOVE"]}</button>
+          <button>{actionsSvg["COPY"]}</button>
+          <button>{actionsSvg["DELETE"]}</button>
         </div>
       );
     case "label":

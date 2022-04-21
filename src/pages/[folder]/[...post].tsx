@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { useState, ReactElement } from "react";
 import Head from "next/head";
 import Script from "next/script";
 import { GetServerSideProps } from "next/types";
@@ -13,11 +13,14 @@ import { fetchPost } from "src/api/fetchPost";
 import { getPostCategories } from "helpers/changePostsData";
 
 import { PageFolder } from "types/pageFolderType";
+import { SideBarProvider } from "src/providers/SidebarProvider/SidebarProvider";
+import SaveInFolderSidebar from "src/components/SaveInFolderSidebar";
 
 type Props = {
   post: any;
   pageFolders: PageFolder[];
   sidebarCategories: any;
+  currentPageFolder: PageFolder;
 };
 
 const Post = ({ post }: Props) => {
@@ -26,6 +29,11 @@ const Post = ({ post }: Props) => {
   const companies = post.companies;
   const title = post.title;
 
+  const [showSaveBar, setShowSaveBar] = useState(false);
+  const handleOpen = () => {
+    setShowSaveBar(true);
+  }
+  
   return (
     <>
       <Head>
@@ -39,6 +47,7 @@ const Post = ({ post }: Props) => {
         postId={post._id}
         categories={categories}
         companyImg={companyImg}
+        handleOpen={handleOpen}
         languages={post?.languages}
         language={post.language}
         title={title}
@@ -54,6 +63,12 @@ const Post = ({ post }: Props) => {
         </div>
       ))}
       {/* </Layout> */}
+      <SideBarProvider
+        isOpen={showSaveBar}
+        close={() => setShowSaveBar(false)}
+      >
+        <SaveInFolderSidebar postId={post.postId} />
+      </SideBarProvider>
       <Script src={process.env.NEXT_PUBLIC_SETKA_SCRIPTS_URL} />
     </>
   );

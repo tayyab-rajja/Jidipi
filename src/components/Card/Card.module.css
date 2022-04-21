@@ -3,6 +3,7 @@
   background-color: var(--surface-color);
   cursor: pointer;
   color: var(--grey-400);
+  position: relative;
 }
 
 .Card ul {
@@ -28,9 +29,20 @@
   fill: #fff;
 }
 
+.Card a img {
+  width: 100%;
+}
+
 .Card-Title {
   margin: 16px 0 0 0;
   font-size: 1.125rem;
-  line-heigh: 1.2;
+  line-height: 1.2;
   font-weight: bold;
+}
+
+.Card-CompanyAvatar {
+  position: absolute;
+  top: 35px;
+  right: 35px;
+  z-index: 10;
 }

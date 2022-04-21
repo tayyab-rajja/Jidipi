@@ -1,7 +1,10 @@
+import { FC, useEffect } from "react";
 import clsx from "clsx";
 import { MenuItem } from "@szhsin/react-menu";
 
 import { DropDown } from "src/components/DropDown/DropDown";
+
+import { FilterTypes } from "types/filterTypes";
 
 import styles from "./Filters.module.css";
 
@@ -14,16 +17,29 @@ const postsPerPageOptions = [
   },
 ];
 
-export const PostsPerPage = () => {
+interface PostsPerPageProps {
+  handleFilterChange: (
+    type: FilterTypes,
+    value: string | boolean | number
+  ) => void;
+}
+
+export const PostsPerPage: FC<PostsPerPageProps> = ({ handleFilterChange }) => {
+  const defaultValue = 20;
+
+  useEffect(() => {
+    handleFilterChange("postsPerPage", defaultValue);
+  }, []);
+
   return (
     <div className={styles["PostsPerPage"]}>
       <div className={styles["PostsPerPage-Title"]}>
         <span>Posts per Page</span>
       </div>
       <DropDown
-        defaultValue={20}
+        defaultValue={defaultValue}
         className={styles["PostsPerPage-Filter"]}
-        onChange={(value) => {}}
+        onChange={(value) => handleFilterChange("postsPerPage", value)}
         options={postsPerPageOptions}
         renderOptions={({ count }, index, selectedItem) => (
           <MenuItem

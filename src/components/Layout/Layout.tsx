@@ -8,15 +8,21 @@ import styles from "./Layout.module.css";
 interface LayoutProps {
   children: ReactElement | ReactElement[];
   sidebarComponent?: ReactElement;
+  style?: object;
 }
 
-export const Layout: FC<LayoutProps> = ({ children, sidebarComponent }) => {
+export const Layout: FC<LayoutProps> = ({
+  children,
+  sidebarComponent,
+  style = {},
+}) => {
   return (
     <>
       <Navbar />
       <main className={clsx(styles["Layout-Container"])}>
         {sidebarComponent}
         <div
+          style={style}
           className={clsx(
             styles["Layout-Content"],
             !sidebarComponent && styles["Layout-Content_FullWith"]

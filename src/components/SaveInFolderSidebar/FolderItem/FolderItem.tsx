@@ -1,17 +1,18 @@
 import { FC, MouseEvent } from 'react';
-
 import clsx from 'clsx';
+
+import { sidebarSvg } from 'constant/sidebarSvg';
+
 import styles from './FolderItem.module.css';
 interface Props {
     folderName: string,
-    handleClickItem: () => void,
     isSelected: boolean,
+    isActive: boolean,
+    selectFolder: () => void,
     cancelSelectedFolder: () => void,
 }
 
-const FolderItem: FC<Props> = ({folderName, handleClickItem, isSelected, cancelSelectedFolder}) => { 
-
-    let className = isSelected ? clsx(styles["Sidebar-FolderItem"], styles["Choosen"]) : styles["Sidebar-FolderItem"];
+const FolderItem: FC<Props> = ({folderName, selectFolder, isSelected, cancelSelectedFolder, isActive}) => { 
 
     const handleClick = (e: MouseEvent) => {
         e.stopPropagation();
@@ -19,15 +20,16 @@ const FolderItem: FC<Props> = ({folderName, handleClickItem, isSelected, cancelS
     }
 
     return (
-        <li className={className} onClick={handleClickItem}>
+        <li className={clsx(styles["Sidebar-FolderItem"], isActive && styles["Active"], (isActive && isSelected) && styles["Choosen"])} onClick={selectFolder}>
             <span className={styles["Sidebar-FolderItem_Text"]}>
                 {folderName}
             </span>
             <span className={styles["Sidebar-FolderItem_Icon"]} onClick={handleClick}>
-                {/* Icon to be added */}
+                {isSelected ? sidebarSvg["CLOSE"] : sidebarSvg["STAR"]}
             </span>
         </li>
     )
 }
+
 
 export default FolderItem;

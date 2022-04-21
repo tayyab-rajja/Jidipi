@@ -1,4 +1,4 @@
-import { FC, ReactElement } from "react";
+import { FC, ReactElement, useState } from "react";
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
 
@@ -16,6 +16,7 @@ interface CardDetailsProps {
   categories: Categories[];
   title: string;
   companyImg?: string;
+  handleOpen: () => void;
   postId: string;
 }
 
@@ -26,6 +27,7 @@ const CardDetails: FC<CardDetailsProps> = ({
   languages,
   title,
   companyImg,
+  handleOpen,
   postId,
 }) => {
   const { t } = useTranslation();
@@ -39,6 +41,7 @@ const CardDetails: FC<CardDetailsProps> = ({
             postId={postId}
             languages={languages}
             className={styles["CardDetails-Buttons"]}
+            favoriteButton={handleOpen}
           />
           <div className={styles["CardDetails-TitleWrapper"]}>
             {companyImg && (
