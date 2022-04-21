@@ -2,19 +2,21 @@ import { FC } from "react";
 import clsx from "clsx";
 
 import { postsActionSvG } from "constant/postsActionSvG";
+import { SidebarType } from "types/sidebarType";
 
 import styles from "./ActionPostButtons.module.css";
+
 
 interface ActionPostButtonsProps {
   postId: string;
   className?: string;
-  favoriteButton?: () => void;
+  openSidebar?: (sidebarType: SidebarType) => void;
 }
 
 const ActionPostButtons: FC<ActionPostButtonsProps> = ({
   postId,
   className,
-  favoriteButton,
+  openSidebar,
   children,
 }) => {
   return (
@@ -29,12 +31,13 @@ const ActionPostButtons: FC<ActionPostButtonsProps> = ({
       >
         {postsActionSvG["DOWNLOAD"]}
       </a>
-      <button className={clsx(styles["ActionPostButtons-Button"])}>
+      <button className={clsx(styles["ActionPostButtons-Button"])}
+      onClick={() => {openSidebar && openSidebar('share')}}>
         {postsActionSvG["SHARE"]}
       </button>
       <button
         className={clsx(styles["ActionPostButtons-Button"])}
-        onClick={favoriteButton}
+        onClick={() => {openSidebar && openSidebar('saveInFolder')}}
       >
         {postsActionSvG["FAVORITE"]}
       </button>
