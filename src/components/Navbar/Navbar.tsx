@@ -1,36 +1,30 @@
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import clsx from "clsx";
 
 import { usePageFolders } from "src/api/usePageFolders";
+
+import SidebarLoginRegister from "src/components/SidebarLoginRegister";
+import SidebarSettingAccount from "src/components/SidebarSettingAccount";
+import PanelDropdown from "src/components/PanelDropdown";
+
+import { SideBarProvider } from "src/providers/SidebarProvider/SidebarProvider";
+import { useAuth } from "src/providers/AuthProvider/AuthProvider";
 
 import { PageFolder } from "types/pageFolderType";
 
 import styles from "./Navbar.module.css";
-import SidebarLoginRegister from "src/components/SidebarLoginRegister";
-import SidebarSettingAccount from "src/components/SidebarSettingAccount";
-
-import { SideBarProvider } from "src/providers/SidebarProvider/SidebarProvider";
-import clsx from "clsx";
-import { useRouter } from "next/router";
-
-import PanelDropdown from "src/components/PanelDropdown";
-
-import { usePutUserData } from "src/api/usePutUserData";
-
-import Cookies from "js-cookie";
-
-const deleteAllCookies = () => {
-  const names = Object.keys(Cookies.get());
-
-  names.map((name) => Cookies.remove(name));
-};
 
 interface Props {
   pageFolders: PageFolder[];
 }
 
 export const Navbar = () => {
-  const [userAuthorized, setUserAuthorized] = useState(false);
+  const {
+    session: { status },
+    removeSession,
+  } = useAuth();
 
   const [showLoginBar, setShowLoginBar] = useState(false);
   const { query } = useRouter();
@@ -44,8 +38,6 @@ export const Navbar = () => {
       pageFolder.pageType === "PROJECT" || pageFolder.pageType === "PRODUCT"
   );
 
-  const { data: serverData } = usePutUserData();
-
   const closePanel = (e: any) => {
     if (e.clientY > 165 || document.body.clientWidth - e.clientX > 90) {
       setShowLoginBar(false);
@@ -56,10 +48,6 @@ export const Navbar = () => {
   const removeClosePanel = () => {
     document.removeEventListener("mousemove", closePanel);
   };
-
-  useEffect(() => {
-    if (serverData) setUserAuthorized(true);
-  }, [serverData]);
 
   return (
     <>
@@ -91,7 +79,7 @@ export const Navbar = () => {
           onClick={() => {
             setShowLoginBar((prev) => !prev);
 
-            if (userAuthorized) {
+            if (status === "authenticated") {
               document.addEventListener("mousemove", closePanel);
             }
           }}
@@ -109,14 +97,13 @@ export const Navbar = () => {
           </svg>
         </div>
       </header>
-      {userAuthorized ? (
+      {status === "authenticated" ? (
         <PanelDropdown
           isOpen={showLoginBar}
           setShowLoginBar={setShowLoginBar}
           setShowSetting={setShowSetting}
           logOut={() => {
-            deleteAllCookies();
-            setUserAuthorized(false);
+            removeSession();
           }}
         />
       ) : (
