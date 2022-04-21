@@ -24,17 +24,16 @@
 }
 
 .AuthContainer-Content {
-  /* margin */
   margin: 0 1rem;
   height: 700px;
   overflow: hidden;
 }
 
-.LoginRegisterContainer-BackToLogin {
+/* .LoginRegisterContainer-BackToLogin {
   display: flex;
   justify-content: center;
   margin: 240px 0 30px;
-}
+} */
 
 .LoginRegisterContainer-A {
   color: blue;

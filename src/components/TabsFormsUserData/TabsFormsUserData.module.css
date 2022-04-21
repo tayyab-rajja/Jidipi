@@ -3,8 +3,7 @@
 }
 .Body-TabPanel {
   padding: 40px 14px;
-  width: 280px;
-  height: 1000px;
+  width: 100%;
 }
 
 .TabList[data-reach-tab-list] {
