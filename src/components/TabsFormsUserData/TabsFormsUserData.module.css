@@ -1,3 +1,7 @@
+.Body-Tabs[data-reach-tabs] {
+  height: 100%;
+}
+
 .TabPanels {
   background: #F1F1F1;
   display: flex;
@@ -5,7 +9,7 @@
 }
 .Body-TabPanel {
   padding: 40px 14px;
-  width: 100%;
+  height: 100%;
 }
 
 .TabList[data-reach-tab-list] {

@@ -4,9 +4,9 @@
   color: #373737;
   font-size: 12px;
 }
-/* .Body-FooterContainer {
+.Body-FooterContainer {
   justify-self: flex-end;
-} */
+}
 
 .FooterContainer-Ref {
   color: blue;
