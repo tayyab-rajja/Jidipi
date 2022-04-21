@@ -21,3 +21,4 @@ const Chat = (props: any) => {
         Chat
     </div>
 }
+export default Chat;

@@ -1,10 +1,10 @@
 import {HYDRATE} from "next-redux-wrapper";
 import {Action, AnyAction, combineReducers} from "redux";
-import userReducer, {UserStateType} from "./user/reducer";
+import userReducer  from "./user/reducer";
 import {UserDraft} from "./user/action";
 
 export interface RootStateType {
-    user: UserStateType | null,
+    user: any | null,
 }
 
 interface RootAction extends Action {

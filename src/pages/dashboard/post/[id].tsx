@@ -61,12 +61,11 @@ export default function Post(props: any) {
     if (!data) return <div>Loading</div>;
 
     return <Layout
-        pageFolders={props.pageFolders}
-        SidebarComponent={<SidebarDashboard competition={competition} user={user} post={post} awards={awards}/>}>
+        // pageFolders={props.pageFolders}
+        sidebarComponent={<SidebarDashboard competition={competition} user={user} post={post} awards={awards}/>}>
         <div>
             <div>
                 <SidebarDashboardRight user={user} post={post} awards={awards} competition={competition}/>
-
             </div>
             <div>
                 <div dangerouslySetInnerHTML={{__html: post.description}}/>

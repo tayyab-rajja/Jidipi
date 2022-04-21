@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {isJudge, isPartner, isReader, isStaff} from "../../../lib/user/role";
 import {PostStatus} from "../../../lib/models/post";
-import {inspect} from "util";
 import styles from "./SidebarDashboardRight.module.css";
 import {PUT} from "../../../lib/common/api";
+import UploadFile from '../File/File';
 
 /**
  * @param props
@@ -14,11 +14,10 @@ import {PUT} from "../../../lib/common/api";
  *
  */
 const SidebarDashboardRight = (props: any) => {
-    const {competition, user, post,  awards} = props;
+    const {competition, user, post, awards} = props;
 
     //the award that is currently being binded to the post.
     const award = awards.find((award: any) => award._id === post.awardId);
-
 
 
     // get awards of the competition
@@ -27,7 +26,7 @@ const SidebarDashboardRight = (props: any) => {
         if (!user || !post || !competition) {
             return;
         }
-        if (isPartner(user)  ) {
+        if (isPartner(user)) {
             // If partner, load the application data from post.
             const application = {
                 postId: post._id,
@@ -38,14 +37,19 @@ const SidebarDashboardRight = (props: any) => {
             }
             SetApplication(application);
         }
-        if (isJudge(user) ) {
-            SetEvaluation({    competitionId: post.competitionId, postId:post._id, rating: post.rating, comment:  post.comment})
+        if (isJudge(user)) {
+            SetEvaluation({
+                competitionId: post.competitionId,
+                postId: post._id,
+                rating: post.rating,
+                comment: post.comment
+            })
         }
-    }, [user, post,competition]);
+    }, [user, post, competition]);
 
     // Partner application
     const [application, SetApplication] = useState({
-        postId:'',
+        postId: '',
         competitionId: null,
         awardId: '',
         applicationReason: '',
@@ -53,7 +57,7 @@ const SidebarDashboardRight = (props: any) => {
     });
 
     async function apply(status: string) {
-        const a = {...application,  status}
+        const a = {...application, status}
         console.log(a);
         SetApplication(a);
         try {
@@ -68,7 +72,7 @@ const SidebarDashboardRight = (props: any) => {
     // EOF Partner application
 
     // Judge evaluation
-    const [evaluation, SetEvaluation] = useState({competitionId:'', postId:'', rating: 0, comment: ''});
+    const [evaluation, SetEvaluation] = useState({competitionId: '', postId: '', rating: 0, comment: ''});
 
     async function review() {
         const result = await PUT('/competition/judge', evaluation);
@@ -156,7 +160,7 @@ const SidebarDashboardRight = (props: any) => {
             >Send Application to Competition
             </button>
             <p></p>
-            { application.status!==PostStatus.Published && <button
+            {application.status !== PostStatus.Published && <button
                 onClick={() => {
                     apply(PostStatus.Draft)
                 }}
@@ -165,6 +169,8 @@ const SidebarDashboardRight = (props: any) => {
             }
             <p></p>
             <div>CHAT HERE</div>
+
+            <UploadFile postId={post._id} type={'POST'}></UploadFile>
         </div>
     }
     return <></>;
