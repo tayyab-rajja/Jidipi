@@ -16,7 +16,7 @@ interface Props {
     updateLabel: (updatedItem: string, updatedValue: string, id: string) => void,
 }
 
-const LabelItem: FC<Props> = ({labelItem, isSelected,  deleteLabel, selectLabel, updateLabel}) => {
+const LabelItem: FC<Props> = ({ labelItem, isSelected, deleteLabel, selectLabel, updateLabel }) => {
 
     const {_id, label, colour } = labelItem;
 
@@ -60,9 +60,8 @@ const LabelItem: FC<Props> = ({labelItem, isSelected,  deleteLabel, selectLabel,
                     onKeyUp={saveOnEnter} 
                 /> : 
                 <div 
-                    className={clsx(styles["LabelItem"], isSelected && styles["Selected"])} 
+                    className={clsx(styles["LabelItem"], styles[`color${colour}`], isSelected && styles["Selected"])} 
                     onClick={selectLabel} 
-                    style={{backgroundColor: `${colour}`}} 
                     onContextMenu={showEditLabelForm}>
                 {label}{isSelected && <span onClick={deleteLabel}>{sidebarSvg["CLOSE"]}</span>} 
                 </div>}
