@@ -31,12 +31,10 @@ const Post = ({ post }: Props) => {
   const companies = post.companies || [];
   const title = post.title;
 
-  const [showSidebar, setShowSidebar] = useState(false);
   const [sidebarType, setSidebarType] = useState('');
 
   const handleOpen = (sidebarType: string) => {
     setSidebarType(sidebarType);
-    setShowSidebar(true);
   };
 
   return (
@@ -68,8 +66,12 @@ const Post = ({ post }: Props) => {
         </div>
       ))}
       {/* </Layout> */}
-      <SideBarProvider isOpen={showSidebar} close={() => setShowSidebar(false)}>
-        {sidebarType === "share" ? <ShareSidebar /> : <SaveInFolderSidebar postId={post._id} />}
+      <SideBarProvider isOpen={!!sidebarType} close={() => setSidebarType('')}>
+        {sidebarType === "share" ? (
+        <ShareSidebar />
+        ) : (
+        <SaveInFolderSidebar postId={post._id} />
+        )}
       </SideBarProvider>
       <Script src={process.env.NEXT_PUBLIC_SETKA_SCRIPTS_URL} />
     </>
