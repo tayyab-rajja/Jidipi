@@ -1,0 +1,74 @@
+.PostDetails {
+  padding-top: 40px;
+  width: 100%;
+  background-color: #fff;
+  color: #d6d6d6;
+}
+
+.PostDetails-Wrapper {
+  margin: 0 auto;
+  max-width: 940px;
+}
+
+.PostDetails-Header {
+  padding: 0 20px;
+}
+
+.PostDetails-Header ul {
+  margin-top: 5px;
+}
+
+.PostDetails-Buttons {
+  padding: 20px 0;
+}
+
+.PostDetails-TitleWrapper {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #d6d6d6;
+}
+
+.PostDetails-CompanyLogo {
+  height: 105px;
+  width: 105px;
+  margin-right: 20px;
+  border: 1px solid #d6d6d6;
+  border-bottom: none;
+}
+
+.PostDetails-Title {
+  margin: 0 0 10px 0;
+  font-size: 24px;
+}
+
+.PostDetails-Title:hover {
+  color: #373737;
+}
+
+.PostDetails-LanguageLink {
+  height: 35px;
+  width: 35px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  background-color: #e3e3e3;
+}
+
+.PostDetails-LanguageLink.Active {
+  color: #fff;
+  background-color: #373737;
+}
+
+.PostDetails-LanguageLink:hover {
+  background-color: #deb851;
+}
+
+.PostDetails-LanguageLink {
+  margin-right: 10px;
+}

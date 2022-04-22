@@ -1,30 +1,42 @@
-import React, { ReactElement } from "react";
+import React, { useState, ReactElement } from "react";
 import Head from "next/head";
 import Script from "next/script";
 import { GetServerSideProps } from "next/types";
 
 import Layout from "src/components/Layout";
-import CardDetails from "src/components/CardDetails/CardDetails";
+import PostDetails from "src/components/PostDetails/PostDetails";
 import CompanyProfile from "src/components/CompanyProfile/CompanyProfile";
 import Sidebar from "src/components/Sidebar";
+import SaveInFolderSidebar from "src/components/SaveInFolderSidebar";
+import ShareSidebar from "src/components/ShareSidebar/ShareSidebar";
 
 import { fetchPost } from "src/api/fetchPost";
 
 import { getPostCategories } from "helpers/changePostsData";
 
 import { PageFolder } from "types/pageFolderType";
+import { SideBarProvider } from "src/providers/SidebarProvider/SidebarProvider";
+import { SidebarType } from 'types/sidebarType';
+
 
 type Props = {
   post: any;
   pageFolders: PageFolder[];
   sidebarCategories: any;
+  currentPageFolder: PageFolder;
 };
 
 const Post = ({ post }: Props) => {
   const categories = getPostCategories(post, "oldCategories");
   const companyImg = post?.companyId?.avatar || null;
-  const companies = post.companies;
+  const companies = post.companies || [];
   const title = post.title;
+
+  const [sidebarType, setSidebarType] = useState('');
+
+  const handleOpen = (sidebarType: SidebarType) => {
+    setSidebarType(sidebarType);
+  };
 
   return (
     <>
@@ -35,16 +47,17 @@ const Post = ({ post }: Props) => {
       </Head>
 
       {/* <Layout sidebarComponent={<Sidebar />}> */}
-      <CardDetails
+      <PostDetails
         postId={post._id}
         categories={categories}
         companyImg={companyImg}
+        handleOpen={handleOpen}
         languages={post?.languages}
         language={post.language}
         title={title}
       >
         <div dangerouslySetInnerHTML={{ __html: post.description }} />
-      </CardDetails>
+      </PostDetails>
       <div style={{ marginTop: 20, width: "100%" }}>
         <CompanyProfile companyInfo={post?.companyId} />
       </div>
@@ -54,6 +67,13 @@ const Post = ({ post }: Props) => {
         </div>
       ))}
       {/* </Layout> */}
+      <SideBarProvider isOpen={!!sidebarType} close={() => setSidebarType('')}>
+        {sidebarType === "share" ? (
+        <ShareSidebar />
+        ) : (
+        <SaveInFolderSidebar postId={post._id} />
+        )}
+      </SideBarProvider>
       <Script src={process.env.NEXT_PUBLIC_SETKA_SCRIPTS_URL} />
     </>
   );
@@ -67,9 +87,11 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   let post = {};
   //@ts-ignore
   const postId = query?.post[0];
+  //@ts-ignore
+  const language = query.post[1];
 
   try {
-    const postFromApi = await fetchPost(postId);
+    const postFromApi = await fetchPost(postId, language);
     post = postFromApi;
   } catch (e) {
     console.log(e);

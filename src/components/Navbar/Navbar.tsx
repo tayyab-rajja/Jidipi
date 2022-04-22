@@ -1,36 +1,30 @@
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import clsx from "clsx";
 
 import { usePageFolders } from "src/api/usePageFolders";
+
+import SidebarLoginRegister from "src/components/SidebarLoginRegister";
+import SidebarSettingAccount from "src/components/SidebarSettingAccount";
+import PanelDropdown from "src/components/PanelDropdown";
+
+import { SideBarProvider } from "src/providers/SidebarProvider/SidebarProvider";
+import { useAuth } from "src/providers/AuthProvider/AuthProvider";
 
 import { PageFolder } from "types/pageFolderType";
 
 import styles from "./Navbar.module.css";
-import SidebarLoginRegister from "src/components/SidebarLoginRegister";
-import SidebarSettingAccount from "src/components/SidebarSettingAccount";
-
-import { SideBarProvider } from "src/providers/SidebarProvider/SidebarProvider";
-import clsx from "clsx";
-import { useRouter } from "next/router";
-
-import PanelDropdown from "src/components/PanelDropdown"
-
-import {useUserData} from "src/api/useUserData"
-
-import Cookies from "js-cookie";
-
-const deleteAllCookies = () => {
-  const names = Object.keys(Cookies.get())
-
-  names.map(name => Cookies.remove(name))
-}
 
 interface Props {
   pageFolders: PageFolder[];
 }
 
 export const Navbar = () => {
-  const [userAuthorized, setUserAuthorized] = useState(false);
+  const {
+    session: { status },
+    removeSession,
+  } = useAuth();
 
   const [showLoginBar, setShowLoginBar] = useState(false);
   const { query } = useRouter();
@@ -44,11 +38,16 @@ export const Navbar = () => {
       pageFolder.pageType === "PROJECT" || pageFolder.pageType === "PRODUCT"
   );
 
-  const {data: serverData} = useUserData()
+  const closePanel = (e: any) => {
+    if (e.clientY > 165 || document.body.clientWidth - e.clientX > 90) {
+      setShowLoginBar(false);
+      removeClosePanel();
+    }
+  };
 
-  useEffect(() => {
-    if (serverData) setUserAuthorized(true)
-  }, [serverData])
+  const removeClosePanel = () => {
+    document.removeEventListener("mousemove", closePanel);
+  };
 
   return (
     <>
@@ -77,7 +76,13 @@ export const Navbar = () => {
         </nav>
         <div
           className={styles["Navbar-User"]}
-          onClick={() => setShowLoginBar(prev => !prev)}
+          onClick={() => {
+            setShowLoginBar((prev) => !prev);
+
+            if (status === "authenticated") {
+              document.addEventListener("mousemove", closePanel);
+            }
+          }}
         >
           <svg
             data-name="icon people"
@@ -92,32 +97,32 @@ export const Navbar = () => {
           </svg>
         </div>
       </header>
-      {userAuthorized
-        ? <PanelDropdown
-            isOpen={showLoginBar}
-            setShowLoginBar={setShowLoginBar}
-            setShowSetting={setShowSetting}
-            logOut={() => {
-              deleteAllCookies()
-              setUserAuthorized(false)
-            }}
-          />
-        : <SideBarProvider
-            isOpen={showLoginBar}
-            close={() => setShowLoginBar(false)}
-          >
-            <SidebarLoginRegister />
-          </SideBarProvider>
-      }
+      {status === "authenticated" ? (
+        <PanelDropdown
+          isOpen={showLoginBar}
+          setShowLoginBar={setShowLoginBar}
+          setShowSetting={setShowSetting}
+          logOut={() => {
+            removeSession();
+          }}
+        />
+      ) : (
+        <SideBarProvider
+          isOpen={showLoginBar}
+          close={() => setShowLoginBar(false)}
+        >
+          <SidebarLoginRegister />
+        </SideBarProvider>
+      )}
 
-      {showSetting &&
+      {showSetting && (
         <SideBarProvider
           isOpen={showSetting}
           close={() => setShowSetting(false)}
         >
           <SidebarSettingAccount />
         </SideBarProvider>
-      }
+      )}
     </>
   );
 };

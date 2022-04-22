@@ -5,6 +5,7 @@ import Masonry from "react-masonry-css";
 import { useCompanyPosts } from "src/api/useCompanyPosts";
 
 import Card from "src/components/Card";
+import PostsLoading from "src/components/PostsLoading/PostsLoading";
 
 import styles from "./CardsTab.module.css";
 
@@ -22,7 +23,11 @@ export const CardsTab: FC<CardsTabProps> = ({ pageFolderId, folder }) => {
   );
 
   if (isValidating) {
-    return <h1>Loading...</h1>;
+    return (
+      <div className={styles["CardsTab"]}>
+        <PostsLoading />
+      </div>
+    );
   }
 
   return (

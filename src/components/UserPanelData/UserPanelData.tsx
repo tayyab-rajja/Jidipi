@@ -1,26 +1,32 @@
+import { useAuth } from "src/providers/AuthProvider/AuthProvider";
+
 import InfoBlock from "./InfoBlock/InfoBlock";
 
 import styles from "./UserPanelData.module.css";
 
 const UserPanelData = () => {
+  const {
+    session: { user },
+  } = useAuth();
+
   const testData = [
     {
-      title: "Title",
+      title: "Registed From",
       text: "Text text",
       type: "USER",
     },
     {
-      title: "Title",
+      title: "Login Hours",
       text: "Text text",
       type: "HOURS",
     },
     {
-      title: "Title",
+      title: "Visited Post",
       text: "Text text",
       type: "POSTS",
     },
     {
-      title: "Title",
+      title: "Favorate Post",
       text: "Text text",
       type: "FAVORITE",
     },

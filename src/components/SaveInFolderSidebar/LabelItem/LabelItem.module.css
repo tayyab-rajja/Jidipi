@@ -1,0 +1,65 @@
+.LabelItem-Wrapper {
+    position: relative;
+}
+
+.LabelItem-Overlay {
+    position: absolute;
+    width: 100%;
+    height: calc(100% + 120px);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(55, 55, 55, 0.66);
+    z-index: 23;
+}
+
+.LabelItem {
+    width: 120px;
+    height: 28px;
+    margin-bottom: 12px;
+    background-color: #F1F1F1;
+    border: 1px solid #D6D6D6;
+    color: #373737;
+    font-size: 9px;
+    padding: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.LabelInput {
+    width: 120px;
+    height: 28px;
+    margin-bottom: 12px;
+    background-color: #F1F1F1;
+    border: 1px solid #D6D6D6;
+    color: #3A63DEE8;
+    font-size: 9px;
+    padding: 5px;
+    outline: none;
+}
+
+.LabelItem.Selected {
+    background-color: #373737;
+    color: #fff;
+}
+
+.Selected.LabelItem svg {
+    fill: #fff;
+    position: absolute;
+    right: 5px;
+    top: 4px;
+}
+
+.LabelItem:hover {
+    background-color: #DEB851;
+    color: #fff;
+}
+
+.LabelItem:active {
+    background-color: #373737;
+    color: #fff;
+}

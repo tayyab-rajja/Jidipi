@@ -1,19 +1,34 @@
-import { FC } from 'react';
+import { FC, KeyboardEventHandler, useState } from 'react';
 import styles from './AddLabelForm.module.css';
 
 interface Props {
-    hideAddLableForm: () => void,
+    addNewLabel: (labelName: string) => void,
 }
 
-const AddLabelForm: FC<Props> = ({hideAddLableForm}) => {
+const AddLabelForm: FC<Props> = ({addNewLabel}) => {
+
+    const [inputValue, setInputValue] = useState('');
+
+    const handleConfirmBtnOnEnter: KeyboardEventHandler<HTMLDivElement> = (e) => {
+        if (!inputValue) {
+            return
+        }
+        if (e.key === 'Enter') {
+            addNewLabel(inputValue);
+            setInputValue('');
+        }
+    }
+    
     return (
         <div className={styles["AddLabelForm"]}>
             <div className={styles["AddLabelForm-InputWrapper"]}>
-                <input className={styles["AddLabelForm-InputWrapper_Input"]} placeholder="Create a new label" />
-            </div>
-            <div className={styles["AddLabelForm-ButtonWrapper"]}>
-                <button className={styles["AddLabelForm-InputWrapper_Button"]} onClick={hideAddLableForm}>Cancel</button>
-                <button className={styles["AddLabelForm-InputWrapper_Button"]}>Confirm</button>
+                <input 
+                    className={styles["AddLabelForm-InputWrapper_Input"]} 
+                    placeholder="Create a new label" 
+                    maxLength={20} 
+                    value={inputValue} 
+                    onChange={(e) => setInputValue(e.target.value)} 
+                    onKeyUp={handleConfirmBtnOnEnter} />
             </div>
         </div>
     )

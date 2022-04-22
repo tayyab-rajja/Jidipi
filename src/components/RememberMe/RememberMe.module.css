@@ -28,10 +28,11 @@
 .Container-Label {
   color: #888888;
   margin: 0 0;
+  font-size: 11px;
 }
 
 .ForgotPassword {
-  font-size: 12px;
+  font-size: 11px;
   color: blue;
   cursor: pointer;
 }

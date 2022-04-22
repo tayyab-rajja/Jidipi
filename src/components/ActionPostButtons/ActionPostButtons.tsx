@@ -1,46 +1,28 @@
-import clsx from "clsx";
-import { postsActionSvG } from "constant/postsActionSvG";
-import { useTranslation } from "next-i18next";
 import { FC } from "react";
+import clsx from "clsx";
+
+import { postsActionSvG } from "constant/postsActionSvG";
+import { SidebarType } from "types/sidebarType";
+
 import styles from "./ActionPostButtons.module.css";
 
+
 interface ActionPostButtonsProps {
-  language: string;
-  languages?: [];
   postId: string;
   className?: string;
+  openSidebar?: (sidebarType: SidebarType) => void;
 }
 
 const ActionPostButtons: FC<ActionPostButtonsProps> = ({
-  language,
-  languages,
   postId,
   className,
+  openSidebar,
+  children,
 }) => {
-  const { t } = useTranslation();
-
   return (
     <div className={clsx(styles["ActionPostButtons"], className)}>
       {/* TODO: added logic to change post language */}
-      {languages ? (
-        languages.map(({ language: languageFromArray, _id }) => (
-          <button
-            key={_id}
-            className={clsx(
-              styles["ActionPostButtons-Button"],
-              languageFromArray === language && styles["Active"]
-            )}
-          >
-            {t(languageFromArray)}
-          </button>
-        ))
-      ) : (
-        <button
-          className={clsx(styles["ActionPostButtons-Button"], styles["Active"])}
-        >
-          {t(language)}
-        </button>
-      )}
+      {children}
       <a
         href={`${process.env.NEXT_PUBLIC_API_URL}/post/${postId}/gallery/download`}
         target="_blank"
@@ -49,10 +31,14 @@ const ActionPostButtons: FC<ActionPostButtonsProps> = ({
       >
         {postsActionSvG["DOWNLOAD"]}
       </a>
-      <button className={clsx(styles["ActionPostButtons-Button"])}>
+      <button className={clsx(styles["ActionPostButtons-Button"])}
+      onClick={() => {openSidebar && openSidebar('share')}}>
         {postsActionSvG["SHARE"]}
       </button>
-      <button className={clsx(styles["ActionPostButtons-Button"])}>
+      <button
+        className={clsx(styles["ActionPostButtons-Button"])}
+        onClick={() => {openSidebar && openSidebar('saveInFolder')}}
+      >
         {postsActionSvG["FAVORITE"]}
       </button>
     </div>

@@ -2,9 +2,10 @@
   display: flex;
   justify-content: center;
   color: #373737;
+  font-size: 12px;
 }
 .Body-FooterContainer {
-  margin-top: 240px;
+  justify-self: flex-end;
 }
 
 .FooterContainer-Ref {

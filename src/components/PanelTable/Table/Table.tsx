@@ -24,6 +24,7 @@ interface TableProps {
   data: TableData[];
   tableColumns: TableColumn[];
   updateMyData: UpdateMyData;
+  handleAction: (type: string, id: string) => void;
 }
 
 interface CustomTableOptions {
@@ -41,7 +42,7 @@ const Table: FC<TableProps> = ({
   const defaultColumn = {
     Cell: EditableCell,
   };
-  const columns = useMemo(() => tableColumns, [tableColumns]);
+  const columns = useMemo(() => tableColumns, [data]);
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(

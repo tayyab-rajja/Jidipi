@@ -1,0 +1,26 @@
+.HomePageFooter {
+  height: 550px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #2d2d2d;
+  color: #fff;
+}
+
+.HomePageFooter h2 {
+  margin: -45px 0 0 0;
+  padding: 0px;
+  font-size: 34px;
+  font-weight: 100;
+  letter-spacing: 0;
+}
+
+.HomePageFooter p {
+  margin: 15px 0 0 0;
+  font-size: 20px;
+  font-weight: 300;
+  letter-spacing: 0;
+  color: rgb(170, 170, 170);
+  font-family: "Open Sans";
+}
