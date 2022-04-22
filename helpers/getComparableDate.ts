@@ -1,4 +1,7 @@
-export function getComparableDate(date: Date) {
+export function getComparableDate(date: Date | null) {
+  if (!date) {
+    return "";
+  }
   const seperator = "-";
   return (
     date.getFullYear() +
