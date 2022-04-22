@@ -1,24 +1,5 @@
+import { iDay, monNames, temp } from "constant/calendar";
 import { ItemOfDatePicker } from "types/calendarTypes";
-
-let monNames = [
-  "jan",
-  "feb",
-  "mar",
-  "apr",
-  "may",
-  "jun",
-  "jul",
-  "aug",
-  "sep",
-  "oct",
-  "nov",
-  "dec",
-];
-const iSecond = 1000;
-const iMinute = iSecond * 60;
-const iHour = iMinute * 60;
-const iDay = iHour * 24;
-let temp = [6, 0, 1, 2, 3, 4, 5];
 
 const getDateEnd = function (days: number, date: Date) {
   let dat = new Date(date.valueOf());

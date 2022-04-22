@@ -7,9 +7,10 @@ import { CalendarItem } from "./CalendarItem/CalendarItem";
 
 import { getCalendarDatas } from "helpers/getCalendarDatas";
 import { getComparableDate } from "helpers/getComparableDate";
-import styles from "./DatesCategoryPicker.module.css";
 
-const dayNames = ["mo", "tu", "we", "th", "fr", "sa", "su"];
+import { dayNames } from "constant/calendar";
+
+import styles from "./DatesCategoryPicker.module.css";
 
 const CalendarDays = () => {
   return (
