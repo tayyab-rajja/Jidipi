@@ -55,7 +55,7 @@ export default function Posts(props: any) {
         });
     }
 
-    return <Layout pageFolders={props.pageFolders} SidebarComponent={
+    return <Layout   sidebarComponent={
         <SidebarDashboard menus={menus}/>}>
         <div>
             <div>TOP header</div>
