@@ -11,6 +11,8 @@ const ShareSidebar: FC = () => {
         navigator.clipboard.writeText(e.target.textContent);
     }
 
+    const currentUrl = window.location.href;
+
     return (
         <SideBarWrapper>
             <div className={styles["Sidebar"]}>
@@ -61,7 +63,7 @@ const ShareSidebar: FC = () => {
                             {socialSvg["LINK"]}
                         </span>
                         <span className={styles["Sidebar-LinksItem_Text"]} >
-                            <Link href="#"><a>http://architecture.jidipi.com/j000012394/…</a></Link>
+                            <Link href="#"><a>{currentUrl}</a></Link>
                         </span>
                     </li>
                 </ul>

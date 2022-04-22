@@ -26,10 +26,11 @@
 .Sidebar-LinksItem {
     color: #888;
     font-size: 11px;
-    padding: 14px 20px;
+    padding: 8px 8px 8px 20px;
     border-bottom: 2px solid #D6D6D6;
     text-decoration: none;
     display: flex;
+    column-gap: 14px;
     align-items: center;
     position: relative;
     cursor: pointer;
@@ -54,13 +55,18 @@
 
 
 .Sidebar-LinksItem_Icon {
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     position: relative;
 }
 
 .Sidebar-LinksItem_Text {
-    margin-left: 20px;
+    max-width: 230px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .Sidebar-LinksItem:active {
