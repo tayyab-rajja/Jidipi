@@ -13,6 +13,8 @@ export const monNames = [
   "nov",
   "dec",
 ];
+
+export const prevMonths = ["feb", "apr", "jun", "aug", "oct", "dec"];
 export const iSecond = 1000;
 export const iMinute = iSecond * 60;
 export const iHour = iMinute * 60;

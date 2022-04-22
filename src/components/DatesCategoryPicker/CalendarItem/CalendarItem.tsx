@@ -2,6 +2,9 @@ import clsx from "clsx";
 import { FC } from "react";
 
 import { getComparableDate } from "helpers/getComparableDate";
+import { getIsPrevMonth } from "helpers/getIsPrevMonth";
+import { getDateMonth } from "helpers/getDateMonth";
+
 import { ItemOfDatePicker } from "types/calendarTypes";
 
 import styles from "../DatesCategoryPicker.module.css";
@@ -14,7 +17,7 @@ interface CalendarItemProps {
 }
 
 export const CalendarItem: FC<CalendarItemProps> = ({
-  data: { days, month, isPrevMonth },
+  data: { days, month },
   handleClick,
   currentDate,
   todayDate,
@@ -25,7 +28,7 @@ export const CalendarItem: FC<CalendarItemProps> = ({
         className={clsx(
           styles["CalendarList-Item_Month"],
           styles["Day"],
-          isPrevMonth && styles["PrevMonth"]
+          getIsPrevMonth(month) && styles["PrevMonth"]
         )}
       >
         {month}
@@ -33,17 +36,18 @@ export const CalendarItem: FC<CalendarItemProps> = ({
       {days.map((day, index) => {
         const dayOfWeek = day.getDate();
         const comparableDate = getComparableDate(day);
+        const dayMonth = getDateMonth(day);
         const isToday = todayDate === comparableDate;
         const isDateSelected = currentDate === comparableDate;
 
         return (
           <div
-            key={dayOfWeek + index}
+            key={dayOfWeek + comparableDate + index}
             onClick={() => handleClick(day)}
             className={clsx(
               styles["CalendarList-Item_Day"],
               styles["Day"],
-              isPrevMonth && styles["PrevMonth"],
+              getIsPrevMonth(dayMonth) && styles["PrevMonth"],
               isToday && styles["Today"],
               isDateSelected && styles["SelectedDay"]
             )}
