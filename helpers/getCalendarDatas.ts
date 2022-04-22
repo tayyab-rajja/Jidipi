@@ -33,6 +33,7 @@ export const getCalendarDatas = (year: number) => {
 
   let item: ItemOfDatePicker = {
     month: "",
+    isPrevMonth: false,
     days: [],
   };
 
@@ -52,16 +53,14 @@ export const getCalendarDatas = (year: number) => {
     let thisDay = new Date(past[i]);
     let month = monNames[thisDay.getMonth()];
 
-    item.days.push({
-      day: thisDay,
-      isPrevMonth: false,
-    });
+    item.days.push(thisDay);
     item.month = month;
 
     if (couter % 7 === 0) {
       datas.push(item);
       item = {
         month: "",
+        isPrevMonth: false,
         days: [],
       };
     }
@@ -77,19 +76,12 @@ export const getCalendarDatas = (year: number) => {
   for (let i = dateStart.valueOf(); i < dateEnd.valueOf(); i += iDay) {
     const thisDay = new Date(i);
     const month = monNames[thisDay.getMonth()];
-    let isPrevMonth = true;
-
-    console.log(datasCouter);
-    console.log(datas[datasCouter]);
+    item.days.push(thisDay);
+    // item.isPrevMonth = true;
 
     if (month === datas[datasCouter]?.month && datasCouter % 2 !== 0) {
-      isPrevMonth = true;
+      item.isPrevMonth = true;
     }
-
-    item.days.push({
-      day: thisDay,
-      isPrevMonth,
-    });
 
     if (couter % 3 === 0 && couter % 6 !== 0) {
       item.month = month;
@@ -103,6 +95,7 @@ export const getCalendarDatas = (year: number) => {
       datasCouter++;
       item = {
         month: "",
+        isPrevMonth: false,
         days: [],
       };
     }

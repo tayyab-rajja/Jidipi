@@ -14,17 +14,23 @@ interface CalendarItemProps {
 }
 
 export const CalendarItem: FC<CalendarItemProps> = ({
-  data: { days, month },
+  data: { days, month, isPrevMonth },
   handleClick,
   currentDate,
   todayDate,
 }) => {
   return (
     <li className={styles["CalendarList-Item"]}>
-      <div className={clsx(styles["CalendarList-Item_Month"], styles["Day"])}>
+      <div
+        className={clsx(
+          styles["CalendarList-Item_Month"],
+          styles["Day"],
+          isPrevMonth && styles["PrevMonth"]
+        )}
+      >
         {month}
       </div>
-      {days.map(({ day, isPrevMonth }, index) => {
+      {days.map((day, index) => {
         const dayOfWeek = day.getDate();
         const comparableDate = getComparableDate(day);
         const isToday = todayDate === comparableDate;
