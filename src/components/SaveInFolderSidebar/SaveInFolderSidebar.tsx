@@ -100,6 +100,10 @@ export const SaveInFolderSidebar: FC<Props> = ({ postId, handleClose }) => {
     handleClose();
   };
 
+  const cancelSelectedLabel = () => {
+      setSelectedLabel("");
+  }
+
   return (
     <SideBarWrapper>
       <div className={styles["Sidebar"]}>
@@ -146,6 +150,7 @@ export const SaveInFolderSidebar: FC<Props> = ({ postId, handleClose }) => {
                   isSelected={label._id === selectedLabel}
                   deleteLabel={() => removeLabel(label._id)}
                   selectLabel={() => selectLabel(label._id)}
+                  cancelSelectedLabel={cancelSelectedLabel}
                 />
               ))}
             </ul>

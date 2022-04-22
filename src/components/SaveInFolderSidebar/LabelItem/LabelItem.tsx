@@ -14,9 +14,10 @@ interface Props {
     deleteLabel: () => void,
     selectLabel: () => void,
     updateLabel: (updatedItem: string, updatedValue: string, id: string) => void,
+    cancelSelectedLabel: () => void, 
 }
 
-const LabelItem: FC<Props> = ({ labelItem, isSelected, deleteLabel, selectLabel, updateLabel }) => {
+const LabelItem: FC<Props> = ({ labelItem, isSelected, deleteLabel, selectLabel, updateLabel, cancelSelectedLabel }) => {
 
     const {_id, label, colour } = labelItem;
 
@@ -24,6 +25,16 @@ const LabelItem: FC<Props> = ({ labelItem, isSelected, deleteLabel, selectLabel,
     
     const [isEditable, setEditable] = useState(false);
     const [inputValue, setInputValue] = useState(label);
+    const [error, setError] = useState("");
+
+    const handleInput = (e: any) => {
+        setInputValue(e.target.value);
+        if (inputValue.length > 20) {
+            setError("20 Characters Maximum!");
+        } else {
+            setError("");
+        }
+    }
 
     const selectColor = (color: string) => {
         updateLabel("colour", color, _id);
@@ -39,31 +50,43 @@ const LabelItem: FC<Props> = ({ labelItem, isSelected, deleteLabel, selectLabel,
     }
 
     const saveOnEnter: KeyboardEventHandler<HTMLDivElement> = (e) => {
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' && !error) {
             updateLabel("label", inputValue, _id);
             setEditable(false);
         }   
+    }
+
+    const unSelectLabel: MouseEventHandler<HTMLSpanElement> = (e) => {
+        e.stopPropagation();
+        cancelSelectedLabel();
+    }
+
+    const handleOverlay = () => {
+        setEditLabelForm(false);
+        setEditable(false);
+        setInputValue(label);
     }
 
     const zIndex = isEditLabelFormOpen ? {zIndex: 25} : {zIndex: 0};
 
     return (
         <>
-        {isEditLabelFormOpen && <div className={styles["LabelItem-Overlay"]} onClick={() => setEditLabelForm(false)}></div>}
+        {isEditLabelFormOpen && <div className={styles["LabelItem-Overlay"]} onClick={handleOverlay}></div>}
         <li className={styles["LabelItem-Wrapper"]} style={zIndex}>
             {isEditable ? 
-                <input 
-                    value={inputValue} 
-                    className={styles["LabelInput"]} 
-                    maxLength={20} 
-                    onChange={(e) => setInputValue(e.target.value)} 
-                    onKeyUp={saveOnEnter} 
-                /> : 
+                    <>
+                        {error && <small className={styles["InputError"]}>{error}</small>}
+                        <input value={inputValue} 
+                            className={styles["LabelInput"]} 
+                            onChange={(e) => handleInput(e)} 
+                            onKeyUp={saveOnEnter} 
+                        />
+                    </> : 
                 <div 
                     className={clsx(styles["LabelItem"], styles[`color${colour}`], isSelected && styles["Selected"])} 
                     onClick={selectLabel} 
                     onContextMenu={showEditLabelForm}>
-                {label}{isSelected && <span onClick={deleteLabel}>{sidebarSvg["CLOSE"]}</span>} 
+                {label}{isSelected && <span onClick={(e) => unSelectLabel(e)}>{sidebarSvg["CLOSE"]}</span>} 
                 </div>}
                 {isEditLabelFormOpen && <ColorPicker deleteLabel={deleteLabel} selectColor={selectColor} editInput={editInput} />}
         </li>
