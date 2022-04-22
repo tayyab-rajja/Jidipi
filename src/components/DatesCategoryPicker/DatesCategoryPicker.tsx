@@ -1,35 +1,24 @@
 import clsx from "clsx";
-import { useState } from "react";
+import { FC, useState } from "react";
 
 import YearPicker from "./YearPicker/YearPicker";
 import { CalendarList } from "./CalendarList/CalendarList";
 import { CalendarItem } from "./CalendarItem/CalendarItem";
+import { CalendarWeeks } from "./CalendarWeeks/CalendarWeeks";
 
 import { getCalendarDatas } from "helpers/getCalendarDatas";
 import { getComparableDate } from "helpers/getComparableDate";
 
-import { dayNames } from "constant/calendar";
-
 import styles from "./DatesCategoryPicker.module.css";
 
-const CalendarDays = () => {
-  return (
-    <ul className={styles["DaysOfWeek"]}>
-      {dayNames.map((day, index) => (
-        <li
-          className={clsx(styles["DaysOfWeek-Day"], styles["Day"])}
-          key={day + index}
-        >
-          {day}
-        </li>
-      ))}
-    </ul>
-  );
-};
+interface DatesCategoryPickerProps {
+  // TODO: add types to func for set selected date
+  handleChange: any;
+}
 
-const DatesCategoryPicker = () => {
+const DatesCategoryPicker: FC = () => {
   const today = new Date();
-  const [currentDate, setCurrentDate] = useState(today);
+  const [currentDate, setCurrentDate] = useState<Date | null>(null);
   const [year, setYear] = useState(today.getFullYear());
 
   const datas = getCalendarDatas(year);
@@ -50,7 +39,7 @@ const DatesCategoryPicker = () => {
         handleChange={handleYear}
       />
       <div className={styles["Calendar"]}>
-        <CalendarDays />
+        <CalendarWeeks />
         <CalendarList>
           {datas.map((data, index) => (
             <CalendarItem
