@@ -1,0 +1,105 @@
+.Container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.Calendar {
+  border: 1px solid #d6d6d6;
+}
+
+.DaysOfWeek {
+  padding: 0 0 0 35px;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  background-color: #e3e3e3;
+  border-bottom: 1px solid #d6d6d6;
+}
+
+.Day {
+  padding: 0 15px;
+  width: 35px;
+  height: 35px;
+  font-size: 11px;
+  flex-grow: 1;
+  color: #888888;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.CalendarList {
+  list-style: none;
+  padding: 0;
+}
+
+.CalendarList-Item {
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.CalendarList-Item_Month {
+  border-right: 1px solid #d6d6d6;
+}
+
+.CalendarList-Item_Day {
+  cursor: pointer;
+}
+
+.CalendarList-Item_Day.CalendarList-Item_Day:hover {
+  color: #fff;
+}
+
+.CalendarList-Item_Day.CalendarList-Item_Day:hover::after {
+  content: "";
+  border-radius: 50%;
+  background-color: #deb851;
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  z-index: -1;
+}
+
+.SelectedDay.SelectedDay {
+  color: #fff;
+}
+
+.SelectedDay.SelectedDay::after {
+  content: "";
+  border-radius: 50%;
+  background-color: #373737;
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  z-index: -1;
+}
+
+.Today {
+  color: #fff;
+}
+
+.Today::after {
+  content: "";
+  display: block;
+  border-radius: 50%;
+  background-color: #888888;
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  z-index: -1;
+}
+
+.PrevMonth::before {
+  content: "";
+  background-color: #f1f1f1;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+}

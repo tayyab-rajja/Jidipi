@@ -35,7 +35,7 @@ export const ColorPicker: FC<Props> = ({deleteLabel, selectColor, editInput}) =>
                         <li 
                             key={i} 
                             className={clsx(styles["ColorPicker-ColorItem"], color === selectedColor && styles["Selected"])} 
-                            style={{backgroundColor: `${color}`}} 
+                            style={{backgroundColor: `#${color}`}} 
                             onClick={(e) => handleClickItem(e, color)}>
                         </li>
                     )}
