@@ -21,7 +21,7 @@ const fetcher = (url: string, token: string) => axios
     .get(url, { headers: { Authorization: "Bearer " + token } })
     .then((res) => res.data);
 
-export const usePutUserData = () => {
+export const useUserData = () => {
   const {
     session: { token, user },
   } = useAuth();
@@ -59,6 +59,11 @@ export const usePutUserData = () => {
     `${url}${user?._id}/updatePassword`,
     request
   );
+
+  const sendEmailToRecoverPassword = (email: string) => axios.post(
+    `${url}/forgetPassword`,
+    {email}
+  )
   
-  return {data, error, isValidating, putData, putAvatar, updatePassword};
+  return {data, error, isValidating, putData, updatePassword, putAvatar, sendEmailToRecoverPassword};
 };
