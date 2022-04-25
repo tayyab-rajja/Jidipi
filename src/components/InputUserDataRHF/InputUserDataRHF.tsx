@@ -1,4 +1,5 @@
 import React, { FC, useState, ChangeEvent } from "react";
+import Image from "next/image";
 
 import clsx from "clsx";
 
@@ -32,7 +33,12 @@ const InputUserDataRHF: FC<Props> = React.forwardRef<HTMLInputElement, Props>(
     const isBtnShowPassword =
       canShowPassword && originalType === "password" && field.value;
 
-    const iconShowPassword = newType === "password" ? "Show" : "Hide";
+    const srcShowPassword =
+      newType === "password" ? "/closed-eye.svg" : "/opened-eye.svg";
+
+    const iconShowPassword = (
+      <Image src={srcShowPassword} alt="icon" width="16px" height="12px" />
+    );
 
     const classContainer = clsx(styles["Container"], formStyles["Form-Elem"]);
     const classInput = clsx(styles["Input"], styles["Form-Input"], className);
