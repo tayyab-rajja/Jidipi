@@ -17,10 +17,11 @@ import LabelItem from "./LabelItem/LabelItem";
 import styles from "./SaveInFolderSidebar.module.css";
 
 interface Props {
-  postId: string;
+  postId: string,
+  handleClose: () => void,
 }
 
-export const SaveInFolderSidebar: FC<Props> = ({ postId }) => {
+export const SaveInFolderSidebar: FC<Props> = ({ postId, handleClose }) => {
   const { data } = usePageFolders();
   const { labelsList, isValidating, createLabel, deleteLabel, updateLabel } =
     useLabels();
@@ -58,6 +59,7 @@ export const SaveInFolderSidebar: FC<Props> = ({ postId }) => {
 
   const cancelAllSelected = () => {
     setSelectedFolder("");
+    setSelectedLabel("");
     setShowLabelsFlow(false);
   };
 
@@ -89,12 +91,18 @@ export const SaveInFolderSidebar: FC<Props> = ({ postId }) => {
   };
 
   const savePostToFavorites = () => {
+    const isMine = selectedFolder === 'mine' ? {mine: true} : {pageFolderId};
     const postData = selectedLabel
-      ? { postId, pageFolderId, label: selectedLabel }
-      : { postId, pageFolderId };
+      ? { postId, label: selectedLabel, ...isMine }
+      : { postId, ...isMine };
 
     addPostToFavourites(postData);
+    handleClose();
   };
+
+  const cancelSelectedLabel = () => {
+      setSelectedLabel("");
+  }
 
   return (
     <SideBarWrapper>
@@ -138,10 +146,11 @@ export const SaveInFolderSidebar: FC<Props> = ({ postId }) => {
                 <LabelItem
                   key={label._id}
                   labelItem={label}
-                  isSelected={label._id === selectedLabel}
                   updateLabel={changeLabel}
+                  isSelected={label._id === selectedLabel}
                   deleteLabel={() => removeLabel(label._id)}
                   selectLabel={() => selectLabel(label._id)}
+                  cancelSelectedLabel={cancelSelectedLabel}
                 />
               ))}
             </ul>
