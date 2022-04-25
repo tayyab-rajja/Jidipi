@@ -21,9 +21,11 @@
   height: 44px;
   border: 1px solid #D6D6D6;
   text-transform: uppercase;
+  color: #888888;
 }
 
 .Tabs-Tab[data-reach-tab][data-selected] {
   border: 1px solid #D6D6D6;
   background: #F1F1F1;
+  color: rgba(55, 55, 55, 0.5);
 }
