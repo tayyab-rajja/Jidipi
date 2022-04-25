@@ -1,1 +1,1 @@
-export type SidebarType = "share" | "saveInFolder";
+export type SidebarType = "share" | "saveInFolder" | "loginRegister" | "";

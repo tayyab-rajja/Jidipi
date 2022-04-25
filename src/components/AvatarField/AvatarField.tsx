@@ -7,10 +7,10 @@ import AvatarCurrent from "src/components/AvatarCurrent";
 import AvatarsCatalog from "src/components/AvatarsCatalog";
 import ButtonUserData from "src/components/ButtonUserData";
 
-import { usePutUserData } from "src/api/usePutUserData";
+import { useUserData } from "src/api/useUserData";
 
 const AvatarField: FC = () => {
-  const { data: serverData, error, isValidating, putAvatar } = usePutUserData();
+  const { data: serverData, error, isValidating, putAvatar } = useUserData();
 
   const [currentAvatar, setCurrentAvatar] = useState<string | File>("");
 

@@ -9,15 +9,17 @@ import CompanyProfile from "src/components/CompanyProfile/CompanyProfile";
 import Sidebar from "src/components/Sidebar";
 import SaveInFolderSidebar from "src/components/SaveInFolderSidebar";
 import ShareSidebar from "src/components/ShareSidebar/ShareSidebar";
+import SidebarLoginRegister from "src/components/SidebarLoginRegister";
 
 import { fetchPost } from "src/api/fetchPost";
 
 import { getPostCategories } from "helpers/changePostsData";
 
 import { PageFolder } from "types/pageFolderType";
-import { SideBarProvider } from "src/providers/SidebarProvider/SidebarProvider";
 import { SidebarType } from 'types/sidebarType';
 
+import { SideBarProvider } from "src/providers/SidebarProvider/SidebarProvider";
+import { useAuth } from "src/providers/AuthProvider/AuthProvider";
 
 type Props = {
   post: any;
@@ -27,16 +29,29 @@ type Props = {
 };
 
 const Post = ({ post }: Props) => {
+
+  const {
+    session: { status },
+  } = useAuth();
+  
   const categories = getPostCategories(post, "oldCategories");
   const companyImg = post?.companyId?.avatar || null;
   const companies = post.companies || [];
   const title = post.title;
 
-  const [sidebarType, setSidebarType] = useState('');
+  const [sidebarType, setSidebarType] = useState<SidebarType>('');
 
   const handleOpen = (sidebarType: SidebarType) => {
+    if (status === "unauthenticated" && sidebarType === "saveInFolder") {
+      setSidebarType("loginRegister");
+      return;
+    }
     setSidebarType(sidebarType);
-  };
+  }
+
+  const handleClose = () => {
+    setSidebarType("");
+  }
 
   return (
     <>
@@ -67,13 +82,11 @@ const Post = ({ post }: Props) => {
         </div>
       ))}
       {/* </Layout> */}
-      <SideBarProvider isOpen={!!sidebarType} close={() => setSidebarType('')}>
-        {sidebarType === "share" ? (
-        <ShareSidebar />
-        ) : (
-        <SaveInFolderSidebar postId={post._id} />
-        )}
-      </SideBarProvider>
+      {sidebarType && (<SideBarProvider isOpen={!!sidebarType} close={() => setSidebarType('')}>
+        {sidebarType === "share" && <ShareSidebar />}
+        {sidebarType === "saveInFolder" && <SaveInFolderSidebar postId={post._id} handleClose={handleClose} />}
+        {sidebarType === "loginRegister" && <SidebarLoginRegister />}
+      </SideBarProvider>)}
       <Script src={process.env.NEXT_PUBLIC_SETKA_SCRIPTS_URL} />
     </>
   );
