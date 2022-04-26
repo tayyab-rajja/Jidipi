@@ -39,8 +39,7 @@ interface Props {
 
 const LoginField: FC<Props> = ({ goToRecoverPassword }) => {
   // const [dataIsValid, setDataIsValid] = useState(false)
-  const [emailNoValid, setEmailNoValid] = useState<string | null>(null);
-  const [passwordNoValid, setPasswordNoValid] = useState<string | null>(null);
+  const [noValidText, setNoValidText] = useState<string | null>(null);
 
   const { login } = useLoginRequest();
 
@@ -57,6 +56,7 @@ const LoginField: FC<Props> = ({ goToRecoverPassword }) => {
   }) => {
     const result = await login({ email, password });
     if (result) {
+      showNoValidation(result.response?.data.error);
       // TODO: show error
     }
   };
@@ -103,24 +103,10 @@ const LoginField: FC<Props> = ({ goToRecoverPassword }) => {
     stylesForm["Form-Elem"]
   );
 
-  const showNoValidation = (label: string | null, inputType: string) => {
-    switch (inputType) {
-      case "email":
-        setEmailNoValid(label);
-        break;
+  const showNoValidation = (label: string | null) => {
+    setNoValidText(label);
 
-      case "password":
-        setPasswordNoValid(label);
-        break;
-
-      default:
-        throw new Error(`Invalid input type: ${inputType}`);
-    }
-
-    setTimeout(() => {
-      setEmailNoValid(null);
-      setPasswordNoValid(null);
-    }, 3000);
+    setTimeout(() => setNoValidText(null), 3000);
   };
 
   return (
@@ -164,14 +150,11 @@ const LoginField: FC<Props> = ({ goToRecoverPassword }) => {
             <InputUserDataRHF
               type="email"
               placeholder="Email"
-              redBorder={Boolean(emailNoValid)}
               {...field}
               ref={ref}
             />
           )}
         />
-
-        <NoValidationText label={emailNoValid} />
 
         <Controller
           control={control}
@@ -180,14 +163,11 @@ const LoginField: FC<Props> = ({ goToRecoverPassword }) => {
             <InputUserDataRHF
               type="password"
               placeholder="Password"
-              redBorder={Boolean(passwordNoValid)}
               {...field}
               ref={ref}
             />
           )}
         />
-
-        <NoValidationText label={passwordNoValid} />
 
         <RememberMe
           className={stylesForm["Form-Elem"]}
@@ -196,6 +176,8 @@ const LoginField: FC<Props> = ({ goToRecoverPassword }) => {
         />
         <ButtonUserData label="login" action={handleSubmit(loginHandler)} />
       </form>
+
+      <NoValidationText label={noValidText} />
 
       <FooterUserData
         label="Do not have an account?"
