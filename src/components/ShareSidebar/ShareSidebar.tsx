@@ -29,44 +29,44 @@ const ShareSidebar: FC<Props> = ({shareImage}) => {
             <div className={styles["Sidebar"]}>
                 <div className={styles["Sidebar-Title"]}>share</div>
                 <ul className={styles["Sidebar-Links"]}>
-                    <FacebookShareButton url={currentUrl} className={styles["Sidebar-ShareButton"]}>
-                        <li className={styles["Sidebar-LinksItem"]}>
+                    <li>
+                        <FacebookShareButton url={currentUrl} className={styles["Sidebar-LinksItem"]} resetButtonStyle={false}>
                             {socialSvg["FACEBOOK"]}
                             <span className={styles["Sidebar-LinksItem_Text"]}>
                                 Facebook
                             </span>
-                        </li>
-                    </FacebookShareButton>
-                    <TwitterShareButton url={currentUrl} title="tweet" className={styles["Sidebar-ShareButton"]}>
-                        <li className={styles["Sidebar-LinksItem"]}>
+                        </FacebookShareButton>
+                    </li>
+                    <li>
+                        <TwitterShareButton url={currentUrl} title="tweet" className={styles["Sidebar-LinksItem"]} resetButtonStyle={false}>
                             {socialSvg["TWITTER"]}
                             <span className={styles["Sidebar-LinksItem_Text"]}>
                                 Twitter
                             </span>
-                        </li>
-                    </TwitterShareButton>
+                        </TwitterShareButton>
+                    </li>
                     <li className={styles["Sidebar-LinksItem"]}>
                         {socialSvg["INSTAGRAM"]}
                         <span className={styles["Sidebar-LinksItem_Text"]}>
                             Instagram
                         </span>
                     </li>
-                    <PinterestShareButton url={currentUrl} className={styles["Sidebar-ShareButton"]} media={shareImage}>
-                        <li className={styles["Sidebar-LinksItem"]}>
+                    <li>
+                        <PinterestShareButton url={currentUrl} className={styles["Sidebar-LinksItem"]} media={shareImage} resetButtonStyle={false}>
                             {socialSvg["PININTEREST"]}
                             <span className={styles["Sidebar-LinksItem_Text"]}>
                                 Pinterest
                             </span>
-                        </li>
-                    </PinterestShareButton>
-                    <EmailShareButton url={currentUrl} className={styles["Sidebar-ShareButton"]}>
-                        <li className={styles["Sidebar-LinksItem"]}>
+                        </PinterestShareButton>
+                    </li>
+                    <li>
+                        <EmailShareButton url={currentUrl} className={styles["Sidebar-LinksItem"]} resetButtonStyle={false}>
                             {socialSvg["EMAIL"]} 
                             <span className={styles["Sidebar-LinksItem_Text"]}>
                                 Email
                             </span>
-                        </li>
-                    </EmailShareButton>
+                        </EmailShareButton>
+                    </li>
                     <li className={clsx(styles["Sidebar-LinksItem"], styles["LinkCopied"])} onClick={copyLink}>
                         {socialSvg["LINK"]}
                         <span className={styles["Sidebar-LinksItem_Text"]} >

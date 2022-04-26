@@ -23,16 +23,14 @@
     padding: 0;
 }
 
-.Sidebar-ShareButton {
-    width: 100%;
-}
-
 .Sidebar-LinksItem {
+    width: 100%;
     color: #888;
     font-size: 11px;
     padding: 12px 8px 12px 20px;
+    border: none;
     border-bottom: 2px solid #D6D6D6;
-    text-decoration: none;
+    background-color: inherit;
     display: flex;
     column-gap: 14px;
     align-items: center;
