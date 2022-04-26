@@ -5,6 +5,7 @@ import Navbar from "src/components/Navbar";
 import 'bootstrap/dist/css/bootstrap.css'
 import styles from "./Layout.module.css";
 
+
 interface LayoutProps {
   children: ReactElement | ReactElement[];
   sidebarComponent?: ReactElement;

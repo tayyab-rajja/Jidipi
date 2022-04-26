@@ -21,6 +21,7 @@ export default function Posts(props: any) {
     const {data, error} = useSWR(getKey(props), GET);
     if (error) return <div>error...</div>;
     if (!data) return <div>loading...</div>;
+    console.log({user,competitions:props.competitions});
 
     // MENU of the sidebar
     const menus = generateSidebarMenus({user,competitions:props.competitions})
