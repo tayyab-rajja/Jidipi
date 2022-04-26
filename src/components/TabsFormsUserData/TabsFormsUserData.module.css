@@ -4,8 +4,8 @@
 
 .TabPanels {
   background: #F1F1F1;
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
 }
 .Body-TabPanel {
   padding: 40px 14px;
@@ -28,4 +28,8 @@
   border: 1px solid #D6D6D6;
   background: #F1F1F1;
   color: rgba(55, 55, 55, 0.5);
+}
+
+.TabPanel[data-reach-tab-panel] {
+  height: 100%;
 }
