@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import GoogleLogin, {
   GoogleLoginResponse,
@@ -19,6 +19,7 @@ import ButtonUserData from "src/components/ButtonUserData";
 import RememberMe from "src/components/RememberMe";
 import FooterUserData from "src/components/FooterUserData";
 import InputUserDataRHF from "src/components/InputUserDataRHF";
+import NoValidationText from "src/components/NoValidationText";
 
 import googleIcon from "public/images/social-icons/Google.svg";
 import facebookIcon from "public/images/social-icons/Facebook.svg";
@@ -37,6 +38,10 @@ interface Props {
 }
 
 const LoginField: FC<Props> = ({ goToRecoverPassword }) => {
+  // const [dataIsValid, setDataIsValid] = useState(false)
+  const [emailNoValid, setEmailNoValid] = useState<string | null>(null);
+  const [passwordNoValid, setPasswordNoValid] = useState<string | null>(null);
+
   const { login } = useLoginRequest();
 
   const { handleSubmit, control } = useForm<InputValues>({
@@ -98,6 +103,26 @@ const LoginField: FC<Props> = ({ goToRecoverPassword }) => {
     stylesForm["Form-Elem"]
   );
 
+  const showNoValidation = (label: string | null, inputType: string) => {
+    switch (inputType) {
+      case "email":
+        setEmailNoValid(label);
+        break;
+
+      case "password":
+        setPasswordNoValid(label);
+        break;
+
+      default:
+        throw new Error(`Invalid input type: ${inputType}`);
+    }
+
+    setTimeout(() => {
+      setEmailNoValid(null);
+      setPasswordNoValid(null);
+    }, 3000);
+  };
+
   return (
     <>
       <ReactFacebookLogin
@@ -139,11 +164,15 @@ const LoginField: FC<Props> = ({ goToRecoverPassword }) => {
             <InputUserDataRHF
               type="email"
               placeholder="Email"
+              redBorder={Boolean(emailNoValid)}
               {...field}
               ref={ref}
             />
           )}
         />
+
+        <NoValidationText label={emailNoValid} />
+
         <Controller
           control={control}
           name={"password"}
@@ -151,11 +180,15 @@ const LoginField: FC<Props> = ({ goToRecoverPassword }) => {
             <InputUserDataRHF
               type="password"
               placeholder="Password"
+              redBorder={Boolean(passwordNoValid)}
               {...field}
               ref={ref}
             />
           )}
         />
+
+        <NoValidationText label={passwordNoValid} />
+
         <RememberMe
           className={stylesForm["Form-Elem"]}
           checkAction={() => alert("write your check action")}

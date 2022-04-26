@@ -11,6 +11,7 @@ interface Props extends Omit<ControllerRenderProps, "ref"> {
   type: string;
   placeholder?: string;
   isUnlock?: boolean;
+  redBorder?: boolean;
   canShowPassword?: boolean;
   className?: string;
   ref: any;
@@ -22,6 +23,7 @@ const InputUserDataRHF: FC<Props> = React.forwardRef<HTMLInputElement, Props>(
       type: originalType,
       placeholder,
       isUnlock = true,
+      redBorder = false,
       canShowPassword = true,
       className,
       ...field
@@ -50,6 +52,7 @@ const InputUserDataRHF: FC<Props> = React.forwardRef<HTMLInputElement, Props>(
         className={classContainer}
         data-type-container={originalType}
         data-is-unlock={isUnlock}
+        data-red-border={redBorder}
       >
         <input
           type={newType}

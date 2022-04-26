@@ -11,6 +11,9 @@
 .Container[data-is-unlock="true"] {
   background: white;
 }
+.Container[data-red-border="true"] {
+  border: 2px solid red;
+}
 
 .Input {
   outline: none;
