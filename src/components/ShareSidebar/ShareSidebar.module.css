@@ -23,10 +23,14 @@
     padding: 0;
 }
 
+.Sidebar-ShareButton {
+    width: 100%;
+}
+
 .Sidebar-LinksItem {
     color: #888;
     font-size: 11px;
-    padding: 8px 8px 8px 20px;
+    padding: 12px 8px 12px 20px;
     border-bottom: 2px solid #D6D6D6;
     text-decoration: none;
     display: flex;
@@ -34,32 +38,21 @@
     align-items: center;
     position: relative;
     cursor: pointer;
+    
 }
 
-.Sidebar-LinksItem span svg path {
+.Sidebar-LinksItem svg path {
     fill: #D6D6D6;
 }
 
 .Sidebar-LinksItem:hover {
     background-color: #DEB851;
-}
-
-.Sidebar-LinksItem:hover span svg path,
-.Sidebar-LinksItem:active span svg path {
-    fill: #FFFFFF;
-}
-
-.Sidebar-LinksItem:hover a {
     color: #fff;
 }
 
-
-.Sidebar-LinksItem_Icon {
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    position: relative;
+.Sidebar-LinksItem:hover svg path,
+.Sidebar-LinksItem:active svg path {
+    fill: #FFFFFF;
 }
 
 .Sidebar-LinksItem_Text {
@@ -74,7 +67,7 @@
     color: #fff;
 }
 
-.Sidebar-LinksItem:last-child:active .Sidebar-LinksItem_Text::before {
+.Sidebar-LinksItem:active.LinkCopied .Sidebar-LinksItem_Text::before {
     content: 'link copied';
     background-color: #DEB851;
     position: absolute;
@@ -82,7 +75,7 @@
     padding: 4px 14px;
     border-radius: 4px;
     right: 8px;
-    top: 40px;
+    top: 34px;
     width: 80px;
     height: 20px;
     text-align: center;
