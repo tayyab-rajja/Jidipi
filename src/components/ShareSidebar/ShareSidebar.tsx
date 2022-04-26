@@ -12,7 +12,11 @@ import SideBarWrapper from "../SideBarWrapper/SideBarWrapper";
 
 import styles from './ShareSidebar.module.css';
 
-const ShareSidebar: FC = () => {
+interface Props {
+    shareImage: string
+}
+
+const ShareSidebar: FC<Props> = ({shareImage}) => {
 
     const copyLink = (e: any) => {
         navigator.clipboard.writeText(e.target.textContent);
@@ -47,7 +51,7 @@ const ShareSidebar: FC = () => {
                             Instagram
                         </span>
                     </li>
-                    <PinterestShareButton url={currentUrl} className={styles["Sidebar-ShareButton"]} media="https://images.unsplash.com/photo-1576878162230-bf9d9313725b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80">
+                    <PinterestShareButton url={currentUrl} className={styles["Sidebar-ShareButton"]} media={shareImage}>
                         <li className={styles["Sidebar-LinksItem"]}>
                             {socialSvg["PININTEREST"]}
                             <span className={styles["Sidebar-LinksItem_Text"]}>
