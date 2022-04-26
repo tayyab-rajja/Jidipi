@@ -11,6 +11,7 @@ import {UserContext} from "../../../providers/UserProvider";
 import Layout from "../../../components/Layout";
 import SidebarDashboard from "../../../components/Dashboard/Sidebar/SidebarDashboard";
 import SidebarDashboardRight from "../../../components/Dashboard/RightSidebar/SidebarDashboardRight";
+import {DashboardLayout} from "../../../components/Dashboard/Layout/Layout";
 
 export default function Post(props: any) {
     // get user from context
@@ -60,7 +61,7 @@ export default function Post(props: any) {
     if (error) return <div>Post not found</div>;     // TODO redirect to 404 page
     if (!data) return <div>Loading</div>;
 
-    return <Layout
+    return <DashboardLayout
         // pageFolders={props.pageFolders}
         sidebarComponent={<SidebarDashboard competition={competition} user={user} post={post} awards={awards}/>}>
         <div>
@@ -71,7 +72,7 @@ export default function Post(props: any) {
                 <div dangerouslySetInnerHTML={{__html: post.description}}/>
             </div>
         </div>
-    </Layout>;
+    </DashboardLayout>;
 
 };
 

@@ -11,6 +11,7 @@ import {UserContext} from "../../../../providers/UserProvider";
 import {isJudge, isPartner} from "../../../../lib/user/role";
 import Link from 'next/link';
 import {generateSidebarMenus} from "../../../../lib/common/menu";
+import {DashboardLayout} from "../../../../components/Dashboard/Layout/Layout";
 
 export default function Posts(props: any) {
 
@@ -55,7 +56,7 @@ export default function Posts(props: any) {
         });
     }
 
-    return <Layout   sidebarComponent={
+    return <DashboardLayout   sidebarComponent={
         <SidebarDashboard menus={menus}/>}>
         <div>
             <div>TOP header</div>
@@ -73,7 +74,7 @@ export default function Posts(props: any) {
             ))}
         </div>
 
-    </Layout>;
+    </DashboardLayout>;
 
 };
 

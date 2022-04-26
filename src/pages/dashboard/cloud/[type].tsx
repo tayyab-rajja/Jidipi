@@ -6,6 +6,7 @@ import Layout from 'src/components/Layout';
 import SidebarDashboard from "../../../components/Dashboard/Sidebar/SidebarDashboard";
 import {GET} from "../../../lib/common/api";
 import {isPartner, isStaff} from "../../../lib/user/role";
+ import {DashboardLayout} from "../../../components/Dashboard/Layout/Layout";
 
 export default function Cloud(props: any) {
     // Currnet user, should limit to parnter and staff
@@ -18,13 +19,13 @@ export default function Cloud(props: any) {
     const menus = generateSidebarMenus({user})
 
 
-    return <Layout pageFolders={props.pageFolders} SidebarComponent={<SidebarDashboard menus={menus}/>}>
+    return <DashboardLayout  sidebarComponent={<SidebarDashboard menus={menus}/>}>
         <div>
             <div>Cloud content, Please force on content area, other coders will coding on the sidebar etc.</div>
 
         </div>
 
-    </Layout>;
+    </DashboardLayout>;
 
 };
 
