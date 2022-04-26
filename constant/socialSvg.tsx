@@ -37,7 +37,7 @@ export const socialSvg: {
         </svg>
     ),
     ["EMAIL"] : (
-        <svg width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fillRule="evenodd" clipRule="evenodd" d="M13.808.192a.657.657 0 0 1 .15.694L9.522 13.561a.656.656 0 0 1-1.22.05L5.87 8.131l-5.48-2.43a.656.656 0 0 1 .05-1.22L13.114.042a.657.657 0 0 1 .694.151Zm-2.961 2.033L2.435 5.17 6.22 6.852l4.627-4.627Zm-3.7 5.555 4.628-4.627-2.944 8.412L7.148 7.78Z" />
         </svg>
     ),

@@ -83,7 +83,7 @@ const Post = ({ post }: Props) => {
       ))}
       {/* </Layout> */}
       {sidebarType && (<SideBarProvider isOpen={!!sidebarType} close={() => setSidebarType('')}>
-        {sidebarType === "share" && <ShareSidebar />}
+        {sidebarType === "share" && <ShareSidebar shareImage={post.featuredImage?.liveURL} />}
         {sidebarType === "saveInFolder" && <SaveInFolderSidebar postId={post._id} handleClose={handleClose} />}
         {sidebarType === "loginRegister" && <SidebarLoginRegister />}
       </SideBarProvider>)}
