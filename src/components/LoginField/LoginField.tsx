@@ -110,7 +110,7 @@ const LoginField: FC<Props> = ({ goToRecoverPassword }) => {
   };
 
   return (
-    <>
+    <div className={clsx(styles["Container"], styles["Body-Container"])}>
       <ReactFacebookLogin
         appId={process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_ID!}
         fields="name,email,picture"
@@ -184,7 +184,7 @@ const LoginField: FC<Props> = ({ goToRecoverPassword }) => {
         refLabel="Register"
         action={() => alert("Your to registration function")}
       />
-    </>
+    </div>
   );
 };
 

@@ -1,13 +1,12 @@
 .Body-Tabs[data-reach-tabs] {
   height: 100%;
+  /* overflow-y: auto; */
 }
 
-.TabPanels {
+.TabPanels[data-reach-tab-panels] {
   background: #F1F1F1;
-  /* display: flex;
-  flex-direction: column; */
 }
-.Body-TabPanel {
+.Body-TabPanels[data-reach-tab-panels] {
   padding: 40px 14px;
   height: 100%;
 }

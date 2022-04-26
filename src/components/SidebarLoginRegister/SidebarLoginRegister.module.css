@@ -25,6 +25,7 @@
 }
 
 .AuthContainer-Content {
+  height: 100%;
   margin: 0 1rem;
   background-color: #F1F1F1;
   overflow: hidden;
