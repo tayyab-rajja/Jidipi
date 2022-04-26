@@ -1,5 +1,7 @@
 .Body-Tabs[data-reach-tabs] {
   height: 100%;
+  display: grid;
+  grid-template-rows: 44px 1fr;
   /* overflow-y: auto; */
 }
 
@@ -8,7 +10,6 @@
 }
 .Body-TabPanels[data-reach-tab-panels] {
   padding: 40px 14px;
-  height: 100%;
 }
 
 .TabList[data-reach-tab-list] {
