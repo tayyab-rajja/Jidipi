@@ -34,12 +34,17 @@ export const useLabels = () => {
   };
 
   const deleteLabel = async (id: string) => {
-    await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/reader/label/${id}`);
-    return mutate({
-      labels: data.labels.filter(
-        (labelItem: LabelBody) => labelItem._id !== id
-      ),
-    });
+    const res = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/reader/label/${id}`);
+    if (res.response?.status === 500) {
+      let error = "This label links with posts!";
+      return error;
+    } else {
+      return mutate({
+        labels: data.labels.filter(
+          (labelItem: LabelBody) => labelItem._id !== id
+         ),
+       });
+    }
   };
 
   return {
@@ -47,6 +52,6 @@ export const useLabels = () => {
     isValidating,
     createLabel,
     updateLabel,
-    deleteLabel,
+    deleteLabel
   };
 };

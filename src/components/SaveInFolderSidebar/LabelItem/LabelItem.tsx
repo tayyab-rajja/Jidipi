@@ -1,6 +1,8 @@
 import { FC, KeyboardEventHandler, MouseEventHandler, useState} from "react";
 import clsx from "clsx";
 
+import { useLabels } from "src/api/useLabels";
+
 import { Label } from "types/labelType";
 import { sidebarSvg } from 'constant/sidebarSvg';
 
@@ -11,13 +13,13 @@ import styles from './LabelItem.module.css';
 interface Props {
     labelItem: Label,
     isSelected: boolean,
-    deleteLabel: () => void,
     selectLabel: () => void,
-    updateLabel: (updatedItem: string, updatedValue: string, id: string) => void,
     cancelSelectedLabel: () => void, 
 }
 
-const LabelItem: FC<Props> = ({ labelItem, isSelected, deleteLabel, selectLabel, updateLabel, cancelSelectedLabel }) => {
+const LabelItem: FC<Props> = ({ labelItem, isSelected, selectLabel, cancelSelectedLabel }) => {
+
+    const {deleteLabel, updateLabel} = useLabels();
 
     const {_id, label, colour } = labelItem;
 
@@ -36,10 +38,6 @@ const LabelItem: FC<Props> = ({ labelItem, isSelected, deleteLabel, selectLabel,
         }
     }
 
-    const selectColor = (color: string) => {
-        updateLabel("colour", color, _id);
-    }
-
     const showEditLabelForm: MouseEventHandler<HTMLDivElement> = (e) => {
         e.preventDefault();
         setEditLabelForm(true);
@@ -49,9 +47,24 @@ const LabelItem: FC<Props> = ({ labelItem, isSelected, deleteLabel, selectLabel,
         setEditable(true);
     }
 
+    const changeLabel = (updatedItem: string, updatedValue: string, id: string) => {
+        updateLabel({ ...labelItem, [updatedItem]: updatedValue });
+    };
+
+    const removeLabel = async () => {
+        const response = await deleteLabel(_id);
+        if (typeof response === 'string') {
+            setError(response);
+        } 
+    }
+
+    const selectColor = (color: string) => {
+        changeLabel("colour", color, _id);
+    }
+
     const saveOnEnter: KeyboardEventHandler<HTMLDivElement> = (e) => {
         if (e.key === 'Enter' && !error) {
-            updateLabel("label", inputValue, _id);
+            changeLabel("label", inputValue, _id);
             setEditable(false);
         }   
     }
@@ -65,6 +78,7 @@ const LabelItem: FC<Props> = ({ labelItem, isSelected, deleteLabel, selectLabel,
         setEditLabelForm(false);
         setEditable(false);
         setInputValue(label);
+        setError("");
     }
 
     const zIndex = isEditLabelFormOpen ? {zIndex: 25} : {zIndex: 0};
@@ -81,14 +95,18 @@ const LabelItem: FC<Props> = ({ labelItem, isSelected, deleteLabel, selectLabel,
                             onChange={(e) => handleInput(e)} 
                             onKeyUp={saveOnEnter} 
                         />
-                    </> : 
-                <div 
-                    className={clsx(styles["LabelItem"], styles[`color${colour}`], isSelected && styles["Selected"])} 
-                    onClick={selectLabel} 
-                    onContextMenu={showEditLabelForm}>
-                {label}{isSelected && <span onClick={(e) => unSelectLabel(e)}>{sidebarSvg["CLOSE"]}</span>} 
-                </div>}
-                {isEditLabelFormOpen && <ColorPicker deleteLabel={deleteLabel} selectColor={selectColor} editInput={editInput} />}
+                    </> :
+                    <>
+                        {error && <small className={styles["InputError"]}>{error}</small>}     
+                        <div 
+                            className={clsx(styles["LabelItem"], styles[`color${colour}`], isSelected && styles["Selected"])} 
+                            onClick={selectLabel} 
+                            onContextMenu={showEditLabelForm}>
+                        {label}{isSelected && <span onClick={(e) => unSelectLabel(e)}>{sidebarSvg["CLOSE"]}</span>} 
+                        </div>
+                    </>
+                }
+            {isEditLabelFormOpen && <ColorPicker deleteLabel={removeLabel} selectColor={selectColor} editInput={editInput} />}
         </li>
         </>
     )          

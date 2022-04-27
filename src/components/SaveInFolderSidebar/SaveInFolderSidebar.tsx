@@ -24,8 +24,7 @@ interface Props {
 
 export const SaveInFolderSidebar: FC<Props> = ({ postId, handleClose }) => {
   const { data } = usePageFolders();
-  const { labelsList, isValidating, createLabel, deleteLabel, updateLabel } =
-    useLabels();
+  const { labelsList, createLabel } = useLabels();
   const { addPostToFavourites } = useSavePost();
   const { mutate } = useIsPostInUserFavorites(postId);
 
@@ -75,21 +74,6 @@ export const SaveInFolderSidebar: FC<Props> = ({ postId, handleClose }) => {
       colour: "F1F1F1",
       pageType: "PROJECT",
     });
-  };
-
-  const changeLabel = (
-    updatedItem: string,
-    updatedValue: string,
-    id: string
-  ) => {
-    const updatedLabel = labelsList.filter(
-      (labelItem: Label) => labelItem._id === id
-    )[0];
-    updateLabel({ ...updatedLabel, [updatedItem]: updatedValue });
-  };
-
-  const removeLabel = (id: any) => {
-    deleteLabel(id);
   };
 
   const savePostToFavorites = async () => {
@@ -149,9 +133,7 @@ export const SaveInFolderSidebar: FC<Props> = ({ postId, handleClose }) => {
                 <LabelItem
                   key={label._id}
                   labelItem={label}
-                  updateLabel={changeLabel}
                   isSelected={label._id === selectedLabel}
-                  deleteLabel={() => removeLabel(label._id)}
                   selectLabel={() => selectLabel(label._id)}
                   cancelSelectedLabel={cancelSelectedLabel}
                 />
