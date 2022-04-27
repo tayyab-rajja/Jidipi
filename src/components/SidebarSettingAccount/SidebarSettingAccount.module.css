@@ -1,8 +1,10 @@
 .Body-SettingAccountContainer {
   width: 280px;
+  height: 100%;
+  /* min-height: 1000px; */
+  overflow-y: auto;
   position: fixed;
   left: 0;
   top: 0;
   z-index: 11;
-  overflow: auto;
 }

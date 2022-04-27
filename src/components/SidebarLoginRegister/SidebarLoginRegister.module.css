@@ -6,8 +6,9 @@
   height: 100vh;
   background-color: #fff;
   display: grid;
-  grid-template-rows: minmax(50px, 200px) 700px;
+  grid-template-rows: minmax(50px, 170px) minmax(580px, 700px);
   z-index: 11;
+  overflow-y: auto;
 }
 
 .AuthContainer-Header {

@@ -1,8 +1,10 @@
 .Container {
-  display: grid;
-  grid-template: 18px / 18px 1fr 1fr;
-  grid-column-gap: 10px;
+  /* display: grid;
+  grid-template: 18px / 18px 1fr;
+  grid-column-gap: 10px; */
+  display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .Checkbox {
@@ -10,11 +12,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
 }
 .Container-Checkbox {
-  width: 100%;
-  height: 100%;
+  width: 18px;
+  height: 18px;
 }
 .Checkbox[data-checked="false"] {
   background: white;
@@ -27,16 +28,6 @@
 
 .Container-Label {
   color: #888888;
-  margin: 0 0;
+  margin-left: 15px;
   font-size: 11px;
-}
-
-.ForgotPassword {
-  font-size: 11px;
-  color: blue;
-  cursor: pointer;
-}
-
-.Container-ForgotPassword {
-  justify-self: end;
 }

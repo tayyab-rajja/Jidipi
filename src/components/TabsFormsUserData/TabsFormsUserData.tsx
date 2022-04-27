@@ -20,9 +20,13 @@ const TabsFormsContainer: FC<Props> = ({ tabsData }) => {
           </Tab>
         ))}
       </TabList>
-      <TabPanels className={clsx(styles["TabPanels"], styles["Body-TabPanel"])}>
+      <TabPanels
+        className={clsx(styles["TabPanels"], styles["Body-TabPanels"])}
+      >
         {tabsData.map(({ panel }, index) => (
-          <TabPanel key={index}>{panel}</TabPanel>
+          <TabPanel className={styles["TabPanel"]} key={index}>
+            {panel}
+          </TabPanel>
         ))}
       </TabPanels>
     </Tabs>

@@ -1,4 +1,5 @@
 import { FC, useState, FormEvent } from "react";
+import Image from "next/image";
 
 import clsx from "clsx";
 
@@ -32,7 +33,12 @@ const InputUserData: FC<Props> = ({
   const isBtnShowPassword =
     canShowPassword && originalType === "password" && inputValue;
 
-  const iconShowPassword = newType === "password" ? "Show" : "Hide";
+  const srcShowPassword =
+    newType === "password" ? "/closed-eye.svg" : "/opened-eye.svg";
+
+  const iconShowPassword = (
+    <Image src={srcShowPassword} alt="icon" width="16px" height="12px" />
+  );
 
   const setValue = (e: FormEvent<HTMLInputElement>) => {
     setInputValue(`${(e.target as HTMLInputElement).value}`);
