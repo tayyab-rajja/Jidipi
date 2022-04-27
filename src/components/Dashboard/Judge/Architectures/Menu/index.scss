@@ -1,0 +1,20 @@
+.nav-tabs .nav-item {
+    .nav-link {
+        width: 120px;
+        height: 44px;
+        border: 1px solid #d6d6d6;
+        background-color: #f1f1f1;
+        border-radius: 0;
+        color: #373737;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &.active {
+            border: 1px solid #d6d6d6;
+            background-color: #ffffff;
+        }
+    }
+    &:not(:last-child) .nav-link {
+        border-right: 0;
+    }
+}
