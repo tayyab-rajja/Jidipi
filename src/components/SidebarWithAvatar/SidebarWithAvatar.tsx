@@ -5,6 +5,7 @@ import clsx from "clsx";
 
 import avatar from "./mock-avatar.png";
 import { readerPanelSvg } from "constant/readerPanelSvg";
+import { useUserData } from "src/api/useUserData";
 
 import styles from "./SidebarWithAvatar.module.css";
 import { useRouter } from "next/router";
@@ -25,6 +26,8 @@ const defaultData = [
 ];
 
 const SidebarWithAvatar = ({}) => {
+  const { data: serverData } = useUserData();
+
   const {
     query: { panel },
   } = useRouter();
@@ -37,7 +40,7 @@ const SidebarWithAvatar = ({}) => {
       <div className={styles["Profile"]}>
         <div className={styles["Profile-Avatar"]}>
           <Image
-            src={avatar}
+            src={serverData?.user?.avatar || avatar}
             alt="avatar"
             width="100px"
             height="100px"
