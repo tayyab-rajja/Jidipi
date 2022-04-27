@@ -34,7 +34,7 @@ export const useLabels = () => {
   };
 
   const deleteLabel = async (id: string) => {
-    const res = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/reader/label/${id}`);
+    const res: {[key: string]: any} = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/reader/label/${id}`);
     if (res.response?.status === 500) {
       let error = "This label links with posts!";
       return error;

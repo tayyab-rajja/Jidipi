@@ -24,7 +24,7 @@ interface Props {
 
 export const SaveInFolderSidebar: FC<Props> = ({ postId, handleClose }) => {
   const { data } = usePageFolders();
-  const { labelsList, createLabel } = useLabels();
+  const { labelsList, createLabel, updateLabel, deleteLabel } = useLabels();
   const { addPostToFavourites } = useSavePost();
   const { mutate } = useIsPostInUserFavorites(postId);
 
@@ -37,6 +37,7 @@ export const SaveInFolderSidebar: FC<Props> = ({ postId, handleClose }) => {
   const [showLabelsFlow, setShowLabelsFlow] = useState(false);
   const [selectedFolder, setSelectedFolder] = useState("");
   const [selectedLabel, setSelectedLabel] = useState("");
+  const [error, setError] = useState("");
 
   const pageFolders = data?.filter(
     (pageFolder) =>
@@ -91,6 +92,18 @@ export const SaveInFolderSidebar: FC<Props> = ({ postId, handleClose }) => {
       setSelectedLabel("");
   }
 
+  const changeLabel = (updatedValue: string, updatedItem: string, id: string) => {
+    const updatedLabel = labelsList.filter((labelItem: Label) => labelItem._id === id)[0];
+    updateLabel({...updatedLabel, [updatedValue]: updatedItem});
+  }
+
+  const removeLabel = async (id: string) => {
+    const response = await deleteLabel(id);
+        if (typeof response === 'string') {
+            setError(response);
+        } 
+  }
+
   return (
     <SideBarWrapper>
       <div className={styles["Sidebar"]}>
@@ -133,6 +146,10 @@ export const SaveInFolderSidebar: FC<Props> = ({ postId, handleClose }) => {
                 <LabelItem
                   key={label._id}
                   labelItem={label}
+                  updateLabel={changeLabel}
+                  deleteLabel={() => removeLabel(label._id)}
+                  error={error}
+                  setError={setError}
                   isSelected={label._id === selectedLabel}
                   selectLabel={() => selectLabel(label._id)}
                   cancelSelectedLabel={cancelSelectedLabel}
