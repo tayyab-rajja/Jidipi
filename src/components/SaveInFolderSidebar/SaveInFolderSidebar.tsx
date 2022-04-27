@@ -5,6 +5,7 @@ import { useSavePost } from "src/api/useSavePost";
 import { useLabels } from "src/api/useLabels";
 import { usePageFolders } from "src/api/usePageFolders";
 import { usePageFolderByName } from "src/api/usePageFolderByName";
+import { useIsPostInUserFavorites } from "src/api/useIsPostInUserFavorites";
 
 import { sidebarSvg } from "constant/sidebarSvg";
 import { Label } from "types/labelType";
@@ -26,6 +27,7 @@ export const SaveInFolderSidebar: FC<Props> = ({ postId, handleClose }) => {
   const { labelsList, isValidating, createLabel, deleteLabel, updateLabel } =
     useLabels();
   const { addPostToFavourites } = useSavePost();
+  const { mutate } = useIsPostInUserFavorites(postId);
 
   const { query } = useRouter();
   const currentPageFolder = query.folder;
@@ -90,13 +92,14 @@ export const SaveInFolderSidebar: FC<Props> = ({ postId, handleClose }) => {
     deleteLabel(id);
   };
 
-  const savePostToFavorites = () => {
+  const savePostToFavorites = async () => {
     const isMine = selectedFolder === 'mine' ? {mine: true} : {pageFolderId};
     const postData = selectedLabel
       ? { postId, label: selectedLabel, ...isMine }
       : { postId, ...isMine };
 
-    addPostToFavourites(postData);
+    await addPostToFavourites(postData);
+    mutate();
     handleClose();
   };
 
