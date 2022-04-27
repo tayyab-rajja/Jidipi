@@ -99,9 +99,9 @@ export const SaveInFolderSidebar: FC<Props> = ({ postId, handleClose }) => {
 
   const removeLabel = async (id: string) => {
     const response = await deleteLabel(id);
-        if (typeof response === 'string') {
-            setError(response);
-        } 
+    if (response) {
+      setError("This label links with Posts!");
+    } 
   }
 
   return (

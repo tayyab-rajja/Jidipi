@@ -23,28 +23,22 @@ export const useLabels = () => {
       body
     );
     const newLabel = response.data;
-    return mutate({ ...data, newLabel });
+    mutate({ ...data, newLabel });
   };
 
   const updateLabel = async (body: LabelBody) => {
     await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/reader/labels`,
       body);
-    return mutate({labels: [body, ...data.labels.filter((label: LabelBody) => label._id !== body._id)]});
+    mutate({labels: [body, ...data.labels.filter((label: LabelBody) => label._id !== body._id)]});
   };
 
   const deleteLabel = async (id: string) => {
-    const res: {[key: string]: any} = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/reader/label/${id}`);
-    if (res.response?.status === 500) {
-      let error = "This label links with posts!";
-      return error;
-    } else {
-      return mutate({
-        labels: data.labels.filter(
-          (labelItem: LabelBody) => labelItem._id !== id
-         ),
-       });
-    }
+    const res = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/reader/label/${id}`);
+    if (res.status !== 200) {
+      return res;
+    } 
+    mutate({labels: data.labels.filter((labelItem: LabelBody) => labelItem._id !== id)});
   };
 
   return {
