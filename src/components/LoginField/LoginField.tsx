@@ -16,7 +16,8 @@ import { useLoginRequest } from "src/hooks/api/useLoginRequest";
 import LoginWithSocialBtn from "src/components/LoginWithSocialBtn";
 import Divider from "src/components/Divider";
 import ButtonUserData from "src/components/ButtonUserData";
-import RememberMe from "src/components/RememberMe";
+import CheckBox from "src/components/CheckBox";
+import ForgotPassword from "src/components/ForgotPassword";
 import FooterUserData from "src/components/FooterUserData";
 import InputUserDataRHF from "src/components/InputUserDataRHF";
 import NoValidationText from "src/components/NoValidationText";
@@ -169,11 +170,19 @@ const LoginField: FC<Props> = ({ goToRecoverPassword }) => {
           )}
         />
 
-        <RememberMe
-          className={stylesForm["Form-Elem"]}
-          checkAction={() => alert("write your check action")}
-          forgotPasswordAction={goToRecoverPassword}
-        />
+        <div
+          className={clsx(styles["CheckboxContainer"], stylesForm["Form-Elem"])}
+        >
+          <CheckBox
+            checkAction={() => alert("write your check action")}
+            label="Remember Me"
+          />
+
+          <ForgotPassword
+            className={styles["CheckboxContainer-ForgotPassword"]}
+          />
+        </div>
+
         <ButtonUserData label="login" action={handleSubmit(loginHandler)} />
       </form>
 

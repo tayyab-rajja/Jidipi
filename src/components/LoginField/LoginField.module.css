@@ -19,3 +19,13 @@
 .Body-Container {
   height: 100%;
 }
+
+.CheckboxContainer {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.CheckboxContainer-ForgotPassword {
+  margin-left: auto;
+  justify-self: end;
+}
