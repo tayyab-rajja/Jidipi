@@ -5,7 +5,8 @@
   font-size: 12px;
 }
 .Body-FooterContainer {
-  justify-self: flex-end;
+  justify-self: end;
+  margin-top: auto;
 }
 
 .FooterContainer-Ref {
