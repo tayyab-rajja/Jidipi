@@ -1,0 +1,10 @@
+.Alphabet-Item {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    width: 14px;
+    height: 20px;
+    font-size: 13px;
+}

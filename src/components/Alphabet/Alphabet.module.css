@@ -1,0 +1,11 @@
+.Alphabet-Container {
+    margin: 0 auto;
+    max-width: 1100px;
+    height: 212px;
+    background-color: tomato;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(35, 14px);
+    gap: 10px 17px;
+}
+
