@@ -13,7 +13,6 @@ interface PostCategoriesProps {
 
 const PostCategories: FC<PostCategoriesProps> = ({ categories }) => {
   const { t } = useTranslation();
-  console.log(categories);
 
   const sortedCategories: Array<{ type: string; titles: string }> = [];
 

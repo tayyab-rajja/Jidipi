@@ -11,6 +11,7 @@
 .Profile {
   margin-top: 43px;
   padding: 10px;
+  cursor: pointer;
 }
 
 .Profile-Avatar {
