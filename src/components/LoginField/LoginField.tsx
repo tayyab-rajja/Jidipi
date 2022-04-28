@@ -180,6 +180,7 @@ const LoginField: FC<Props> = ({ goToRecoverPassword }) => {
 
           <ForgotPassword
             className={styles["CheckboxContainer-ForgotPassword"]}
+            action={goToRecoverPassword}
           />
         </div>
 

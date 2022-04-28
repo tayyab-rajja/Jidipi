@@ -3,12 +3,10 @@ import clsx from "clsx";
 
 import styles from "./ForgotPassword.module.css";
 
-const ForgotPassword: FC<{ className?: string }> = ({
+const ForgotPassword: FC<{ className?: string; action: () => void }> = ({
   className: propClass,
+  action,
 }) => {
-  const action = () =>
-    alert("write your function inside ForgotPassword component");
-
   return (
     <p className={clsx(styles["ForgotPassword"], propClass)} onClick={action}>
       Forgot Password?
