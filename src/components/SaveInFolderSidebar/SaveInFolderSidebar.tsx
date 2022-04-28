@@ -5,6 +5,7 @@ import { useSavePost } from "src/api/useSavePost";
 import { useLabels } from "src/api/useLabels";
 import { usePageFolders } from "src/api/usePageFolders";
 import { usePageFolderByName } from "src/api/usePageFolderByName";
+import { useIsPostInUserFavorites } from "src/api/useIsPostInUserFavorites";
 
 import { sidebarSvg } from "constant/sidebarSvg";
 import { Label } from "types/labelType";
@@ -23,9 +24,9 @@ interface Props {
 
 export const SaveInFolderSidebar: FC<Props> = ({ postId, handleClose }) => {
   const { data } = usePageFolders();
-  const { labelsList, isValidating, createLabel, deleteLabel, updateLabel } =
-    useLabels();
+  const { labelsList, createLabel, updateLabel, deleteLabel } = useLabels();
   const { addPostToFavourites } = useSavePost();
+  const { mutate } = useIsPostInUserFavorites(postId);
 
   const { query } = useRouter();
   const currentPageFolder = query.folder;
@@ -36,6 +37,7 @@ export const SaveInFolderSidebar: FC<Props> = ({ postId, handleClose }) => {
   const [showLabelsFlow, setShowLabelsFlow] = useState(false);
   const [selectedFolder, setSelectedFolder] = useState("");
   const [selectedLabel, setSelectedLabel] = useState("");
+  const [error, setError] = useState("");
 
   const pageFolders = data?.filter(
     (pageFolder) =>
@@ -75,33 +77,31 @@ export const SaveInFolderSidebar: FC<Props> = ({ postId, handleClose }) => {
     });
   };
 
-  const changeLabel = (
-    updatedItem: string,
-    updatedValue: string,
-    id: string
-  ) => {
-    const updatedLabel = labelsList.filter(
-      (labelItem: Label) => labelItem._id === id
-    )[0];
-    updateLabel({ ...updatedLabel, [updatedItem]: updatedValue });
-  };
-
-  const removeLabel = (id: any) => {
-    deleteLabel(id);
-  };
-
-  const savePostToFavorites = () => {
+  const savePostToFavorites = async () => {
     const isMine = selectedFolder === 'mine' ? {mine: true} : {pageFolderId};
     const postData = selectedLabel
       ? { postId, label: selectedLabel, ...isMine }
       : { postId, ...isMine };
 
-    addPostToFavourites(postData);
+    await addPostToFavourites(postData);
+    mutate();
     handleClose();
   };
 
   const cancelSelectedLabel = () => {
       setSelectedLabel("");
+  }
+
+  const changeLabel = (updatedValue: string, updatedItem: string, id: string) => {
+    const updatedLabel = labelsList.filter((labelItem: Label) => labelItem._id === id)[0];
+    updateLabel({...updatedLabel, [updatedValue]: updatedItem});
+  }
+
+  const removeLabel = async (id: string) => {
+    const response = await deleteLabel(id);
+    if (response) {
+      setError("This label links with Posts!");
+    } 
   }
 
   return (
@@ -147,8 +147,10 @@ export const SaveInFolderSidebar: FC<Props> = ({ postId, handleClose }) => {
                   key={label._id}
                   labelItem={label}
                   updateLabel={changeLabel}
-                  isSelected={label._id === selectedLabel}
                   deleteLabel={() => removeLabel(label._id)}
+                  error={error}
+                  setError={setError}
+                  isSelected={label._id === selectedLabel}
                   selectLabel={() => selectLabel(label._id)}
                   cancelSelectedLabel={cancelSelectedLabel}
                 />

@@ -5,6 +5,7 @@ import { postsActionSvG } from "constant/postsActionSvG";
 import { SidebarType } from "types/sidebarType";
 
 import styles from "./ActionPostButtons.module.css";
+import { useIsPostInUserFavorites } from "src/api/useIsPostInUserFavorites";
 
 
 interface ActionPostButtonsProps {
@@ -19,6 +20,9 @@ const ActionPostButtons: FC<ActionPostButtonsProps> = ({
   openSidebar,
   children,
 }) => {
+
+  const {isFavorite, isValidating} = useIsPostInUserFavorites(postId);
+
   return (
     <div className={clsx(styles["ActionPostButtons"], className)}>
       {/* TODO: added logic to change post language */}
@@ -36,7 +40,7 @@ const ActionPostButtons: FC<ActionPostButtonsProps> = ({
         {postsActionSvG["SHARE"]}
       </button>
       <button
-        className={clsx(styles["ActionPostButtons-Button"])}
+        className={clsx(styles["ActionPostButtons-Button"], isValidating && styles["ActionPostButtons_SkeletonButton"], isFavorite && styles["ActionPostButtons_isFavorite"])}
         onClick={() => {openSidebar && openSidebar('saveInFolder')}}
       >
         {postsActionSvG["FAVORITE"]}

@@ -18,6 +18,29 @@
   background-color: #e3e3e3;
 }
 
+.ActionPostButtons_isFavorite {
+  background-color: #373737;
+}
+
+.ActionPostButtons_SkeletonButton {
+  background-color: var(--grey-100);
+  animation-name: color;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes color {
+  0% {
+    background-color: var(--grey-100);
+  }
+  50% {
+    background-color: var(--grey-200);
+  }
+  100% {
+    background-color: var(--grey-100);
+  }
+}
+
 .ActionPostButtons-Button svg path {
   fill: #fff;
 }
