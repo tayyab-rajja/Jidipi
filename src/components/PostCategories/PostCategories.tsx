@@ -13,6 +13,7 @@ interface PostCategoriesProps {
 
 const PostCategories: FC<PostCategoriesProps> = ({ categories }) => {
   const { t } = useTranslation();
+  console.log(categories);
 
   const sortedCategories: Array<{ type: string; titles: string }> = [];
 
@@ -22,6 +23,10 @@ const PostCategories: FC<PostCategoriesProps> = ({ categories }) => {
     if (desiredObject) {
       desiredObject.titles = `${desiredObject.titles}, ${title}`;
     } else {
+      if (type === "DATE") {
+        title = title.replace(/.*\D\s\d\d/, "$&,");
+      }
+
       sortedCategories.push({
         type,
         titles: title,
