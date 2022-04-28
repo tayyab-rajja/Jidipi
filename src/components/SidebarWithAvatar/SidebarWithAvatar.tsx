@@ -50,11 +50,11 @@ const SidebarWithAvatar = ({}) => {
         <div className={styles["Profile-Data"]}>
           <div className={clsx(styles["Profile-Text"], styles["Text"])}>
             {readerPanelSvg["USER"]}
-            <span>Elon Musk</span>
+            <span>{serverData?.user?.firstName || "Elon Musk"}</span>
           </div>
           <div className={clsx(styles["Profile-Text"], styles["Text"])}>
             {readerPanelSvg["EMAIL"]}
-            <span>elon.musk@spacex.com</span>
+            <span>{serverData?.user?.email || "elon.musk@spacex.com"}</span>
           </div>
         </div>
       </div>
