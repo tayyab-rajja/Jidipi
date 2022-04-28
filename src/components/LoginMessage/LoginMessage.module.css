@@ -7,6 +7,7 @@
 }
 .Body-Container {
   height: 344px;
+  max-width: 240px;
   padding: 67px 16px 67px 19px;
 }
 

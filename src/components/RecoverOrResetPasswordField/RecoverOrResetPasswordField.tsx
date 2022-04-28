@@ -1,5 +1,7 @@
 import { FC, useState } from "react";
 
+import styles from "./RecoverOrResetPasswordField.module.css";
+
 import Divider from "src/components/Divider";
 import FormUserData from "src/components/FormUserData";
 import InputUserData from "src/components/InputUserData";
@@ -95,7 +97,7 @@ const RecoverOrResetPasswordField: FC<Props> = ({
   );
 
   return (
-    <>
+    <div className={clsx(styles["Container"], styles["Body-Container"])}>
       <Divider label={dividerLabel} />
 
       {renderedContent}
@@ -105,7 +107,7 @@ const RecoverOrResetPasswordField: FC<Props> = ({
         refLabel="Login"
         action={footerAction}
       />
-    </>
+    </div>
   );
 };
 
