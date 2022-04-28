@@ -2,16 +2,14 @@ import { FC } from "react";
 
 import styles from './AlphabetItem.module.css';
 
-import { alphabet } from "constant/alphabet";
+interface Props {
+    letter: string,
+}
 
-export const AlphabetItem: FC = () => {
-
-    let start = 0;
-    let end = 35;
+export const AlphabetItem: FC<Props> = ({letter}) => {
     
     return (
-        <>
-            {alphabet.map((letter, i) => <li className={styles["Alphabet-Item"]} key={i}>{letter}</li>)}
-        </>
+        <li className={styles["Alphabet-Item"]}>{letter}</li>
     )
 }
+
