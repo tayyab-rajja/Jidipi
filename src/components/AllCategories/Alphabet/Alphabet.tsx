@@ -16,16 +16,17 @@ export const Alphabet: FC = () => {
 
     return (
         <div className={styles["Alphabet-Container"]}>
-            <ul className={styles["Alphabet-List"]}>
-                {alphabet.map((letter, i) => 
-                    <AlphabetItem 
-                        key={i} 
-                        letter={letter}
-                        isSelected={letter === selectedLetter}
-                        selectLetter={() => selectLetter(letter)}
-                    />)}
-            </ul>
-
+            <div className={styles["Alphabet-List_Container"]}>
+                <ul className={styles["Alphabet-List"]}>
+                    {alphabet.map((letter, i) => 
+                        <AlphabetItem 
+                            key={i} 
+                            letter={letter}
+                            isSelected={letter === selectedLetter}
+                            selectLetter={() => selectLetter(letter)}
+                        />)}
+                </ul>
+            </div>
             <h2 className={styles["Alphabet-SelectedLetter"]}>{selectedLetter}</h2>
         </div>
     )

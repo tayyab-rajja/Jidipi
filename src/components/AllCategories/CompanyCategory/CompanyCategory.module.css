@@ -1,7 +1,6 @@
 .CompanyCategory-Container {
     width: 1100px;
-    height: 1100px;
-    margin: 0 auto;
+    margin: 60px auto;
     display: grid;
     grid-template-columns: repeat(8, 120px);
     gap: 20px;
