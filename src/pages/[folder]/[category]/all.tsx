@@ -1,9 +1,14 @@
 import { GetServerSideProps } from "next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import React, { ReactElement } from "react";
 
 import { fetchPageFolders } from "src/api/fetchPageFolders";
+import { usePageFolderByName } from "src/api/usePageFolderByName";
+import { Alphabet } from "src/components/Alphabet/Alphabet";
+import { useCategories } from "src/components/Categories/useCategories";
+import { CompanyCategory } from "src/components/CompanyCategory/CompanyCategory";
 
 import Layout from "src/components/Layout";
 import Sidebar from "src/components/Sidebar";
@@ -13,6 +18,8 @@ import { PageFolder } from "types/pageFolderType";
 interface Props {}
 
 const FolderPage = ({}: Props) => {
+
+
   return (
     <>
       <Head>
@@ -21,7 +28,10 @@ const FolderPage = ({}: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>ALLLLL</h1>
+      <div style={{display: "flex", flexDirection: "column", height: "100%"}}>
+        <Alphabet />
+        <CompanyCategory />
+      </div>
     </>
   );
 };

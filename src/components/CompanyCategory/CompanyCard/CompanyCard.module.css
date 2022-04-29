@@ -1,0 +1,27 @@
+.CompanyCard-Container {
+    width: 120px;
+    height: 148px;
+    background-color: #FFFFFF;
+}
+
+.CompanyCard-Image {
+    width: 120px;
+    height: 120px;
+}
+
+.CompanyCard-Text {
+    border-top: 1px solid #D6D6D6;
+    font-size: 11px;
+    color: var(--grey-500);
+    padding: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.CompanyCard-Text_Title {
+    max-width: 90px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
