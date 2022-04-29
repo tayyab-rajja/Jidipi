@@ -1,5 +1,7 @@
 import styles from "./index.module.scss";
 import clsx from "clsx";
+import Image from 'next/image'
+import SearchIcon from "public/images/filters/search.svg"
 
 interface IProps {
     openSelect: Function;
@@ -12,7 +14,7 @@ export default ({ openSelect, openedSelect }: IProps) => {
             <div className={styles["search"]}>
                 <div className={styles["input-group"]}>
                     <div className={styles["icon"]}>
-                        <img src={"/images/filters/search.svg"} />
+                        <Image src={SearchIcon} alt="search icon" />
                     </div>
                     <input
                         className={styles["search-input"]}

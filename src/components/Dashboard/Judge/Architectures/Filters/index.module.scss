@@ -139,6 +139,11 @@
 }
 
 .architectures-filter {
+    // global styles with apply to body in the design
+    // start
+    color: #37373799;
+    font-size: 11px;
+    // end
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;

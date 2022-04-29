@@ -1,94 +1,42 @@
-export default () => {
+import Link from "next/link";
+import { useRouter } from "next/router";
+import type { PageFolder } from "types/pageFolderType";
+interface IProps {
+    menuFolders: PageFolder[];
+}
+
+export default ({ menuFolders }: IProps) => {
+    const router = useRouter();
+    const pathNameFregments = router.asPath.split("/");
+    const folderName = pathNameFregments[pathNameFregments.length - 1];
     return (
         <div className="scroll-tabs">
             <ul className="nav nav-tabs" id="myTab" role="tablist">
-                <li className="nav-item" role="presentation">
-                    <button
-                        className="nav-link active tab-button"
-                        id="architectures-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#architectures"
-                        type="button"
-                        role="tab"
-                        aria-controls="architectures"
-                        aria-selected="true"
+                {menuFolders?.map((folder) => (
+                    <li
+                        className="nav-item"
+                        role="presentation"
+                        key={folder._id}
                     >
-                        ARCHITECTURES
-                    </button>
-                </li>
-                <li className="nav-item" role="presentation">
-                    <button
-                        className="nav-link tab-button"
-                        id="interiors-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#interiors"
-                        type="button"
-                        role="tab"
-                        aria-controls="interiors"
-                        aria-selected="true"
-                    >
-                        INTERIORS
-                    </button>
-                </li>
-
-                <li className="nav-item" role="presentation">
-                    <button
-                        className="nav-link tab-button"
-                        id="construction-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#construction"
-                        type="button"
-                        role="tab"
-                        aria-controls="construction"
-                        aria-selected="true"
-                    >
-                        CONSTRUCTIONS
-                    </button>
-                </li>
-
-                <li className="nav-item" role="presentation">
-                    <button
-                        className="nav-link tab-button"
-                        id="electronics-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#electronics"
-                        type="button"
-                        role="tab"
-                        aria-controls="electronics"
-                        aria-selected="true"
-                    >
-                        ELECTRONICS
-                    </button>
-                </li>
-
-                <li className="nav-item" role="presentation">
-                    <button
-                        className="nav-link tab-button"
-                        id="furnitures-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#furnitures"
-                        type="button"
-                        role="tab"
-                        aria-controls="furnitures"
-                        aria-selected="true"
-                    >
-                        FURNITURE
-                    </button>
-                </li>
-                <li className="nav-item" role="presentation">
-                    <button
-                        className="nav-link tab-button"
-                        id="goods-tab"
-                        data-bs-toggle="tab"
-                        data-bs-target="#goods"
-                        type="button"
-                        role="tab"
-                        aria-controls="goods"
-                        aria-selected="true"
-                    >
-                        GOODS
-                    </button>
-                </li>
+                        <Link
+                            href={`/dashboard/post/list/${folder.title}`}
+                            data-bs-toggle="tab"
+                            data-bs-target="#architectures"
+                            aria-controls="architectures"
+                            aria-selected="true"
+                        >
+                            <a
+                                className={`nav-link tab-button ${
+                                    folderName === folder.title && "active"
+                                }`}
+                                id="architectures-tab"
+                                role="tab"
+                            >
+                                {folder.title.toUpperCase()}
+                            </a>
+                        </Link>
+                    </li>
+                ))}
             </ul>
         </div>
     );

@@ -21,41 +21,41 @@ export default () => {
             }
         });
     };
-    useEffect(() => {
-        const clickHandler = ({ target }: MouseEvent) => {
-            const targetElement = target as HTMLElement;
-            const item = targetElement.closest(
-                `.${styles["item"]}`
-            ) as HTMLElement;
-            if (item) {
-                setOpenedSelect("");
-                const selectGroup = targetElement.closest(
-                    `.${styles["select-group"]}`
-                ) as HTMLElement;
-                const content = selectGroup.querySelector(
-                    `.${styles["content"]}`
-                ) as HTMLElement;
-                const selectedItem = selectGroup.querySelector(
-                    `.${styles["selected-item"]}`
-                ) as HTMLElement;
-                if (selectedItem) {
-                    content.classList.add(styles["hide"]);
-                    selectedItem.classList.add(styles["show-flex"]);
-                    selectedItem.innerHTML = `<h3 class="${styles["label"]}">
-                        ${item.innerText}
-                        </h3> <img src="/images/filters/xmark.svg"  onclick="removeSelectedAward()">`;
-                }
-            }
-        };
-        architecturesFilter.current?.addEventListener("click", clickHandler);
+    // useEffect(() => {
+    //     const clickHandler = ({ target }: MouseEvent) => {
+    //         const targetElement = target as HTMLElement;
+    //         const item = targetElement.closest(
+    //             `.${styles["item"]}`
+    //         ) as HTMLElement;
+    //         if (item) {
+    //             setOpenedSelect("");
+    //             const selectGroup = targetElement.closest(
+    //                 `.${styles["select-group"]}`
+    //             ) as HTMLElement;
+    //             const content = selectGroup.querySelector(
+    //                 `.${styles["content"]}`
+    //             ) as HTMLElement;
+    //             const selectedItem = selectGroup.querySelector(
+    //                 `.${styles["selected-item"]}`
+    //             ) as HTMLElement;
+    //             if (selectedItem) {
+    //                 content.classList.add(styles["hide"]);
+    //                 selectedItem.classList.add(styles["show-flex"]);
+    //                 selectedItem.innerHTML = `<h3 class="${styles["label"]}">
+    //                     ${item.innerText}
+    //                     </h3> <img src="/images/filters/xmark.svg"  onclick="removeSelectedAward()">`;
+    //             }
+    //         }
+    //     };
+    //     architecturesFilter.current?.addEventListener("click", clickHandler);
 
-        return () => {
-            architecturesFilter.current?.removeEventListener(
-                "click",
-                clickHandler
-            );
-        };
-    }, []);
+    //     return () => {
+    //         architecturesFilter.current?.removeEventListener(
+    //             "click",
+    //             clickHandler
+    //         );
+    //     };
+    // }, []);
     return (
         <div
             className={styles["architectures-filter"]}

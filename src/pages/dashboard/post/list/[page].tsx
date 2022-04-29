@@ -4,15 +4,13 @@ import { GET } from "../../../../lib/common/api";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import { FilterItem } from "../../../../lib/models/filter";
-import Layout from "../../../../components/Layout";
 import React, { useContext } from "react";
 import SidebarDashboard from "../../../../components/Dashboard/Sidebar/SidebarDashboard";
 import { UserContext } from "../../../../providers/UserProvider";
-import { isJudge, isPartner } from "../../../../lib/user/role";
+import { isJudge } from "../../../../lib/user/role";
 import Link from "next/link";
 import { generateSidebarMenus } from "../../../../lib/common/menu";
 import { DashboardLayout } from "../../../../components/Dashboard/Layout/Layout";
-import { User } from "src/lib/user/action";
 import Filters from "src/components/Dashboard/Judge/Architectures/Filters";
 import Menu from "src/components/Dashboard/Judge/Architectures/Menu";
 
@@ -21,7 +19,7 @@ export default function Posts(props: any) {
     const user = userContext.user;
     const router = useRouter();
     const { data, error } = useSWR(getKey(props), GET);
-    console.log(data)
+    console.log(data);
     if (error) return <div>error...</div>;
     if (!data) return <div>loading...</div>;
     console.log({ user, competitions: props.competitions });
@@ -36,7 +34,7 @@ export default function Posts(props: any) {
     let filters: { [key: string]: FilterItem[] } = {};
     // PostStatus, MessageStatus, CoverStatus,
     // Filters for judge
-    console.log(isJudge(user))
+    console.log(isJudge(user));
     if (isJudge(user))
         filters = {
             award: [{ label: "abc", count: 1 }],
@@ -62,7 +60,7 @@ export default function Posts(props: any) {
     return (
         <DashboardLayout sidebarComponent={<SidebarDashboard menus={menus} />}>
             <div>
-                <Menu />
+                <Menu menuFolders={props.menuFolders} />
                 <div style={{ backgroundColor: "white" }}>
                     <Filters />
                     <div>TOP header</div>
@@ -98,7 +96,7 @@ const getKey = (props: any) => {
             .join("&");
     }
     query = query ? "?" + query : "";
-    console.log(`/post/${props.currentPageFolder._id}/filterByPage${query}`)
+    console.log(`/post/${props.currentPageFolder._id}/filterByPage${query}`);
     return `/post/${props.currentPageFolder._id}/filterByPage${query}`;
 };
 
@@ -116,14 +114,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         const pageFolders = pages && pages.pageFolders;
         const c = await GET("/competition");
         const currentPageFolder = pageFolders.find(
-            (page: any) =>
-                context.params && page.subDomain === context.params.page
+            (page: any) => page.subDomain === "architectures"
         );
+        const menuFolders = pageFolders.filter((page: any) => {
+            return page.pageType === "PROJECT" || page.pageType === "PRODUCT";
+        });
         props = {
             competitions: c.competitions,
-            pageFolders,
             currentPageFolder,
             query: context.query,
+            menuFolders,
         };
     } catch (e) {}
 

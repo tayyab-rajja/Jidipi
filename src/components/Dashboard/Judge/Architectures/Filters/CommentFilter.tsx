@@ -1,6 +1,8 @@
 import styles from "./index.module.scss";
 import clsx from "clsx";
-
+import Image from 'next/image'
+import ChatIcon from 'public/images/filters/chat.svg'
+import ArrowIcon from 'public/images/filters/arrow.svg'
 interface IProps {
     openSelect: Function;
     openedSelect: String;
@@ -17,9 +19,9 @@ export default ({ openSelect, openedSelect }: IProps) => {
                             openSelect("comment");
                         }}
                     >
-                        <img src={"/images/filters/chat.svg"} />
+                        <Image src={ChatIcon} alt="chat icon" />
                         <h3 className={styles["label"]}>Comment</h3>
-                        <img src={"/images/filters/arrow.svg"} />
+                        <Image src={ArrowIcon} alt="arrow icon" />
                     </div>
                     <div className={styles["selected-item"]}></div>
                 </div>
