@@ -12,13 +12,45 @@ import { CompanyCategory } from "src/components/CompanyCategory/CompanyCategory"
 
 import Layout from "src/components/Layout";
 import Sidebar from "src/components/Sidebar";
+import { ICategoriesResponse } from "types/categoryTypes";
 
 import { PageFolder } from "types/pageFolderType";
+
+const getCategoty = (
+  categories: ICategoriesResponse | undefined,
+  categoryType: string
+) => {
+  if (!categories) {
+    return [];
+  }
+
+  switch (categoryType) {
+    case "brand":
+    case "architect":
+      return categories.companies;
+    case "category":
+      return categories.categories.find(({ type }) => type === "CATEGORIES")
+        ?.categories;
+    default:
+      return categories.categories.find(
+        ({ type }) => type === categoryType.toLocaleUpperCase()
+      )?.categories;
+  }
+};
 
 interface Props {}
 
 const FolderPage = ({}: Props) => {
+  const { query } = useRouter();
+  const { data: pageFolder } = usePageFolderByName(
+    (query.folder as string) ?? null
+  );
+  const { categories } = useCategories((pageFolder?._id as string) ?? null);
 
+  const category = getCategoty(categories, query.category as string);
+
+  const isCompanies =
+    query.category === "brand" || query.category === "architect";
 
   return (
     <>
@@ -28,7 +60,7 @@ const FolderPage = ({}: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div style={{display: "flex", flexDirection: "column", height: "100%"}}>
+      <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
         <Alphabet />
         <CompanyCategory />
       </div>
