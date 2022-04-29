@@ -17,8 +17,10 @@ export const CompanyCard: FC<Props> = ({company}) => {
 
     return (
         <div className={styles["CompanyCard-Container"]}>
-            <Image className={styles["CompanyCard-Image"]} width={120} height={120} src={logoId?.liveURL || emptyImage} alt={`${title}`}/>
-            <div className={styles["CompanyCard-Text"]}>
+            <div className={styles["CompanyCard-ImageContainer"]}>
+                <img className={styles["CompanyCard-Image"]} src={logoId?.liveURL || emptyImage} alt={`${title}`}/>
+            </div>
+            <div className={styles["CompanyCard-TextContainer"]}>
                 <span className={styles["CompanyCard-Text_Title"]}>{title}</span>
                 <span>({count})</span>
             </div>
