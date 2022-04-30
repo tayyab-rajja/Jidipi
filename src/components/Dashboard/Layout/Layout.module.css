@@ -5,10 +5,11 @@
 
 .Layout-Content {
   width: calc(100% - 300px);
-  padding: 20px;
-  background-color: rgb(0, 0, 0, 0.1);
-  display: flex;
-  flex-wrap: wrap;
+  padding: 0 20px;
+  /* background-color: rgb(0, 0, 0, 0.1); */
+  background-image: url("/images/backgrounds/dashboard-background.png");
+  /* display: flex;
+  flex-wrap: wrap; */
 }
 
 .Layout-Content_FullWith {
