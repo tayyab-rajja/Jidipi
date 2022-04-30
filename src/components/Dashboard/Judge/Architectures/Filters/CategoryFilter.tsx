@@ -7,11 +7,11 @@ import DeleteIcon from "public/images/filters/xmark.svg";
 import { data, type IItem } from "constant/filters/category";
 import useFilterSelect from "src/hooks/useFilterSelect";
 interface IProps {
-    openSelect: Function;
-    openedSelect: string;
+    // openSelect: Function;
+    // openedSelect: string;
 }
 
-export default ({ openSelect, openedSelect }: IProps) => {
+export default () => {
     const {
         selectedItem,
         selectState,

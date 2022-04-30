@@ -34,6 +34,7 @@ export default function<IItem> () {
         setSelectState,
         select,
         handleChange,
-        removeSelectedItem
+        removeSelectedItem,
+        setSelectedItem
     }
 }

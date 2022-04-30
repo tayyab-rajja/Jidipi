@@ -1,25 +1,28 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./index.module.scss";
 import clsx from "clsx";
 import { data, IItem } from "constant/filters/candidate";
 import useFilterSelect from "src/hooks/useFilterSelect";
 
 interface IProps {
-    openSelect: Function;
-    openedSelect: string;
+    // openSelect: Function;
+    // openedSelect: string;
 }
 
-export default ({ openSelect, openedSelect }: IProps) => {
-    const [selectedId, setSelectedId] = useState(1);
+export default () => {
+    const prevSelected = useRef<IItem | null>(null);
     const {
         selectedItem,
         selectState,
         setSelectState,
         select,
         handleChange,
-        removeSelectedItem,
+        setSelectedItem,
     } = useFilterSelect<IItem>();
-
+    useEffect(() => {
+        prevSelected.current = data[0];
+        setSelectedItem(data[0]);
+    }, []);
     return (
         <div
             ref={select}
@@ -30,12 +33,14 @@ export default ({ openSelect, openedSelect }: IProps) => {
                     <div
                         className={styles["content"]}
                         onClick={() => {
-                            openSelect("candidates");
+                            setSelectState((value) =>
+                                value === "opened" ? "normal" : "opened"
+                            );
                         }}
                     >
                         <div
                             className={clsx(
-                                styles["all"],
+                                prevSelected.current && styles[prevSelected.current.class],
                                 styles["item-content"],
                                 styles["active"]
                             )}
@@ -47,7 +52,8 @@ export default ({ openSelect, openedSelect }: IProps) => {
                                     styles["text-start"]
                                 )}
                             >
-                                All Candidate (18,345)
+                                {prevSelected.current &&
+                                    `${prevSelected.current.message} (${prevSelected.current.count})`}
                             </div>
                         </div>
                     </div>
@@ -55,7 +61,7 @@ export default ({ openSelect, openedSelect }: IProps) => {
                 <div
                     className={clsx(
                         styles["select-content"],
-                        openedSelect === "candidates" && styles["open"]
+                        selectState === "opened" && styles["open"]
                     )}
                     id="candidates"
                 >
@@ -65,8 +71,15 @@ export default ({ openSelect, openedSelect }: IProps) => {
                                 <div
                                     className={clsx(
                                         styles[item.class],
-                                        styles["item-content"]
+                                        styles["item-content"],
+                                        selectedItem &&
+                                            selectedItem.id === item.id &&
+                                            styles["active"]
                                     )}
+                                    onClick={() => {
+                                        handleChange(item);
+                                        prevSelected.current = item;
+                                    }}
                                 >
                                     <div className={styles["icon"]}></div>
                                     <div
@@ -81,60 +94,6 @@ export default ({ openSelect, openedSelect }: IProps) => {
                             </div>
                         );
                     })}
-                    {/* <div className={styles["item"]}>
-                        <div
-                            className={clsx(
-                                styles["review"],
-                                styles["item-content"]
-                            )}
-                        >
-                            <div className={styles["icon"]}></div>
-                            <div
-                                className={clsx(
-                                    styles["title"],
-                                    styles["text-start"]
-                                )}
-                            >
-                                Waiting to Review (4523)
-                            </div>
-                        </div>
-                    </div>
-                    <div className={clsx(styles["item"], styles["draft"])}>
-                        <div
-                            className={clsx(
-                                styles["draft"],
-                                styles["item-content"]
-                            )}
-                        >
-                            <div className={styles["icon"]}></div>
-                            <div
-                                className={clsx(
-                                    styles["title"],
-                                    styles["text-start"]
-                                )}
-                            >
-                                Saved as Draft (4523)
-                            </div>
-                        </div>
-                    </div>
-                    <div className={styles["item"]}>
-                        <div
-                            className={clsx(
-                                styles["scheduled"],
-                                styles["item-content"]
-                            )}
-                        >
-                            <div className={styles["icon"]}></div>
-                            <div
-                                className={clsx(
-                                    styles["title"],
-                                    styles["text-start"]
-                                )}
-                            >
-                                Scheduled to publish (1,234)
-                            </div>
-                        </div>
-                    </div> */}
                 </div>
             </div>
         </div>

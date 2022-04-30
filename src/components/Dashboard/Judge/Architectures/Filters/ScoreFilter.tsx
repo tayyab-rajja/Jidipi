@@ -8,11 +8,11 @@ import { data, IItem } from "constant/filters/score";
 import useFilterSelect from "src/hooks/useFilterSelect";
 
 interface IProps {
-    openSelect: Function;
-    openedSelect: String;
+    // openSelect: Function;
+    // openedSelect: string;
 }
 
-export default ({ openSelect, openedSelect }: IProps) => {
+export default () => {
     const {
         selectedItem,
         selectState,

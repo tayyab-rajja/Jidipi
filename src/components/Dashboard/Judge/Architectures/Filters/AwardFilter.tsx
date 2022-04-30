@@ -8,19 +8,11 @@ import DeleteIcon from "public/images/filters/xmark.svg";
 import { data, IItem } from "constant/filters/award";
 import useFilterSelect from "src/hooks/useFilterSelect";
 interface IProps {
-    openSelect: Function;
-    openedSelect: String;
+    // openSelect: Function;
+    // openedSelect: String;
 }
 
-// interface IItem {
-//     message: string;
-//     id: number;
-//     count: number;
-// }
-
-// type selectState = "normal" | "opened" | "selected";
-
-export default ({ openSelect, openedSelect }: IProps) => {
+export default () => {
     const {
         selectedItem,
         selectState,

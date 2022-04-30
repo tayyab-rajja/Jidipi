@@ -299,31 +299,31 @@
                 .all {
                     background-color: #e3e3e3;
                     color: #373737;
-                    // .icon {
-                    //     background-image: url("/images/filters/category.svg");
-                    // }
+                    .icon {
+                        background-image: url("/images/filters/category.svg");
+                    }
                 }
 
                 .review {
-                    // .icon {
-                    //     background-image: url("/images/filters/calendar-light.svg");
-                    // }
+                    .icon {
+                        background-image: url("/images/filters/calendar-light.svg");
+                    }
                     background-color: #f89590;
                     color: #ffffff;
                 }
                 .draft {
                     background-color: #73b9f6;
                     color: #ffffff;
-                    // .icon {
-                    //     background-image: url("/images/filters/pen-light.svg");
-                    // }
+                    .icon {
+                        background-image: url("/images/filters/pen-light.svg");
+                    }
                 }
                 .scheduled {
                     background-color: #f9b960;
                     color: #ffffff;
-                    // .icon {
-                    //     background-image: url("/images/filters/clock-light.svg");
-                    // }
+                    .icon {
+                        background-image: url("/images/filters/clock-light.svg");
+                    }
                 }
             }
             .select-content {
