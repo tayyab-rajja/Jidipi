@@ -4,7 +4,10 @@ import {PostStatus} from "../../../lib/models/post";
 import styles from "./SidebarDashboardRight.module.css";
 import {PUT} from "../../../lib/common/api";
 import UploadFile from '../File/File';
-
+import dynamic from "next/dynamic";
+import { ChatType } from '../Chat/Chat';
+// import Chat from "../Chat/Chat";
+const Chat = dynamic(() => import('../Chat/Chat'), { ssr: false });
 /**
  * @param props
  * @constructor
@@ -168,9 +171,8 @@ const SidebarDashboardRight = (props: any) => {
             </button>
             }
             <p></p>
-            <div>CHAT HERE</div>
+            <Chat postId={post._id} chatType={ChatType.PartnerChat} ></Chat>
 
-            <UploadFile postId={post._id} type={'POST'}></UploadFile>
         </div>
     }
     return <></>;

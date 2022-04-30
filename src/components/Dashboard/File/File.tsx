@@ -2,7 +2,26 @@ import {useEffect, useState} from "react";
 import {getPreSignedUrl, uploadFileToS3} from "../../../lib/file/upload";
 import {UploadState} from "../../../lib/file/action";
 import {POST} from "../../../lib/common/api";
-
+//
+// function DragDrop() {
+//     const [file, setFile] = useState(null);
+//     const handleChange = file => {
+//         setFile(file);
+//     };
+//     return (
+//         <div>
+//             <h3>GeeksforGeeks - File Dropper</h3>
+//             <FileUploader
+//                 handleChange={handleChange}
+//                 name="file"
+//                 types={fileTypes}
+//             />
+//         </div>
+//
+//     );
+// }
+//
+// export default DragDrop;
 /**
  * @description Upload file component, can handle multiple files and dispay process bar using the AWS S3 pre-signed url
  * @param props
