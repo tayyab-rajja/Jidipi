@@ -11,6 +11,24 @@
             }
         }
     }
+    .deadline {
+        width: 100px;
+        padding: 0;
+        padding-left: 10px;
+    }
+}
+@media (min-width: 1024px) {
+    .process-list {
+        min-width: calc(100% - 200px);
+        .item {
+            flex-direction: column;
+        }
+    }
+
+    .deadline {
+        width: 200px;
+        padding: 0 40px;
+    }
 }
 
 @media (min-width: 1230px) {
@@ -23,15 +41,6 @@
                 bottom: -24px;
                 right: 0;
             }
-        }
-    }
-}
-
-@media (min-width: 1024px) {
-    .process-list {
-        min-width: calc(100% - 200px);
-        .item {
-            flex-direction: column;
         }
     }
 }
@@ -49,9 +58,16 @@
             }
         }
     }
+
+    .deadline {
+        width: 240px;
+      }
 }
 
 .process-section {
+    font-size: 11px;
+    color: #37373799;
+    font-family: 'Poppins';
     .processing {
         height: 0px;
         transition: 0.3s;

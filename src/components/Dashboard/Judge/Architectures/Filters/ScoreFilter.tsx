@@ -1,8 +1,11 @@
 import styles from "./index.module.scss";
 import clsx from "clsx";
-import Image from 'next/image'
-import ScoreIcon from 'public/images/filters/score.svg'
-import ArrowIcon from 'public/images/filters/arrow.svg'
+import Image from "next/image";
+import ScoreIcon from "public/images/filters/score.svg";
+import ArrowIcon from "public/images/filters/arrow.svg";
+import DeleteIcon from "public/images/filters/xmark.svg";
+import { data, IItem } from "constant/filters/score";
+import useFilterSelect from "src/hooks/useFilterSelect";
 
 interface IProps {
     openSelect: Function;
@@ -10,59 +13,72 @@ interface IProps {
 }
 
 export default ({ openSelect, openedSelect }: IProps) => {
+    const {
+        selectedItem,
+        selectState,
+        setSelectState,
+        select,
+        handleChange,
+        removeSelectedItem,
+    } = useFilterSelect<IItem>();
+
     return (
-        <div className={clsx(styles["filter-item"], styles["score"])}>
+        <div
+            ref={select}
+            className={clsx(styles["filter-item"], styles["score"])}
+        >
             <div className={styles["select-group"]}>
                 <div className={styles["select-btn"]}>
-                    <div
-                        className={styles["content"]}
-                        onClick={() => {
-                            openSelect("score");
-                        }}
-                    >
-                        <Image src={ScoreIcon} alt="score icon" />
-                        <h3 className={styles["label"]}>Score</h3>
-                        <Image src={ArrowIcon} alt="arrow icon" />
-                    </div>
-                    <div className={styles["selected-item"]}></div>
+                    {(selectState === "normal" || selectState === "opened") && (
+                        <div
+                            className={styles["content"]}
+                            onClick={() => {
+                                setSelectState((value) =>
+                                    value === "opened" ? "normal" : "opened"
+                                );
+                            }}
+                        >
+                            <Image src={ScoreIcon} alt="score icon" />
+                            <h3 className={styles["label"]}>Score</h3>
+                            <Image src={ArrowIcon} alt="arrow icon" />
+                        </div>
+                    )}
+                    {selectState === "selected" && selectedItem && (
+                        <div
+                            className={clsx(
+                                styles["selected-item"],
+                                styles["show-flex"]
+                            )}
+                        >
+                            <h3 className={styles["label"]}>
+                                {`${selectedItem.message}`}
+                            </h3>
+                            <Image
+                                src={DeleteIcon}
+                                alt="delete icon"
+                                onClick={removeSelectedItem}
+                            />
+                        </div>
+                    )}
                 </div>
                 <div
                     className={clsx(
                         styles["select-content"],
-                        openedSelect === "score" && styles["open"]
+                        selectState === "opened" && styles["open"]
                     )}
                     id="score"
                 >
-                    <div className={styles["item"]}>
-                        <p>No Score</p>
-                    </div>
-                    <div className={styles["item"]}>
-                        <p>Average Score 1-2</p>
-                    </div>
-                    <div className={styles["item"]}>
-                        <p>Average Score 2-3</p>
-                    </div>
-                    <div className={styles["item"]}>
-                        <p>Average Score 3-4</p>
-                    </div>
-                    <div className={styles["item"]}>
-                        <p>Average Score 4-5</p>
-                    </div>
-                    <div className={styles["item"]}>
-                        <p>Average Score 5-6</p>
-                    </div>
-                    <div className={styles["item"]}>
-                        <p>Average Score 6-7</p>
-                    </div>
-                    <div className={styles["item"]}>
-                        <p>Average Score 7-8</p>
-                    </div>
-                    <div className={styles["item"]}>
-                        <p>Average Score 8-9</p>
-                    </div>
-                    <div className={styles["item"]}>
-                        <p>Average Score 9-10</p>
-                    </div>
+                    {data.map((item) => {
+                        return (
+                            <div
+                                key={item.id}
+                                className={styles["item"]}
+                                onClick={() => handleChange(item)}
+                            >
+                                <p>{item.message}</p>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         </div>

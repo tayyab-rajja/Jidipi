@@ -1,14 +1,30 @@
+import { useState } from "react";
 import styles from "./index.module.scss";
 import clsx from "clsx";
+import { data, IItem } from "constant/filters/candidate";
+import useFilterSelect from "src/hooks/useFilterSelect";
 
 interface IProps {
     openSelect: Function;
-    openedSelect: String;
+    openedSelect: string;
 }
 
 export default ({ openSelect, openedSelect }: IProps) => {
+    const [selectedId, setSelectedId] = useState(1);
+    const {
+        selectedItem,
+        selectState,
+        setSelectState,
+        select,
+        handleChange,
+        removeSelectedItem,
+    } = useFilterSelect<IItem>();
+
     return (
-        <div className={clsx(styles["filter-item"], styles["candidates"])}>
+        <div
+            ref={select}
+            className={clsx(styles["filter-item"], styles["candidates"])}
+        >
             <div className={styles["select-group"]}>
                 <div className={styles["select-btn"]}>
                     <div
@@ -16,16 +32,7 @@ export default ({ openSelect, openedSelect }: IProps) => {
                         onClick={() => {
                             openSelect("candidates");
                         }}
-                    ></div>
-                </div>
-                <div
-                    className={clsx(
-                        styles["select-content"],
-                        openedSelect === "candidates" && styles["open"]
-                    )}
-                    id="candidates"
-                >
-                    <div className={styles["item"]}>
+                    >
                         <div
                             className={clsx(
                                 styles["all"],
@@ -44,7 +51,37 @@ export default ({ openSelect, openedSelect }: IProps) => {
                             </div>
                         </div>
                     </div>
-                    <div className={styles["item"]}>
+                </div>
+                <div
+                    className={clsx(
+                        styles["select-content"],
+                        openedSelect === "candidates" && styles["open"]
+                    )}
+                    id="candidates"
+                >
+                    {data.map((item) => {
+                        return (
+                            <div key={item.id} className={styles["item"]}>
+                                <div
+                                    className={clsx(
+                                        styles[item.class],
+                                        styles["item-content"]
+                                    )}
+                                >
+                                    <div className={styles["icon"]}></div>
+                                    <div
+                                        className={clsx(
+                                            styles["title"],
+                                            styles["text-start"]
+                                        )}
+                                    >
+                                        {`${item.message} (${item.count})`}
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
+                    {/* <div className={styles["item"]}>
                         <div
                             className={clsx(
                                 styles["review"],
@@ -97,7 +134,7 @@ export default ({ openSelect, openedSelect }: IProps) => {
                                 Scheduled to publish (1,234)
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

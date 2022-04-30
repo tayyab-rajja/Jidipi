@@ -66,7 +66,7 @@ export default () => {
                         </div>
                     </div>
                 </div>
-                <div className="deadline">
+                <div className={styles["deadline"]}>
                     <div className={styles["item"]}>
                         <div className={`${styles["progress-bar"]} progress-bar`}>
                             <div className={styles["active"]}></div>
