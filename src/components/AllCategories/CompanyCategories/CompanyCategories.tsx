@@ -1,15 +1,14 @@
 import { FC } from "react";
-import { ICategory, ICompany } from "types/categoryTypes";
+import { ICompany } from "types/categoryTypes";
 import { CompanyCard } from "./CompanyCard/CompanyCard";
 
 import styles from "./CompanyCategories.module.css";
 
 interface Props {
-  categories?: ICompany[],
+  categories: ICompany[];
 }
 
-export const CompanyCategories: FC<Props> = ({categories}) => {
-
+export const CompanyCategories: FC<Props> = ({ categories }) => {
   return (
     <div className={styles["CompanyCategory-Container"]}>
       {categories?.map((company: ICompany) => (
