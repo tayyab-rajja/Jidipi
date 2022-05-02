@@ -5,9 +5,9 @@ import styles from "./SidebarDashboardRight.module.css";
 import {PUT} from "../../../lib/common/api";
 import UploadFile from '../File/File';
 import dynamic from "next/dynamic";
-import { ChatType } from '../Chat/Chat';
+import {ChatType} from '../Chat/Chat';
 // import Chat from "../Chat/Chat";
-const Chat = dynamic(() => import('../Chat/Chat'), { ssr: false });
+const Chat = dynamic(() => import('../Chat/Chat'), {ssr: false});
 /**
  * @param props
  * @constructor
@@ -77,8 +77,19 @@ const SidebarDashboardRight = (props: any) => {
     // Judge evaluation
     const [evaluation, SetEvaluation] = useState({competitionId: '', postId: '', rating: 0, comment: ''});
 
-    async function review() {
-        const result = await PUT('/competition/judge', evaluation);
+    async function reviewDraft() {
+        await review(PostStatus.Draft);
+    }
+    async function reviewPublished() {
+        if(!evaluation.rating) {
+            console.log('Please rate the post before publishing.');
+            return;
+        }
+        await review(PostStatus.Published);
+    }
+
+    async function review(status: string) {
+        const result = await PUT('/competition/judge', {...evaluation, status});
         console.log('follow action for success for failed', result);
     }
 
@@ -122,9 +133,16 @@ const SidebarDashboardRight = (props: any) => {
                 <p></p>            <p></p>
                 <button
                     onClick={() => {
-                        review();
+                        reviewDraft();
                     }}
-                >Save ....
+                >Save as Draft ....
+                </button>
+                <p></p>
+                <button
+                    onClick={() => {
+                        reviewPublished();
+                    }}
+                >Send to JIDIPI ....
                 </button>
             </div>
         </div>
@@ -171,7 +189,7 @@ const SidebarDashboardRight = (props: any) => {
             </button>
             }
             <p></p>
-            <Chat postId={post._id} chatType={ChatType.PartnerChat} ></Chat>
+            <Chat postId={post._id} chatType={ChatType.PartnerChat}></Chat>
 
         </div>
     }

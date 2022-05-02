@@ -1,18 +1,23 @@
-export const data = [
+import {FilterItem} from "./interface";
+
+export enum filterRatingStatus {
+    'noRating' = 'noRating',
+    'rated' = 'rated',
+}
+
+/**
+ * @param {string} id
+ * ?rating=noRating
+ */
+export const data: FilterItem[] = [
     {
         message: "No Rating",
         count: 33,
-        id: 1,
+        id: filterRatingStatus.noRating,
     },
     {
         message: "Rated",
         count: 2341,
-        id: 2,
+        id: filterRatingStatus.rated,
     },
 ];
-
-export interface IItem {
-    message: string;
-    count: number;
-    id: number;
-}

@@ -1,33 +1,40 @@
-export const data = [
+import {FilterItem} from "./interface";
+
+export enum filterCandidateStatus {
+    All = 'ALL',
+    Pending = 'PENDING',
+    Draft = 'DRAFT',
+    Published = 'PUBLISHED',
+}
+/**
+ * @param {string} id
+ * ?candidate=scheduled
+ */
+export const data :FilterItem[] = [
     {
         message: "All Candidate",
         count: 18234,
-        id: 1,
+        id: filterCandidateStatus.All,
         class: "all",
     },
     {
         message: "Waiting to Review",
         count: 4523,
-        id: 2,
+        id: filterCandidateStatus.Pending,
         class: "review",
     },
     {
-        message: "All Candidate",
+        message: "Saved as draft",
         count: 4523,
-        id: 3,
+        id: filterCandidateStatus.Draft,
         class: "draft",
     },
     {
-        message: "All Candidate",
+        message: "Send to JIDIPI",
         count: 1234,
-        id: 4,
+        id: filterCandidateStatus.Published,
         class: "scheduled",
     },
 ];
 
-export interface IItem {
-    message: string;
-    count: number;
-    id: number;
-    class: string;
-}
+
