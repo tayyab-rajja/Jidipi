@@ -28,13 +28,14 @@ const Item: FC<{
 
 export const CompaniesList: FC<ICompanyTab> = ({
   companies,
+  allRouteName,
   companiesCount,
 }) => {
-  //   const { query } = useRouter();
+  const { query } = useRouter();
 
   return (
     <div className={styles.CategoriesList}>
-      <Link href={`#`}>
+      <Link href={`/${query.folder}/${allRouteName.toLocaleLowerCase()}/all`}>
         <a className={styles["CategoriesList-Header"]}>All {companiesCount}</a>
       </Link>
       <List>

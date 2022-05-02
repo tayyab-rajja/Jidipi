@@ -1,0 +1,49 @@
+.CompanyCard-Container {
+    width: 120px;
+    height: 148px;
+    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+}
+
+.CompanyCard-Container:hover {
+    background-color: var(--accent-color);
+}
+
+.CompanyCard-TextContainer {
+    width: 120px;
+    height: 28px;
+    border-top: 1px solid var(--grey-300);
+    font-size: 11px;
+    color: var(--grey-500);
+    padding: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.CompanyCard-ImageContainer {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.CompanyCard-Container:hover .CompanyCard-Image {
+    width: 108px;
+    height: 108px;
+}
+
+.CompanyCard-Container:hover .CompanyCard-TextContainer {
+    border-top: 1px solid var(--accent-color);
+    color: var(--white);
+    background-color: var(--accent-color);
+}
+
+.CompanyCard-Text_Title {
+    max-width: 90px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
