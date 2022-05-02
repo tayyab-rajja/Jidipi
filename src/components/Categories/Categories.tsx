@@ -93,6 +93,9 @@ export const Categories = (props: Props) => {
           <TabPanel>
             <CompaniesList
               companies={categories?.companies}
+              allRouteName={
+                query.folder === "architectures" ? "ARCHITECT" : "BRAND"
+              }
               companiesCount={categories?.companiesCount}
             />
           </TabPanel>
