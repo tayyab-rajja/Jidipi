@@ -4,7 +4,7 @@ import { GET } from "../../../../lib/common/api";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import { FilterItem } from "../../../../lib/models/filter";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SidebarDashboard from "../../../../components/Dashboard/Sidebar/SidebarDashboard";
 import { UserContext } from "../../../../providers/UserProvider";
 import { isJudge } from "../../../../lib/user/role";
@@ -13,6 +13,8 @@ import { generateSidebarMenus } from "../../../../lib/common/menu";
 import { DashboardLayout } from "../../../../components/Dashboard/Layout/Layout";
 import Filters from "src/components/Dashboard/Judge/Architectures/Filters";
 import Menu from "src/components/Dashboard/Judge/Architectures/Menu";
+import { getFiltersFromUrl, setUrlForListPage } from "src/utils/url";
+import { useSelector } from "react-redux";
 
 export default function Posts(props: any) {
     const userContext: any = useContext(UserContext);
@@ -20,42 +22,65 @@ export default function Posts(props: any) {
     const router = useRouter();
     const { data, error } = useSWR(getKey(props), GET);
     console.log(data);
-    if (error) return <div>error...</div>;
-    if (!data) return <div>loading...</div>;
-    console.log({ user, competitions: props.competitions });
-
+    const filters = getFiltersFromUrl(router.asPath.split("?")[1] ?? "");
+    const [filterParameters, setFilterParameters] = useState(
+        filters.postFilters
+    );
+    const [pageFilter, setPageFilter] = useState(
+        filters.pageFilters ?? {
+            pageSize: 20,
+            pageNumber: -1,
+        }
+    );
+    useEffect(() => {
+        filterToUrl();
+    }, [filterParameters, pageFilter]);
+    // const pageNumber = useSelector(state => state.user.pageNumberBack);
+    // const total = useSelector(state => state.user.total);
+    // const statuses = useSelector(state => state.user.statuses)
+    // const fetchingUser = useSelector(state => state.user.fetchingUser);
     // MENU of the sidebar
     const menus = generateSidebarMenus({
         user,
         competitions: props.competitions,
     });
 
-    //FILTER of the post list
-    let filters: { [key: string]: FilterItem[] } = {};
-    // PostStatus, MessageStatus, CoverStatus,
-    // Filters for judge
-    console.log(isJudge(user));
-    if (isJudge(user))
-        filters = {
-            award: [{ label: "abc", count: 1 }],
-            score: [
-                { label: "No Score", min: 0, max: 0 },
-                { label: "Average Score 1-2", min: 1, max: 2 },
-                { label: "Average Score 2-3", min: 2, max: 3 },
-                { label: "Average Score 3-4", min: 3, max: 4 },
-                { label: "Average Score 4-5", min: 4, max: 5 },
-                { label: "Average Score 5-6", min: 5, max: 6 },
-                { label: "Average Score 6-7", min: 6, max: 7 },
-                { label: "Average Score 7-8", min: 7, max: 8 },
-                { label: "Average Score 8-9", min: 8, max: 9 },
-                { label: "Average Score 9-10", min: 9, max: 10 },
-            ],
-            comment: [],
-        };
-    //EOF FILTER of the post list
-    const gotoPost = (id: string) => {
-        router.push("/dashboard/post/" + id).then(() => {});
+    
+    function filterToUrl() {
+        setUrlForListPage(pageFilter, filterParameters, {
+            field: "",
+            order: 1,
+        });
+        getItems();
+    }
+
+    const getItems = () => {}
+    
+    //   useEffect(() => {
+    //     setUrlForListPage({ ...pageFilter, pageNumber }, filterParameters, {
+    //       field: '',
+    //       order: 1,
+    //     });
+    //   }, [pageNumber]);
+
+    const onChange = (filterParameters: any) =>
+        setFilterParameters((value) => ({ ...value, ...filterParameters }));
+
+    //   const size = Math.ceil(total / pageFilter.pageSize);
+    const onPage = (page: any) => {
+        setPageFilter((value) => ({ ...value, pageNumber: page }));
     };
+
+    const onPageSizeChange = (size: any) => {
+        setPageFilter((value) => ({ ...value, pageSize: size }));
+    };
+    const pageOptions = [
+        { label: 20, value: 20 },
+        { label: 100, value: 100 },
+    ];
+
+    if (error) return <div>error...</div>;
+    if (!data) return <div>loading...</div>;
 
     return (
         <DashboardLayout sidebarComponent={<SidebarDashboard menus={menus} />}>
@@ -63,7 +88,7 @@ export default function Posts(props: any) {
                 <Menu menuFolders={props.menuFolders} />
                 <div style={{ backgroundColor: "white" }}>
                     <Filters />
-                    <div>TOP header</div>
+                    {/* <div>TOP header</div>
                     <div>FILTERS here</div>
                     <div>-----------------POST list</div>
                     {data.posts &&
@@ -76,7 +101,7 @@ export default function Posts(props: any) {
                                     </div>
                                 </Link>
                             </div>
-                        ))}
+                        ))} */}
                 </div>
             </div>
         </DashboardLayout>
@@ -96,7 +121,6 @@ const getKey = (props: any) => {
             .join("&");
     }
     query = query ? "?" + query : "";
-    console.log(`/post/${props.currentPageFolder._id}/filterByPage${query}`);
     return `/post/${props.currentPageFolder._id}/filterByPage${query}`;
 };
 

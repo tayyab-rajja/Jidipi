@@ -12,13 +12,13 @@ export const data = [
         class: "review",
     },
     {
-        message: "All Candidate",
+        message: "Saved as Draft",
         count: 4523,
         id: 3,
         class: "draft",
     },
     {
-        message: "All Candidate",
+        message: "Scheduled to publish",
         count: 1234,
         id: 4,
         class: "scheduled",

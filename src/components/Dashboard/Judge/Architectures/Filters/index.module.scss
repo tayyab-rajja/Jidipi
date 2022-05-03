@@ -196,6 +196,9 @@
                         overflow: hidden;
                         white-space: nowrap;
                     }
+                    img {
+                        cursor: pointer;
+                    }
                 }
             }
             .select-content {
