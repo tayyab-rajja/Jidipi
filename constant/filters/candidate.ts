@@ -12,27 +12,27 @@ export enum filterCandidateStatus {
  */
 export const data :FilterItem[] = [
     {
-        message: "All Candidate",
+        title: "All Candidate",
         count: 18234,
-        id: filterCandidateStatus.All,
+        _id: filterCandidateStatus.All,
         class: "all",
     },
     {
-        message: "Waiting to Review",
+        title: "Waiting to Review",
         count: 4523,
-        id: filterCandidateStatus.Pending,
+        _id: filterCandidateStatus.Pending,
         class: "review",
     },
     {
-        message: "Saved as draft",
+        title: "Saved as draft",
         count: 4523,
-        id: filterCandidateStatus.Draft,
+        _id: filterCandidateStatus.Draft,
         class: "draft",
     },
     {
-        message: "Send to JIDIPI",
+        title: "Send to JIDIPI",
         count: 1234,
-        id: filterCandidateStatus.Published,
+        _id: filterCandidateStatus.Published,
         class: "scheduled",
     },
 ];

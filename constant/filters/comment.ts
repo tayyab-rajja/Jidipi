@@ -1,22 +1,22 @@
-import {FilterItem} from "./interface";
+import { FilterItem } from "./interface";
 
 export enum filterCommentStatus {
-    'noComment' ='noComment',
-    'commented' ='commented',
+    "noComment" = "noComment",
+    "commented" = "commented",
 }
 /**
  * @param {string} id
  * ?comment=noComment
  */
-export const data :FilterItem[] = [
+export default [
     {
-        message: "No Comment",
+        title: "No Comment",
         count: 22,
-        id:  filterCommentStatus.noComment,
+        _id: filterCommentStatus.noComment,
     },
     {
-        message: "Commented",
+        title: "Commented",
         count: 2341,
-        id: filterCommentStatus.commented,
+        _id: filterCommentStatus.commented,
     },
-];
+] as FilterItem[];

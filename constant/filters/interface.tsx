@@ -1,6 +1,6 @@
 export interface FilterItem {
-    message: string;
-    id: string,
+    title: string;
+    _id: string,
     class?: string,
     count?: number
 }

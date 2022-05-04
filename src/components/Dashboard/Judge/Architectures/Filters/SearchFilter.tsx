@@ -4,10 +4,6 @@ import Image from "next/image";
 import SearchIcon from "public/images/filters/search.svg";
 import DeleteIcon from "public/images/filters/xmark.svg";
 import { useEffect, useRef, useState } from "react";
-interface IProps {
-    // openSelect: Function;
-    // openedSelect: string;
-}
 
 export default () => {
     const input = useRef<HTMLInputElement | null>(null);

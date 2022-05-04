@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./index.module.scss";
 import clsx from "clsx";
-import { data, IItem } from "constant/filters/candidate";
+import { data } from "constant/filters/candidate";
 import useFilterSelect from "src/hooks/useFilterSelect";
+import { FilterItem } from "constant/filters/interface";
 
 interface IProps {
     // openSelect: Function;
@@ -10,7 +11,7 @@ interface IProps {
 }
 
 export default () => {
-    const prevSelected = useRef<IItem | null>(null);
+    const prevSelected = useRef<FilterItem | null>(null);
     const {
         selectedItem,
         selectState,
@@ -18,7 +19,7 @@ export default () => {
         select,
         handleChange,
         setSelectedItem,
-    } = useFilterSelect<IItem>();
+    } = useFilterSelect<FilterItem>();
     useEffect(() => {
         prevSelected.current = data[0];
         setSelectedItem(data[0]);
@@ -40,7 +41,9 @@ export default () => {
                     >
                         <div
                             className={clsx(
-                                prevSelected.current && styles[prevSelected.current.class],
+                                prevSelected.current &&
+                                    prevSelected.current.class &&
+                                    styles[prevSelected.current.class],
                                 styles["item-content"],
                                 styles["active"]
                             )}
@@ -53,7 +56,7 @@ export default () => {
                                 )}
                             >
                                 {prevSelected.current &&
-                                    `${prevSelected.current.message} (${prevSelected.current.count})`}
+                                    `${prevSelected.current.title} (${prevSelected.current.count})`}
                             </div>
                         </div>
                     </div>
@@ -67,13 +70,13 @@ export default () => {
                 >
                     {data.map((item) => {
                         return (
-                            <div key={item.id} className={styles["item"]}>
+                            <div key={item._id} className={styles["item"]}>
                                 <div
                                     className={clsx(
-                                        styles[item.class],
+                                        item.class && styles[item.class],
                                         styles["item-content"],
                                         selectedItem &&
-                                            selectedItem.id === item.id &&
+                                            selectedItem._id === item._id &&
                                             styles["active"]
                                     )}
                                     onClick={() => {
@@ -88,7 +91,7 @@ export default () => {
                                             styles["text-start"]
                                         )}
                                     >
-                                        {`${item.message} (${item.count})`}
+                                        {`${item.title} (${item.count})`}
                                     </div>
                                 </div>
                             </div>

@@ -18,7 +18,7 @@ export default function<IItem> () {
     const [selectedItem, setSelectedItem] = useState<IItem | null>(null);
     const [selectState, setSelectState] = useState<selectState>("normal");
 
-    const handleChange = (item: IItem) => {
+    const handleSelect = (item: IItem) => {
         setSelectedItem(item);
         setSelectState("selected");
     };
@@ -33,7 +33,7 @@ export default function<IItem> () {
         selectState,
         setSelectState,
         select,
-        handleChange,
+        handleSelect,
         removeSelectedItem,
         setSelectedItem
     }

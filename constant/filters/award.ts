@@ -1,78 +1,72 @@
-export const data = [
+export default [
     {
-        message: "Best Building 2022",
-        id: 1,
+        title: "Best Building 2022",
+        _id: '1',
         count: 245,
     },
     {
-        message: "Best Aesthetic Architecture",
-        id: 2,
+        title: "Best Aesthetic Architecture",
+        _id: '2',
         count: 345,
     },
     {
-        message: "Best Technology Architecture",
-        id: 3,
+        title: "Best Technology Architecture",
+        _id: '3',
         count: 345,
     },
     {
-        message: "Most Innovative Architecture",
-        id: 4,
+        title: "Most Innovative Architecture",
+        _id: '4',
         count: 345,
     },
     {
-        message: "Most Popular Architecture",
-        id: 5,
+        title: "Most Popular Architecture",
+        _id: '5',
         count: 345,
     },
     {
-        message: "Most Stylish Architecture",
-        id: 6,
+        title: "Most Stylish Architecture",
+        _id: '6',
         count: 345,
     },
     {
-        message: "Most Stylish Architecture",
-        id: 7,
+        title: "Most Stylish Architecture",
+        _id: '7',
         count: 345,
     },
     {
-        message: "Most Stylish Architecture",
-        id: 8,
+        title: "Most Stylish Architecture",
+        _id: '8',
         count: 345,
     },
     {
-        message: "Most Stylish Architecture",
-        id: 9,
+        title: "Most Stylish Architecture",
+        _id: '9',
         count: 345,
     },
     {
-        message: "Most Stylish Architecture",
-        id: 10,
+        title: "Most Stylish Architecture",
+        _id: '10',
         count: 345,
     },
     {
-        message: "Most Stylish Architecture",
-        id: 11,
+        title: "Most Stylish Architecture",
+        _id: '11',
         count: 345,
     },
     {
-        message: "Most Stylish Architecture",
-        id: 12,
+        title: "Most Stylish Architecture",
+        _id: '12',
         count: 345,
     },
     {
-        message: "Most Stylish Architecture",
-        id: 13,
+        title: "Most Stylish Architecture",
+        _id: '13',
         count: 345,
     },
     {
-        message: "Most Stylish Architecture",
-        id: 14,
+        title: "Most Stylish Architecture",
+        _id: '14',
         count: 345,
     },
 ];
-
-export interface IItem {
-    message: string;
-    id: number;
-    count: number;
-}

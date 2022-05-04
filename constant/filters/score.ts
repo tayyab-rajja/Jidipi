@@ -20,15 +20,15 @@ export enum filterScoreStatus {
  *
  * ?minScore=0-0
  */
-export const data : FilterItem[] = [
-    {message: "No Score", id: filterScoreStatus["0-0"]},
-    {message: "Average Score 1-2", id: filterScoreStatus["1-2"]},
-    {message: "Average Score 2-3", id: filterScoreStatus["2-3"]},
-    {message: "Average Score 3-4", id: filterScoreStatus["3-4"]},
-    {message: "Average Score 4-5", id: filterScoreStatus["4-5"]},
-    {message: "Average Score 5-6", id: filterScoreStatus["5-6"]},
-    {message: "Average Score 6-7", id: filterScoreStatus["6-7"]},
-    {message: "Average Score 7-8", id: filterScoreStatus["7-8"]},
-    {message: "Average Score 8-9", id: filterScoreStatus["8-9"]},
-    {message: "Average Score 9-10", id: filterScoreStatus["9-10"]},
-];
+export default [
+    {title: "No Score", _id: filterScoreStatus["0-0"]},
+    {title: "Average Score 1-2", _id: filterScoreStatus["1-2"]},
+    {title: "Average Score 2-3", _id: filterScoreStatus["2-3"]},
+    {title: "Average Score 3-4", _id: filterScoreStatus["3-4"]},
+    {title: "Average Score 4-5", _id: filterScoreStatus["4-5"]},
+    {title: "Average Score 5-6", _id: filterScoreStatus["5-6"]},
+    {title: "Average Score 6-7", _id: filterScoreStatus["6-7"]},
+    {title: "Average Score 7-8", _id: filterScoreStatus["7-8"]},
+    {title: "Average Score 8-9", _id: filterScoreStatus["8-9"]},
+    {title: "Average Score 9-10", _id: filterScoreStatus["9-10"]},
+] as FilterItem[];

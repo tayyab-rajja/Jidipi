@@ -9,104 +9,49 @@ import { getQueryParams, getQueryString } from "./queryString";
 export const getFiltersFromUrl = (
     url: string
 ): { pageFilters: pageFilters; postFilters: postFilters; sort: sort } => {
-    let {
-        pageNumber,
-        pageSize,
-        status,
-        language,
-        searchKey,
-        date,
-        user,
-        field,
-        country,
-        group,
-        count,
-        onlyPublished,
-        isChatFinished,
-        isPartnerChatFinished,
-        image,
-        location,
-        lastLoginIn,
-        partnerMoreUser,
-        isActive,
-    } = getQueryParams(url);
-
-    if (pageNumber === undefined) {
-        pageNumber = -1;
+    let queryParams = getQueryParams(url);
+    if (queryParams.pageNumber === undefined) {
+        queryParams.pageNumber = -1;
     } else {
-        if (pageNumber > 0) {
-            pageNumber--;
+        if (queryParams.pageNumber > 0) {
+            queryParams.pageNumber--;
         }
     }
 
-    if (pageSize === undefined) {
-        pageSize = 20;
+    if (queryParams.pageSize === undefined) {
+        queryParams.pageSize = 20;
     }
-    const pageFilters = { pageNumber: pageNumber, pageSize: pageSize };
+
+    const pageFilters: pageFilters = {
+        pageNumber: queryParams.pageNumber as number,
+        pageSize: queryParams.pageSize as number,
+    };
 
     // const postFilters={status:status,language:language,searchKey:searchKey,date:date,user:user};
-    const postFilters: queryParameters = {};
-    if (user !== undefined && user !== null && user !== "") {
-        postFilters.user = user;
-    }
-    if (
-        status === "Mine" &&
-        user !== undefined &&
-        user !== null &&
-        user !== ""
-    ) {
-        // postFilters.user = user;
-    }
-    if (language !== undefined && language !== "") {
-        postFilters.language = language;
-    }
-    if (status !== undefined && status !== "" && status !== "All") {
-        postFilters.status = status;
-    }
-    if (date !== undefined && date !== "") {
-        postFilters.date = date;
-    }
-    if (searchKey !== undefined && searchKey !== "") {
-        postFilters.searchKey = searchKey;
-    }
-    if (country !== undefined && country !== "") {
-        postFilters.country = country;
-    }
-    if (location !== undefined && location !== "") {
-        postFilters.location = location;
-    }
-    if (group !== undefined && group !== "") {
-        postFilters.group = group;
-    }
-    if (count !== undefined) {
-        postFilters.count = count;
-    }
-    if (onlyPublished !== undefined) {
-        postFilters.onlyPublished = onlyPublished;
-    }
-
-    if (isChatFinished !== undefined) {
-        postFilters.isChatFinished = isChatFinished;
-    }
-
-    if (isPartnerChatFinished !== undefined) {
-        postFilters.isPartnerChatFinished = isPartnerChatFinished;
-    }
-    if (image !== undefined && image !== "") {
-        postFilters.image = image;
-    }
-    if (lastLoginIn !== undefined && lastLoginIn !== "") {
-        postFilters.lastLoginIn = lastLoginIn;
-    }
-    if (partnerMoreUser !== undefined && lastLoginIn !== "") {
-        postFilters.partnerMoreUser = partnerMoreUser;
-    }
-    if (isActive !== undefined && lastLoginIn !== "") {
-        postFilters.isActive = isActive;
-    }
 
     const sort =
-        field && field !== "undefined" ? { order: 1, field: field } : {};
+        queryParams.field && queryParams.field !== "undefined"
+            ? { order: 1, field: queryParams.field }
+            : {};
+
+    const postFilters: postFilters = {};
+
+    delete queryParams.field;
+    delete queryParams.order;
+    delete queryParams.pageNumber;
+    delete queryParams.pageSize;
+
+    Object.keys(queryParams).forEach((key: string) => {
+        const value = queryParams[key];
+        if (value !== undefined && value !== "") {
+            postFilters[key] = value;
+        }
+    });
+    console.log({
+        postFilters: postFilters,
+        pageFilters: pageFilters,
+        sort: sort,
+    })
     return {
         postFilters: postFilters,
         pageFilters: pageFilters,

@@ -3,37 +3,37 @@ import { GetServerSideProps, PreviewData } from "next";
 import { GET } from "../../../../lib/common/api";
 import useSWR from "swr";
 import { useRouter } from "next/router";
-import { FilterItem } from "../../../../lib/models/filter";
 import React, { useContext, useEffect, useState } from "react";
 import SidebarDashboard from "../../../../components/Dashboard/Sidebar/SidebarDashboard";
 import { UserContext } from "../../../../providers/UserProvider";
-import { isJudge } from "../../../../lib/user/role";
-import Link from "next/link";
 import { generateSidebarMenus } from "../../../../lib/common/menu";
 import { DashboardLayout } from "../../../../components/Dashboard/Layout/Layout";
 import Filters from "src/components/Dashboard/Judge/Architectures/Filters";
 import Menu from "src/components/Dashboard/Judge/Architectures/Menu";
 import { getFiltersFromUrl, setUrlForListPage } from "src/utils/url";
-import { useSelector } from "react-redux";
+import { FilterItem } from "constant/filters/interface";
+import {
+    postFilters,
+} from "types/queryParameters";
 
 export default function Posts(props: any) {
     const userContext: any = useContext(UserContext);
     const user = userContext.user;
     const router = useRouter();
     const { data, error } = useSWR(getKey(props), GET);
-    console.log(data);
-    const filters = getFiltersFromUrl(router.asPath.split("?")[1] ?? "");
+    // const filters = getFiltersFromUrl(router.asPath.split("?")[1] ?? "");
+    const [pageNumber, setPageNumber] = useState(-1);
     const [filterParameters, setFilterParameters] = useState(
-        filters.postFilters
+        props.filters.postFilters
     );
     const [pageFilter, setPageFilter] = useState(
-        filters.pageFilters ?? {
+        props.filters.pageFilters ?? {
             pageSize: 20,
             pageNumber: -1,
         }
     );
     useEffect(() => {
-        filterToUrl();
+        // filterToUrl();
     }, [filterParameters, pageFilter]);
     // const pageNumber = useSelector(state => state.user.pageNumberBack);
     // const total = useSelector(state => state.user.total);
@@ -45,39 +45,44 @@ export default function Posts(props: any) {
         competitions: props.competitions,
     });
 
-    
     function filterToUrl() {
         setUrlForListPage(pageFilter, filterParameters, {
             field: "",
             order: 1,
         });
-        getItems();
-    }
+        getItems();    }
 
-    const getItems = () => {}
-    
-    //   useEffect(() => {
-    //     setUrlForListPage({ ...pageFilter, pageNumber }, filterParameters, {
-    //       field: '',
-    //       order: 1,
-    //     });
-    //   }, [pageNumber]);
+    const getItems = () => {};
+
+    useEffect(() => {
+        // setUrlForListPage({ ...pageFilter, pageNumber }, filterParameters, {
+        //     field: "",
+        //     order: 1,
+        // });
+    }, [pageNumber]);
 
     const onChange = (filterParameters: any) =>
-        setFilterParameters((value) => ({ ...value, ...filterParameters }));
+        setFilterParameters((value: any) => ({ ...value, ...filterParameters }));
 
     //   const size = Math.ceil(total / pageFilter.pageSize);
     const onPage = (page: any) => {
-        setPageFilter((value) => ({ ...value, pageNumber: page }));
+        setPageFilter((value: any) => ({ ...value, pageNumber: page }));
     };
 
     const onPageSizeChange = (size: any) => {
-        setPageFilter((value) => ({ ...value, pageSize: size }));
+        setPageFilter((value: any) => ({ ...value, pageSize: size }));
     };
     const pageOptions = [
         { label: 20, value: 20 },
         { label: 100, value: 100 },
     ];
+
+    const handleChange = (prop: string, item: FilterItem) => {
+        setFilterParameters((value: postFilters) => {
+            value[prop] = item?._id
+            return { ...value };
+        })
+    }
 
     if (error) return <div>error...</div>;
     if (!data) return <div>loading...</div>;
@@ -87,7 +92,7 @@ export default function Posts(props: any) {
             <div>
                 <Menu menuFolders={props.menuFolders} />
                 <div style={{ backgroundColor: "white" }}>
-                    <Filters />
+                    <Filters categories={props.categories} handleChange={handleChange} />
                     {/* <div>TOP header</div>
                     <div>FILTERS here</div>
                     <div>-----------------POST list</div>
@@ -114,13 +119,15 @@ export default function Posts(props: any) {
  */
 const getKey = (props: any) => {
     let query;
+    // TODO compitionId should be dynamic
+    const compitionId = "competitionId=61c9c6b8375d992bb47db5b2";
     if (props.query) {
         delete props.query.page;
         query = Object.keys(props.query)
             .map((key) => key + "=" + props.query[key])
             .join("&");
     }
-    query = query ? "?" + query : "";
+    query = query ? `?${compitionId}&${query}` : "?" + compitionId;
     return `/post/${props.currentPageFolder._id}/filterByPage${query}`;
 };
 
@@ -132,13 +139,19 @@ const getKey = (props: any) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
     //TODO check if user is logged in
     let props = {};
+    const filters = getFiltersFromUrl(context.resolvedUrl.split('?')[1] ?? "")
     try {
         // TODO combine the request into one call, or cache in redis...
-        const pages = await GET("/pages");
+        const [c, pages] = await Promise.all([
+            GET("/competition"),
+            GET("/pages"),
+        ]);
         const pageFolders = pages && pages.pageFolders;
-        const c = await GET("/competition");
         const currentPageFolder = pageFolders.find(
             (page: any) => page.subDomain === "architectures"
+        );
+        const categoriesResult = await GET(
+            `/category/rootLevel/${currentPageFolder._id}/CATEGORIES`
         );
         const menuFolders = pageFolders.filter((page: any) => {
             return page.pageType === "PROJECT" || page.pageType === "PRODUCT";
@@ -148,6 +161,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             currentPageFolder,
             query: context.query,
             menuFolders,
+            categories: categoriesResult.categories,
+            filters
         };
     } catch (e) {}
 

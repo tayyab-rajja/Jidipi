@@ -6,18 +6,18 @@ export enum filterRatingStatus {
 }
 
 /**
- * @param {string} id
+ * @param {string} _id
  * ?rating=noRating
  */
-export const data: FilterItem[] = [
+export default [
     {
-        message: "No Rating",
+        title: "No Rating",
         count: 33,
-        id: filterRatingStatus.noRating,
+        _id: filterRatingStatus.noRating,
     },
     {
-        message: "Rated",
+        title: "Rated",
         count: 2341,
-        id: filterRatingStatus.rated,
+        _id: filterRatingStatus.rated,
     },
-];
+] as  FilterItem[];

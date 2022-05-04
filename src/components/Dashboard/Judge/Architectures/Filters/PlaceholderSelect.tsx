@@ -1,31 +1,47 @@
+import { useEffect } from "react";
 import styles from "./index.module.scss";
 import clsx from "clsx";
 import Image from "next/image";
-import ScoreIcon from "public/images/filters/score.svg";
 import ArrowIcon from "public/images/filters/arrow.svg";
 import DeleteIcon from "public/images/filters/xmark.svg";
-import { data, IItem } from "constant/filters/score";
 import useFilterSelect from "src/hooks/useFilterSelect";
+import { FilterItem } from "constant/filters/interface";
 
 interface IProps {
-    // openSelect: Function;
-    // openedSelect: string;
+    id: string;
+    className: string;
+    options: FilterItem[];
+    placeholder: string;
+    prop: string;
+    icon: StaticImageData;
+    handleChange: Function;
 }
 
-export default () => {
+export default ({
+    className,
+    id,
+    options,
+    placeholder,
+    handleChange,
+    prop,
+    icon,
+}: IProps) => {
     const {
         selectedItem,
         selectState,
         setSelectState,
         select,
-        handleChange,
+        handleSelect,
         removeSelectedItem,
-    } = useFilterSelect<IItem>();
+    } = useFilterSelect<FilterItem>();
+    useEffect(() => {
+        handleChange(prop, selectedItem);
+    }, [selectedItem]);
 
     return (
         <div
             ref={select}
-            className={clsx(styles["filter-item"], styles["score"])}
+            className={clsx(styles["filter-item"], styles[className])}
         >
             <div className={styles["select-group"]}>
                 <div className={styles["select-btn"]}>
@@ -38,9 +54,9 @@ export default () => {
                                 );
                             }}
                         >
-                            <Image src={ScoreIcon} alt="score icon" />
-                            <h3 className={styles["label"]}>Score</h3>
-                            <Image src={ArrowIcon} alt="arrow icon" />
+                            <Image src={icon} alt="award icon" />
+                            <h3 className={styles["label"]}>{placeholder}</h3>
+                            <Image src={ArrowIcon} alt="expand icon" />
                         </div>
                     )}
                     {selectState === "selected" && selectedItem && (
@@ -51,7 +67,11 @@ export default () => {
                             )}
                         >
                             <h3 className={styles["label"]}>
-                                {`${selectedItem.message}`}
+                                {`${selectedItem.title}${
+                                    selectedItem.count
+                                        ? ` (${selectedItem.count})`
+                                        : ""
+                                }`}
                             </h3>
                             <Image
                                 src={DeleteIcon}
@@ -66,16 +86,18 @@ export default () => {
                         styles["select-content"],
                         selectState === "opened" && styles["open"]
                     )}
-                    id="score"
+                    id={id}
                 >
-                    {data.map((item) => {
+                    {options.map((item: FilterItem) => {
                         return (
                             <div
-                                key={item.id}
+                                key={item._id}
                                 className={styles["item"]}
-                                onClick={() => handleChange(item)}
+                                onClick={() => handleSelect(item)}
                             >
-                                <p>{item.message}</p>
+                                <p>{`${item.title}${
+                                    item.count ? ` (${item.count})` : ""
+                                }`}</p>
                             </div>
                         );
                     })}
