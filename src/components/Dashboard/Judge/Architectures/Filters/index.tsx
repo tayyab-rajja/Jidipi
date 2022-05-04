@@ -11,13 +11,15 @@ import ChatIcon from "public/images/filters/chat.svg";
 import StarIcon from "public/images/filters/star.svg";
 import ScoreIcon from "public/images/filters/score.svg";
 import AwardIcon from "public/images/filters/award.svg";
+import { postFilters } from "types/queryParameters";
 
 interface IProps {
     categories: { title: string; _id: string }[];
     handleChange: Function;
+    filterParameters: postFilters
 }
 
-export default ({ categories, handleChange }: IProps) => {
+export default ({ categories, handleChange, filterParameters }: IProps) => {
     return (
         <div className={styles["architectures-filter"]}>
             <PlaceholderSelect
@@ -28,6 +30,7 @@ export default ({ categories, handleChange }: IProps) => {
                 placeholder="Award"
                 handleChange={handleChange}
                 icon={AwardIcon}
+                value={filterParameters["awardId"]}
             />
             <PlaceholderSelect
                 options={categories}
@@ -37,6 +40,7 @@ export default ({ categories, handleChange }: IProps) => {
                 placeholder="Categories"
                 icon={ListIcon}
                 handleChange={handleChange}
+                value={filterParameters["categories"]}
             />
             <SearchFilter />
             <PlaceholderSelect
@@ -47,6 +51,7 @@ export default ({ categories, handleChange }: IProps) => {
                 placeholder="Score"
                 icon={ScoreIcon}
                 handleChange={handleChange}
+                value={filterParameters["score"]}
             />
             <PlaceholderSelect
                 options={RatingData}
@@ -56,6 +61,7 @@ export default ({ categories, handleChange }: IProps) => {
                 placeholder="Rating"
                 icon={StarIcon}
                 handleChange={handleChange}
+                value={filterParameters["rating"]}
             />
             <PlaceholderSelect
                 options={CommentData}
@@ -65,6 +71,7 @@ export default ({ categories, handleChange }: IProps) => {
                 placeholder="Comment"
                 icon={ChatIcon}
                 handleChange={handleChange}
+                value={filterParameters["comment"]}
             />
             <CandidatesFilter />
         </div>

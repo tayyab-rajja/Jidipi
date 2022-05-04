@@ -69,7 +69,7 @@ export const setUrlForListPage = (
     }
     if (pageFilters.pageSize !== 20) {
         query["pageSize"] = pageFilters.pageSize;
-        query["action"] = "check";
+        // query["action"] = "check";
     }
     Object.keys(postFilters).forEach((key) => {
         if (
@@ -77,10 +77,10 @@ export const setUrlForListPage = (
             postFilters[key] !== null &&
             postFilters[key] !== ""
         ) {
-            if (key === "status" && postFilters[key] === "All") {
-            } else {
-                query[key] = postFilters[key];
-            }
+            // if (key === "status" && postFilters[key] === "All") {
+            // } else {
+            query[key] = postFilters[key];
+            // }
         }
     });
 

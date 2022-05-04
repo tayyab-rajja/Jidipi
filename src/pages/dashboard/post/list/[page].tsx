@@ -13,14 +13,15 @@ import Menu from "src/components/Dashboard/Judge/Architectures/Menu";
 import { getFiltersFromUrl, setUrlForListPage } from "src/utils/url";
 import { FilterItem } from "constant/filters/interface";
 import {
+    pageFilters,
     postFilters,
+    queryParameters,
 } from "types/queryParameters";
 
 export default function Posts(props: any) {
     const userContext: any = useContext(UserContext);
     const user = userContext.user;
-    const router = useRouter();
-    const { data, error } = useSWR(getKey(props), GET);
+    // const router = useRouter();
     // const filters = getFiltersFromUrl(router.asPath.split("?")[1] ?? "");
     const [pageNumber, setPageNumber] = useState(-1);
     const [filterParameters, setFilterParameters] = useState(
@@ -32,8 +33,13 @@ export default function Posts(props: any) {
             pageNumber: -1,
         }
     );
+    const { data, error } = useSWR(
+        getKey(props, pageFilter, filterParameters),
+        GET
+    );
+
     useEffect(() => {
-        // filterToUrl();
+        filterToUrl();
     }, [filterParameters, pageFilter]);
     // const pageNumber = useSelector(state => state.user.pageNumberBack);
     // const total = useSelector(state => state.user.total);
@@ -50,9 +56,10 @@ export default function Posts(props: any) {
             field: "",
             order: 1,
         });
-        getItems();    }
+        getItems();
+    }
 
-    const getItems = () => {};
+    function getItems() {}
 
     useEffect(() => {
         // setUrlForListPage({ ...pageFilter, pageNumber }, filterParameters, {
@@ -62,7 +69,10 @@ export default function Posts(props: any) {
     }, [pageNumber]);
 
     const onChange = (filterParameters: any) =>
-        setFilterParameters((value: any) => ({ ...value, ...filterParameters }));
+        setFilterParameters((value: any) => ({
+            ...value,
+            ...filterParameters,
+        }));
 
     //   const size = Math.ceil(total / pageFilter.pageSize);
     const onPage = (page: any) => {
@@ -79,20 +89,24 @@ export default function Posts(props: any) {
 
     const handleChange = (prop: string, item: FilterItem) => {
         setFilterParameters((value: postFilters) => {
-            value[prop] = item?._id
+            value[prop] = item?._id;
             return { ...value };
-        })
-    }
+        });
+    };
 
     if (error) return <div>error...</div>;
-    if (!data) return <div>loading...</div>;
 
     return (
         <DashboardLayout sidebarComponent={<SidebarDashboard menus={menus} />}>
             <div>
                 <Menu menuFolders={props.menuFolders} />
                 <div style={{ backgroundColor: "white" }}>
-                    <Filters categories={props.categories} handleChange={handleChange} />
+                    <Filters
+                        categories={props.categories}
+                        handleChange={handleChange}
+                        filterParameters={filterParameters}
+                    />
+                    {!data && <div>loading ...</div>}
                     {/* <div>TOP header</div>
                     <div>FILTERS here</div>
                     <div>-----------------POST list</div>
@@ -117,17 +131,28 @@ export default function Posts(props: any) {
  * Generate key for swr
  * @param props
  */
-const getKey = (props: any) => {
-    let query;
+const getKey = (
+    props: any,
+    pageFilter: pageFilters,
+    filterParameters: postFilters
+) => {
+    let query = "";
     // TODO compitionId should be dynamic
     const compitionId = "competitionId=61c9c6b8375d992bb47db5b2";
-    if (props.query) {
-        delete props.query.page;
-        query = Object.keys(props.query)
-            .map((key) => key + "=" + props.query[key])
-            .join("&");
-    }
+    const filters: queryParameters = { ...pageFilter, ...filterParameters };
+    Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== "") {
+            query += `${key}=${value}`;
+        }
+    });
+    // if (props.query) {
+    //     delete props.query.page;
+    //     query = Object.keys(props.query)
+    //         .map((key) => key + "=" + props.query[key])
+    //         .join("&");
+    // }
     query = query ? `?${compitionId}&${query}` : "?" + compitionId;
+    console.log(query);
     return `/post/${props.currentPageFolder._id}/filterByPage${query}`;
 };
 
@@ -139,7 +164,8 @@ const getKey = (props: any) => {
 export const getServerSideProps: GetServerSideProps = async (context) => {
     //TODO check if user is logged in
     let props = {};
-    const filters = getFiltersFromUrl(context.resolvedUrl.split('?')[1] ?? "")
+    const filters = getFiltersFromUrl(context.resolvedUrl.split("?")[1] ?? "");
+    console.log(filters)
     try {
         // TODO combine the request into one call, or cache in redis...
         const [c, pages] = await Promise.all([
@@ -162,7 +188,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             query: context.query,
             menuFolders,
             categories: categoriesResult.categories,
-            filters
+            filters,
         };
     } catch (e) {}
 

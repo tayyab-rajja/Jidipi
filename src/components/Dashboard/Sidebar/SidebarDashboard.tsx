@@ -35,7 +35,6 @@ import {isJudge, isPartner} from "../../../lib/user/role";
 const SidebarDashboard = (props: any) => {
 
     const {competition, user, post, menus} = props;
-    console.log(menus);
     if (props.competition) {
         const award = props.awards.find((award: any) => award._id === post.awardId);
         return (

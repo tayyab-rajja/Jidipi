@@ -14,6 +14,7 @@ interface IProps {
     placeholder: string;
     prop: string;
     icon: StaticImageData;
+    value: string | number | boolean | undefined;
     handleChange: Function;
 }
 
@@ -25,6 +26,7 @@ export default ({
     handleChange,
     prop,
     icon,
+    value,
 }: IProps) => {
     const {
         selectedItem,
@@ -37,6 +39,14 @@ export default ({
     useEffect(() => {
         handleChange(prop, selectedItem);
     }, [selectedItem]);
+
+    const item = options.find((item) => item._id === value);
+    if (prop === "score") {
+        console.log("value");
+        console.log(value);
+        console.log("item");
+        console.log(item);
+    }
 
     return (
         <div
@@ -59,7 +69,7 @@ export default ({
                             <Image src={ArrowIcon} alt="expand icon" />
                         </div>
                     )}
-                    {selectState === "selected" && selectedItem && (
+                    {selectState === "selected" && item && (
                         <div
                             className={clsx(
                                 styles["selected-item"],
@@ -67,10 +77,8 @@ export default ({
                             )}
                         >
                             <h3 className={styles["label"]}>
-                                {`${selectedItem.title}${
-                                    selectedItem.count
-                                        ? ` (${selectedItem.count})`
-                                        : ""
+                                {`${item.title}${
+                                    item.count ? ` (${item.count})` : ""
                                 }`}
                             </h3>
                             <Image
