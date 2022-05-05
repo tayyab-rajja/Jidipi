@@ -17,6 +17,7 @@ import {
     postFilters,
     queryParameters,
 } from "types/queryParameters";
+import Link from "next/link";
 
 export default function Posts(props: any) {
     const userContext: any = useContext(UserContext);
@@ -108,9 +109,8 @@ export default function Posts(props: any) {
                         statuses={data && data.statuses}
                     />
                     {!data && <div>loading ...</div>}
-                    {/* <div>TOP header</div>
-                    <div>FILTERS here</div>
-                    <div>-----------------POST list</div>
+
+                    <div>-----------------POST list, Enable this list, another coder can go to detail page.</div>
                     {data.posts &&
                         data.posts.map((post: any) => (
                             <div key={post._id} className={styles.post}>
@@ -121,7 +121,7 @@ export default function Posts(props: any) {
                                     </div>
                                 </Link>
                             </div>
-                        ))} */}
+                        ))}
                 </div>
             </div>
         </DashboardLayout>
