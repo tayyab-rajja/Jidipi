@@ -111,7 +111,7 @@ export default function Posts(props: any) {
                     {!data && <div>loading ...</div>}
 
                     <div>-----------------POST list, Enable this list, another coder can go to detail page.</div>
-                    {data.posts &&
+                    {data && data.posts &&
                         data.posts.map((post: any) => (
                             <div key={post._id} className={styles.post}>
                                 <Link href={"/dashboard/post/" + post._id}>
