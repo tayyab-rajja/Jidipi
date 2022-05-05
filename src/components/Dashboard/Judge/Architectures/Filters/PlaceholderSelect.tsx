@@ -30,23 +30,26 @@ export default ({
 }: IProps) => {
     const {
         selectedItem,
+        setSelectedItem,
         selectState,
         setSelectState,
         select,
         handleSelect,
         removeSelectedItem,
     } = useFilterSelect<FilterItem>();
+
     useEffect(() => {
-        handleChange(prop, selectedItem);
+        const item = options.find((item) => item._id == value);
+        setSelectedItem(item || null);
+        if (item) {
+            setSelectState('selected')
+        }
+    }, []);
+
+    useEffect(() => {
+        handleChange(prop, selectedItem?._id);
     }, [selectedItem]);
 
-    const item = options.find((item) => item._id === value);
-    if (prop === "score") {
-        console.log("value");
-        console.log(value);
-        console.log("item");
-        console.log(item);
-    }
 
     return (
         <div
@@ -64,12 +67,12 @@ export default ({
                                 );
                             }}
                         >
-                            <Image src={icon} alt="award icon" />
+                            <Image src={icon} alt={ `${ id } ${icon}` } />
                             <h3 className={styles["label"]}>{placeholder}</h3>
                             <Image src={ArrowIcon} alt="expand icon" />
                         </div>
                     )}
-                    {selectState === "selected" && item && (
+                    {selectState === "selected" && selectedItem && (
                         <div
                             className={clsx(
                                 styles["selected-item"],
@@ -77,8 +80,8 @@ export default ({
                             )}
                         >
                             <h3 className={styles["label"]}>
-                                {`${item.title}${
-                                    item.count ? ` (${item.count})` : ""
+                                {`${selectedItem.title}${
+                                    selectedItem.count ? ` (${selectedItem.count})` : ""
                                 }`}
                             </h3>
                             <Image
@@ -104,7 +107,9 @@ export default ({
                                 onClick={() => handleSelect(item)}
                             >
                                 <p>{`${item.title}${
-                                    item.count ? ` (${item.count})` : ""
+                                    item.count || item.count === 0
+                                        ? ` (${item.count})`
+                                        : ""
                                 }`}</p>
                             </div>
                         );

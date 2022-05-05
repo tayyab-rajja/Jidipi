@@ -3,18 +3,23 @@ import clsx from "clsx";
 import Image from "next/image";
 import SearchIcon from "public/images/filters/search.svg";
 import DeleteIcon from "public/images/filters/xmark.svg";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
-export default () => {
+interface IProps {
+    value: any;
+    handleChange: Function;
+    prop: string;
+}
+
+export default ({ handleChange, value, prop }: IProps) => {
     const input = useRef<HTMLInputElement | null>(null);
-    const [searchValue, setSearchValue] = useState<string>("");
 
     useEffect(() => {
         const inputElement = input.current as HTMLInputElement;
         const handleSearchConfirm = (e: KeyboardEvent) => {
             if (e.key === "Enter" || e.keyCode === 13) {
                 const value = (e.target as HTMLInputElement).value;
-                setSearchValue(value);
+                handleChange(prop, value);
                 inputElement.value = "";
             }
         };
@@ -24,7 +29,7 @@ export default () => {
             inputElement.removeEventListener("keyup", handleSearchConfirm);
     }, []);
     const removeSearchElement = () => {
-        setSearchValue("");
+        handleChange(prop, "");
     };
     return (
         <div className={clsx(styles["filter-item"], styles["search-section"])}>
@@ -32,7 +37,7 @@ export default () => {
                 <div
                     className={clsx(
                         styles["input-group"],
-                        searchValue && styles["hide"]
+                        value && styles["hide"]
                     )}
                 >
                     <div className={styles["icon"]}>
@@ -45,11 +50,11 @@ export default () => {
                     />
                 </div>
                 <div className={styles["search-data"]}>
-                    {searchValue && (
+                    {value && (
                         <div
                             className={`${styles["item"]} align-items-center d-flex`}
                         >
-                            {searchValue}
+                            {value}
                             <Image
                                 src={DeleteIcon}
                                 onClick={removeSearchElement}

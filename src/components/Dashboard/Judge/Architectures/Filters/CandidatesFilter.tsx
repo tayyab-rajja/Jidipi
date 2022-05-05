@@ -6,23 +6,37 @@ import useFilterSelect from "src/hooks/useFilterSelect";
 import { FilterItem } from "constant/filters/interface";
 
 interface IProps {
-    // openSelect: Function;
-    // openedSelect: string;
+    value: any;
+    handleChange: Function;
+    prop: string;
+    statuses: { [key: string]: number }
 }
 
-export default () => {
+export default ({ handleChange, value, prop, statuses }: IProps) => {
     const prevSelected = useRef<FilterItem | null>(null);
+
+    data.forEach((item: FilterItem) => {
+        item.count = statuses?.[item._id] || 0
+    })
+
     const {
         selectedItem,
         selectState,
         setSelectState,
         select,
-        handleChange,
+        handleSelect,
         setSelectedItem,
     } = useFilterSelect<FilterItem>();
     useEffect(() => {
-        prevSelected.current = data[0];
-        setSelectedItem(data[0]);
+        handleChange(prop, value || data[0]._id);
+        const item = data.find((item) => item._id === value);
+        if (item) {
+            prevSelected.current = item;
+            setSelectedItem(item);
+        } else {
+            prevSelected.current = data[0];
+            setSelectedItem(data[0]);
+        }
     }, []);
     return (
         <div
@@ -80,7 +94,8 @@ export default () => {
                                             styles["active"]
                                     )}
                                     onClick={() => {
-                                        handleChange(item);
+                                        handleChange(prop, item._id);
+                                        handleSelect(item);
                                         prevSelected.current = item;
                                     }}
                                 >

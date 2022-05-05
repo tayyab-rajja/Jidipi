@@ -9,6 +9,7 @@ export interface queryParameters {
     pageSize?: number;
     field?: string;
     order?: string | number;
+    searchKey?: string;
     [key: string]: boolean | number | string | undefined;
 }
 

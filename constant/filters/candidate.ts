@@ -1,10 +1,10 @@
 import {FilterItem} from "./interface";
 
 export enum filterCandidateStatus {
-    All = 'ALL',
-    Pending = 'PENDING',
-    Draft = 'DRAFT',
-    Published = 'PUBLISHED',
+    All = 'all',
+    Pending = 'pending',
+    Draft = 'draft',
+    Published = 'published',
 }
 /**
  * @param {string} id
@@ -24,7 +24,7 @@ export const data :FilterItem[] = [
         class: "review",
     },
     {
-        title: "Saved as draft",
+        title: "Saved as Draft",
         count: 4523,
         _id: filterCandidateStatus.Draft,
         class: "draft",

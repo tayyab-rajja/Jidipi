@@ -87,9 +87,9 @@ export default function Posts(props: any) {
         { label: 100, value: 100 },
     ];
 
-    const handleChange = (prop: string, item: FilterItem) => {
+    const handleChange = (prop: string, itemId: string) => {
         setFilterParameters((value: postFilters) => {
-            value[prop] = item?._id;
+            value[prop] = itemId;
             return { ...value };
         });
     };
@@ -105,6 +105,7 @@ export default function Posts(props: any) {
                         categories={props.categories}
                         handleChange={handleChange}
                         filterParameters={filterParameters}
+                        statuses={data && data.statuses}
                     />
                     {!data && <div>loading ...</div>}
                     {/* <div>TOP header</div>

@@ -12,14 +12,25 @@ import StarIcon from "public/images/filters/star.svg";
 import ScoreIcon from "public/images/filters/score.svg";
 import AwardIcon from "public/images/filters/award.svg";
 import { postFilters } from "types/queryParameters";
+import { FilterItem } from "constant/filters/interface";
 
 interface IProps {
     categories: { title: string; _id: string }[];
     handleChange: Function;
-    filterParameters: postFilters
+    filterParameters: postFilters;
+    statuses: {[key: string]: number}
 }
 
-export default ({ categories, handleChange, filterParameters }: IProps) => {
+export default ({ categories, handleChange, filterParameters, statuses }: IProps) => {
+
+    RatingData.forEach((item: FilterItem) => {
+        item.count = statuses?.[item._id] || 0
+    })
+    CommentData.forEach((item: FilterItem) => {
+        item.count = statuses?.[item._id] || 0
+    })
+
+
     return (
         <div className={styles["architectures-filter"]}>
             <PlaceholderSelect
@@ -42,7 +53,7 @@ export default ({ categories, handleChange, filterParameters }: IProps) => {
                 handleChange={handleChange}
                 value={filterParameters["categories"]}
             />
-            <SearchFilter />
+            <SearchFilter handleChange={handleChange}  value={ filterParameters["searchKey"] } prop="searchKey" />
             <PlaceholderSelect
                 options={ScoreData}
                 id="score"
@@ -73,7 +84,7 @@ export default ({ categories, handleChange, filterParameters }: IProps) => {
                 handleChange={handleChange}
                 value={filterParameters["comment"]}
             />
-            <CandidatesFilter />
+            <CandidatesFilter handleChange={handleChange}  value={ filterParameters["candidate"] } prop="candidate" statuses={statuses} />
         </div>
     );
 };
