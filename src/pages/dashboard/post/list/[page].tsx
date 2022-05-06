@@ -16,6 +16,7 @@ import PaginationReverse from "src/components/Dashboard/PaginationReverse";
 import PaginationStyles from 'src/components/Dashboard/PaginationReverse/PaginationReverse.module.scss'
 import { getFiltersFromUrl, setUrlForListPage } from "src/utils/url";
 import { FilterItem } from "constant/filters/interface";
+import Link from 'next/link'
 import {
     pageFilters,
     postFilters,
@@ -60,6 +61,7 @@ export default function Posts(props: any) {
         user,
         competitions: props.competitions,
     });
+    console.log(props.competitions)
 
     function filterToUrl() {
         setUrlForListPage(pageFilter, filterParameters, {
@@ -92,10 +94,10 @@ export default function Posts(props: any) {
     const onPageSizeChange = (size: any) => {
         setPageFilter((value: any) => ({ ...value, pageSize: size }));
     };
-    const pageOptions = [
-        { label: 20, value: 20 },
-        { label: 100, value: 100 },
-    ];
+    // const pageOptions = [
+    //     { label: 20, value: 20 },
+    //     { label: 100, value: 100 },
+    // ];
 
     const handleChange = (prop: string, itemId: string) => {
         setFilterParameters((value: postFilters) => {
@@ -201,7 +203,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         ]);
         const pageFolders = pages && pages.pageFolders;
         const currentPageFolder = pageFolders.find(
-            (page: any) => page.subDomain === "architectures"
+            (page: any) => page.subDomain === context.query.page
         );
         const categoriesResult = await GET(
             `/category/rootLevel/${currentPageFolder._id}/CATEGORIES`

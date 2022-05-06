@@ -2,7 +2,7 @@ import styles from "../Table.module.scss";
 import clsx from "clsx";
 import { IJudgePost } from "types/judgePost";
 import Image from "next/image";
-
+import Link from 'next/link'
 interface IProps {
     data: IJudgePost;
 }
@@ -67,23 +67,17 @@ export default ({ data }: IProps) => {
                 {console.log(Array(10))}
                 <div className={clsx(styles["content"], styles["rating"])}>
                     {renderStars()}
-                    {/* <div className={styles["icon-star"]}></div>
-                    <div className={styles["icon-star"]}></div>
-                    <div className={styles["icon-star"]}></div>
-                    <div className={styles["icon-star"]}></div>
-                    <div className={styles["icon-star"]}></div>
-                    <div className={styles["icon-star"]}></div>
-                    <div className={styles["icon-star"]}></div>
-                    <div className={styles["icon-star"]}></div>
-                    <div className={styles["icon-star"]}></div>
-                    <div className={styles["icon-star"]}></div> */}
                 </div>
             </td>
             <td>
                 <div
                     className={clsx(styles["content"], styles["edit-comment"])}
                 >
-                    <div className={styles["icon"]}></div>
+                    <div className={styles["icon"]}>
+                        <Link href={"/dashboard/post/" + data._id}>
+                            <a className="link"></a>
+                        </Link>
+                    </div>
                     <div className={styles["rate-indicator"]}></div>
                 </div>
             </td>
