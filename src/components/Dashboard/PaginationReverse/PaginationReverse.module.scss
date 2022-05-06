@@ -1,0 +1,99 @@
+$btn-gray4: #f1f1f1;
+$text-gray1: #373737;
+$color-black: #000;
+$bg-dark-yellow: #deb851;
+$text-white: #fff;
+$bg-eclipse: #373737;
+$text-gray4: #abafb3;
+
+.top-pagination {
+    background: $btn-gray4;
+    border-radius: 4px;
+
+    li {
+        width: 40px;
+        height: 40px;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $text-gray1;
+        cursor: pointer;
+        border: none;
+        font-weight: 300;
+        padding: 0px;
+        input {
+            width: 40px;
+            height: 40px;
+        }
+        a {
+            text-decoration: none;
+            font-weight: 300;
+            font-size: 13px;
+            width: 30px;
+            height: 30px;
+            background: $btn-gray4;
+            color: $color-black;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            border-radius: 4px;
+            &:hover {
+                background: $bg-dark-yellow;
+                color: $text-white;
+            }
+        }
+
+        &.active {
+            a {
+                background: $bg-eclipse;
+                color: $text-white;
+            }
+            &:hover {
+                a {
+                    background: $bg-dark-yellow;
+                    color: $text-white;
+                }
+            }
+        }
+    }
+    span {
+        background: $btn-gray4;
+        width: 30px;
+        height: 30px;
+        font-size: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $text-gray4;
+        margin: 5px;
+        border-radius: 4px;
+
+        // @include box-shadow(0px, 0px, 8px , #0000000f);
+        cursor: pointer;
+        font-weight: 600;
+        &:hover {
+            background: $bg-dark-yellow;
+            color: $text-white;
+        }
+    }
+}
+
+.paginations ul {
+    margin: 6px 0px !important;
+    .page-item {
+        padding: 3px 4px;
+        line-height: 19px;
+        .item-link {
+            padding: 2px;
+            width: 20px;
+            height: 20px;
+            font-size: 10px;
+        }
+    }
+    .next-page,
+    .prev-page {
+        font-size: 22px;
+        line-height: 18px;
+    }
+}
