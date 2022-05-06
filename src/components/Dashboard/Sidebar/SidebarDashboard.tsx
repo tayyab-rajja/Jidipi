@@ -40,7 +40,7 @@ const SidebarDashboard = (props: any) => {
         if (!router.query.competitionId && menus.length) {
             let menu = menus[0];
             if (menu.links.length) {
-                let [link] = menu.links;
+                let link = menu.links[1];
                 if (link) {
                     // router.query.competitionId = link.title;
                     // router.push(router);

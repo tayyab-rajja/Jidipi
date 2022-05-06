@@ -4,17 +4,18 @@ import clsx from "clsx";
 
 interface IProps {
     options: number[];
+    onPageSizeChange: Function;
+    pageSize: number;
 }
 
-export default ({ options }: IProps) => {
-    const [pageSize, setPageSize] = useState(options[0]);
+export default ({ options, onPageSizeChange, pageSize }: IProps) => {
     const [showOptions, setShowOptions] = useState(false);
     const changePageSizeHandler: MouseEventHandler<HTMLDivElement> = () => {
         setShowOptions((value) => !value);
     };
 
     const handlePageSize = (size: number) => {
-        setPageSize(size);
+        onPageSizeChange(size);
         setShowOptions(false);
     };
     return (

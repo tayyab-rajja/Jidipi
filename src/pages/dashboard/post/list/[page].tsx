@@ -126,7 +126,7 @@ export default function Posts(props: any) {
                             <Table options={data.posts} />
                             <div className={styles["wrapper"]}>
                                 <div className="pb-5">
-                                    <PageSize options={[20, 50]} />
+                                    <PageSize options={[20, 50]} onPageSizeChange={onPageSizeChange} pageSize={pageFilter.pageSize} />
                                 </div>
                                 <div className={`${PaginationStyles["top-pagination"]} text-center`}>
                                     <PaginationReverse
@@ -172,15 +172,17 @@ const getKey = (
     filterParameters: postFilters
 ) => {
     let query = "";
+    // const router = useRouter()
     // TODO compitionId should be dynamic
-    const compitionId = "competitionId=61c9c6b8375d992bb47db5b2";
+    // const competitionId = `competitionId=${router.query.competitionId}`;
     const filters: queryParameters = { ...pageFilter, ...filterParameters };
     Object.entries(filters).forEach(([key, value]) => {
         if (value !== undefined && value !== null && value !== "") {
             query += `&${key}=${value}`;
         }
     });
-    query = query ? `?${compitionId}${query}` : "?" + compitionId;
+    // query = query ? `?${competitionId}${query}` : "?" + competitionId;
+    query = query ? '?' + query.slice(1) : ''
     console.log(query);
     return `/post/${props.currentPageFolder._id}/filterByPage${query}`;
 };
