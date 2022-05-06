@@ -3,11 +3,11 @@ import clsx from "clsx";
 import ArrowUp from "public/images/table/arrow-up.svg";
 import ArrowDown from "public/images/table/arrow-down.svg";
 import Image from "next/image";
-import Row from './Row'
+import Row from "./Row";
 import { IJudgePost } from "types/judgePost";
 
 interface IProps {
-    options: IJudgePost[]
+    options: IJudgePost[];
 }
 
 export default ({ options }: IProps) => {
@@ -130,7 +130,9 @@ export default ({ options }: IProps) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    { options.map(row => <Row data={row} />) }
+                                    {options.map((row, i) => (
+                                        <Row key={i} data={row} />
+                                    ))}
                                 </tbody>
                             </table>
                         </div>

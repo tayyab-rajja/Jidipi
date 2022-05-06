@@ -2,7 +2,7 @@ import styles from "../Table.module.scss";
 import clsx from "clsx";
 import { IJudgePost } from "types/judgePost";
 import Image from "next/image";
-import Link from 'next/link'
+import Link from "next/link";
 interface IProps {
     data: IJudgePost;
 }
@@ -61,10 +61,9 @@ export default ({ data }: IProps) => {
                 </div>
             </td>
             <td>
-                <div className={styles["content"]}>8.2</div>
+                <div className={styles["content"]}>{data.score}</div>
             </td>
             <td>
-                {console.log(Array(10))}
                 <div className={clsx(styles["content"], styles["rating"])}>
                     {renderStars()}
                 </div>
@@ -78,7 +77,12 @@ export default ({ data }: IProps) => {
                             <a className="link"></a>
                         </Link>
                     </div>
-                    <div className={styles["rate-indicator"]}></div>
+                    <div
+                        className={clsx(
+                            styles["rate-indicator"],
+                            data.commetted && styles["active"]
+                        )}
+                    ></div>
                 </div>
             </td>
         </tr>

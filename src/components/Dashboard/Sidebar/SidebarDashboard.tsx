@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import clsx from "clsx";
@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { readerPanelSvg } from "constant/readerPanelSvg";
 import styles from "./SidebarDashboard.module.scss";
 import { isJudge, isPartner } from "../../../lib/user/role";
+import { useRouter } from "next/router";
 
 // const defaultData = [
 //     {
@@ -33,8 +34,24 @@ import { isJudge, isPartner } from "../../../lib/user/role";
  *
  */
 const SidebarDashboard = (props: any) => {
+    const router = useRouter();
     const { competition, user, post, menus } = props;
-    if (props.competition) {
+    useEffect(() => {
+        if (!router.query.competitionId && menus.length) {
+            let menu = menus[0];
+            if (menu.links.length) {
+                let [link] = menu.links;
+                if (link) {
+                    // router.query.competitionId = link.title;
+                    // router.push(router);
+                    router.replace({
+                        query: { ...router.query, competitionId: link.title }
+                    })
+                }
+            }
+        }
+    }, []);
+    if (competition) {
         const award = props.awards.find(
             (award: any) => award._id === post.awardId
         );
@@ -106,22 +123,22 @@ const SidebarDashboard = (props: any) => {
                     </div>
                 </div>
 
-                {menus?.map((menu: any, index: number) => (
-                    <div className={styles["menu"]}>
+                {menus.map((menu: any, index: number) => (
+                    <div key={index} className={styles["menu"]}>
                         <h2>{menu.title}</h2>
                         <div className={styles["menu-list"]}>
                             <ul>
                                 {menu.links.map(
-                                    (
-                                        { title, link, icon, isSelected }: any,
-                                        i: any
-                                    ) => (
-                                        <Link href={link}>
+                                    ({ title, link, icon }: any, i: any) => (
+                                        <Link key={i} href={link}>
                                             <li
                                                 className={clsx(
-                                                    isSelected &&
+                                                    router.query
+                                                        .competitionId ===
+                                                        title &&
                                                         styles["active"]
                                                 )}
+                                                key={i}
                                             >
                                                 <div
                                                     className={`${styles["icon"]} me-3`}
