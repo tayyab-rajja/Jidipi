@@ -41,7 +41,10 @@ export default function Posts(props: any) {
             pageNumber: -1,
         }
     );
-    const [sort, setSort] = useState(props.filters.sort);
+    const [sort, setSort] = useState(props.filters.sort.field ? props.filters.sort : {
+        field: 'createdAt',
+        order: 1
+    });
     const { data, error } = useSWR(
         getKey(props, pageFilter, filterParameters, sort),
         GET
