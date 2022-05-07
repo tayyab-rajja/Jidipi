@@ -7,6 +7,11 @@ import UploadFile from "../File/File";
 import dynamic from "next/dynamic";
 import { ChatType } from "../Chat/Chat";
 import Countdown, { CountdownTimeDeltaOptions } from "react-countdown";
+import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import StarRatingComponent from "react-star-rating-component";
+
 // import Chat from "../Chat/Chat";
 const Chat = dynamic(() => import("../Chat/Chat"), { ssr: false });
 /**
@@ -110,6 +115,12 @@ const SidebarDashboardRight = (props: any) => {
 
     // EOF Judge evaluation
 
+    const ratingHoverEffect = (rating: number) => {
+        for (let i = 1; i <= rating; i++) {
+            const star = document.getElementById(`star-${i}`);
+        }
+    };
+
     if (isJudge(user)) {
         return (
             <div className={styles["Sidebar"]}>
@@ -176,6 +187,122 @@ const SidebarDashboardRight = (props: any) => {
                                 SECONDS
                             </span>
                         </p>
+                    </div>
+                </div>
+
+                {/* Code review widget */}
+                <div className={styles["widget"]}>
+                    {/* code a title */}
+                    <h3 className={`${styles["title"]} text-center`}>Review</h3>
+
+                    {/* date and time for review widget */}
+                    <div className={`${styles["deadline"]} row`}>
+                        {/* from */}
+                        <div
+                            className={`${styles["deadline-date"]} ${styles["right-border"]} col-md-6 text-center`}
+                        >
+                            <span className={styles["deadline-date-content"]}>
+                                12:12:2012
+                            </span>
+                        </div>
+                        {/* until */}
+                        <div
+                            className={`${styles["deadline-date"]} col-md-6 text-center`}
+                        >
+                            <span className={styles["deadline-date-content"]}>
+                                04:12:34
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* Judge info for review widget*/}
+                    <div className={`${styles["judge-info"]}`}>
+                        {/* judge name */}
+                        <div
+                            className={`${styles["judge-info-name"]} text-center`}
+                        >
+                            {/*image of judge profile*/}
+                            <Image
+                                src="https://via.placeholder.com/150"
+                                alt="judge profile"
+                                width={50}
+                                height={50}
+                                className={styles["judge-info-image"]}
+                            />
+
+                            <span className={styles["judge-info-name-content"]}>
+                                John Doe
+                            </span>
+
+                            <span className={styles["judge-info-name-title"]}>
+                                Judge
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* code a comment box */}
+                    <div className={styles["comment-box"]}>
+                        <textarea
+                            className={styles["comment-box-text"]}
+                            placeholder="Write your comment here..."
+                            value={evaluation.comment}
+                            onChange={(e) =>
+                                SetEvaluation({
+                                    ...evaluation,
+                                    comment: e.target.value,
+                                })
+                            }
+                        />
+                    </div>
+
+                    {/* code a rating widget */}
+                    <div className={styles["rating-widget"]}>
+                        <div className={styles["main-widget-inner"]}>
+                            <div className={styles["rate"]}>
+                                <input
+                                    className={styles["rating"]}
+                                    type="hidden"
+                                    value="3"
+                                />
+                                <StarRatingComponent
+                                    name="rate2"
+                                    editing={false}
+                                    renderStarIcon={() => (
+                                        <FontAwesomeIcon
+                                            icon={faStar}
+                                            className="star-1"
+                                            //onMouseOver={() => ratingHoverEffect(1)}
+                                        />
+                                    )}
+                                    starCount={10}
+                                    value={8}
+                                />
+                                {
+                                    /* <StarRatingComponent
+    name={String} /* name of the radio input, it is required */
+                                    //value={Number} /* number of selected icon (`0` - none, `1` - first) */
+                                    //starCount={Number} /* number of icons in rating, default `5` */
+                                    //onStarClick={Function(nextValue, prevValue, name)} /* on icon click handler */
+                                    //onStarHover={Function(nextValue, prevValue, name)} /* on icon hover handler */
+                                    //onStarHoverOut={Function(nextValue, prevValue, name)} /* on icon hover out handler */
+                                    // renderStarIcon={Function(nextValue, prevValue, name)} /* it should return string or react component */
+                                    // renderStarIconHalf={Function(nextValue, prevValue, name)} /* it should return string or react component */
+                                    //starColor={String} /* color of selected icons, default `#ffb400` */
+                                    //emptyStarColor={String} /* color of non-selected icons, default `#333` */
+                                    //editing={Boolean} /* is component available for editing, default `true` */
+                                    ///> */
+                                }
+
+                                {/* <div className="rate_err_msg" style="display: none;">Please Rate before send Review</div> */}
+                            </div>
+
+                            <button className={styles["submit-btn"]}>
+                                Save Review As Draft
+                            </button>
+                            <button className={styles["submit-btn"]}>
+                                Send Review To JIDIPI
+                            </button>
+                        </div>
                     </div>
                 </div>
 

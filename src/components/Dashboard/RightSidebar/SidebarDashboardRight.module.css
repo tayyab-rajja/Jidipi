@@ -25,8 +25,9 @@
 }
 
 .deadline-date {
-    color: #999;
+    color: rgb(117, 115, 115);
     padding: 15px 0;
+    font-size: 12px;
 }
 
 .right-border {
@@ -41,7 +42,7 @@
 }
 .cowntdown-text {
     font-size: 10px;
-    font-family: "Poppins", sans-serif;
+    font-family: var(--bs-body-font-family);
     font-weight: bold;
 }
 
@@ -56,4 +57,23 @@
 }
 .cd-seconds {
     padding: 0 10px;
+}
+
+.judge-info {
+    padding: 15px 0;
+
+    border-top: 1px solid rgb(204, 200, 200);
+}
+
+.judge-info-name-content,
+.judge-info-name-title {
+    font-size: 18px;
+    margin-top: -20px;
+    padding: 0px 0px 0px 15px;
+    color: #7b7777;
+    font-family: sans-serif;
+}
+.judge-info-image {
+    padding: 10px;
+    margin-bottom: -20px;
 }
