@@ -17,6 +17,7 @@ import PaginationStyles from "src/components/Dashboard/PaginationReverse/Paginat
 import { getFiltersFromUrl, setUrlForListPage } from "src/utils/url";
 import { FilterItem } from "constant/filters/interface";
 import Link from "next/link";
+
 import {
     pageFilters,
     postFilters,
@@ -27,7 +28,7 @@ import {
 export default function Posts(props: any) {
     const userContext: any = useContext(UserContext);
     const user = userContext.user;
-    // const router = useRouter();
+    const router = useRouter();
 
     const [filterParameters, setFilterParameters] = useState(
         props.filters.postFilters
@@ -54,6 +55,13 @@ export default function Posts(props: any) {
     }
 
     useEffect(() => {
+        setFilterParameters((value: any) => {
+            value.competitionId = router.query.competitionId
+            return { ...value }
+        })
+    }, [router.query.competitionId])
+
+    useEffect(() => {
         filterToUrl();
     }, [filterParameters, pageFilter]);
 
@@ -62,7 +70,6 @@ export default function Posts(props: any) {
         user,
         competitions: props.competitions,
     });
-    console.log(props.competitions);
 
     function filterToUrl() {
         setUrlForListPage(pageFilter, filterParameters, {
@@ -70,7 +77,6 @@ export default function Posts(props: any) {
             order: 1,
         });
     }
-
 
     const size = Math.ceil(total / pageFilter.pageSize);
     const onPage = (page: any) => {
@@ -186,7 +192,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     //TODO check if user is logged in
     let props = {};
     const filters = getFiltersFromUrl(context.resolvedUrl.split("?")[1] ?? "");
-    console.log(filters);
+    // console.log(filters);
+    delete filters.postFilters.page
     try {
         // TODO combine the request into one call, or cache in redis...
         const [c, pages] = await Promise.all([

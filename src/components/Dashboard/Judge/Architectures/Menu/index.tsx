@@ -8,7 +8,7 @@ interface IProps {
 export default ({ menuFolders }: IProps) => {
     const router = useRouter();
     const pathNameFregments = router.asPath.split("/");
-    const folderName = pathNameFregments[pathNameFregments.length - 1];
+    let folderName = pathNameFregments[pathNameFregments.length - 1];
     return (
         <div className="scroll-tabs">
             <ul className="nav nav-tabs" id="myTab" role="tablist">
@@ -27,7 +27,7 @@ export default ({ menuFolders }: IProps) => {
                         >
                             <a
                                 className={`nav-link tab-button ${
-                                    folderName === folder.title && "active"
+                                    folderName.includes(folder.title) && "active"
                                 }`}
                                 id="architectures-tab"
                                 role="tab"
