@@ -17,6 +17,8 @@ import PaginationStyles from "src/components/Dashboard/PaginationReverse/Paginat
 import { getFiltersFromUrl, setUrlForListPage } from "src/utils/url";
 import { FilterItem } from "constant/filters/interface";
 import Link from "next/link";
+import Process from "src/components/Dashboard/Process";
+import ProcessWrapper from "src/components/Dashboard/Process/Wrapper"
 
 import {
     pageFilters,
@@ -56,10 +58,10 @@ export default function Posts(props: any) {
 
     useEffect(() => {
         setFilterParameters((value: any) => {
-            value.competitionId = router.query.competitionId
-            return { ...value }
-        })
-    }, [router.query.competitionId])
+            value.competitionId = router.query.competitionId;
+            return { ...value };
+        });
+    }, [router.query.competitionId]);
 
     useEffect(() => {
         filterToUrl();
@@ -104,7 +106,11 @@ export default function Posts(props: any) {
     if (error) return <div>error...</div>;
 
     return (
-        <DashboardLayout sidebarComponent={<SidebarDashboard menus={menus} />}>
+        <DashboardLayout
+            sidebarComponent={<SidebarDashboard menus={menus} />}
+            TopDropdownComponent={<Process statuses={data?.statuses} />}
+            TopDropdownComponentWrapper={ProcessWrapper}
+        >
             <div>
                 <Menu menuFolders={props.menuFolders} />
                 <div className={styles["content-container"]}>
@@ -193,7 +199,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     let props = {};
     const filters = getFiltersFromUrl(context.resolvedUrl.split("?")[1] ?? "");
     // console.log(filters);
-    delete filters.postFilters.page
+    delete filters.postFilters.page;
     try {
         // TODO combine the request into one call, or cache in redis...
         const [c, pages] = await Promise.all([

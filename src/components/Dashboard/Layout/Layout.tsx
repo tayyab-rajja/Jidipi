@@ -4,18 +4,22 @@ import { FC, ReactElement } from "react";
 import Navbar from "src/components/Navbar";
 import "bootstrap/dist/css/bootstrap.css";
 import styles from "./Layout.module.css";
-import Process from "../Process";
+import TopDropdown from "../TopDropdown";
 
 interface LayoutProps {
     children: ReactElement | ReactElement[];
     sidebarComponent?: ReactElement;
     style?: object;
+    TopDropdownComponent?: any;
+    TopDropdownComponentWrapper: any
 }
 
 export const DashboardLayout: FC<LayoutProps> = ({
     children,
     sidebarComponent,
     style = {},
+    TopDropdownComponent,
+    TopDropdownComponentWrapper
 }) => {
     return (
         <>
@@ -28,7 +32,7 @@ export const DashboardLayout: FC<LayoutProps> = ({
                         !sidebarComponent && styles["Layout-Content_FullWith"]
                     )}
                 >
-                    <Process />
+                    <TopDropdown Child={TopDropdownComponent} Wrapper={TopDropdownComponentWrapper} />
 
                     {children}
                 </div>
