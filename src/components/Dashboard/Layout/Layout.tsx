@@ -11,7 +11,7 @@ interface LayoutProps {
     sidebarComponent?: ReactElement;
     style?: object;
     TopDropdownComponent?: any;
-    TopDropdownComponentWrapper: any
+    TopDropdownComponentWrapper?: any
 }
 
 export const DashboardLayout: FC<LayoutProps> = ({
