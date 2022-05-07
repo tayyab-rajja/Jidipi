@@ -43,6 +43,9 @@
                         &.company {
                             padding: 0 !important;
                         }
+                        .arrow {
+                            cursor: pointer;
+                        }
                     }
                     tbody tr {
                         &:hover .content {
@@ -225,10 +228,6 @@
                             .item {
                                 padding: 0 16px;
                                 text-align: center;
-
-                                .arrow {
-                                    cursor: pointer;
-                                }
                                 &:not(.image) {
                                     flex: 1;
                                 }

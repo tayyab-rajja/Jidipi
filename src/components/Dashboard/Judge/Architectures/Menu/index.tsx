@@ -7,6 +7,7 @@ interface IProps {
 
 export default ({ menuFolders }: IProps) => {
     const router = useRouter();
+    console.log(router);
     const pathNameFregments = router.asPath.split("/");
     let folderName = pathNameFregments[pathNameFregments.length - 1];
     return (
@@ -19,7 +20,7 @@ export default ({ menuFolders }: IProps) => {
                         key={folder._id}
                     >
                         <Link
-                            href={`/dashboard/post/list/${folder.title}`}
+                            href={`/dashboard/post/list/${folder.title}?competitionId=${router.query.competitionId}`}
                             data-bs-toggle="tab"
                             data-bs-target="#architectures"
                             aria-controls="architectures"
@@ -27,7 +28,8 @@ export default ({ menuFolders }: IProps) => {
                         >
                             <a
                                 className={`nav-link tab-button ${
-                                    folderName.includes(folder.title) && "active"
+                                    folderName.includes(folder.title) &&
+                                    "active"
                                 }`}
                                 id="architectures-tab"
                                 role="tab"

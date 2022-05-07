@@ -84,7 +84,7 @@ export default ({ categories, handleChange, filterParameters, statuses }: IProps
                 handleChange={handleChange}
                 value={filterParameters["comment"]}
             />
-            <CandidatesFilter handleChange={handleChange}  value={ filterParameters["candidate"] } prop="candidate" statuses={statuses} />
+            <CandidatesFilter handleChange={handleChange}  value={ filterParameters["candidate"] as string } prop="candidate" statuses={statuses} />
         </div>
     );
 };
