@@ -21,6 +21,7 @@ import {
     pageFilters,
     postFilters,
     queryParameters,
+    sort,
 } from "types/queryParameters";
 
 export default function Posts(props: any) {
@@ -37,8 +38,9 @@ export default function Posts(props: any) {
             pageNumber: -1,
         }
     );
+    const [sort, setSort] = useState(props.filters.sort)
     const { data, error } = useSWR(
-        getKey(props, pageFilter, filterParameters),
+        getKey(props, pageFilter, filterParameters, sort),
         GET
     );
 
@@ -80,11 +82,11 @@ export default function Posts(props: any) {
     //     });
     // }, [pageNumber]);
 
-    const onChange = (filterParameters: any) =>
-        setFilterParameters((value: any) => ({
-            ...value,
-            ...filterParameters,
-        }));
+    // const onChange = (filterParameters: any) =>
+    //     setFilterParameters((value: any) => ({
+    //         ...value,
+    //         ...filterParameters,
+    //     }));
 
       const size = Math.ceil(total / pageFilter.pageSize);
     const onPage = (page: any) => {
@@ -106,6 +108,13 @@ export default function Posts(props: any) {
         });
     };
 
+    const handleSizeChange = (field: string, order: 1 | -1) => {
+        setSort({
+            field,
+            order
+        })
+    }
+
     if (error) return <div>error...</div>;
 
     return (
@@ -123,7 +132,7 @@ export default function Posts(props: any) {
                         <div>Loading</div>
                     ) : (
                         <div>
-                            <Table options={data.posts} />
+                            <Table options={data.posts} handleSizeChange={handleSizeChange} sort={sort} />
                             <div className={styles["wrapper"]}>
                                 <div className="pb-5">
                                     <PageSize options={[20, 50]} onPageSizeChange={onPageSizeChange} pageSize={pageFilter.pageSize} />
@@ -169,13 +178,14 @@ export default function Posts(props: any) {
 const getKey = (
     props: any,
     pageFilter: pageFilters,
-    filterParameters: postFilters
+    filterParameters: postFilters,
+    sort: sort
 ) => {
     let query = "";
     // const router = useRouter()
     // TODO compitionId should be dynamic
     // const competitionId = `competitionId=${router.query.competitionId}`;
-    const filters: queryParameters = { ...pageFilter, ...filterParameters };
+    const filters: queryParameters = { ...pageFilter, ...filterParameters, ...sort };
     Object.entries(filters).forEach(([key, value]) => {
         if (value !== undefined && value !== null && value !== "") {
             query += `&${key}=${value}`;

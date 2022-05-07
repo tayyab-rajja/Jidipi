@@ -208,6 +208,9 @@
                                 padding: 0 16px;
                                 text-align: center;
 
+                                .arrow {
+                                    cursor: pointer;
+                                }
                                 &:not(.image) {
                                     flex: 1;
                                 }
@@ -246,109 +249,6 @@
                     thead {
                         background: transparent;
                     }
-                }
-            }
-        }
-        .per-page-section {
-            display: flex;
-            justify-content: flex-end;
-            .per-page {
-                width: 200px;
-                display: flex;
-                align-items: stretch;
-                justify-content: flex-start;
-                position: relative;
-                .label {
-                    border: 1px solid #d6d6d6;
-                    min-width: 120px;
-                    height: 44px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border-radius: 4px 0 0 4px;
-                    white-space: nowrap;
-                    color: #888888;
-                }
-                .custom-select {
-                    min-width: 80px;
-                    position: relative;
-                    .form-select {
-                        font-size: 11px;
-                        background-color: #f1f1f1;
-                        border-radius: 0 5px 5px 0;
-                        height: 44px;
-                        display: flex;
-                        align-items: center;
-                        color: #373737;
-                        cursor: default;
-                        border-left: 0;
-                        &:focus {
-                            box-shadow: none;
-                            border-color: #d6d6d6;
-                        }
-                    }
-                    .options {
-                        position: absolute;
-                        margin: 0;
-                        padding: 0;
-                        list-style-type: none;
-                        top: 44px;
-                        background-color: #fff;
-                        width: 100%;
-                        border-radius: 5px;
-                        overflow: hidden;
-                        height: 0;
-                        transition: 0.2s;
-                        &.open {
-                            height: 88px;
-                            border: 1px solid #d6d6d6;
-                        }
-                        li {
-                            height: 44px;
-                            font-size: 11px;
-                            display: flex;
-                            align-items: center;
-                            padding-left: 25px;
-                            cursor: default;
-                            &.active {
-                                background-color: #373737;
-                                color: #fff;
-                            }
-                            &:not(:last-child) {
-                                border-bottom: 1px solid #d6d6d6;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        .pagination {
-            background-color: #f1f1f1;
-            border-radius: 4px;
-            margin-top: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 44px;
-            .item {
-                .content {
-                    width: 34px;
-                    height: 34px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border-radius: 4px;
-                    transition: 0.2s ease all;
-                    cursor: pointer;
-                }
-                &.active .content {
-                    background-color: #373737;
-                    color: #ffffff;
-                }
-
-                &:not(.active):hover .content {
-                    background-color: #deb851;
-                    color: #ffffff;
                 }
             }
         }
