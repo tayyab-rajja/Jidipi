@@ -6,6 +6,7 @@ import { PUT } from "../../../lib/common/api";
 import UploadFile from "../File/File";
 import dynamic from "next/dynamic";
 import { ChatType } from "../Chat/Chat";
+import Countdown, { CountdownTimeDeltaOptions } from "react-countdown";
 // import Chat from "../Chat/Chat";
 const Chat = dynamic(() => import("../Chat/Chat"), { ssr: false });
 /**
@@ -112,14 +113,80 @@ const SidebarDashboardRight = (props: any) => {
     if (isJudge(user)) {
         return (
             <div className={styles["Sidebar"]}>
-                <div className="main-widget-grid">
+                {/* my codes */}
+
+                {/* code a widget */}
+                <div className={styles["widget"]}>
+                    {/* code a title} */}
+
+                    <h3 className={`${styles["title"]} text-center`}>
+                        Deadline
+                    </h3>
+
+                    {/* code two deadline dates */}
+
+                    <div className={`${styles["deadline"]} row`}>
+                        {/* from */}
+                        <div
+                            className={`${styles["deadline-date"]} ${styles["right-border"]} col-md-6 text-center`}
+                        >
+                            <sub className={styles["deadline-date-title"]}>
+                                from
+                            </sub>
+                            <span className={styles["deadline-date-content"]}>
+                                {/* {competition.applicationDeadline
+                                ? competition.applicationDeadline
+                                : "12:12:2012"} */}
+                                12:12:2012
+                            </span>
+                        </div>
+                        {/* until */}
+                        <div
+                            className={`${styles["deadline-date"]} col-md-6 text-center`}
+                        >
+                            <sub className={styles["deadline-date-title"]}>
+                                until
+                            </sub>
+                            <span className={styles["deadline-date-content"]}>
+                                {/* {competition.reviewDeadline
+                                ? competition.reviewDeadline
+                                : "12:12:2012"} */}
+                                12:12:2022
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* code countdown */}
+                    <div className={`${styles["countdown"]} text-center`}>
+                        <Countdown date={Date.now() + 10000} />
+                        <p
+                            className={`${styles["cowntdown-text"]} text-center`}
+                        >
+                            <span className={`${styles["cd-days"]}`}>DAYS</span>
+
+                            <span className={`${styles["cd-hours"]}`}>
+                                HOURS
+                            </span>
+
+                            <span className={`${styles["cd-minutes"]}`}>
+                                MINUTES
+                            </span>
+
+                            <span className={`${styles["cd-seconds"]}`}>
+                                SECONDS
+                            </span>
+                        </p>
+                    </div>
+                </div>
+
+                {/* <div className="main-widget-grid">
                     <div className="main-widget">
                         <div className="widget-title text-center">
                             <h3>DEADLINE</h3>
                         </div>
                         <div className="main-widget-inner bgf1">
                             <div className="date-and-time">
-                                <div className="row mx-0">
+                                 <div className="row mx-0">
                                     <div className="col d-flex justify-content-center align-items-center px-0">
                                         <p>
                                             <sup>from</sup>2023-01-01
@@ -208,14 +275,14 @@ const SidebarDashboardRight = (props: any) => {
                                 <form>
                                     <textarea placeholder="Please add comment if you like this project."></textarea>
 
-                                    {/* { Modal } */}
+                                    
                                     <div
                                         className="modal_check show"
                                         id="myModal"
                                         role="dialog"
                                     >
                                         <div className="modal-dialog modal-dialog-centered">
-                                            {/* Modal content--> */}
+                                          
                                             <div className="modal-content">
                                                 <div className="modal-body">
                                                     <p className="d-flex align-items-center">
@@ -258,7 +325,7 @@ const SidebarDashboardRight = (props: any) => {
                                             </div>
                                         </div>
                                     </div>
-                                    {/* <!----- modal close ----> */}
+                                  
                                 </form>
                             </div>
                         </div>
@@ -335,7 +402,7 @@ const SidebarDashboardRight = (props: any) => {
                             Send to JIDIPI ....
                         </button>
                     </div>
-                </div>
+                </div> */}
             </div>
         );
     }

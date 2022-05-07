@@ -1,5 +1,59 @@
+@font-face {
+    font-family: digital-dismay-regular;
+    src: url(./fonts/digital-dismay-regular.ttf);
+}
+
 .Sidebar {
     width: 300px;
     float: right;
-    background-color: lightslategrey;
+    /* background-color: lightslategrey; */
+    background-color: #f1f1f1;
+    margin-top: 30px;
+}
+
+.title {
+    background-color: var(--main-color);
+    color: white;
+    font-size: 11px;
+    font-weight: 400;
+    margin: 0;
+    text-transform: uppercase;
+    padding: 15.62px;
+}
+.widget {
+    border: 1px solid rgb(204, 200, 200);
+}
+
+.deadline-date {
+    color: #999;
+    padding: 15px 0;
+}
+
+.right-border {
+    border-right: 1px solid rgb(204, 200, 200);
+}
+.countdown {
+    border-top: 1px solid rgb(204, 200, 200);
+    font-size: 48px;
+    line-height: 1;
+    padding: 15px 0;
+    font-family: "digital-dismay-regular";
+}
+.cowntdown-text {
+    font-size: 10px;
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
+}
+
+.cd-days {
+    padding: 0 10px;
+}
+.cd-hours {
+    padding: 0 10px;
+}
+.cd-minutes {
+    padding: 0 10px;
+}
+.cd-seconds {
+    padding: 0 10px;
 }
