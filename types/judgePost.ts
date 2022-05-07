@@ -31,4 +31,5 @@ export interface IJudgePost {
     rating: number;
     commetted: boolean;
     score: number;
+    candidateStatus: 'PUBLISHED' | 'DRAFT' | 'PENDING'
 }

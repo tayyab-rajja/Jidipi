@@ -60,6 +60,24 @@
                                 display: flex;
                                 align-items: stretch;
                                 justify-content: flex-start;
+                                position: relative;
+                                .status {
+                                    position: absolute;
+                                    right: left;
+                                    top: 0;
+                                    width: 4px;
+                                    height: 100%;
+                                    &.status-published {
+                                        background-color: #f9b960
+                                    }
+                                    &.status-draft {
+                                        background-color: #73b9f6
+                                    }
+                                    &.status-pending {
+                                        background-color: #f89590
+                                    }
+                                }
+
                                 .content {
                                     background-color: #f1f1f1;
                                     padding: 10px 16px;

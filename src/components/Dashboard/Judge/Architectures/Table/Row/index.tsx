@@ -25,6 +25,11 @@ export default ({ data }: IProps) => {
         <tr id="row_1">
             <th className={styles["fixed-side"]}>
                 <div className={styles["fix-side-content"]}>
+                    <div
+                        className={clsx(
+                            styles["status"], styles[`status-${data.candidateStatus.toLocaleLowerCase()}`],
+                        )}
+                    ></div>
                     <div className={clsx(styles["content"], styles["image"])}>
                         <Image
                             src={data.featuredImage.liveURL}

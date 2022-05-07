@@ -13,10 +13,10 @@ import Menu from "src/components/Dashboard/Judge/Architectures/Menu";
 import Table from "src/components/Dashboard/Judge/Architectures/Table";
 import PageSize from "src/components/Dashboard/PageSize";
 import PaginationReverse from "src/components/Dashboard/PaginationReverse";
-import PaginationStyles from 'src/components/Dashboard/PaginationReverse/PaginationReverse.module.scss'
+import PaginationStyles from "src/components/Dashboard/PaginationReverse/PaginationReverse.module.scss";
 import { getFiltersFromUrl, setUrlForListPage } from "src/utils/url";
 import { FilterItem } from "constant/filters/interface";
-import Link from 'next/link'
+import Link from "next/link";
 import {
     pageFilters,
     postFilters,
@@ -38,21 +38,20 @@ export default function Posts(props: any) {
             pageNumber: -1,
         }
     );
-    const [sort, setSort] = useState(props.filters.sort)
+    const [sort, setSort] = useState(props.filters.sort);
     const { data, error } = useSWR(
         getKey(props, pageFilter, filterParameters, sort),
         GET
     );
 
-    let pageNumber = -1
+    let pageNumber = -1;
     let total = 20;
 
     if (data) {
-        pageNumber = data.pageNumberBack
-        total = data.total
-        console.log(pageNumber, total)
+        pageNumber = data.pageNumberBack;
+        total = data.total;
+        console.log(pageNumber, total);
     }
-
 
     useEffect(() => {
         filterToUrl();
@@ -63,32 +62,17 @@ export default function Posts(props: any) {
         user,
         competitions: props.competitions,
     });
-    console.log(props.competitions)
+    console.log(props.competitions);
 
     function filterToUrl() {
         setUrlForListPage(pageFilter, filterParameters, {
             field: "",
             order: 1,
         });
-        getItems();
     }
 
-    function getItems() {}
 
-    // useEffect(() => {
-    //     setUrlForListPage({ ...pageFilter, pageNumber }, filterParameters, {
-    //         field: "",
-    //         order: 1,
-    //     });
-    // }, [pageNumber]);
-
-    // const onChange = (filterParameters: any) =>
-    //     setFilterParameters((value: any) => ({
-    //         ...value,
-    //         ...filterParameters,
-    //     }));
-
-      const size = Math.ceil(total / pageFilter.pageSize);
+    const size = Math.ceil(total / pageFilter.pageSize);
     const onPage = (page: any) => {
         setPageFilter((value: any) => ({ ...value, pageNumber: page }));
     };
@@ -96,10 +80,6 @@ export default function Posts(props: any) {
     const onPageSizeChange = (size: any) => {
         setPageFilter((value: any) => ({ ...value, pageSize: size }));
     };
-    // const pageOptions = [
-    //     { label: 20, value: 20 },
-    //     { label: 100, value: 100 },
-    // ];
 
     const handleChange = (prop: string, itemId: string) => {
         setFilterParameters((value: postFilters) => {
@@ -111,9 +91,9 @@ export default function Posts(props: any) {
     const handleSizeChange = (field: string, order: 1 | -1) => {
         setSort({
             field,
-            order
-        })
-    }
+            order,
+        });
+    };
 
     if (error) return <div>error...</div>;
 
@@ -121,7 +101,7 @@ export default function Posts(props: any) {
         <DashboardLayout sidebarComponent={<SidebarDashboard menus={menus} />}>
             <div>
                 <Menu menuFolders={props.menuFolders} />
-                <div style={{ backgroundColor: "white" }}>
+                <div className={styles["content-container"]}>
                     <Filters
                         categories={props.categories}
                         handleChange={handleChange}
@@ -132,12 +112,22 @@ export default function Posts(props: any) {
                         <div>Loading</div>
                     ) : (
                         <div>
-                            <Table options={data.posts} handleSizeChange={handleSizeChange} sort={sort} />
+                            <Table
+                                options={data.posts}
+                                handleSizeChange={handleSizeChange}
+                                sort={sort}
+                            />
                             <div className={styles["wrapper"]}>
                                 <div className="pb-5">
-                                    <PageSize options={[20, 50]} onPageSizeChange={onPageSizeChange} pageSize={pageFilter.pageSize} />
+                                    <PageSize
+                                        options={[20, 50]}
+                                        onPageSizeChange={onPageSizeChange}
+                                        pageSize={pageFilter.pageSize}
+                                    />
                                 </div>
-                                <div className={`${PaginationStyles["top-pagination"]} text-center`}>
+                                <div
+                                    className={`${PaginationStyles["top-pagination"]} text-center`}
+                                >
                                     <PaginationReverse
                                         className="d-inline-flex p-0 mx-auto mb-0"
                                         size={size || 1}
@@ -151,20 +141,6 @@ export default function Posts(props: any) {
                             </div>
                         </div>
                     )}
-                    {/* <div>TOP header</div>
-                    <div>FILTERS here</div>
-                    <div>-----------------POST list</div>
-                    {data.posts &&
-                        data.posts.map((post: any) => (
-                            <div key={post._id} className={styles.post}>
-                                <Link href={"/dashboard/post/" + post._id}>
-                                    <div className={styles.post_title_text}>
-                                        <h2>{post.title}</h2>
-                                        <span>{post.publishedDate}</span>
-                                    </div>
-                                </Link>
-                            </div>
-                        ))} */}
                 </div>
             </div>
         </DashboardLayout>
@@ -185,14 +161,18 @@ const getKey = (
     // const router = useRouter()
     // TODO compitionId should be dynamic
     // const competitionId = `competitionId=${router.query.competitionId}`;
-    const filters: queryParameters = { ...pageFilter, ...filterParameters, ...sort };
+    const filters: queryParameters = {
+        ...pageFilter,
+        ...filterParameters,
+        ...sort,
+    };
     Object.entries(filters).forEach(([key, value]) => {
         if (value !== undefined && value !== null && value !== "") {
             query += `&${key}=${value}`;
         }
     });
     // query = query ? `?${competitionId}${query}` : "?" + competitionId;
-    query = query ? '?' + query.slice(1) : ''
+    query = query ? "?" + query.slice(1) : "";
     console.log(query);
     return `/post/${props.currentPageFolder._id}/filterByPage${query}`;
 };

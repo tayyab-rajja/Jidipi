@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
-import NextIcon from "public/images/pagination/next.svg";
-import PrevIcon from "public/images/pagination/last.svg";
+import NextIcon from "public/images/pagination/angle-right.svg";
+import PrevIcon from "public/images/pagination/angle-left.svg";
 import { DebounceInput } from "react-debounce-input";
 import styles from "./PaginationReverse.module.scss";
 import clsx from "clsx";
@@ -58,6 +58,7 @@ const Pagination = ({
                                 setDisplayInput(false);
                             }
                         }}
+                        onChange={() => {}}
                     />
                 ) : (
                     <i aria-hidden onClick={() => setDisplayInput(true)}>
@@ -118,6 +119,7 @@ const Pagination = ({
                                         setDisplayInput(false);
                                     }
                                 }}
+                                onChange={() => {}}
                             />
                         ) : (
                             <i
@@ -148,6 +150,7 @@ const Pagination = ({
                                         setDisplayInput(false);
                                     }
                                 }}
+                                onChange={() => {}}
                             />
                         ) : (
                             <i
