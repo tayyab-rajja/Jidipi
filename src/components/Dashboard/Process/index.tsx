@@ -5,8 +5,7 @@ interface IProps {
     statuses: any;
 }
 
-export default ({ statuses }: IProps) => {
-    console.log(statuses);
+function Process({ statuses }: IProps) {
     return (
         <>
             <div className={styles["process-list"]}>
@@ -73,4 +72,6 @@ export default ({ statuses }: IProps) => {
             </div>
         </>
     );
-};
+}
+
+export default Process;

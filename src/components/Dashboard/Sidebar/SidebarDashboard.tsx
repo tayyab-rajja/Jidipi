@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import clsx from "clsx";
@@ -36,6 +36,8 @@ import { useRouter } from "next/router";
 const SidebarDashboard = (props: any) => {
     const router = useRouter();
     const { competition, user, post, menus } = props;
+    const [mounted, setMounted] = useState(false);
+    
     useEffect(() => {
         if (!router.query.competitionId && menus.length) {
             let menu = menus[0];
@@ -50,6 +52,7 @@ const SidebarDashboard = (props: any) => {
                 }
             }
         }
+        setMounted(true)
     }, []);
     if (competition) {
         const award = props.awards.find(
@@ -123,8 +126,8 @@ const SidebarDashboard = (props: any) => {
                     </div>
                 </div>
 
-                {menus.map((menu: any, index: number) => (
-                    <div key={index} className={styles["menu"]}>
+                {mounted && menus.map((menu: any, index: number) => (
+                    <section key={index} className={styles["menu"]}>
                         <h2>{menu.title}</h2>
                         <div className={styles["menu-list"]}>
                             <ul>
@@ -152,7 +155,7 @@ const SidebarDashboard = (props: any) => {
                                 )}
                             </ul>
                         </div>
-                    </div>
+                    </section>
                 ))}
 
                 {/* {menus && menus.map((menu: any, i: any) => (
@@ -188,3 +191,4 @@ const SidebarDashboard = (props: any) => {
 };
 
 export default SidebarDashboard;
+

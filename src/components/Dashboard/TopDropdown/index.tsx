@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from "./index.module.scss";
 // import Process from "../Process";
 
-export default ({ Child, Wrapper }: any) => {
+function TopDropdown({ Child, Wrapper }: any) {
     const [isOpen, setIsOpen] = useState(false);
     const handleClick = () => {
         setIsOpen((value) => !value);
@@ -19,4 +19,6 @@ export default ({ Child, Wrapper }: any) => {
             </div>
         </section>
     );
-};
+}
+
+export default TopDropdown;

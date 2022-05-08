@@ -7,7 +7,7 @@ interface IProps {
     data: IJudgePost;
 }
 
-export default ({ data }: IProps) => {
+function Row({ data }: IProps) {
     const renderStars = () => {
         return new Array(10).fill(0).map((star, i) => {
             return (
@@ -27,7 +27,10 @@ export default ({ data }: IProps) => {
                 <div className={styles["fix-side-content"]}>
                     <div
                         className={clsx(
-                            styles["status"], styles[`status-${data.candidateStatus.toLocaleLowerCase()}`],
+                            styles["status"],
+                            styles[
+                                `status-${data.candidateStatus.toLocaleLowerCase()}`
+                            ]
                         )}
                     ></div>
                     <div className={clsx(styles["content"], styles["image"])}>
@@ -92,4 +95,6 @@ export default ({ data }: IProps) => {
             </td>
         </tr>
     );
-};
+}
+
+export default Row;

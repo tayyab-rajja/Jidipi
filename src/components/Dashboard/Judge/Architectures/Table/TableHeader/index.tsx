@@ -12,7 +12,7 @@ interface IProps {
     sort: sort;
 }
 
-export default ({ handleSizeChange, sort }: IProps) => {
+function TableHeader({ handleSizeChange, sort }: IProps) {
     const tableHeaders = {
         fixedSide: [
             {
@@ -183,4 +183,6 @@ export default ({ handleSizeChange, sort }: IProps) => {
             </tr>
         </thead>
     );
-};
+}
+
+export default TableHeader;

@@ -18,7 +18,7 @@ interface IProps {
     handleChange: Function;
 }
 
-export default ({
+function PlaceholderSelect({
     className,
     id,
     options,
@@ -27,7 +27,7 @@ export default ({
     prop,
     icon,
     value,
-}: IProps) => {
+}: IProps) {
     const {
         selectedItem,
         setSelectedItem,
@@ -42,14 +42,13 @@ export default ({
         const item = options.find((item) => item._id == value);
         setSelectedItem(item || null);
         if (item) {
-            setSelectState('selected')
+            setSelectState("selected");
         }
     }, []);
 
     useEffect(() => {
         handleChange(prop, selectedItem?._id);
     }, [selectedItem]);
-
 
     return (
         <div
@@ -67,7 +66,7 @@ export default ({
                                 );
                             }}
                         >
-                            <Image src={icon} alt={ `${ id } ${icon}` } />
+                            <Image src={icon} alt={`${id} ${icon}`} />
                             <h3 className={styles["label"]}>{placeholder}</h3>
                             <Image src={ArrowIcon} alt="expand icon" />
                         </div>
@@ -81,7 +80,9 @@ export default ({
                         >
                             <h3 className={styles["label"]}>
                                 {`${selectedItem.title}${
-                                    selectedItem.count ? ` (${selectedItem.count})` : ""
+                                    selectedItem.count
+                                        ? ` (${selectedItem.count})`
+                                        : ""
                                 }`}
                             </h3>
                             <Image
@@ -118,4 +119,6 @@ export default ({
             </div>
         </div>
     );
-};
+}
+
+export default PlaceholderSelect;

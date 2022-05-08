@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import NextIcon from "public/images/pagination/angle-right.svg";
 import PrevIcon from "public/images/pagination/angle-left.svg";
-import { DebounceInput } from "react-debounce-input";
+// import { DebounceInput } from "react-debounce-input";
 import styles from "./PaginationReverse.module.scss";
 import clsx from "clsx";
 import Image from "next/image";
@@ -42,7 +42,7 @@ const Pagination = ({
                     {data.size}
                 </a>
             </li>
-            <li className={`${sequel ? styles["page-item"] : ""}`}>
+            {/* <li className={`${sequel ? styles["page-item"] : ""}`}>
                 {displayInput ? (
                     <DebounceInput
                         minLength={1}
@@ -65,7 +65,7 @@ const Pagination = ({
                         ...
                     </i>
                 )}
-            </li>
+            </li> */}
         </>
     );
     const getPages = (s: any, f: any) => {
@@ -98,7 +98,7 @@ const Pagination = ({
 
     const lastPage = () => (
         <>
-            <li className={`${sequel ? styles["page-item"] : ""}`}>
+            {/* <li className={`${sequel ? styles["page-item"] : ""}`}>
                 {sequel ? (
                     <a>
                         {displayInput ? (
@@ -162,7 +162,7 @@ const Pagination = ({
                         )}
                     </>
                 )}
-            </li>
+            </li> */}
             <li className={`${sequel ? styles["page-item"] : ""}`}>
                 <a
                     href="#test"

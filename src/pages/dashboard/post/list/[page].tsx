@@ -56,7 +56,6 @@ export default function Posts(props: any) {
     if (data) {
         pageNumber = data.pageNumberBack;
         total = data.total;
-        console.log(pageNumber, total);
     }
 
     useEffect(() => {

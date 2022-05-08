@@ -9,15 +9,15 @@ interface IProps {
     value: string;
     handleChange: Function;
     prop: string;
-    statuses: { [key: string]: number }
+    statuses: { [key: string]: number };
 }
 
-export default ({ handleChange, value, prop, statuses }: IProps) => {
+function CandidatesFilter({ handleChange, value, prop, statuses }: IProps) {
     const prevSelected = useRef<FilterItem | null>(null);
 
     data.forEach((item: FilterItem) => {
-        item.count = statuses?.[item._id.toLowerCase()] || 0
-    })
+        item.count = statuses?.[item._id.toLowerCase()] || 0;
+    });
 
     const {
         selectedItem,
@@ -116,4 +116,6 @@ export default ({ handleChange, value, prop, statuses }: IProps) => {
             </div>
         </div>
     );
-};
+}
+
+export default CandidatesFilter;

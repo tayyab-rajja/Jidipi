@@ -22,11 +22,36 @@
                     width: 100%;
                     overflow: auto;
                     direction: rtl;
+
+                    &::-webkit-scrollbar-track {
+                        -webkit-box-shadow: none;
+                        border-radius: 6px;
+                        background-color: #ffffff;
+                    }
+
+                    &::-webkit-scrollbar {
+                        width: 8px;
+                        height: 4px;
+                        background-color: #fff;
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        border-radius: 6px;
+                        -webkit-box-shadow: none;
+                        background-color: #d6d6d6;
+                    }
                 }
                 .main-table {
                     direction: ltr;
+                    border-spacing: 0;
+                    border-collapse: separate;
                     thead .fixed-side {
                         padding: 0;
+                        position: sticky;
+                        top: 0;
+                        left: 0;
+                        z-index: 100;
+                        background-color: white;
                     }
                     thead th {
                         color: #373737;
@@ -71,13 +96,13 @@
                                     width: 4px;
                                     height: 100%;
                                     &.status-published {
-                                        background-color: #f9b960
+                                        background-color: #f9b960;
                                     }
                                     &.status-draft {
-                                        background-color: #73b9f6
+                                        background-color: #73b9f6;
                                     }
                                     &.status-pending {
-                                        background-color: #f89590
+                                        background-color: #f89590;
                                     }
                                 }
 
@@ -219,6 +244,10 @@
                         visibility: visible;
                         padding: 0;
                         padding-bottom: 8px;
+                        position: sticky;
+                        top: 0;
+                        left: 0;
+                        z-index: 100;
                         .fix-header {
                             display: flex;
                             align-items: center;

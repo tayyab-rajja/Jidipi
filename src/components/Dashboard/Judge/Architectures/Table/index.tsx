@@ -9,10 +9,10 @@ import { sort } from "types/queryParameters";
 interface IProps {
     options: IJudgePost[];
     handleSizeChange: Function;
-    sort: sort
+    sort: sort;
 }
 
-export default ({ options, handleSizeChange, sort }: IProps) => {
+function Table({ options, handleSizeChange, sort }: IProps) {
     return (
         <div className={styles["architectures-table"]}>
             <div className={styles["table-block"]}>
@@ -20,7 +20,10 @@ export default ({ options, handleSizeChange, sort }: IProps) => {
                     <div id="table-scroll" className={styles["table-scroll"]}>
                         <div className={styles["table-wrap"]}>
                             <table className={styles["main-table"]}>
-                                <TableHeader handleSizeChange={handleSizeChange} sort={sort} />
+                                <TableHeader
+                                    handleSizeChange={handleSizeChange}
+                                    sort={sort}
+                                />
                                 <tbody>
                                     {options.map((row, i) => (
                                         <Row key={i} data={row} />
@@ -33,4 +36,6 @@ export default ({ options, handleSizeChange, sort }: IProps) => {
             </div>
         </div>
     );
-};
+}
+
+export default Table;

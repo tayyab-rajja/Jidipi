@@ -8,7 +8,7 @@ interface IProps {
     pageSize: number;
 }
 
-export default ({ options, onPageSizeChange, pageSize }: IProps) => {
+function PageSize({ options, onPageSizeChange, pageSize }: IProps) {
     const [showOptions, setShowOptions] = useState(false);
     const changePageSizeHandler: MouseEventHandler<HTMLDivElement> = () => {
         setShowOptions((value) => !value);
@@ -52,4 +52,6 @@ export default ({ options, onPageSizeChange, pageSize }: IProps) => {
             </div>
         </div>
     );
-};
+}
+
+export default PageSize;

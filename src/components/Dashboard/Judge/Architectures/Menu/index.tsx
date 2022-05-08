@@ -5,9 +5,8 @@ interface IProps {
     menuFolders: PageFolder[];
 }
 
-export default ({ menuFolders }: IProps) => {
+function Menu({ menuFolders }: IProps) {
     const router = useRouter();
-    console.log(router);
     const pathNameFregments = router.asPath.split("/");
     let folderName = pathNameFregments[pathNameFregments.length - 1];
     return (
@@ -42,4 +41,6 @@ export default ({ menuFolders }: IProps) => {
             </ul>
         </div>
     );
-};
+}
+
+export default Menu;
