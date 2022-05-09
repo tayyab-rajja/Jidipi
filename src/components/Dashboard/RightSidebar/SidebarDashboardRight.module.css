@@ -109,3 +109,31 @@
     top: 20px !important;
     padding-right: 10px !important;
 }
+
+.rating-error,
+.comment-box-error {
+    background-color: rgb(24, 23, 23);
+    color: #ccc;
+    padding: 4px;
+    text-align: center;
+    position: inherit;
+    display: block;
+    visibility: visible;
+    transition: visibility 2.5s, opacity 2.5s;
+    -webkit-animation: slide 0.5s forwards;
+    -webkit-animation-delay: 2s;
+    animation: slide 0.5s forwards 0.5s ease-in-out;
+    animation-delay: 2s;
+}
+
+@-webkit-keyframes slide {
+    100% {
+        visibility: collapse;
+    }
+}
+
+@keyframes slide {
+    100% {
+        visibility: collapse;
+    }
+}
