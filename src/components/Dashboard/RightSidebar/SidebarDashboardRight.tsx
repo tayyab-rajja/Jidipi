@@ -10,7 +10,6 @@ import Countdown, { CountdownTimeDeltaOptions } from "react-countdown";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import StarRatingComponent from "react-star-rating-component";
 
 // import Chat from "../Chat/Chat";
 const Chat = dynamic(() => import("../Chat/Chat"), { ssr: false });
@@ -24,6 +23,10 @@ const Chat = dynamic(() => import("../Chat/Chat"), { ssr: false });
  */
 const SidebarDashboardRight = (props: any) => {
     const { competition, user, post, awards } = props;
+    const [selectedRating, setSelectedRating] = useState(0);
+    const [hoverRating, setHoverRating] = useState(0);
+    //create an array of 1-10 numbers
+    const startCounts = new Array(10).fill(0).map((_, index) => index + 1);
 
     //the award that is currently being binded to the post.
     const award = awards.find((award: any) => award._id === post.awardId);
@@ -114,11 +117,15 @@ const SidebarDashboardRight = (props: any) => {
     }
 
     // EOF Judge evaluation
+    const ratingColor = (rating: number): string => {
+        if (rating <= hoverRating) {
+            return "#ffc107";
+        }
+        return "#999";
+    };
 
     const ratingHoverEffect = (rating: number) => {
-        for (let i = 1; i <= rating; i++) {
-            const star = document.getElementById(`star-${i}`);
-        }
+        setHoverRating(rating);
     };
 
     if (isJudge(user)) {
@@ -264,34 +271,26 @@ const SidebarDashboardRight = (props: any) => {
                                     type="hidden"
                                     value="3"
                                 />
-                                <StarRatingComponent
-                                    name="rate2"
-                                    editing={false}
-                                    renderStarIcon={() => (
+
+                                {startCounts.map((count, index) => {
+                                    return (
                                         <FontAwesomeIcon
+                                            color={ratingColor(count)}
+                                            key={index}
                                             icon={faStar}
-                                            className="star-1"
-                                            //onMouseOver={() => ratingHoverEffect(1)}
+                                            id={`star-${count}`}
+                                            onMouseOver={() =>
+                                                ratingHoverEffect(count)
+                                            }
+                                            onClick={() =>
+                                                setSelectedRating(count)
+                                            }
+                                            onMouseLeave={() =>
+                                                setHoverRating(selectedRating)
+                                            }
                                         />
-                                    )}
-                                    starCount={10}
-                                    value={8}
-                                />
-                                {
-                                    /* <StarRatingComponent
-    name={String} /* name of the radio input, it is required */
-                                    //value={Number} /* number of selected icon (`0` - none, `1` - first) */
-                                    //starCount={Number} /* number of icons in rating, default `5` */
-                                    //onStarClick={Function(nextValue, prevValue, name)} /* on icon click handler */
-                                    //onStarHover={Function(nextValue, prevValue, name)} /* on icon hover handler */
-                                    //onStarHoverOut={Function(nextValue, prevValue, name)} /* on icon hover out handler */
-                                    // renderStarIcon={Function(nextValue, prevValue, name)} /* it should return string or react component */
-                                    // renderStarIconHalf={Function(nextValue, prevValue, name)} /* it should return string or react component */
-                                    //starColor={String} /* color of selected icons, default `#ffb400` */
-                                    //emptyStarColor={String} /* color of non-selected icons, default `#333` */
-                                    //editing={Boolean} /* is component available for editing, default `true` */
-                                    ///> */
-                                }
+                                    );
+                                })}
 
                                 {/* <div className="rate_err_msg" style="display: none;">Please Rate before send Review</div> */}
                             </div>
