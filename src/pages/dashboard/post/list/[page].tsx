@@ -26,6 +26,7 @@ import {
     sort,
 } from "types/queryParameters";
 import { PageFolder } from "types/pageFolderType";
+import { FilterItem } from "constant/filters/interface";
 
 interface IProps {
     competitions: ICompetition[];
@@ -137,7 +138,7 @@ export default function Posts(props: IProps) {
     return (
         <DashboardLayout
             sidebarComponent={<SidebarDashboard menus={menus} />}
-            TopDropdownComponent={<Process statuses={data?.statuses} />}
+            TopDropdownComponent={<Process statuses={data?.statuses} menuFolders={props.menuFolders} competitionPageFolderIds={user?.competitionPageFolderIds} />}
             TopDropdownComponentWrapper={ProcessWrapper}
         >
             <div>
