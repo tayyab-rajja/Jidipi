@@ -9,7 +9,7 @@ import { ChatType } from "../Chat/Chat";
 import Countdown, { CountdownTimeDeltaOptions } from "react-countdown";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faMessage } from "@fortawesome/free-solid-svg-icons";
 
 // import Chat from "../Chat/Chat";
 const Chat = dynamic(() => import("../Chat/Chat"), { ssr: false });
@@ -119,7 +119,7 @@ const SidebarDashboardRight = (props: any) => {
     // EOF Judge evaluation
     const ratingColor = (rating: number): string => {
         if (rating <= hoverRating) {
-            return "#ffc107";
+            return "#333";
         }
         return "#999";
     };
@@ -226,7 +226,7 @@ const SidebarDashboardRight = (props: any) => {
                     <div className={`${styles["judge-info"]}`}>
                         {/* judge name */}
                         <div
-                            className={`${styles["judge-info-name"]} text-center`}
+                            className={`${styles["judge-info-name"]} row text-center`}
                         >
                             {/*image of judge profile*/}
                             <Image
@@ -234,25 +234,33 @@ const SidebarDashboardRight = (props: any) => {
                                 alt="judge profile"
                                 width={50}
                                 height={50}
-                                className={styles["judge-info-image"]}
+                                className={`${styles["judge-info-image"]} col-md-4 m-auto`}
                             />
 
-                            <span className={styles["judge-info-name-content"]}>
+                            <span
+                                className={`${styles["judge-info-name-content"]} col-md-4`}
+                            >
                                 John Doe
                             </span>
 
-                            <span className={styles["judge-info-name-title"]}>
+                            <span
+                                className={`${styles["judge-info-name-title"]} col-md-4`}
+                            >
                                 Judge
                             </span>
                         </div>
                     </div>
 
                     {/* code a comment box */}
-                    <div className={styles["comment-box"]}>
+                    <div
+                        className={`${styles["comment-box"]} text-center pt-3 pb-3`}
+                    >
                         <textarea
-                            className={styles["comment-box-text"]}
+                            className={`${styles["comment-box-text"]} text-center`}
                             placeholder="Write your comment here..."
                             value={evaluation.comment}
+                            rows={1}
+                            cols={50}
                             onChange={(e) =>
                                 SetEvaluation({
                                     ...evaluation,
@@ -265,11 +273,13 @@ const SidebarDashboardRight = (props: any) => {
                     {/* code a rating widget */}
                     <div className={styles["rating-widget"]}>
                         <div className={styles["main-widget-inner"]}>
-                            <div className={styles["rate"]}>
+                            <div
+                                className={`${styles["rate"]} text-center p-3 mt-3`}
+                            >
                                 <input
-                                    className={styles["rating"]}
+                                    className={`${styles["rating"]} text-center`}
                                     type="hidden"
-                                    value="3"
+                                    value={selectedRating}
                                 />
 
                                 {startCounts.map((count, index) => {
@@ -295,10 +305,28 @@ const SidebarDashboardRight = (props: any) => {
                                 {/* <div className="rate_err_msg" style="display: none;">Please Rate before send Review</div> */}
                             </div>
 
-                            <button className={styles["submit-btn"]}>
+                            <button
+                                className={`w-100 p-3 mt-3 mb-3 text-center ${`${styles["top-submit-btn"]} ${styles["submit-btn"]}`}`}
+                            >
+                                <Image
+                                    src="/dashboard/right-sidebar/icon-status-save.svg"
+                                    alt="submit"
+                                    width={30}
+                                    height={30}
+                                    className={`${styles["submit-btn-icon"]}`}
+                                />
                                 Save Review As Draft
                             </button>
-                            <button className={styles["submit-btn"]}>
+                            <button
+                                className={`w-100 p-3 mt-0 mb-3 text-center ${styles["submit-btn"]}`}
+                            >
+                                <Image
+                                    src="/dashboard/right-sidebar/icon-status-published.svg"
+                                    alt="submit"
+                                    width={30}
+                                    height={30}
+                                    className={`${styles["submit-btn-icon"]}`}
+                                />
                                 Send Review To JIDIPI
                             </button>
                         </div>
