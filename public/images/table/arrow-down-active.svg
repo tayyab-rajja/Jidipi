@@ -1,0 +1,4 @@
+<svg id="icon-down" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <rect id="icon-background" width="16" height="16" fill="none"/>
+  <path id="arrow-down-black" d="M3.179.035a.472.472,0,0,0-.5.093L2.666.139.138,2.667A.471.471,0,0,0,.8,3.333L2.529,1.608V6.541a.471.471,0,1,0,.942,0V1.608L5.2,3.333a.471.471,0,0,0,.666-.666L3.333.138A.469.469,0,0,0,3.179.035Z" transform="translate(11 11.023) rotate(180)" fill="#373737" fill-rule="evenodd"/>
+</svg>

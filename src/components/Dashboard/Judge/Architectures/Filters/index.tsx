@@ -18,18 +18,21 @@ interface IProps {
     categories: { title: string; _id: string }[];
     handleChange: Function;
     filterParameters: postFilters;
-    statuses: {[key: string]: number}
+    statuses: { [key: string]: number };
 }
 
-export default ({ categories, handleChange, filterParameters, statuses }: IProps) => {
-
+function Filters({
+    categories,
+    handleChange,
+    filterParameters,
+    statuses,
+}: IProps) {
     RatingData.forEach((item: FilterItem) => {
-        item.count = statuses?.[item._id] || 0
-    })
+        item.count = statuses?.[item._id] || 0;
+    });
     CommentData.forEach((item: FilterItem) => {
-        item.count = statuses?.[item._id] || 0
-    })
-
+        item.count = statuses?.[item._id] || 0;
+    });
 
     return (
         <div className={styles["architectures-filter"]}>
@@ -53,7 +56,11 @@ export default ({ categories, handleChange, filterParameters, statuses }: IProps
                 handleChange={handleChange}
                 value={filterParameters["categories"]}
             />
-            <SearchFilter handleChange={handleChange}  value={ filterParameters["searchKey"] } prop="searchKey" />
+            <SearchFilter
+                handleChange={handleChange}
+                value={filterParameters["searchKey"]}
+                prop="searchKey"
+            />
             <PlaceholderSelect
                 options={ScoreData}
                 id="score"
@@ -84,7 +91,14 @@ export default ({ categories, handleChange, filterParameters, statuses }: IProps
                 handleChange={handleChange}
                 value={filterParameters["comment"]}
             />
-            <CandidatesFilter handleChange={handleChange}  value={ filterParameters["candidate"] } prop="candidate" statuses={statuses} />
+            <CandidatesFilter
+                handleChange={handleChange}
+                value={filterParameters["candidate"] as string}
+                prop="candidate"
+                statuses={statuses}
+            />
         </div>
     );
-};
+}
+
+export default Filters;

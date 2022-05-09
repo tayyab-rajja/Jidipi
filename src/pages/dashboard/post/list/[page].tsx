@@ -10,21 +10,26 @@ import { generateSidebarMenus } from "../../../../lib/common/menu";
 import { DashboardLayout } from "../../../../components/Dashboard/Layout/Layout";
 import Filters from "src/components/Dashboard/Judge/Architectures/Filters";
 import Menu from "src/components/Dashboard/Judge/Architectures/Menu";
+import Table from "src/components/Dashboard/Judge/Architectures/Table";
+import PageSize from "src/components/Dashboard/PageSize";
+import PaginationReverse from "src/components/Dashboard/PaginationReverse";
+import PaginationStyles from "src/components/Dashboard/PaginationReverse/PaginationReverse.module.scss";
 import { getFiltersFromUrl, setUrlForListPage } from "src/utils/url";
-import { FilterItem } from "constant/filters/interface";
+import Process from "src/components/Dashboard/Process";
+import ProcessWrapper from "src/components/Dashboard/Process/Wrapper"
+
 import {
     pageFilters,
     postFilters,
     queryParameters,
+    sort,
 } from "types/queryParameters";
-import Link from "next/link";
 
 export default function Posts(props: any) {
     const userContext: any = useContext(UserContext);
     const user = userContext.user;
-    // const router = useRouter();
-    // const filters = getFiltersFromUrl(router.asPath.split("?")[1] ?? "");
-    const [pageNumber, setPageNumber] = useState(-1);
+    const router = useRouter();
+
     const [filterParameters, setFilterParameters] = useState(
         props.filters.postFilters
     );
@@ -34,18 +39,34 @@ export default function Posts(props: any) {
             pageNumber: -1,
         }
     );
+    const [sort, setSort] = useState(props.filters.sort.field ? props.filters.sort : {
+        field: 'createdAt',
+        order: 1
+    });
     const { data, error } = useSWR(
-        getKey(props, pageFilter, filterParameters),
+        getKey(props, pageFilter, filterParameters, sort),
         GET
     );
+
+    let pageNumber = -1;
+    let total = 20;
+
+    if (data) {
+        pageNumber = data.pageNumberBack;
+        total = data.total;
+    }
+
+    useEffect(() => {
+        setFilterParameters((value: any) => {
+            value.competitionId = router.query.competitionId;
+            return { ...value };
+        });
+    }, [router.query.competitionId]);
 
     useEffect(() => {
         filterToUrl();
     }, [filterParameters, pageFilter]);
-    // const pageNumber = useSelector(state => state.user.pageNumberBack);
-    // const total = useSelector(state => state.user.total);
-    // const statuses = useSelector(state => state.user.statuses)
-    // const fetchingUser = useSelector(state => state.user.fetchingUser);
+
     // MENU of the sidebar
     const menus = generateSidebarMenus({
         user,
@@ -57,25 +78,9 @@ export default function Posts(props: any) {
             field: "",
             order: 1,
         });
-        getItems();
     }
 
-    function getItems() {}
-
-    useEffect(() => {
-        // setUrlForListPage({ ...pageFilter, pageNumber }, filterParameters, {
-        //     field: "",
-        //     order: 1,
-        // });
-    }, [pageNumber]);
-
-    const onChange = (filterParameters: any) =>
-        setFilterParameters((value: any) => ({
-            ...value,
-            ...filterParameters,
-        }));
-
-    //   const size = Math.ceil(total / pageFilter.pageSize);
+    const size = Math.ceil(total / pageFilter.pageSize);
     const onPage = (page: any) => {
         setPageFilter((value: any) => ({ ...value, pageNumber: page }));
     };
@@ -83,10 +88,6 @@ export default function Posts(props: any) {
     const onPageSizeChange = (size: any) => {
         setPageFilter((value: any) => ({ ...value, pageSize: size }));
     };
-    const pageOptions = [
-        { label: 20, value: 20 },
-        { label: 100, value: 100 },
-    ];
 
     const handleChange = (prop: string, itemId: string) => {
         setFilterParameters((value: postFilters) => {
@@ -95,33 +96,63 @@ export default function Posts(props: any) {
         });
     };
 
+    const handleSizeChange = (field: string, order: 1 | -1) => {
+        setSort({
+            field,
+            order,
+        });
+    };
+
     if (error) return <div>error...</div>;
 
     return (
-        <DashboardLayout sidebarComponent={<SidebarDashboard menus={menus} />}>
+        <DashboardLayout
+            sidebarComponent={<SidebarDashboard menus={menus} />}
+            TopDropdownComponent={<Process statuses={data?.statuses} />}
+            TopDropdownComponentWrapper={ProcessWrapper}
+        >
             <div>
                 <Menu menuFolders={props.menuFolders} />
-                <div style={{ backgroundColor: "white" }}>
+                <div className={styles["content-container"]}>
                     <Filters
                         categories={props.categories}
                         handleChange={handleChange}
                         filterParameters={filterParameters}
                         statuses={data && data.statuses}
                     />
-                    {!data && <div>loading ...</div>}
-
-                    <div>-----------------POST list, Enable this list, another coder can go to detail page.</div>
-                    {data && data.posts &&
-                        data.posts.map((post: any) => (
-                            <div key={post._id} className={styles.post}>
-                                <Link href={"/dashboard/post/" + post._id}>
-                                    <div className={styles.post_title_text}>
-                                        <h2>{post.title}</h2>
-                                        <span>{post.publishedDate}</span>
-                                    </div>
-                                </Link>
+                    {!data ? (
+                        <div>Loading</div>
+                    ) : (
+                        <div>
+                            <Table
+                                options={data.posts}
+                                handleSizeChange={handleSizeChange}
+                                sort={sort}
+                            />
+                            <div className={styles["wrapper"]}>
+                                <div className="pb-5">
+                                    <PageSize
+                                        options={[20, 50]}
+                                        onPageSizeChange={onPageSizeChange}
+                                        pageSize={pageFilter.pageSize}
+                                    />
+                                </div>
+                                <div
+                                    className={`${PaginationStyles["top-pagination"]} text-center`}
+                                >
+                                    <PaginationReverse
+                                        className="d-inline-flex p-0 mx-auto mb-0"
+                                        size={size || 1}
+                                        sequre
+                                        page={pageNumber + 1}
+                                        onChange={(e: any) => {
+                                            onPage(e - 1);
+                                        }}
+                                    />
+                                </div>
                             </div>
-                        ))}
+                        </div>
+                    )}
                 </div>
             </div>
         </DashboardLayout>
@@ -135,24 +166,25 @@ export default function Posts(props: any) {
 const getKey = (
     props: any,
     pageFilter: pageFilters,
-    filterParameters: postFilters
+    filterParameters: postFilters,
+    sort: sort
 ) => {
     let query = "";
+    // const router = useRouter()
     // TODO compitionId should be dynamic
-    const compitionId = "competitionId=61c9c6b8375d992bb47db5b2";
-    const filters: queryParameters = { ...pageFilter, ...filterParameters };
+    // const competitionId = `competitionId=${router.query.competitionId}`;
+    const filters: queryParameters = {
+        ...pageFilter,
+        ...filterParameters,
+        ...sort,
+    };
     Object.entries(filters).forEach(([key, value]) => {
         if (value !== undefined && value !== null && value !== "") {
-            query += `${key}=${value}`;
+            query += `&${key}=${value}`;
         }
     });
-    // if (props.query) {
-    //     delete props.query.page;
-    //     query = Object.keys(props.query)
-    //         .map((key) => key + "=" + props.query[key])
-    //         .join("&");
-    // }
-    query = query ? `?${compitionId}&${query}` : "?" + compitionId;
+    // query = query ? `?${competitionId}${query}` : "?" + competitionId;
+    query = query ? "?" + query.slice(1) : "";
     console.log(query);
     return `/post/${props.currentPageFolder._id}/filterByPage${query}`;
 };
@@ -166,7 +198,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     //TODO check if user is logged in
     let props = {};
     const filters = getFiltersFromUrl(context.resolvedUrl.split("?")[1] ?? "");
-    console.log(filters)
+    // console.log(filters);
+    delete filters.postFilters.page;
     try {
         // TODO combine the request into one call, or cache in redis...
         const [c, pages] = await Promise.all([
@@ -175,7 +208,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         ]);
         const pageFolders = pages && pages.pageFolders;
         const currentPageFolder = pageFolders.find(
-            (page: any) => page.subDomain === "architectures"
+            (page: any) => page.subDomain === context.query.page
         );
         const categoriesResult = await GET(
             `/category/rootLevel/${currentPageFolder._id}/CATEGORIES`
