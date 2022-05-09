@@ -55,7 +55,11 @@ const LoginPage = (prop: any) => {
             const user = signingState.user;
             if (isReader(user)) {
                 //Handle for reader
-            } else if (isStaff(user) || isJudge(user) || isPartner(user)) {
+            } else if (  isPartner(user)) {
+                router.push('/dashboard/cloud/post').then(() => {
+                });
+                // dispatch(resetState());
+            }else if (isStaff(user) || isJudge(user) || isPartner(user)) {
                 router.push('/dashboard/post/list/architectures').then(() => {
                 });
                 // dispatch(resetState());
