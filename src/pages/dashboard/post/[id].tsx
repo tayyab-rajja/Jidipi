@@ -60,19 +60,19 @@ export default function Post(props: any) {
 
     if (error) return <div>Post not found</div>;     // TODO redirect to 404 page
     if (!data) return <div>Loading</div>;
-
-    return <DashboardLayout
-        // pageFolders={props.pageFolders}
-        sidebarComponent={<SidebarDashboard competition={competition} user={user} post={post} awards={awards}/>}>
-        <div>
-            <div>
-                <SidebarDashboardRight user={user} post={post} awards={awards} competition={competition}/>
-            </div>
-            <div>
-                <div dangerouslySetInnerHTML={{__html: post.description}}/>
-            </div>
-        </div>
-    </DashboardLayout>;
+    return             <SidebarDashboardRight user={user} post={post} awards={awards} competition={competition}/>;
+    // return <DashboardLayout
+    //     // pageFolders={props.pageFolders}
+    //     sidebarComponent={<SidebarDashboard competition={competition} user={user} post={post} awards={awards}/>}>
+    //     <div>
+    //         <div>
+    //             <SidebarDashboardRight user={user} post={post} awards={awards} competition={competition}/>
+    //         </div>
+    //         <div>
+    //             <div dangerouslySetInnerHTML={{__html: post.description}}/>
+    //         </div>
+    //     </div>
+    // </DashboardLayout>;
 
 };
 
