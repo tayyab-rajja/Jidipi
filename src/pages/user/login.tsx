@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import FormUserData from "../../components/FormUserData";
-import InputUserData from "../../components/InputUserData";
-import RememberMe from "../../components/RememberMe";
+// import InputUserData from "../../components/InputUserData";
+// import RememberMe from "../../components/RememberMe";
 import stylesForm from "../../components/FormUserData/FormUserData.module.css";
 import ButtonUserData from "../../components/ButtonUserData";
 import {useDispatch, useSelector} from "react-redux";
@@ -55,7 +55,11 @@ const LoginPage = (prop: any) => {
             const user = signingState.user;
             if (isReader(user)) {
                 //Handle for reader
-            } else if (isStaff(user) || isJudge(user) || isPartner(user)) {
+            } else if (  isPartner(user)) {
+                router.push('/dashboard/cloud/post').then(() => {
+                });
+                // dispatch(resetState());
+            }else if (isStaff(user) || isJudge(user) || isPartner(user)) {
                 router.push('/dashboard/post/list/architectures').then(() => {
                 });
                 // dispatch(resetState());
@@ -69,10 +73,10 @@ const LoginPage = (prop: any) => {
                 <>
                     <input type="email" placeholder="Email" onChange={(e)=>setUserData({...userData,email:e.target.value})} ></input>
                     <input type="password" placeholder="Password" onChange={(e)=>setUserData({...userData,password:e.target.value})} ></input>
-                    <RememberMe className={stylesForm['Form-Elem']} checkAction={() =>{
-                        setUserData({...userData,rememberme:!userData.rememberme})
+                    {/*<RememberMe className={stylesForm['Form-Elem']} checkAction={() =>{*/}
+                    {/*    setUserData({...userData,rememberme:!userData.rememberme})*/}
 
-                    }}     forgotPasswordAction={goToRecoverPassword}/>
+                    {/*}}     forgotPasswordAction={goToRecoverPassword}/>*/}
 
                     <ButtonUserData label='login' action={() => loginHandler()}/>
                     <ButtonUserData label='logout' action={() => logoutHandler()}/>

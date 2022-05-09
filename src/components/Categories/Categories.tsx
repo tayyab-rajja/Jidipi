@@ -11,6 +11,7 @@ import { useCategories } from "./useCategories";
 import { CategoriesList } from "./CategoriesList";
 import { CompaniesList } from "./CompaniesList";
 import { categoriesSvg } from "constant/categoriesSvg";
+import DatesCategoryPicker from "../DatesCategoryPicker/DatesCategoryPicker";
 
 type Props = {};
 
@@ -81,7 +82,9 @@ export const Categories = (props: Props) => {
         </TabList>
 
         <TabPanels>
-          <TabPanel>DATE</TabPanel>
+          <TabPanel>
+            <DatesCategoryPicker />
+          </TabPanel>
           {convertCategoriesToTabsData(categories.categories).map((item) => (
             <TabPanel key={item.id}>
               <CategoriesList category={item.content} />
@@ -90,6 +93,9 @@ export const Categories = (props: Props) => {
           <TabPanel>
             <CompaniesList
               companies={categories?.companies}
+              allRouteName={
+                query.folder === "architectures" ? "ARCHITECT" : "BRAND"
+              }
               companiesCount={categories?.companiesCount}
             />
           </TabPanel>

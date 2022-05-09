@@ -1,4 +1,5 @@
 import React, { FC, useState, ChangeEvent } from "react";
+import Image from "next/image";
 
 import clsx from "clsx";
 
@@ -10,6 +11,7 @@ interface Props extends Omit<ControllerRenderProps, "ref"> {
   type: string;
   placeholder?: string;
   isUnlock?: boolean;
+  redBorder?: boolean;
   canShowPassword?: boolean;
   className?: string;
   ref: any;
@@ -21,6 +23,7 @@ const InputUserDataRHF: FC<Props> = React.forwardRef<HTMLInputElement, Props>(
       type: originalType,
       placeholder,
       isUnlock = true,
+      redBorder = false,
       canShowPassword = true,
       className,
       ...field
@@ -32,7 +35,12 @@ const InputUserDataRHF: FC<Props> = React.forwardRef<HTMLInputElement, Props>(
     const isBtnShowPassword =
       canShowPassword && originalType === "password" && field.value;
 
-    const iconShowPassword = newType === "password" ? "Show" : "Hide";
+    const srcShowPassword =
+      newType === "password" ? "/closed-eye.svg" : "/opened-eye.svg";
+
+    const iconShowPassword = (
+      <Image src={srcShowPassword} alt="icon" width="16px" height="12px" />
+    );
 
     const classContainer = clsx(styles["Container"], formStyles["Form-Elem"]);
     const classInput = clsx(styles["Input"], styles["Form-Input"], className);
@@ -44,6 +52,7 @@ const InputUserDataRHF: FC<Props> = React.forwardRef<HTMLInputElement, Props>(
         className={classContainer}
         data-type-container={originalType}
         data-is-unlock={isUnlock}
+        data-red-border={redBorder}
       >
         <input
           type={newType}

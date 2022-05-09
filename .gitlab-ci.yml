@@ -38,6 +38,7 @@ build:
     - main
     - ruo
     - mina
+    - sayeed-frontend
   script:
     - docker build --network host -t blog:${CI_COMMIT_BRANCH} .
     - docker tag blog:${CI_COMMIT_BRANCH} registry.digitalocean.com/jidipi/blog:${CI_COMMIT_BRANCH}
@@ -48,6 +49,7 @@ release:
     - main
     - ruo
     - mina
+    - sayeed-frontend
   environment:
     name: review/$CI_COMMIT_BRANCH
     url: https://$SUBDOMAIN.$DOMAIN

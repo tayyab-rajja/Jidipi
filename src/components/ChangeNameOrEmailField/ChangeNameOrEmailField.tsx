@@ -8,7 +8,7 @@ import InputUserData from 'src/components/InputUserData';
 import FormUserData from 'src/components/FormUserData';
 import NoValidationText from 'src/components/NoValidationText'
 
-import {usePutUserData} from 'src/api/usePutUserData'
+import {useUserData} from 'src/api/useUserData'
 
 import styles from './ChangeNameOrEmailField.module.css'
 
@@ -21,7 +21,7 @@ const ChangeNameOrEmailField:FC<Props> = ({switchToChangePassword}) => {
     [key: string]: {isUnlock: boolean, value: string};
   }
 
-  const {data: serverData, error, isValidating, putData} = usePutUserData()
+  const {data: serverData, error, isValidating, putData} = useUserData()
 
   const [inputsState, setInputsState] = useState<InputState>({
     name: {isUnlock: false, value: ''},

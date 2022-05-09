@@ -6,7 +6,7 @@ import InputUserData from 'src/components/InputUserData';
 import FormUserData from 'src/components/FormUserData';
 import NoValidationText from 'src/components/NoValidationText'
 
-import {usePutUserData} from 'src/api/usePutUserData'
+import {useUserData} from 'src/api/useUserData'
 
 import styles from './ChangePasswordField.module.css'
 
@@ -30,7 +30,7 @@ interface Props {
 }
 
 const ChangePasswordField:FC<Props> = ({switchToChangePassword}) => {
-  const {data: serverData, error, isValidating, putData, updatePassword} = usePutUserData()
+  const {data: serverData, error, isValidating, putData, updatePassword} = useUserData()
 
   const [inputsValue, setInputsValue] = useState<InputsValue>({
     name: '',

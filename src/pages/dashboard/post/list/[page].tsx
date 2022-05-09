@@ -15,8 +15,6 @@ import PageSize from "src/components/Dashboard/PageSize";
 import PaginationReverse from "src/components/Dashboard/PaginationReverse";
 import PaginationStyles from "src/components/Dashboard/PaginationReverse/PaginationReverse.module.scss";
 import { getFiltersFromUrl, setUrlForListPage } from "src/utils/url";
-import { FilterItem } from "constant/filters/interface";
-import Link from "next/link";
 import Process from "src/components/Dashboard/Process";
 import ProcessWrapper from "src/components/Dashboard/Process/Wrapper";
 import ICompetition from "types/competition";
