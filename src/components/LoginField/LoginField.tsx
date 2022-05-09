@@ -4,10 +4,10 @@ import GoogleLogin, {
   GoogleLoginResponse,
   GoogleLoginResponseOffline,
 } from "react-google-login";
-import ReactFacebookLogin, {
-  ReactFacebookFailureResponse,
-  ReactFacebookLoginInfo,
-} from "react-facebook-login";
+// import ReactFacebookLogin, {
+//   ReactFacebookFailureResponse,
+//   ReactFacebookLoginInfo,
+// } from "react-facebook-login";
 import Image from "next/image";
 import clsx from "clsx";
 
@@ -62,21 +62,21 @@ const LoginField: FC<Props> = ({ goToRecoverPassword }) => {
     }
   };
 
-  const responseFacebook = async (response: any) => {
-    if (response?.status) {
-      const res: ReactFacebookFailureResponse = response;
-      // TODO: show error from Facebook request
-    }
-    const res: ReactFacebookLoginInfo = response;
-    const result = await login({
-      type: "social",
-      network: "facebook",
-      accessToken: res.accessToken,
-    });
-    if (result) {
-      // TODO: show error
-    }
-  };
+  // const responseFacebook = async (response: any) => {
+  //   if (response?.status) {
+  //     const res: ReactFacebookFailureResponse = response;
+  //     // TODO: show error from Facebook request
+  //   }
+  //   const res: ReactFacebookLoginInfo = response;
+  //   const result = await login({
+  //     type: "social",
+  //     network: "facebook",
+  //     accessToken: res.accessToken,
+  //   });
+  //   if (result) {
+  //     // TODO: show error
+  //   }
+  // };
 
   const responseGoogleSuccess = async (response: any) => {
     if (!response.accessToken) {
@@ -112,18 +112,18 @@ const LoginField: FC<Props> = ({ goToRecoverPassword }) => {
 
   return (
     <div className={clsx(styles["Container"], styles["Body-Container"])}>
-      <ReactFacebookLogin
-        appId={process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_ID!}
-        fields="name,email,picture"
-        callback={responseFacebook}
-        autoLoad={false}
-        cssClass={classSocialBtn}
-        icon={
-          <div className={styles["SocialBtn-Icon"]}>
-            <Image src={facebookIcon} alt="logo" width={20} height={20} />
-          </div>
-        }
-      />
+      {/*<ReactFacebookLogin*/}
+      {/*  appId={process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_ID!}*/}
+      {/*  fields="name,email,picture"*/}
+      {/*  callback={responseFacebook}*/}
+      {/*  autoLoad={false}*/}
+      {/*  cssClass={classSocialBtn}*/}
+      {/*  icon={*/}
+      {/*    <div className={styles["SocialBtn-Icon"]}>*/}
+      {/*      <Image src={facebookIcon} alt="logo" width={20} height={20} />*/}
+      {/*    </div>*/}
+      {/*  }*/}
+      {/*/>*/}
 
       <GoogleLogin
         clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}
