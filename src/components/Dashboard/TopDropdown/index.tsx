@@ -10,7 +10,7 @@ function TopDropdown({ Child, Wrapper }: any) {
     };
     return (
         <section className={styles["process-section"]}>
-            <Wrapper isOpen={isOpen} Child={Child}></Wrapper>
+            { Wrapper && <Wrapper isOpen={isOpen} Child={Child}></Wrapper> }
 
             <div className={clsx(styles["tools"], "text-end")}>
                 <button className={styles["btn-process"]} onClick={handleClick}>

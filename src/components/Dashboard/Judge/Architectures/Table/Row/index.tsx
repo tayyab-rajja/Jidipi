@@ -3,11 +3,17 @@ import clsx from "clsx";
 import { IJudgePost } from "types/judgePost";
 import Image from "next/image";
 import Link from "next/link";
+import { switchTimeZoneYMD } from "src/utils/date";
 interface IProps {
     data: IJudgePost;
 }
 
 function Row({ data }: IProps) {
+    const defaultImageURL =
+        "https://upload.jidipi.com/post/icon-image-60x60.jpg";
+
+    const appliedDate = switchTimeZoneYMD(data.applicationDate);
+
     const renderStars = () => {
         return new Array(10).fill(0).map((star, i) => {
             return (
@@ -35,7 +41,7 @@ function Row({ data }: IProps) {
                     ></div>
                     <div className={clsx(styles["content"], styles["image"])}>
                         <Image
-                            src={data.featuredImage.liveURL}
+                            src={data.featuredImage.liveURL || defaultImageURL}
                             width={60}
                             height={60}
                         />
@@ -50,7 +56,7 @@ function Row({ data }: IProps) {
             </th>
             <td>
                 <div className={clsx(styles["content"], styles["applied"])}>
-                    {data.applicationDate}
+                    {appliedDate}
                 </div>
             </td>
             <td>
@@ -60,7 +66,11 @@ function Row({ data }: IProps) {
             </td>
             <td>
                 <div className={clsx(styles["content"], styles["logo"])}>
-                    <Image src={data.companyId.avatar} width={60} height={60} />
+                    <Image
+                        src={data.companyId.avatar || defaultImageURL}
+                        width={60}
+                        height={60}
+                    />
                 </div>
             </td>
             <td>
@@ -82,7 +92,7 @@ function Row({ data }: IProps) {
                 >
                     <div className={styles["icon"]}>
                         <Link href={"/dashboard/post/" + data._id}>
-                            <a className="link"></a>
+                            <a className={styles["link"]}></a>
                         </Link>
                     </div>
                     <div

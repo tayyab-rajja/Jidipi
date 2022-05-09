@@ -50,7 +50,7 @@
                         position: sticky;
                         top: 0;
                         left: 0;
-                        z-index: 100;
+                        z-index: 10;
                         background-color: white;
                     }
                     thead th {
@@ -247,7 +247,7 @@
                         position: sticky;
                         top: 0;
                         left: 0;
-                        z-index: 100;
+                        z-index: 10;
                         .fix-header {
                             display: flex;
                             align-items: center;

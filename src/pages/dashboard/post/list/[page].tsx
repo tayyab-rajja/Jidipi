@@ -18,19 +18,44 @@ import { getFiltersFromUrl, setUrlForListPage } from "src/utils/url";
 import { FilterItem } from "constant/filters/interface";
 import Link from "next/link";
 import Process from "src/components/Dashboard/Process";
-import ProcessWrapper from "src/components/Dashboard/Process/Wrapper"
-
+import ProcessWrapper from "src/components/Dashboard/Process/Wrapper";
+import ICompetition from "types/competition";
+import type { ParsedUrlQuery } from "querystring";
 import {
     pageFilters,
     postFilters,
     queryParameters,
     sort,
 } from "types/queryParameters";
+import { PageFolder } from "types/pageFolderType";
 
-export default function Posts(props: any) {
+interface IProps {
+    competitions: ICompetition[];
+    currentPageFolder: PageFolder;
+    query: ParsedUrlQuery;
+    menuFolders: PageFolder[];
+    categories: FilterItem[];
+    filters: { pageFilters: pageFilters; postFilters: postFilters; sort: sort };
+}
+
+type award = {
+    _id: string;
+    title: string;
+};
+
+export default function Posts(props: IProps) {
     const userContext: any = useContext(UserContext);
     const user = userContext.user;
     const router = useRouter();
+    let awards: award[] = [];
+    if (props.competitions) {
+        const competition = props.competitions.find(
+            (c) => c.title === router.query.competitionId
+        );
+        awards = competition?.awards.find(
+            (a) => a.pageFolderId === props.currentPageFolder._id
+        )?.awards as award[];
+    }
 
     const [filterParameters, setFilterParameters] = useState(
         props.filters.postFilters
@@ -41,10 +66,14 @@ export default function Posts(props: any) {
             pageNumber: -1,
         }
     );
-    const [sort, setSort] = useState(props.filters.sort.field ? props.filters.sort : {
-        field: 'createdAt',
-        order: 1
-    });
+    const [sort, setSort] = useState(
+        props.filters.sort.field
+            ? props.filters.sort
+            : {
+                  field: "createdAt",
+                  order: 1,
+              }
+    );
     const { data, error } = useSWR(
         getKey(props, pageFilter, filterParameters, sort),
         GET
@@ -114,13 +143,14 @@ export default function Posts(props: any) {
             TopDropdownComponentWrapper={ProcessWrapper}
         >
             <div>
-                <Menu menuFolders={props.menuFolders} />
+                <Menu menuFolders={props.menuFolders} user={user} />
                 <div className={styles["content-container"]}>
                     <Filters
                         categories={props.categories}
                         handleChange={handleChange}
                         filterParameters={filterParameters}
                         statuses={data && data.statuses}
+                        awards={awards}
                     />
                     {!data ? (
                         <div>Loading</div>

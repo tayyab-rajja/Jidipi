@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import clsx from "clsx";
@@ -36,10 +36,9 @@ import { useRouter } from "next/router";
 const SidebarDashboard = (props: any) => {
     const router = useRouter();
     const { competition, user, post, menus } = props;
-    const [mounted, setMounted] = useState(false);
     
     useEffect(() => {
-        if (!router.query.competitionId && menus.length) {
+        if (!router.query.competitionId && menus?.length) {
             let menu = menus[0];
             if (menu.links.length) {
                 let link = menu.links[1];
@@ -52,7 +51,6 @@ const SidebarDashboard = (props: any) => {
                 }
             }
         }
-        setMounted(true)
     }, []);
     if (competition) {
         const award = props.awards.find(
@@ -93,7 +91,7 @@ const SidebarDashboard = (props: any) => {
 
     if (menus)
         return (
-            <div className={styles["Sidebar"]}>
+            <div className={styles["Sidebar"]} suppressHydrationWarning={true}>
                 <div className={styles["Profile"]}>
                     <div className={styles["Profile-Avatar"]}>
                         <Image
@@ -126,8 +124,8 @@ const SidebarDashboard = (props: any) => {
                     </div>
                 </div>
 
-                {mounted && menus.map((menu: any, index: number) => (
-                    <section key={index} className={styles["menu"]}>
+                {menus.map((menu: any, index: number) => (
+                    <div key={index} className={styles["menu"]}>
                         <h2>{menu.title}</h2>
                         <div className={styles["menu-list"]}>
                             <ul>
@@ -155,36 +153,8 @@ const SidebarDashboard = (props: any) => {
                                 )}
                             </ul>
                         </div>
-                    </section>
-                ))}
-
-                {/* {menus && menus.map((menu: any, i: any) => (
-                    <div key={i} className={styles["Favorate-Links"]}>
-                        <div className={styles["Title"]}>{menu.title}</div>
-
-                        <ul className={styles["Links"]}>
-
-                            {menu.links.map(({title, link, icon, isSelected}: any, i: any) =>
-
-                                <li key={i}  className={clsx(styles["Links-Item"], isSelected && styles["Selected"])}
-                                    // onClick={() => setSelected(title)}
-                                >
-                                    <Link  href={link}>
-                                        <span>
-
-                                            <span
-                                                className={styles["Links-Item_Icon"]}>        {readerPanelSvg[icon]}          </span>
-                                            <span className={styles["Links-Item_Text"]}>   {title}    </span>
-                                            <span
-                                                className={styles["Links-Item_Arrow"]}>           {readerPanelSvg["ARROW"]}      </span>
-                                        </span>
-                                    </Link>
-
-                                </li>
-                            )}
-                        </ul>
                     </div>
-                ))} */}
+                ))}
             </div>
         );
     return <></>;

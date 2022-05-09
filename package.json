@@ -20,6 +20,8 @@
     "immer": "^9.0.12",
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
+    "moment": "^2.29.3",
+    "moment-timezone": "^0.5.34",
     "next": "12.1.0",
     "next-i18next": "^10.5.0",
     "next-redux-wrapper": "^7.0.5",

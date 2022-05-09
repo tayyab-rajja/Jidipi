@@ -19,6 +19,7 @@ interface IProps {
     handleChange: Function;
     filterParameters: postFilters;
     statuses: { [key: string]: number };
+    awards: { _id: string; title: string }[]
 }
 
 function Filters({
@@ -26,6 +27,7 @@ function Filters({
     handleChange,
     filterParameters,
     statuses,
+    awards
 }: IProps) {
     RatingData.forEach((item: FilterItem) => {
         item.count = statuses?.[item._id] || 0;
@@ -37,7 +39,7 @@ function Filters({
     return (
         <div className={styles["architectures-filter"]}>
             <PlaceholderSelect
-                options={AwardData}
+                options={awards}
                 id="award"
                 prop="awardId"
                 className="award"
