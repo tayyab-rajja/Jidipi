@@ -6,15 +6,17 @@ import type { AppProps } from "next/app";
 import { AuthProvider } from "src/providers/AuthProvider/AuthProvider";
 import { SWRConfig } from "swr";
 import NProgress from "nprogress";
-import { Router } from "next/router";
-import { appWithTranslation } from "next-i18next";
+import {Router} from "next/router";
+import {appWithTranslation} from "next-i18next";
+import {wrapper} from "../lib/store";
+import {UserProvider} from "../providers/UserProvider";
 
 type NextPageWithLayout = NextPage & {
-  getLayout?: (page: ReactElement) => ReactNode;
+    getLayout?: (page: ReactElement) => ReactNode;
 };
 
 type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout;
+    Component: NextPageWithLayout;
 };
 
 // @ts-ignore
@@ -43,13 +45,28 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
-    <AuthProvider>
-      <SWRConfig value={{ fetcher }}>
-        {getLayout(<Component {...pageProps} />)}
-      </SWRConfig>
-    </AuthProvider>
+      <AuthProvider>
+          <UserProvider>
+              <SWRConfig value={{
+                  fetcher, onError(error,key,config) {
+
+                      // TODO handle error
+                      // redirect to login page if no permission
+                      // console.log('swr error', error,key);
+                      // if (error.status !== 403 && error.status !== 404) {
+                      //     // We can send the error to Sentry,
+                      //     // or show a notification UI.
+                      // }
+                  }
+              }}>
+                  <Component {...pageProps} />
+              </SWRConfig>
+          </UserProvider>
+      </AuthProvider>
   );
 }
 
 // @ts-ignore
-export default appWithTranslation(MyApp);
+export default wrapper.withRedux(appWithTranslation(MyApp));
+// @ts-ignore
+// export default appWithTranslation(MyApp);

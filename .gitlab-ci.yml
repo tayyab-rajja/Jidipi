@@ -37,6 +37,7 @@ build:
   only:
     - main
     - ruo
+    - mina
   script:
     - docker build --network host -t blog:${CI_COMMIT_BRANCH} .
     - docker tag blog:${CI_COMMIT_BRANCH} registry.digitalocean.com/jidipi/blog:${CI_COMMIT_BRANCH}
@@ -46,6 +47,7 @@ release:
   only:
     - main
     - ruo
+    - mina
   environment:
     name: review/$CI_COMMIT_BRANCH
     url: https://$SUBDOMAIN.$DOMAIN

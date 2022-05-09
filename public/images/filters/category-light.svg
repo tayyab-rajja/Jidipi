@@ -1,0 +1,4 @@
+<svg id="icon-status-all" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <rect id="icon-background" width="20" height="20" fill="none"/>
+  <path id="Menu" d="M2,4.75A.75.75,0,0,1,2.75,4h10.5a.75.75,0,0,1,0,1.5H2.75A.75.75,0,0,1,2,4.75Zm0,7.5a.75.75,0,0,1,.75-.75H9.5a.75.75,0,0,1,0,1.5H2.75A.75.75,0,0,1,2,12.25Zm.75-4.5a.75.75,0,0,0,0,1.5h10.5a.75.75,0,0,0,0-1.5Z" transform="translate(2 2)" fill="#fff" fill-rule="evenodd"/>
+</svg>

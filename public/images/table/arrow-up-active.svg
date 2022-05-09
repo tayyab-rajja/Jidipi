@@ -1,0 +1,5 @@
+<svg id="icon-up" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <rect id="icon-background" width="16" height="16" fill="none"/>
+  <path id="arrow-up" d="M8.4,2.035a.472.472,0,0,0-.5.093l-.012.011L5.36,4.667a.471.471,0,0,0,.666.666L7.751,3.608V8.541a.471.471,0,1,0,.942,0V3.608l1.725,1.725a.471.471,0,0,0,.666-.666L8.555,2.138A.469.469,0,0,0,8.4,2.035Z" transform="translate(-0.222 3)" fill="#d6d6d6" fill-rule="evenodd"/>
+  <path id="arrow-up-black" d="M8.4,2.035a.472.472,0,0,0-.5.093l-.012.011L5.36,4.667a.471.471,0,0,0,.666.666L7.751,3.608V8.541a.471.471,0,1,0,.942,0V3.608l1.725,1.725a.471.471,0,0,0,.666-.666L8.555,2.138A.469.469,0,0,0,8.4,2.035Z" transform="translate(-0.222 3)" fill="#373737" fill-rule="evenodd"/>
+</svg>
