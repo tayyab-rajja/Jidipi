@@ -11,7 +11,8 @@ interface LayoutProps {
     sidebarComponent?: ReactElement;
     style?: object;
     TopDropdownComponent?: any;
-    TopDropdownComponentWrapper?: any
+    TopDropdownComponentWrapper?: any;
+    TopDropdownButtonName?: string;
 }
 
 export const DashboardLayout: FC<LayoutProps> = ({
@@ -19,7 +20,8 @@ export const DashboardLayout: FC<LayoutProps> = ({
     sidebarComponent,
     style = {},
     TopDropdownComponent,
-    TopDropdownComponentWrapper
+    TopDropdownComponentWrapper,
+    TopDropdownButtonName,
 }) => {
     return (
         <>
@@ -32,7 +34,11 @@ export const DashboardLayout: FC<LayoutProps> = ({
                         !sidebarComponent && styles["Layout-Content_FullWith"]
                     )}
                 >
-                    <TopDropdown Child={TopDropdownComponent} Wrapper={TopDropdownComponentWrapper} />
+                    <TopDropdown
+                        Child={TopDropdownComponent}
+                        Wrapper={TopDropdownComponentWrapper}
+                        TopDropdownButtonName={TopDropdownButtonName}
+                    />
 
                     {children}
                 </div>

@@ -164,6 +164,7 @@ export default function Posts(props: IProps) {
                 />
             }
             TopDropdownComponentWrapper={ProcessWrapper}
+            TopDropdownButtonName={"PROCESS"}
         >
             <div>
                 <Menu menuFolders={props.menuFolders} user={user} />
