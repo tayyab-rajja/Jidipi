@@ -1,18 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { isJudge, isPartner, isReader, isStaff } from "../../../lib/user/role";
-import { PostStatus } from "../../../lib/models/post";
+import React, {useEffect, useState} from "react";
+import {isJudge, isPartner, isReader, isStaff} from "../../../lib/user/role";
+import {PostStatus} from "../../../lib/models/post";
 import styles from "./SidebarDashboardRight.module.css";
-import { PUT } from "../../../lib/common/api";
+import {PUT} from "../../../lib/common/api";
 import UploadFile from "../File/File";
 import dynamic from "next/dynamic";
-import { ChatType } from "../Chat/Chat";
-import Countdown, { CountdownTimeDeltaOptions } from "react-countdown";
+import {ChatType} from "../Chat/Chat";
+import Countdown, {CountdownTimeDeltaOptions} from "react-countdown";
 import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar, faMessage } from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faStar, faMessage} from "@fortawesome/free-solid-svg-icons";
+import moment from "moment-timezone";
+
+import IconPublished from "public/dashboard/images/icon-status-published.svg";
+import IconSave from "public/dashboard/images/icon-status-save.svg";
+import {useCountdown} from "../../../lib/competition/countdown";
+
 
 // import Chat from "../Chat/Chat";
-const Chat = dynamic(() => import("../Chat/Chat"), { ssr: false });
+const Chat = dynamic(() => import("../Chat/Chat"), {ssr: false});
 /**
  * @param props
  * @constructor
@@ -22,7 +28,7 @@ const Chat = dynamic(() => import("../Chat/Chat"), { ssr: false });
  *
  */
 const SidebarDashboardRight = (props: any) => {
-    const { competition, user, post, awards } = props;
+    const {competition, user, post, awards} = props;
     const [hoverRating, setHoverRating] = useState(0);
     const [ratingError, setRatingError] = useState("");
     const [commentError, setCommentError] = useState("");
@@ -71,14 +77,15 @@ const SidebarDashboardRight = (props: any) => {
     });
 
     async function apply(status: string) {
-        const a = { ...application, status };
+        const a = {...application, status};
         console.log(a);
         SetApplication(a);
         try {
             // show a notification UI. notify when success or fail
             const result = await PUT("/competition/apply", a);
             console.log(result);
-        } catch (e) {}
+        } catch (e) {
+        }
     }
 
     // EOF Partner application
@@ -91,9 +98,16 @@ const SidebarDashboardRight = (props: any) => {
         comment: "",
     });
 
+
+    const [days, hours, minutes, seconds] = useCountdown(post.competitionId.winningEndDate);
+    useEffect(() => {
+        if(post && post.competitionId){
+        }
+    }, [post]);
     async function reviewDraft() {
         await review(PostStatus.Draft);
     }
+
     async function reviewPublished() {
         if (!evaluation.rating) {
             console.log("Please rate the post before publishing.");
@@ -111,7 +125,7 @@ const SidebarDashboardRight = (props: any) => {
     }
 
     async function rating(rating: number) {
-        const e = { ...evaluation, rating };
+        const e = {...evaluation, rating};
         SetEvaluation(e);
         const result = await PUT("/competition/judge", e);
         console.log("follow action for success for failed", result);
@@ -154,237 +168,183 @@ const SidebarDashboardRight = (props: any) => {
         }
         return false;
     };
-
+    console.log(post);
+    console.log(user);
     if (isJudge(user)) {
         return (
-            <div className={styles["Sidebar"]}>
-                {/* my codes */}
-
-                {/* code a widget */}
-                <div className={styles["widget"]}>
-                    {/* code a title} */}
-
-                    <h3 className={`${styles["title"]} text-center`}>
-                        Deadline
-                    </h3>
-
-                    {/* code two deadline dates */}
-
-                    <div className={`${styles["deadline"]} row`}>
-                        {/* from */}
-                        <div
-                            className={`${styles["deadline-date"]} ${styles["right-border"]} col-md-6 text-center`}
-                        >
-                            <sub className={styles["deadline-date-title"]}>
-                                from
-                            </sub>
-                            <span className={styles["deadline-date-content"]}>
-                                {/* {competition.applicationDeadline
-                                ? competition.applicationDeadline
-                                : "12:12:2012"} */}
-                                12:12:2012
-                            </span>
+            <div className="col-lg right-sidebar pt-20">
+                <div className="main-widget-grid">
+                    <div className="main-widget">
+                        <div className="widget-title text-center">
+                            <h3>DEADLINE</h3>
                         </div>
-                        {/* until */}
-                        <div
-                            className={`${styles["deadline-date"]} col-md-6 text-center`}
-                        >
-                            <sub className={styles["deadline-date-title"]}>
-                                until
-                            </sub>
-                            <span className={styles["deadline-date-content"]}>
-                                {/* {competition.reviewDeadline
-                                ? competition.reviewDeadline
-                                : "12:12:2012"} */}
-                                12:12:2022
-                            </span>
-                        </div>
-                    </div>
-
-                    {/* code countdown */}
-                    <div className={`${styles["countdown"]} text-center`}>
-                        <Countdown date={Date.now() + 10000} />
-                        <p
-                            className={`${styles["cowntdown-text"]} text-center`}
-                        >
-                            <span className={`${styles["cd-days"]}`}>DAYS</span>
-
-                            <span className={`${styles["cd-hours"]}`}>
-                                HOURS
-                            </span>
-
-                            <span className={`${styles["cd-minutes"]}`}>
-                                MINUTES
-                            </span>
-
-                            <span className={`${styles["cd-seconds"]}`}>
-                                SECONDS
-                            </span>
-                        </p>
-                    </div>
-                </div>
-
-                {/* Code review widget */}
-                <div className={styles["widget"]}>
-                    {/* code a title */}
-                    <h3 className={`${styles["title"]} text-center`}>Review</h3>
-
-                    {/* date and time for review widget */}
-                    <div className={`${styles["deadline"]} row`}>
-                        {/* from */}
-                        <div
-                            className={`${styles["deadline-date"]} ${styles["right-border"]} col-md-6 text-center`}
-                        >
-                            <span className={styles["deadline-date-content"]}>
-                                12:12:2012
-                            </span>
-                        </div>
-                        {/* until */}
-                        <div
-                            className={`${styles["deadline-date"]} col-md-6 text-center`}
-                        >
-                            <span className={styles["deadline-date-content"]}>
-                                04:12:34
-                            </span>
-                        </div>
-                    </div>
-
-                    {/* Judge info for review widget*/}
-                    <div className={`${styles["judge-info"]}`}>
-                        {/* judge name */}
-                        <div
-                            className={`${styles["judge-info-name"]} row text-center`}
-                        >
-                            {/*image of judge profile*/}
-                            <Image
-                                src="https://via.placeholder.com/150"
-                                alt="judge profile"
-                                width={50}
-                                height={50}
-                                className={`${styles["judge-info-image"]} col-md-4 m-auto`}
-                            />
-
-                            <span
-                                className={`${styles["judge-info-name-content"]} col-md-4`}
-                            >
-                                John Doe
-                            </span>
-
-                            <span
-                                className={`${styles["judge-info-name-title"]} col-md-4`}
-                            >
-                                Judge
-                            </span>
-                        </div>
-                    </div>
-
-                    {/* code a comment box */}
-                    <div
-                        className={`${styles["comment-box"]} text-center pt-3 pb-3`}
-                    >
-                        <textarea
-                            className={`${styles["comment-box-text"]} text-center`}
-                            placeholder="Write your comment here..."
-                            value={evaluation.comment}
-                            rows={1}
-                            cols={50}
-                            //defaultValue={evaluation.comment}
-                            onChange={(e) =>
-                                SetEvaluation({
-                                    ...evaluation,
-                                    comment: e.target.value,
-                                })
-                            }
-                        />
-                        {/* error message */}
-                        {commentError && (
-                            <span className={styles["comment-box-error"]}>
-                                {commentError}
-                            </span>
-                        )}
-                    </div>
-
-                    {/* code a rating widget */}
-                    <div className={styles["rating-widget"]}>
-                        <div className={styles["main-widget-inner"]}>
-                            <div
-                                className={`${styles["rate"]} text-center p-3 mt-3`}
-                            >
-                                <input
-                                    className={`${styles["rating"]} text-center`}
-                                    type="hidden"
-                                    value={evaluation.rating}
-                                />
-
-                                {startCounts.map((count, index) => {
-                                    return (
-                                        <FontAwesomeIcon
-                                            color={ratingColor(count)}
-                                            key={index}
-                                            icon={faStar}
-                                            id={`star-${count}`}
-                                            onMouseOver={() =>
-                                                ratingHoverEffect(count)
-                                            }
-                                            onClick={() => {
-                                                // setSelectedRating(count);
-                                                rating(count);
-                                            }}
-                                            onMouseLeave={() =>
-                                                setHoverRating(
-                                                    evaluation.rating
-                                                )
-                                            }
-                                        />
-                                    );
-                                })}
-
-                                {/* <div className="rate_err_msg" style="display: none;">Please Rate before send Review</div> */}
-                                {/* error message */}
-                                {ratingError && (
-                                    <span className={styles["rating-error"]}>
-                                        {ratingError}
-                                    </span>
-                                )}
+                        <div className="main-widget-inner bgf1">
+                            <div className="date-and-time">
+                                <div className="row mx-0">
+                                    <div className="col d-flex justify-content-center align-items-center px-0">
+                                        <p>
+                                            <sup>from</sup>{moment.tz(post.competitionId.winningStartDate, 'Europe/Berlin').format('YYYY-MM-DD')}
+                                        </p>
+                                    </div>
+                                    <div className="col d-flex justify-content-center align-items-center px-0">
+                                        <p>
+                                            <sup>until</sup>{moment.tz(post.competitionId.winningEndDate, 'Europe/Berlin').format('YYYY-MM-DD')}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-
-                            <button
-                                className={`w-100 p-3 mt-3 mb-3 text-center ${`${styles["top-submit-btn"]} ${styles["submit-btn"]}`}`}
-                                onClick={() => {
-                                    if (!isError()) {
-                                        reviewDraft();
-                                    }
-                                }}
-                            >
-                                <Image
-                                    src="/dashboard/right-sidebar/icon-status-save.svg"
-                                    alt="submit"
-                                    width={30}
-                                    height={30}
-                                    className={`${styles["submit-btn-icon"]}`}
-                                />
-                                Save Review As Draft
-                            </button>
-                            <button
-                                className={`w-100 p-3 mt-0 mb-3 text-center ${styles["submit-btn"]}`}
-                                onClick={() => {
-                                    if (!isError()) {
-                                        reviewPublished();
-                                    }
-                                }}
-                            >
-                                <Image
-                                    src="/dashboard/right-sidebar/icon-status-published.svg"
-                                    alt="submit"
-                                    width={30}
-                                    height={30}
-                                    className={`${styles["submit-btn-icon"]}`}
-                                />
-                                Send Review To JIDIPI
-                            </button>
                         </div>
                     </div>
+                    <div className="main-widget-inner timer-counter">
+                        <div className="uk-grid-small d-flex align-items-center justify-content-center uk-grid uk-countdown">
+                            <div className="timer-counter-grid uk-first-column">
+                                <div className="uk-countdown-number uk-countdown-days"><span>{days}
+                                </span>
+                                </div>
+                                <div className="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Days
+                                </div>
+                            </div>
+                            <div className="uk-countdown-separator">&nbsp;</div>
+                            <div className="timer-counter-grid">
+                                <div className="uk-countdown-number uk-countdown-hours"><span>{hours}</span>
+                                </div>
+                                <div className="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Hours
+                                </div>
+                            </div>
+                            <div className="uk-countdown-separator">:</div>
+                            <div className="timer-counter-grid">
+                                <div className="uk-countdown-number uk-countdown-minutes"><span>{minutes}</span>
+                                </div>
+                                <div
+                                    className="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Minutes
+                                </div>
+                            </div>
+                            <div className="uk-countdown-separator">:</div>
+                            <div className="timer-counter-grid">
+                                <div className="uk-countdown-number uk-countdown-seconds"><span>{seconds}</span>
+                                </div>
+                                <div
+                                    className="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Seconds
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="main-widget">
+                        <div className="widget-title text-center">
+                            <h3>REVIEW</h3>
+                        </div>
+                        <div className="main-widget-inner bgf1">
+                            <div className="date-and-time">
+                                <div className="row mx-0">
+                                    <div className="col d-flex justify-content-center align-items-center px-0">
+                                        <p>{moment(post.ratingAt).format('YYYY-MM-DD')}</p>
+                                    </div>
+                                    <div className="col d-flex justify-content-center align-items-center px-0">
+                                        <p>{moment(post.ratingAt).format('HH:MM:SS')}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="main-widget-inner bgf1">
+                            <div className="steve-job">
+                                <div className="row">
+                                    <div className="col-12 d-flex align-items-center">
+                                        <div className="steve-job-img">
+                                            {/*<img src="img/avatar-m-18.png">*/}
+                                        </div>
+                                        <p>2ds-29d-000</p>
+                                        <p>{(user.firstName + ' ' + user.lastName).trim()}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="main-widget-inner widget-text">
+                            <div className="widget-textarea-main widget-border">
+                                    <textarea
+                                        placeholder="Please add comment if you like this project."
+
+                                        value={evaluation.comment}
+                                        onChange={(e) => {
+                                            if (e.target.value)
+                                                SetEvaluation({
+                                                    ...evaluation,
+                                                    comment: e.target.value,
+                                                });
+                                        }}>
+                                    </textarea>
+                            </div>
+                        </div>
+                        {/*{Array.from(Array(10).keys()).map((k) => (*/}
+                        {/*    <React.Fragment key={k}>*/}
+                        {/*        <button*/}
+                        {/*            onClick={() => {*/}
+                        {/*                rating(k);*/}
+                        {/*            }}*/}
+                        {/*            className={`nav-link  ${*/}
+                        {/*                evaluation.rating === k ? "active" : ""*/}
+                        {/*            }`}*/}
+                        {/*        >*/}
+                        {/*            {k}*/}
+                        {/*            {evaluation.rating === k ? "(*)" : ""}*/}
+                        {/*        </button>*/}
+                        {/*    </React.Fragment>*/}
+                        {/*))}*/}
+                        <div className="main-widget-inner">
+                            {/*    <div className="rate">*/}
+                            {/*        <input className="rating" type="hidden" value="" />*/}
+                            {/*            <div className="rate_err_msg">Please Rate before send Review</div>*/}
+                            {/*    </div>*/}
+                            <div className="rate">
+                                <div className="simple-rating star-rating">
+                                    {Array.from(Array(10).keys()).map((i) => {
+                                        return     <i key={i}
+                                                                  onClick={() => {
+                                                                      rating(i+1);
+                                                                  }}
+                                                      className={`fa-star fas ${evaluation.rating>=(i+1)?'rated':''}`} ></i>;
+                                    })}
+                                    {/*<i className="fa-star fas"*/}
+                                    {/*                                          data-rating="1"></i>*/}
+                                    {/*<i*/}
+                                    {/*className="fa-star fas" data-rating="2"></i>*/}
+                                    {/*<i className="fa-star fas"*/}
+                                    {/*                                               data-rating="3"></i><i*/}
+                                    {/*className="fa-star fas" data-rating="4"></i><i className="fa-star fas"*/}
+                                    {/*                                               data-rating="5"></i><i*/}
+                                    {/*className="fa-star fas" data-rating="6"></i><i className="fa-star far"*/}
+                                    {/*                                               data-rating="7"></i><i*/}
+                                    {/*className="fa-star far" data-rating="8"></i><i className="far fa-star"*/}
+                                    {/*                                               data-rating="9"></i><i*/}
+                                    {/*className="far fa-star" data-rating="10"></i>*/}
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div className="main-widget-inner">
+                            <button onClick={() => {
+                                reviewDraft();
+                            }}
+                                    className="save-review save-review-draft d-flex justify-content-center align-items-center">
+                                <Image src={IconSave}/><span>Save Review as Draft</span>
+                            </button>
+                        </div>
+                        <div className="main-widget-inner">
+                            <button onClick={() => {
+                                reviewPublished();
+                            }}
+                                    className="save-review save-send-review d-flex justify-content-center align-items-center">
+                                <Image src={IconPublished}/><span>Send Review to Jidipi</span>
+                            </button>
+                        </div>
+
+                    </div>
                 </div>
+
             </div>
         );
     }
@@ -414,7 +374,7 @@ const SidebarDashboardRight = (props: any) => {
                         </button>
                     </React.Fragment>
                 ))
-                // competition.awards
+                    // competition.awards
                 }
                 <p></p>
                 <textarea

@@ -1,4 +1,5 @@
-import "../styles/globals.css";
+import "bootstrap/dist/css/bootstrap.css";
+// import "../styles/globals.css";
 import "../styles/nprogress.css";
 import { ReactElement, ReactNode, useEffect } from "react";
 import type { NextPage } from "next";
@@ -11,6 +12,12 @@ import {appWithTranslation} from "next-i18next";
 import {wrapper} from "../lib/store";
 import {UserProvider} from "../providers/UserProvider";
 
+// import "../../public/dashboard/css/bootstrap.min.css"
+// import "bootstrap/dist/css/bootstrap.css";
+import "../../public/dashboard/css/all.css"
+import "../../public/dashboard/css/style.css"
+// import "../../public/dashboard/css/uikit.min.css"
+// import 'bootstrap/dist/css/bootstrap.min.css';
 type NextPageWithLayout = NextPage & {
     getLayout?: (page: ReactElement) => ReactNode;
 };

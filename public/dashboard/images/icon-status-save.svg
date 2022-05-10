@@ -1,0 +1,7 @@
+<svg id="icon-status-save" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <rect id="icon-background" width="20" height="20" fill="none"/>
+  <g id="icon-save" transform="translate(2 2)">
+    <path id="Path_2910" data-name="Path 2910" d="M14,13.4V5.6a.6.6,0,0,0-.176-.424l-3-3A.6.6,0,0,0,10.4,2H2.6a.6.6,0,0,0-.6.6V13.4a.6.6,0,0,0,.6.6H13.4A.6.6,0,0,0,14,13.4Zm-4.2-.6H6.2v-3H9.8Zm3,0H11V9.2a.6.6,0,0,0-.6-.6H5.6a.6.6,0,0,0-.6.6v3.6H3.2V3.2h6.952L12.8,5.848Z" fill="#373737"/>
+    <path id="Path_2911" data-name="Path 2911" d="M10,8H7.6a.6.6,0,0,0,0,1.2H10A.6.6,0,0,0,10,8Z" transform="translate(-2 -2.4)" fill="#373737"/>
+  </g>
+</svg>

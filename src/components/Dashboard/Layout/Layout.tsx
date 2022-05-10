@@ -1,26 +1,64 @@
 import clsx from "clsx";
-import { FC, ReactElement } from "react";
+import React, {FC, ReactElement} from "react";
+import SidebarDashboard from "../Sidebar/SidebarDashboard";
 
-import Navbar from "src/components/Navbar";
-import "bootstrap/dist/css/bootstrap.css";
-import styles from "./Layout.module.css";
+import {Header} from "./Header/Header";
+import SidebarDashboardRight from "../RightSidebar/SidebarDashboardRight";
 import TopDropdown from "../TopDropdown";
+import styles from "./Layout.module.css";
+
 
 interface LayoutProps {
     children: ReactElement | ReactElement[];
     sidebarComponent?: ReactElement;
     style?: object;
     TopDropdownComponent?: any;
-    TopDropdownComponentWrapper?: any
+    TopDropdownComponentWrapper?: any,
+    competition?: any,
+    menus?: any,
+    user?: any,
+    post?: any,
+    awards?: any,
+    test?:any,
 }
 
 export const DashboardLayout: FC<LayoutProps> = ({
-    children,
-    sidebarComponent,
-    style = {},
-    TopDropdownComponent,
-    TopDropdownComponentWrapper
-}) => {
+                                                     children,
+                                                     sidebarComponent,
+                                                     style = {},
+                                                     TopDropdownComponent,
+                                                     TopDropdownComponentWrapper,
+                                                     menus,
+                                                     competition,
+                                                     user, post, awards,test,
+                                                 }) => {
+    if(test)
+    return (
+        <>
+            <Header></Header>
+            <section className="main-inner">
+                <div className="container-fluid">
+                    <div className="row">
+
+                        <SidebarDashboard menus={menus} competition={competition} user={user} post={post}
+                                          awards={awards}/>
+                        <div className="col-lg middle-area pt-20">
+                            <div className="middle-area-grid">
+                                <div>
+                                    <div dangerouslySetInnerHTML={{__html: post.description}}/>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <SidebarDashboardRight competition={competition} user={user} post={post} awards={awards}/>
+
+                    </div>
+                </div>
+            </section>
+
+        </>
+    );
     return (
         <>
             <main className={clsx(styles["Layout-Container"])}>

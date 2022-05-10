@@ -7,6 +7,7 @@ import { readerPanelSvg } from "constant/readerPanelSvg";
 import styles from "./SidebarDashboard.module.scss";
 import { isJudge, isPartner } from "../../../lib/user/role";
 import { useRouter } from "next/router";
+import moment from "moment-timezone";
 
 // const defaultData = [
 //     {
@@ -35,7 +36,7 @@ import { useRouter } from "next/router";
  */
 const SidebarDashboard = (props: any) => {
     const router = useRouter();
-    const { competition, user, post, menus } = props;
+    const { competition, user, post, menus, awards } = props;
     
     useEffect(() => {
         if (!router.query.competitionId && menus?.length) {
@@ -52,43 +53,6 @@ const SidebarDashboard = (props: any) => {
             }
         }
     }, []);
-    if (competition) {
-        const award = props.awards.find(
-            (award: any) => award._id === post.awardId
-        );
-        return (
-            <div className={styles["Sidebar"]}>
-                <div>
-                    <h3>{competition.title}</h3>
-                    <p>{competition.competitionStartDate}</p>
-                    <p>{competition.competitionEndDate}</p>
-                    {isJudge(user) && (
-                        <div>
-                            <p>AWARD: {award.title}</p>
-                            <p>REASON: {post.applicationReason}</p>
-                        </div>
-                    )}
-                    {isPartner(user) && (
-                        <div>
-                            {post &&
-                                post.evaluations &&
-                                post.evaluations.map(
-                                    (evalution: any, i: number) => {
-                                        return (
-                                            <div key={i}>
-                                                <p>{evalution.rating}</p>
-                                                <p>{evalution.comment}</p>
-                                            </div>
-                                        );
-                                    }
-                                )}
-                        </div>
-                    )}
-                </div>
-            </div>
-        );
-    }
-
     if (menus)
         return (
             <div className={styles["Sidebar"]} suppressHydrationWarning={true}>
@@ -157,6 +121,59 @@ const SidebarDashboard = (props: any) => {
                 ))}
             </div>
         );
+    return (<div className="col-lg left-sidebar bg-white pt-20">
+        <div className="main-widget-grid">
+            <div className="main-widget">
+                <div className="widget-title text-center">
+                    <h3>APPLICATION</h3>
+                </div>
+
+                <div className="main-widget-inner bgf1">
+                    <div className="date-and-time">
+                        <div className="row mx-0">
+                            <div className="col d-flex justify-content-center align-items-center px-0">
+                                <p>{moment.tz(post.competitionId.applicationDate, 'Europe/Berlin').format('YYYY-MM-DD')}</p>
+                            </div>
+                            <div className="col d-flex justify-content-center align-items-center px-0">
+                                <p>{moment.tz(post.competitionId.applicationDate, 'Europe/Berlin').format('HH:MM:SS')}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="main-widget-inner bgf1">
+                    <div className="steve-job">
+                        <div className="row">
+                            <div className="col-12 d-flex align-items-center">
+                                <div className="steve-job-img">
+                                    <img src={post.applicant && post.applicant.avatar? post.applicant.avatar: '//upload.jidipi.com/avatars/default.svg'}/>
+                                </div>
+                                <p>{post.companyId.partnerId}</p>
+                                <p>{(post.applicant.firstName+ ' '+post.applicant.lastName).trim()}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="main-widget-inner ">
+                    <div id="awards-btn" className="awards-btn">
+                        {awards.map((award: any, index: number) => {
+                           return <button key={index} className={`btn ${award._id === post.awardId ? 'active':''}`}>{award.title}</button>
+                        })}
+                    </div>
+                </div>
+
+                <div className="main-widget-inner widget-text bgf1">
+                    <div className="widget-text-main widget-border">
+                        <p>
+                            {post.applicationReason}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>)
+
     return <></>;
 };
 
