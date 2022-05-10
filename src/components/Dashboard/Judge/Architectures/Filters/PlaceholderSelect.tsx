@@ -39,7 +39,7 @@ function PlaceholderSelect({
     } = useFilterSelect<FilterItem>();
 
     useEffect(() => {
-        const item = options.find((item) => item._id == value);
+        const item = options?.find((item) => item._id == value);
         setSelectedItem(item || null);
         if (item) {
             setSelectState("selected");
@@ -100,7 +100,7 @@ function PlaceholderSelect({
                     )}
                     id={id}
                 >
-                    {options.map((item: FilterItem) => {
+                    {options?.map((item: FilterItem) => {
                         return (
                             <div
                                 key={item._id}
