@@ -9,8 +9,7 @@ import { ChatType } from "../Chat/Chat";
 import Countdown, { CountdownTimeDeltaOptions } from "react-countdown";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import StarRatingComponent from "react-star-rating-component";
+import { faStar, faMessage } from "@fortawesome/free-solid-svg-icons";
 
 // import Chat from "../Chat/Chat";
 const Chat = dynamic(() => import("../Chat/Chat"), { ssr: false });
@@ -24,6 +23,11 @@ const Chat = dynamic(() => import("../Chat/Chat"), { ssr: false });
  */
 const SidebarDashboardRight = (props: any) => {
     const { competition, user, post, awards } = props;
+    const [hoverRating, setHoverRating] = useState(0);
+    const [ratingError, setRatingError] = useState("");
+    const [commentError, setCommentError] = useState("");
+    //create an array of 1-10 numbers
+    const startCounts = new Array(10).fill(0).map((_, index) => index + 1);
 
     //the award that is currently being binded to the post.
     const award = awards.find((award: any) => award._id === post.awardId);
@@ -114,11 +118,41 @@ const SidebarDashboardRight = (props: any) => {
     }
 
     // EOF Judge evaluation
+    const ratingColor = (rating: number): string => {
+        if (rating <= hoverRating || rating <= evaluation.rating) {
+            return "#333";
+        }
+
+        return "#999";
+    };
 
     const ratingHoverEffect = (rating: number) => {
-        for (let i = 1; i <= rating; i++) {
-            const star = document.getElementById(`star-${i}`);
+        setHoverRating(rating);
+    };
+
+    // hide the rating and comment section after a few seconds.
+    const runTimer = async () => {
+        //wait 3 sec
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+        //hide the rating and comment section
+        setCommentError("");
+        setRatingError("");
+    };
+
+    // check if empty
+    const isError = () => {
+        if (evaluation.comment === "") {
+            setCommentError("Please write your comment");
+            return true;
+            runTimer();
         }
+
+        if (evaluation.rating === 0) {
+            setRatingError("Please rate before submit");
+            return true;
+            runTimer();
+        }
+        return false;
     };
 
     if (isJudge(user)) {
@@ -219,7 +253,7 @@ const SidebarDashboardRight = (props: any) => {
                     <div className={`${styles["judge-info"]}`}>
                         {/* judge name */}
                         <div
-                            className={`${styles["judge-info-name"]} text-center`}
+                            className={`${styles["judge-info-name"]} row text-center`}
                         >
                             {/*image of judge profile*/}
                             <Image
@@ -227,25 +261,34 @@ const SidebarDashboardRight = (props: any) => {
                                 alt="judge profile"
                                 width={50}
                                 height={50}
-                                className={styles["judge-info-image"]}
+                                className={`${styles["judge-info-image"]} col-md-4 m-auto`}
                             />
 
-                            <span className={styles["judge-info-name-content"]}>
+                            <span
+                                className={`${styles["judge-info-name-content"]} col-md-4`}
+                            >
                                 John Doe
                             </span>
 
-                            <span className={styles["judge-info-name-title"]}>
+                            <span
+                                className={`${styles["judge-info-name-title"]} col-md-4`}
+                            >
                                 Judge
                             </span>
                         </div>
                     </div>
 
                     {/* code a comment box */}
-                    <div className={styles["comment-box"]}>
+                    <div
+                        className={`${styles["comment-box"]} text-center pt-3 pb-3`}
+                    >
                         <textarea
-                            className={styles["comment-box-text"]}
+                            className={`${styles["comment-box-text"]} text-center`}
                             placeholder="Write your comment here..."
                             value={evaluation.comment}
+                            rows={1}
+                            cols={50}
+                            //defaultValue={evaluation.comment}
                             onChange={(e) =>
                                 SetEvaluation({
                                     ...evaluation,
@@ -253,283 +296,95 @@ const SidebarDashboardRight = (props: any) => {
                                 })
                             }
                         />
+                        {/* error message */}
+                        {commentError && (
+                            <span className={styles["comment-box-error"]}>
+                                {commentError}
+                            </span>
+                        )}
                     </div>
 
                     {/* code a rating widget */}
                     <div className={styles["rating-widget"]}>
                         <div className={styles["main-widget-inner"]}>
-                            <div className={styles["rate"]}>
+                            <div
+                                className={`${styles["rate"]} text-center p-3 mt-3`}
+                            >
                                 <input
-                                    className={styles["rating"]}
+                                    className={`${styles["rating"]} text-center`}
                                     type="hidden"
-                                    value="3"
+                                    value={evaluation.rating}
                                 />
-                                <StarRatingComponent
-                                    name="rate2"
-                                    editing={false}
-                                    renderStarIcon={() => (
+
+                                {startCounts.map((count, index) => {
+                                    return (
                                         <FontAwesomeIcon
+                                            color={ratingColor(count)}
+                                            key={index}
                                             icon={faStar}
-                                            className="star-1"
-                                            //onMouseOver={() => ratingHoverEffect(1)}
+                                            id={`star-${count}`}
+                                            onMouseOver={() =>
+                                                ratingHoverEffect(count)
+                                            }
+                                            onClick={() => {
+                                                // setSelectedRating(count);
+                                                rating(count);
+                                            }}
+                                            onMouseLeave={() =>
+                                                setHoverRating(
+                                                    evaluation.rating
+                                                )
+                                            }
                                         />
-                                    )}
-                                    starCount={10}
-                                    value={8}
-                                />
-                                {
-                                    /* <StarRatingComponent
-    name={String} /* name of the radio input, it is required */
-                                    //value={Number} /* number of selected icon (`0` - none, `1` - first) */
-                                    //starCount={Number} /* number of icons in rating, default `5` */
-                                    //onStarClick={Function(nextValue, prevValue, name)} /* on icon click handler */
-                                    //onStarHover={Function(nextValue, prevValue, name)} /* on icon hover handler */
-                                    //onStarHoverOut={Function(nextValue, prevValue, name)} /* on icon hover out handler */
-                                    // renderStarIcon={Function(nextValue, prevValue, name)} /* it should return string or react component */
-                                    // renderStarIconHalf={Function(nextValue, prevValue, name)} /* it should return string or react component */
-                                    //starColor={String} /* color of selected icons, default `#ffb400` */
-                                    //emptyStarColor={String} /* color of non-selected icons, default `#333` */
-                                    //editing={Boolean} /* is component available for editing, default `true` */
-                                    ///> */
-                                }
+                                    );
+                                })}
 
                                 {/* <div className="rate_err_msg" style="display: none;">Please Rate before send Review</div> */}
+                                {/* error message */}
+                                {ratingError && (
+                                    <span className={styles["rating-error"]}>
+                                        {ratingError}
+                                    </span>
+                                )}
                             </div>
 
-                            <button className={styles["submit-btn"]}>
+                            <button
+                                className={`w-100 p-3 mt-3 mb-3 text-center ${`${styles["top-submit-btn"]} ${styles["submit-btn"]}`}`}
+                                onClick={() => {
+                                    if (!isError()) {
+                                        reviewDraft();
+                                    }
+                                }}
+                            >
+                                <Image
+                                    src="/dashboard/right-sidebar/icon-status-save.svg"
+                                    alt="submit"
+                                    width={30}
+                                    height={30}
+                                    className={`${styles["submit-btn-icon"]}`}
+                                />
                                 Save Review As Draft
                             </button>
-                            <button className={styles["submit-btn"]}>
+                            <button
+                                className={`w-100 p-3 mt-0 mb-3 text-center ${styles["submit-btn"]}`}
+                                onClick={() => {
+                                    if (!isError()) {
+                                        reviewPublished();
+                                    }
+                                }}
+                            >
+                                <Image
+                                    src="/dashboard/right-sidebar/icon-status-published.svg"
+                                    alt="submit"
+                                    width={30}
+                                    height={30}
+                                    className={`${styles["submit-btn-icon"]}`}
+                                />
                                 Send Review To JIDIPI
                             </button>
                         </div>
                     </div>
                 </div>
-
-                {/* <div className="main-widget-grid">
-                    <div className="main-widget">
-                        <div className="widget-title text-center">
-                            <h3>DEADLINE</h3>
-                        </div>
-                        <div className="main-widget-inner bgf1">
-                            <div className="date-and-time">
-                                 <div className="row mx-0">
-                                    <div className="col d-flex justify-content-center align-items-center px-0">
-                                        <p>
-                                            <sup>from</sup>2023-01-01
-                                        </p>
-                                    </div>
-                                    <div className="col d-flex justify-content-center align-items-center px-0">
-                                        <p>
-                                            <sup>until</sup>2023-03-31
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="main-widget-inner timer-counter">
-                            <div
-                                className="uk-grid-small d-flex align-items-center justify-content-center"
-                                uk-grid
-                                uk-countdown="date: 2022-07-03T09:10:11+00:00"
-                            >
-                                <div className="timer-counter-grid">
-                                    <div className="uk-countdown-number uk-countdown-days"></div>
-                                    <div className="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">
-                                        Days
-                                    </div>
-                                </div>
-                                <div className="uk-countdown-separator">
-                                    &nbsp
-                                </div>
-                                <div className="timer-counter-grid">
-                                    <div className="uk-countdown-number uk-countdown-hours"></div>
-                                    <div className="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">
-                                        Hours
-                                    </div>
-                                </div>
-                                <div className="uk-countdown-separator">:</div>
-                                <div className="timer-counter-grid">
-                                    <div className="uk-countdown-number uk-countdown-minutes"></div>
-                                    <div className="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">
-                                        Minutes
-                                    </div>
-                                </div>
-                                <div className="uk-countdown-separator">:</div>
-                                <div className="timer-counter-grid">
-                                    <div className="uk-countdown-number uk-countdown-seconds"></div>
-                                    <div className="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">
-                                        Seconds
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="main-widget">
-                        <div className="widget-title text-center">
-                            <h3>REVIEW</h3>
-                        </div>
-                        <div className="main-widget-inner bgf1">
-                            <div className="date-and-time">
-                                <div className="row mx-0">
-                                    <div className="col d-flex justify-content-center align-items-center px-0">
-                                        <p>2023-03-03</p>
-                                    </div>
-                                    <div className="col d-flex justify-content-center align-items-center px-0">
-                                        <p>12 : 01 : 34</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="main-widget-inner bgf1">
-                            <div className="steve-job">
-                                <div className="row">
-                                    <div className="col-12 d-flex align-items-center">
-                                        <div className="steve-job-img">
-                                            <img src="img/avatar-m-18.png" />
-                                        </div>
-                                        <p>2ds-29d-000</p>
-                                        <p>Steve Paul Jobs</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="main-widget-inner widget-text">
-                            <div className="widget-textarea-main widget-border">
-                                <form>
-                                    <textarea placeholder="Please add comment if you like this project."></textarea>
-
-                                    
-                                    <div
-                                        className="modal_check show"
-                                        id="myModal"
-                                        role="dialog"
-                                    >
-                                        <div className="modal-dialog modal-dialog-centered">
-                                          
-                                            <div className="modal-content">
-                                                <div className="modal-body">
-                                                    <p className="d-flex align-items-center">
-                                                        Do not show this message
-                                                        again
-                                                        <label className="switch">
-                                                            <input type="checkbox" />
-                                                            <span className="slider-on-off round"></span>
-                                                        </label>
-                                                    </p>
-                                                    <div className="modal-text-inner">
-                                                        <p>
-                                                            Your review will
-                                                            send to Jidipi now.
-                                                            You can reedit it
-                                                            before deadline.
-                                                            After deadline, your
-                                                            review will be
-                                                            published to
-                                                            applicants, and will
-                                                            been seen by other
-                                                            judges.{" "}
-                                                        </p>
-                                                        <p>
-                                                            Send our for sure?
-                                                        </p>
-                                                    </div>
-
-                                                    <div className="modal_check_btn d-flex align-items-center">
-                                                        <button>
-                                                            <i className="fas fa-times"></i>{" "}
-                                                            Cancel
-                                                        </button>
-                                                        <button>
-                                                            <i className="fas fa-check"></i>{" "}
-                                                            Confirm
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                  
-                                </form>
-                            </div>
-                        </div>
-
-                        <div className="main-widget-inner">
-                            <div className="rate">
-                                <input
-                                    className="rating"
-                                    type="hidden"
-                                    value=""
-                                />
-
-                                <div className="rate_err_msg">
-                                    Please Rate before send Review
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="main-widget-inner">
-                            <button className="save-review save-review-draft d-flex justify-content-center align-items-center">
-                                <img src="img/icon-status-save.svg" />
-                                <span>Save Review as Draft</span>
-                            </button>
-                        </div>
-                        <div className="main-widget-inner">
-                            <button className="save-review save-send-review d-flex justify-content-center align-items-center">
-                                <img src="img/icon-status-published.svg" />
-                                <span>Send Review to Jidipi</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div>
-                        <textarea
-                            value={evaluation.comment}
-                            onChange={(e) => {
-                                if (e.target.value)
-                                    SetEvaluation({
-                                        ...evaluation,
-                                        comment: e.target.value,
-                                    });
-                            }}
-                        />
-                        <p></p>
-                        {Array.from(Array(10).keys()).map((k) => (
-                            <React.Fragment key={k}>
-                                <button
-                                    onClick={() => {
-                                        rating(k);
-                                    }}
-                                    className={`nav-link  ${
-                                        evaluation.rating === k ? "active" : ""
-                                    }`}
-                                >
-                                    {k}
-                                    {evaluation.rating === k ? "(*)" : ""}
-                                </button>
-                            </React.Fragment>
-                        ))}
-                        <p></p> <p></p>
-                        <button
-                            onClick={() => {
-                                reviewDraft();
-                            }}
-                        >
-                            Save as Draft ....
-                        </button>
-                        <p></p>
-                        <button
-                            onClick={() => {
-                                reviewPublished();
-                            }}
-                        >
-                            Send to JIDIPI ....
-                        </button>
-                    </div>
-                </div> */}
             </div>
         );
     }

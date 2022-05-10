@@ -1,0 +1,4 @@
+<svg id="icon-status-published" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <rect id="icon-background" width="20" height="20" fill="none"/>
+  <path id="Send" d="M13.835,2.165a.563.563,0,0,1,.129.6l-3.8,10.863a.562.562,0,0,1-1.045.043L7.03,8.97l-4.7-2.087a.562.562,0,0,1,.043-1.045l10.864-3.8a.563.563,0,0,1,.6.129ZM11.3,3.907,4.087,6.431,7.332,7.873ZM8.127,8.668,12.093,4.7l-2.524,7.21Z" transform="translate(2 2)" fill="#333" fill-rule="evenodd"/>
+</svg>
