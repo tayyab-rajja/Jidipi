@@ -19,22 +19,7 @@ import { useRouter } from "next/router";
 const SidebarDashboard = (props: any) => {
     const router = useRouter();
     const { competition, user, post, menus } = props;
-    
-    useEffect(() => {
-        if (!router.query.competitionId && menus?.length) {
-            let menu = menus[0];
-            if (menu.links.length) {
-                let link = menu.links[1];
-                if (link) {
-                    // router.query.competitionId = link.title;
-                    // router.push(router);
-                    router.replace({
-                        query: { ...router.query, competitionId: link.title }
-                    })
-                }
-            }
-        }
-    }, []);
+
     if (competition) {
         const award = props.awards.find(
             (award: any) => award._id === post.awardId
@@ -117,9 +102,7 @@ const SidebarDashboard = (props: any) => {
                                         <Link key={i} href={link}>
                                             <li
                                                 className={clsx(
-                                                    router.query
-                                                        .competitionId ===
-                                                        title &&
+                                                    router.asPath === link &&
                                                         styles["active"]
                                                 )}
                                                 key={i}
@@ -144,4 +127,3 @@ const SidebarDashboard = (props: any) => {
 };
 
 export default SidebarDashboard;
-

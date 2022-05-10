@@ -27,6 +27,7 @@ import {
 } from "types/queryParameters";
 import { PageFolder } from "types/pageFolderType";
 import { FilterItem } from "constant/filters/interface";
+import { isJudge } from "src/lib/user/role";
 
 interface IProps {
     competitions: ICompetition[];
@@ -47,6 +48,14 @@ export default function Posts(props: IProps) {
     const user = userContext.user;
     const router = useRouter();
     let awards: award[] = [];
+
+    // MENU of the sidebar
+    const menus = generateSidebarMenus({
+        user,
+        competitions: props.competitions,
+    });
+
+
     if (props.competitions) {
         const competition = props.competitions.find(
             (c) => c.title === router.query.competitionId
@@ -55,6 +64,20 @@ export default function Posts(props: IProps) {
             (a) => a.pageFolderId === props.currentPageFolder._id
         )?.awards as award[];
     }
+
+    useEffect(() => {
+        if (isJudge(user) && !router.query.competitionId && menus?.length) {
+            let menu = menus[0];
+            if (menu.links.length) {
+                let link = menu.links[1];
+                if (link) {
+                    router.replace({
+                        query: { ...router.query, competitionId: link.title }
+                    })
+                }
+            }
+        }
+    }, []);
 
     const [filterParameters, setFilterParameters] = useState(
         props.filters.postFilters
@@ -97,11 +120,6 @@ export default function Posts(props: IProps) {
         filterToUrl();
     }, [filterParameters, pageFilter]);
 
-    // MENU of the sidebar
-    const menus = generateSidebarMenus({
-        user,
-        competitions: props.competitions,
-    });
 
     function filterToUrl() {
         setUrlForListPage(pageFilter, filterParameters, {
