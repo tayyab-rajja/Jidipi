@@ -11,7 +11,7 @@ interface IProps {
     prop: string;
 }
 
-export default ({ handleChange, value, prop }: IProps) => {
+function SearchFilter({ handleChange, value, prop }: IProps) {
     const input = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
@@ -65,4 +65,6 @@ export default ({ handleChange, value, prop }: IProps) => {
             </div>
         </div>
     );
-};
+}
+
+export default SearchFilter;

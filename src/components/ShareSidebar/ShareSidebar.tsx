@@ -1,70 +1,81 @@
 import { FC } from "react";
-import Link from 'next/link';
+import clsx from "clsx";
+import { 
+    FacebookShareButton,
+    PinterestShareButton,
+    TwitterShareButton, 
+    EmailShareButton 
+} from 'react-share';
+
+import { socialSvg } from "constant/socialSvg";
+import SideBarWrapper from "../SideBarWrapper/SideBarWrapper";
 
 import styles from './ShareSidebar.module.css';
-import { socialSvg } from "constant/socialSvg";
 
-const ShareSidebar: FC = () => {
+interface Props {
+    shareImage: string
+}
+
+const ShareSidebar: FC<Props> = ({shareImage}) => {
 
     const copyLink = (e: any) => {
         navigator.clipboard.writeText(e.target.textContent);
     }
 
+    const currentUrl = window.location.href;
+
     return (
-        <div className={styles["Sidebar"]}>
-            <div className={styles["Sidebar-Title"]}>share</div>
-            <ul className={styles["Sidebar-Links"]}>
-                <li className={styles["Sidebar-LinksItem"]}>
-                    <span className={styles["Sidebar-LinksItem_Icon"]}>
-                        {socialSvg["FACEBOOK"]}
-                    </span>
-                    <span className={styles["Sidebar-LinksItem_Text"]}>
-                        <Link href="#"><a>Facebook</a></Link>
-                    </span>
-                </li>
-                <li className={styles["Sidebar-LinksItem"]}>
-                    <span className={styles["Sidebar-LinksItem_Icon"]}>
-                        {socialSvg["TWITTER"]}
-                    </span>
-                    <span className={styles["Sidebar-LinksItem_Text"]}>
-                        <Link href="#"><a>Twitter</a></Link>
-                    </span>
-                </li>
-                <li className={styles["Sidebar-LinksItem"]}>
-                    <span className={styles["Sidebar-LinksItem_Icon"]}>
+        <SideBarWrapper>
+            <div className={styles["Sidebar"]}>
+                <div className={styles["Sidebar-Title"]}>share</div>
+                <ul className={styles["Sidebar-Links"]}>
+                    <li>
+                        <FacebookShareButton url={currentUrl} className={styles["Sidebar-LinksItem"]} resetButtonStyle={false}>
+                            {socialSvg["FACEBOOK"]}
+                            <span className={styles["Sidebar-LinksItem_Text"]}>
+                                Facebook
+                            </span>
+                        </FacebookShareButton>
+                    </li>
+                    <li>
+                        <TwitterShareButton url={currentUrl} title="tweet" className={styles["Sidebar-LinksItem"]} resetButtonStyle={false}>
+                            {socialSvg["TWITTER"]}
+                            <span className={styles["Sidebar-LinksItem_Text"]}>
+                                Twitter
+                            </span>
+                        </TwitterShareButton>
+                    </li>
+                    <li className={styles["Sidebar-LinksItem"]}>
                         {socialSvg["INSTAGRAM"]}
-                    </span>
-                    <span className={styles["Sidebar-LinksItem_Text"]}>
-                        <Link href="#"><a>Instagram</a></Link>
-                    </span>
-                </li>
-                <li className={styles["Sidebar-LinksItem"]}>
-                    <span className={styles["Sidebar-LinksItem_Icon"]}>
-                        {socialSvg["PININTEREST"]}
-                    </span>
-                    <span className={styles["Sidebar-LinksItem_Text"]}>
-                        <Link href="#"><a>Pinterest</a></Link>
-                    </span>
-                </li>
-                <li className={styles["Sidebar-LinksItem"]}>
-                    <span className={styles["Sidebar-LinksItem_Icon"]}>
-                        {socialSvg["EMAIL"]}
-                    </span>
-                    <span className={styles["Sidebar-LinksItem_Text"]}>
-                        <Link href="mailto:mail@mail.com" passHref={true}><a>Email</a></Link>
-                    </span>
-                </li>
-                <li className={styles["Sidebar-LinksItem"]} onClick={copyLink}>
-                    <span className={styles["Sidebar-LinksItem_Icon"]}>
+                        <span className={styles["Sidebar-LinksItem_Text"]}>
+                            Instagram
+                        </span>
+                    </li>
+                    <li>
+                        <PinterestShareButton url={currentUrl} className={styles["Sidebar-LinksItem"]} media={shareImage} resetButtonStyle={false}>
+                            {socialSvg["PININTEREST"]}
+                            <span className={styles["Sidebar-LinksItem_Text"]}>
+                                Pinterest
+                            </span>
+                        </PinterestShareButton>
+                    </li>
+                    <li>
+                        <EmailShareButton url={currentUrl} className={styles["Sidebar-LinksItem"]} resetButtonStyle={false}>
+                            {socialSvg["EMAIL"]} 
+                            <span className={styles["Sidebar-LinksItem_Text"]}>
+                                Email
+                            </span>
+                        </EmailShareButton>
+                    </li>
+                    <li className={clsx(styles["Sidebar-LinksItem"], styles["LinkCopied"])} onClick={copyLink}>
                         {socialSvg["LINK"]}
-                    </span>
-                    <span className={styles["Sidebar-LinksItem_Text"]} >
-                        <Link href="#"><a>http://architecture.jidipi.com/j000012394/…</a></Link>
-                    </span>
-                </li>
-            </ul>
-        </div>
+                        <span className={styles["Sidebar-LinksItem_Text"]} >
+                            {currentUrl}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </SideBarWrapper>
     )
 }
-
 export default ShareSidebar;

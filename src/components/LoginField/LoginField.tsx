@@ -1,13 +1,13 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import GoogleLogin, {
   GoogleLoginResponse,
   GoogleLoginResponseOffline,
 } from "react-google-login";
-import ReactFacebookLogin, {
-  ReactFacebookFailureResponse,
-  ReactFacebookLoginInfo,
-} from "react-facebook-login";
+// import ReactFacebookLogin, {
+//   ReactFacebookFailureResponse,
+//   ReactFacebookLoginInfo,
+// } from "react-facebook-login";
 import Image from "next/image";
 import clsx from "clsx";
 
@@ -16,9 +16,11 @@ import { useLoginRequest } from "src/hooks/api/useLoginRequest";
 import LoginWithSocialBtn from "src/components/LoginWithSocialBtn";
 import Divider from "src/components/Divider";
 import ButtonUserData from "src/components/ButtonUserData";
-import RememberMe from "src/components/RememberMe";
+import CheckBox from "src/components/CheckBox";
+import ForgotPassword from "src/components/ForgotPassword";
 import FooterUserData from "src/components/FooterUserData";
 import InputUserDataRHF from "src/components/InputUserDataRHF";
+import NoValidationText from "src/components/NoValidationText";
 
 import googleIcon from "public/images/social-icons/Google.svg";
 import facebookIcon from "public/images/social-icons/Facebook.svg";
@@ -37,6 +39,9 @@ interface Props {
 }
 
 const LoginField: FC<Props> = ({ goToRecoverPassword }) => {
+  // const [dataIsValid, setDataIsValid] = useState(false)
+  const [noValidText, setNoValidText] = useState<string | null>(null);
+
   const { login } = useLoginRequest();
 
   const { handleSubmit, control } = useForm<InputValues>({
@@ -52,25 +57,26 @@ const LoginField: FC<Props> = ({ goToRecoverPassword }) => {
   }) => {
     const result = await login({ email, password });
     if (result) {
+      showNoValidation(result.response?.data.error);
       // TODO: show error
     }
   };
 
-  const responseFacebook = async (response: any) => {
-    if (response?.status) {
-      const res: ReactFacebookFailureResponse = response;
-      // TODO: show error from Facebook request
-    }
-    const res: ReactFacebookLoginInfo = response;
-    const result = await login({
-      type: "social",
-      network: "facebook",
-      accessToken: res.accessToken,
-    });
-    if (result) {
-      // TODO: show error
-    }
-  };
+  // const responseFacebook = async (response: any) => {
+  //   if (response?.status) {
+  //     const res: ReactFacebookFailureResponse = response;
+  //     // TODO: show error from Facebook request
+  //   }
+  //   const res: ReactFacebookLoginInfo = response;
+  //   const result = await login({
+  //     type: "social",
+  //     network: "facebook",
+  //     accessToken: res.accessToken,
+  //   });
+  //   if (result) {
+  //     // TODO: show error
+  //   }
+  // };
 
   const responseGoogleSuccess = async (response: any) => {
     if (!response.accessToken) {
@@ -98,20 +104,26 @@ const LoginField: FC<Props> = ({ goToRecoverPassword }) => {
     stylesForm["Form-Elem"]
   );
 
+  const showNoValidation = (label: string | null) => {
+    setNoValidText(label);
+
+    setTimeout(() => setNoValidText(null), 3000);
+  };
+
   return (
-    <>
-      <ReactFacebookLogin
-        appId={process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_ID!}
-        fields="name,email,picture"
-        callback={responseFacebook}
-        autoLoad={false}
-        cssClass={classSocialBtn}
-        icon={
-          <div className={styles["SocialBtn-Icon"]}>
-            <Image src={facebookIcon} alt="logo" width={20} height={20} />
-          </div>
-        }
-      />
+    <div className={clsx(styles["Container"], styles["Body-Container"])}>
+      {/*<ReactFacebookLogin*/}
+      {/*  appId={process.env.NEXT_PUBLIC_FACEBOOK_CLIENT_ID!}*/}
+      {/*  fields="name,email,picture"*/}
+      {/*  callback={responseFacebook}*/}
+      {/*  autoLoad={false}*/}
+      {/*  cssClass={classSocialBtn}*/}
+      {/*  icon={*/}
+      {/*    <div className={styles["SocialBtn-Icon"]}>*/}
+      {/*      <Image src={facebookIcon} alt="logo" width={20} height={20} />*/}
+      {/*    </div>*/}
+      {/*  }*/}
+      {/*/>*/}
 
       <GoogleLogin
         clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}
@@ -144,6 +156,7 @@ const LoginField: FC<Props> = ({ goToRecoverPassword }) => {
             />
           )}
         />
+
         <Controller
           control={control}
           name={"password"}
@@ -156,20 +169,32 @@ const LoginField: FC<Props> = ({ goToRecoverPassword }) => {
             />
           )}
         />
-        <RememberMe
-          className={stylesForm["Form-Elem"]}
-          checkAction={() => alert("write your check action")}
-          forgotPasswordAction={goToRecoverPassword}
-        />
+
+        <div
+          className={clsx(styles["CheckboxContainer"], stylesForm["Form-Elem"])}
+        >
+          <CheckBox
+            checkAction={() => alert("write your check action")}
+            label="Remember Me"
+          />
+
+          <ForgotPassword
+            className={styles["CheckboxContainer-ForgotPassword"]}
+            action={goToRecoverPassword}
+          />
+        </div>
+
         <ButtonUserData label="login" action={handleSubmit(loginHandler)} />
       </form>
+
+      <NoValidationText label={noValidText} />
 
       <FooterUserData
         label="Do not have an account?"
         refLabel="Register"
         action={() => alert("Your to registration function")}
       />
-    </>
+    </div>
   );
 };
 

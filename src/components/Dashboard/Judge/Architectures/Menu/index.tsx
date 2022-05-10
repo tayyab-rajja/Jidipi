@@ -1,17 +1,30 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import type { PageFolder } from "types/pageFolderType";
+import IUser from "types/user";
 interface IProps {
     menuFolders: PageFolder[];
+    user: IUser;
 }
 
-export default ({ menuFolders }: IProps) => {
+function Menu({ menuFolders, user }: IProps) {
     const router = useRouter();
     const pathNameFregments = router.asPath.split("/");
-    const folderName = pathNameFregments[pathNameFregments.length - 1];
+    let folderName = pathNameFregments[pathNameFregments.length - 1];
+
+    if (user && menuFolders?.length) {
+        menuFolders = menuFolders.filter((f) =>
+            user.competitionPageFolderIds?.some((c) => c === f._id)
+        );
+    }
     return (
         <div className="scroll-tabs">
-            <ul className="nav nav-tabs" id="myTab" role="tablist">
+            <ul
+                className="nav nav-tabs"
+                id="myTab"
+                role="tablist"
+                suppressHydrationWarning={true}
+            >
                 {menuFolders?.map((folder) => (
                     <li
                         className="nav-item"
@@ -19,7 +32,7 @@ export default ({ menuFolders }: IProps) => {
                         key={folder._id}
                     >
                         <Link
-                            href={`/dashboard/post/list/${folder.title}`}
+                            href={`/dashboard/post/list/${folder.title}?competitionId=${router.query.competitionId}`}
                             data-bs-toggle="tab"
                             data-bs-target="#architectures"
                             aria-controls="architectures"
@@ -27,7 +40,8 @@ export default ({ menuFolders }: IProps) => {
                         >
                             <a
                                 className={`nav-link tab-button ${
-                                    folderName === folder.title && "active"
+                                    folderName.includes(folder.title) &&
+                                    "active"
                                 }`}
                                 id="architectures-tab"
                                 role="tab"
@@ -40,4 +54,6 @@ export default ({ menuFolders }: IProps) => {
             </ul>
         </div>
     );
-};
+}
+
+export default Menu;

@@ -1,0 +1,302 @@
+.architectures-table {
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    font-family: "Poppins";
+    color: #37373799;
+    font-size: 11px;
+    .table-block {
+        padding: 0 20px;
+        .tables {
+            margin-bottom: 40px;
+            .table-scroll {
+                position: relative;
+                max-width: 100%;
+                margin: auto;
+                overflow: hidden;
+                table {
+                    width: 100%;
+                }
+                .table-wrap {
+                    width: 100%;
+                    overflow: auto;
+                    direction: rtl;
+
+                    &::-webkit-scrollbar-track {
+                        -webkit-box-shadow: none;
+                        border-radius: 6px;
+                        background-color: #ffffff;
+                    }
+
+                    &::-webkit-scrollbar {
+                        width: 8px;
+                        height: 4px;
+                        background-color: #fff;
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        border-radius: 6px;
+                        -webkit-box-shadow: none;
+                        background-color: #d6d6d6;
+                    }
+                }
+                .main-table {
+                    direction: ltr;
+                    border-spacing: 0;
+                    border-collapse: separate;
+                    thead .fixed-side {
+                        padding: 0;
+                        position: sticky;
+                        top: 0;
+                        left: 0;
+                        z-index: 10;
+                        background-color: white;
+                    }
+                    thead th {
+                        color: #373737;
+                        font-weight: 300;
+                        text-align: center;
+                        padding: 0 16px;
+                        min-width: 70px;
+                        &.award {
+                            text-align: left;
+                        }
+                        &.applied {
+                            padding: 0 !important;
+                        }
+                        &.company {
+                            padding: 0 !important;
+                        }
+                        .arrow {
+                            cursor: pointer;
+                        }
+                    }
+                    tbody tr {
+                        &:hover .content {
+                            background-color: #deb851 !important;
+                            color: #fff !important;
+                            .icon-star {
+                                background-image: url("/images/table/star-white.svg") !important;
+                            }
+                            .active-star {
+                                background-image: url("/images/table/active-star-white.svg") !important;
+                            }
+                        }
+                        th {
+                            .fix-side-content {
+                                display: flex;
+                                align-items: stretch;
+                                justify-content: flex-start;
+                                position: relative;
+                                .status {
+                                    position: absolute;
+                                    right: left;
+                                    top: 0;
+                                    width: 4px;
+                                    height: 100%;
+                                    &.status-published {
+                                        background-color: #f9b960;
+                                    }
+                                    &.status-draft {
+                                        background-color: #73b9f6;
+                                    }
+                                    &.status-pending {
+                                        background-color: #f89590;
+                                    }
+                                }
+
+                                .content {
+                                    background-color: #f1f1f1;
+                                    padding: 10px 16px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    transition: 0.3s;
+                                    font-weight: 300;
+                                    color: #373737;
+                                    line-height: 20px;
+                                    &:not(.image) {
+                                        flex: 1;
+                                    }
+                                    &.active {
+                                        background-color: #deb851;
+                                        color: #ffffff;
+                                    }
+                                    &.image {
+                                        padding: 10px;
+                                        min-width: 80px;
+                                    }
+                                    &.project {
+                                        min-width: 185px;
+                                        text-align: left;
+                                        height: 80px;
+                                        overflow: hidden;
+                                        padding: 0 16px;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: flex-start;
+                                        .text {
+                                            word-break: break-word;
+                                            display: -webkit-box;
+                                            -webkit-box-orient: vertical;
+                                            -moz-box-orient: vertical;
+                                            -ms-box-orient: vertical;
+                                            -webkit-line-clamp: 4;
+                                            -moz-line-clamp: 4;
+                                            -ms-line-clamp: 4;
+                                        }
+                                    }
+                                    &.id {
+                                        min-width: 130px;
+                                    }
+                                }
+                            }
+                        }
+                        td {
+                            height: 80px;
+                            padding-bottom: 8px;
+                            .content {
+                                min-width: 100px;
+                                background-color: #f1f1f1;
+                                padding: 10px 16px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: flex-start;
+                                transition: 0.3s;
+                                font-weight: 300;
+                                height: 100%;
+                                position: relative;
+                                color: #373737;
+                                line-height: 20px;
+                                .rate-indicator {
+                                    position: absolute;
+                                    right: 0;
+                                    top: 0;
+                                    width: 4px;
+                                    height: 100%;
+                                    background-color: #d6d6d6;
+                                    &.active {
+                                        background-color: #373737;
+                                    }
+                                }
+                                &.active {
+                                    background-color: #deb851;
+                                    color: #ffffff;
+                                    .icon-star {
+                                        background-image: url("/images/table/star-white.svg") !important;
+                                    }
+                                    .active-star {
+                                        background-image: url("/images/table/active-star-white.svg") !important;
+                                    }
+                                }
+                                &.logo {
+                                    padding: 10px;
+                                    padding-left: 0;
+                                    min-width: 70px;
+                                }
+                                &.rating {
+                                    .icon-star {
+                                        width: 16px;
+                                        height: 16px;
+                                        background-image: url("/images/table/star.svg");
+                                        background-size: cover;
+                                        background-repeat: no-repeat;
+                                        margin-right: 4px;
+                                    }
+                                    .active-star {
+                                        background-image: url("/images/table/dark-star.svg");
+                                    }
+                                }
+                                &.award,
+                                &.edit-comment {
+                                    min-width: 130px;
+                                    justify-content: center;
+                                    .icon {
+                                        width: 30px;
+                                        height: 30px;
+                                        background-size: cover;
+                                        background-repeat: no-repeat;
+                                        background-image: url("/images/table/edit-circle.svg");
+                                        cursor: pointer;
+                                        &:hover {
+                                            background-image: url("/images/table/edit-circle-active.svg");
+                                        }
+                                        .link {
+                                            width: 100%;
+                                            height: 100%;
+                                            display: block;
+                                        }
+                                    }
+                                }
+                                &.award {
+                                    justify-content: flex-start;
+                                }
+                                &.company {
+                                    min-width: 160px;
+                                }
+                            }
+                        }
+                    }
+                    .fixed-side {
+                        min-width: 395px;
+                        border-right: 2px solid #ffffff;
+                        visibility: visible;
+                        padding: 0;
+                        padding-bottom: 8px;
+                        position: sticky;
+                        top: 0;
+                        left: 0;
+                        z-index: 10;
+                        .fix-header {
+                            display: flex;
+                            align-items: center;
+                            color: #373737;
+                            font-weight: 300;
+                            padding: 10px 0;
+                            .item {
+                                padding: 0 16px;
+                                text-align: center;
+                                &:not(.image) {
+                                    flex: 1;
+                                }
+                                &.image {
+                                    min-width: 80px;
+                                }
+                                &.project {
+                                    min-width: 185px;
+                                    text-align: left;
+                                    padding: 0;
+                                }
+                                &.id {
+                                    min-width: 130px;
+                                }
+                            }
+                        }
+                    }
+                }
+                .clone {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    pointer-events: none;
+                    .table-wrap {
+                        direction: rtl;
+                    }
+                    th,
+                    td {
+                        visibility: hidden;
+                        background-color: #ffffff;
+                        border-color: transparent;
+                        .content {
+                            min-width: 120px;
+                        }
+                    }
+                    thead {
+                        background: transparent;
+                    }
+                }
+            }
+        }
+    }
+}

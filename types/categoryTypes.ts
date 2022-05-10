@@ -87,6 +87,7 @@ export interface ICompany {
 }
 
 export interface ICompanyTab {
+  allRouteName: string;
   companiesCount: number;
   companies: ICompany[];
 }

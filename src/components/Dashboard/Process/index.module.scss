@@ -31,20 +31,6 @@
     }
 }
 
-@media (min-width: 1230px) {
-    .process-section {
-        .tools {
-            position: relative;
-            padding: 10px 0;
-            button {
-                position: absolute;
-                bottom: -24px;
-                right: 0;
-            }
-        }
-    }
-}
-
 @media (min-width: 1440px) {
     .process-list {
         min-width: calc(100% - 240px);
@@ -61,113 +47,96 @@
 
     .deadline {
         width: 240px;
-      }
+    }
 }
 
-.process-section {
-    font-size: 11px;
-    color: #37373799;
-    font-family: 'Poppins';
-    .processing {
-        height: 0px;
-        transition: 0.3s;
-        background-color: #ffffff;
-        overflow: hidden;
-        display: flex;
-        align-items: stretch;
-        justify-content: flex-start;
-        &.open {
-            height: 300px;
-            padding-bottom: 45px;
-        }
-        .process-list {
-            .item {
-                display: flex;
-                align-items: center;
-                justify-content: flex-end;
-                margin-bottom: 12px;
-                span {
-                    position: absolute;
-                    right: 10px;
-                    top: 8px;
-                    z-index: 9;
-                    color: #888888;
-                }
-                label {
-                    margin-right: 20px;
-                }
-                .progress-bar {
-                    height: 32px;
-                    border-radius: 4px;
-                    border: 1px solid #d6d6d6;
-                    background-color: #ffffff;
-                    position: relative;
-                    .active {
-                        background-color: #d6d6d6;
-                        height: 100%;
-                        border-radius: 0 4px 4px 0;
-                        position: relative;
-                    }
-                    &.architectures {
-                        background-color: #f1f1f1;
-                        .active {
-                            width: 40%;
-                            span {
-                                position: absolute;
-                                right: 10px;
-                                top: 8px;
-                                z-index: 9;
-                                color: #888888;
-                            }
-                        }
-                    }
-                    &.interiors {
-                        background-color: #f1f1f1;
-                        .active {
-                            width: 80%;
-                        }
-                    }
-                }
+.processing {
+    height: 0px;
+    transition: 0.3s;
+    background-color: #ffffff;
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    &.open {
+        height: 300px;
+        padding-bottom: 45px;
+    }
+
+    .process-list {
+        .item {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-bottom: 12px;
+            span {
+                position: absolute;
+                right: 10px;
+                top: 8px;
+                z-index: 9;
+                color: #888888;
             }
-        }
-        .deadline {
-            .item {
-                display: flex;
-                align-items: stretch;
-                height: 100%;
-                label {
-                    margin-top: 50px;
-                    margin-left: 20px;
-                }
-                .progress-bar {
-                    width: 32px;
-                    border-radius: 4px;
-                    border: 1px solid #d6d6d6;
-                    background-color: #f1f1f1;
+            label {
+                margin-right: 20px;
+            }
+            .progress-bar {
+                height: 32px;
+                border-radius: 4px;
+                border: 1px solid #d6d6d6;
+                background-color: #ffffff;
+                position: relative;
+                .active {
+                    background-color: #d6d6d6;
+                    height: 100%;
+                    border-radius: 0 4px 4px 0;
                     position: relative;
-                    display: flex;
-                    justify-content: flex-end;
+                }
+                &.architectures {
+                    background-color: #f1f1f1;
                     .active {
-                        width: 100%;
-                        height: 200px;
-                        background-color: #d6d6d6;
-                        border-radius: 4px 4px 0 0;
+                        width: 40%;
+                        span {
+                            position: absolute;
+                            right: 10px;
+                            top: 8px;
+                            z-index: 9;
+                            color: #888888;
+                        }
+                    }
+                }
+                &.interiors {
+                    background-color: #f1f1f1;
+                    .active {
+                        width: 80%;
                     }
                 }
             }
         }
     }
-    .tools {
-        position: relative;
-        button {
-            width: 240px;
-            background-color: #ffffff;
-            border: none;
-            border-radius: 0 0 5px 5px;
-            font-size: 11px;
-            text-transform: uppercase;
-            color: #373737;
-            padding: 14px 20px;
+    .deadline {
+        .item {
+            display: flex;
+            align-items: stretch;
+            height: 100%;
+            label {
+                margin-top: 50px;
+                margin-left: 20px;
+            }
+            .progress-bar {
+                width: 32px;
+                border-radius: 4px;
+                border: 1px solid #d6d6d6;
+                background-color: #f1f1f1;
+                position: relative;
+                display: flex;
+                justify-content: flex-end;
+                .active {
+                    width: 100%;
+                    height: 200px;
+                    background-color: #d6d6d6;
+                    border-radius: 4px 4px 0 0;
+                }
+            }
         }
     }
 }

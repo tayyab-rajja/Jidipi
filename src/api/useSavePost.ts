@@ -1,7 +1,8 @@
 import axios from 'axios';
 interface PostData {
     postId: string,
-    pageFolderId: string | undefined,
+    mine?: boolean,
+    pageFolderId?: string,
     label?: string
 }
 

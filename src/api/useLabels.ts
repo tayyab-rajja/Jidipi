@@ -1,6 +1,8 @@
 import axios from "axios";
 import useSWR from "swr";
 
+import { useAuth } from "src/providers/AuthProvider/AuthProvider";
+
 import { LabelBody } from "types/labelType";
 
 const fetcher = async (url: string) => {
@@ -9,10 +11,11 @@ const fetcher = async (url: string) => {
 };
 
 export const useLabels = () => {
-  const { data, isValidating, mutate } = useSWR(
-    [`${process.env.NEXT_PUBLIC_API_URL}/reader/labels`],
-    fetcher
-  );
+  const {
+    session: {token}
+  } = useAuth();
+
+  const { data, isValidating, mutate } = useSWR(token ? [`${process.env.NEXT_PUBLIC_API_URL}/reader/labels/`] : null, fetcher);
 
   const createLabel = async (body: LabelBody) => {
     const response = await axios.post(
@@ -20,25 +23,22 @@ export const useLabels = () => {
       body
     );
     const newLabel = response.data;
-    return mutate({ ...data, newLabel });
+    mutate({ ...data, newLabel });
   };
 
   const updateLabel = async (body: LabelBody) => {
-    const response = await axios.post(
+    await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/reader/labels`,
-      body
-    );
-    const updatedLabel = response.data;
-    return mutate({ ...data, updatedLabel });
+      body);
+    mutate({labels: [body, ...data.labels.filter((label: LabelBody) => label._id !== body._id)]});
   };
 
   const deleteLabel = async (id: string) => {
-    await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/reader/label/${id}`);
-    return mutate({
-      labels: data.labels.filter(
-        (labelItem: LabelBody) => labelItem._id !== id
-      ),
-    });
+    const res = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/reader/label/${id}`);
+    if (res.status !== 200) {
+      return res;
+    } 
+    mutate({labels: data.labels.filter((labelItem: LabelBody) => labelItem._id !== id)});
   };
 
   return {
@@ -46,6 +46,6 @@ export const useLabels = () => {
     isValidating,
     createLabel,
     updateLabel,
-    deleteLabel,
+    deleteLabel
   };
 };

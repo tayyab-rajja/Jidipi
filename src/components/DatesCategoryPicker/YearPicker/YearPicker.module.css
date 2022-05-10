@@ -1,0 +1,17 @@
+.YearPicker {
+  padding: 0 20px;
+  height: 40px;
+  width: 100%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #373737;
+}
+
+.YearPicker-Arrow {
+  padding: 10px;
+  color: #fff;
+  fill: #fff;
+  cursor: pointer;
+}

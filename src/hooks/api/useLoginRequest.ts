@@ -38,7 +38,7 @@ export const useLoginRequest = () => {
         close();
         return;
       }
-      return socialLoginResponse;
+      return socialLoginResponse as {[key: string]: any};
     } catch (error: any) {
       console.log(error?.response?.data?.error);
       // TODO: show error message

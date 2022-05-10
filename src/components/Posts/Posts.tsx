@@ -64,7 +64,10 @@ export const Posts = ({ fallbackData, postsParams }: Props) => {
     <>
       <Masonry
         breakpointCols={{
-          default: 5,
+          default: 8,
+          2500: 7,
+          2200: 6,
+          2000: 5,
           1800: 4,
           1520: 3,
           1220: 2,

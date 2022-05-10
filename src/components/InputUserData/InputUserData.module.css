@@ -3,7 +3,7 @@
   background: #E3E3E3;
   display: grid;
   grid-template-rows: 100%;
-  grid-template-columns: 100%; 
+  grid-template-columns: 100%;
 }
 .Container[data-type-container="password"] {
   grid-template-columns: 80% 20%; 
@@ -11,15 +11,15 @@
 .Container[data-is-unlock="true"] {
   background: white;
 }
-
-.Input {
-  outline: none;
-  border: none;
-  background: none;
+.Container[data-red-border="true"] {
+  border: 2px solid red;
 }
 
 .Form-Input {
   padding: 14px 0 14px 20px;
+  border: none;
+  outline: none;
+  background: none;
 }
 
 .Container-Btn {

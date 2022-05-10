@@ -35,9 +35,13 @@ const Item: React.FC<{
 export const CategoriesList = ({ category }: { category: ICategoryTab }) => {
   const { query } = useRouter();
 
+  //TODO: there should be refactoring for this code
+  const allRouteName =
+    category.type === "CATEGORIES" ? "CATEGORY" : category.type;
+
   return (
     <div className={styles.CategoriesList}>
-      <Link href={`/${query.folder}/categories/${category._id}`}>
+      <Link href={`/${query.folder}/${allRouteName.toLocaleLowerCase()}/all`}>
         <a className={styles["CategoriesList-Header"]}>All {category.count}</a>
       </Link>
       <List>

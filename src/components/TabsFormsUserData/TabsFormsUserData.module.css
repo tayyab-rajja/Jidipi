@@ -1,10 +1,14 @@
-.TabPanels {
+.Body-Tabs[data-reach-tabs] {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 44px 1fr;
+}
+
+.TabPanels[data-reach-tab-panels] {
   background: #F1F1F1;
 }
-.Body-TabPanel {
+.Body-TabPanels[data-reach-tab-panels] {
   padding: 40px 14px;
-  width: 280px;
-  height: 1000px;
 }
 
 .TabList[data-reach-tab-list] {
@@ -16,9 +20,15 @@
   height: 44px;
   border: 1px solid #D6D6D6;
   text-transform: uppercase;
+  color: #888888;
 }
 
 .Tabs-Tab[data-reach-tab][data-selected] {
   border: 1px solid #D6D6D6;
   background: #F1F1F1;
+  color: rgba(55, 55, 55, 0.5);
+}
+
+.TabPanel[data-reach-tab-panel] {
+  height: 100%;
 }
