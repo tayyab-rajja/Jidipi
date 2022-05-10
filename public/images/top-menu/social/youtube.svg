@@ -1,0 +1,8 @@
+<svg id="logo-youtube" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+  <circle id="Ellipse_white" data-name="Ellipse white" cx="14" cy="14" r="14" fill="#fff"/>
+  <circle id="Ellipse_grey" data-name="Ellipse grey" cx="10" cy="10" r="10" transform="translate(4 4)" fill="#e3e3e3"/>
+  <g id="Group_101" data-name="Group 101" transform="translate(4 4)">
+    <path id="Path_1300" data-name="Path 1300" d="M39.969,41.434l4.489-2.328-4.489-2.342Z" transform="translate(-31.791 -29.242)" fill="#fff"/>
+    <path id="Path_1301" data-name="Path 1301" d="M10,0A10,10,0,1,0,20,10,10,10,0,0,0,10,0Zm6.814,13.338a1.784,1.784,0,0,1-1.527,1.387,47.355,47.355,0,0,1-5.287.2,47.373,47.373,0,0,1-5.288-.2,1.783,1.783,0,0,1-1.526-1.387A15.117,15.117,0,0,1,2.94,10a15.116,15.116,0,0,1,.249-3.338A1.783,1.783,0,0,1,4.714,5.274,47.422,47.422,0,0,1,10,5.079a47.4,47.4,0,0,1,5.287.2,1.784,1.784,0,0,1,1.527,1.388A15.115,15.115,0,0,1,17.06,10,15.116,15.116,0,0,1,16.814,13.338Z" fill="#fff"/>
+  </g>
+</svg>
