@@ -14,6 +14,8 @@ interface LayoutProps {
     style?: object;
     TopDropdownComponent?: any;
     TopDropdownComponentWrapper?: any,
+    TopDropdownButtonName?: string;
+
     competition?: any,
     menus?: any,
     user?: any,
