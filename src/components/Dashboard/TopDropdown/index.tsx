@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from "./index.module.scss";
 // import Process from "../Process";
 
-function TopDropdown({ Child, Wrapper }: any) {
+function TopDropdown({ Child, Wrapper, TopDropdownButtonName }: any) {
     const [isOpen, setIsOpen] = useState(false);
     const handleClick = () => {
         setIsOpen((value) => !value);
@@ -14,7 +14,7 @@ function TopDropdown({ Child, Wrapper }: any) {
 
             <div className={clsx(styles["tools"], "text-end")}>
                 <button className={styles["btn-process"]} onClick={handleClick}>
-                    Process
+                    { TopDropdownButtonName || 'TOP MENU' }
                 </button>
             </div>
         </section>
