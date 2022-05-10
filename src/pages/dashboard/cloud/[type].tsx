@@ -17,6 +17,7 @@ export default function Cloud(props: any) {
     }
     // MENU of the sidebar
     const menus = generateSidebarMenus({user})
+    console.log(menus)
 
 
     return <DashboardLayout  sidebarComponent={<SidebarDashboard menus={menus}/>}>

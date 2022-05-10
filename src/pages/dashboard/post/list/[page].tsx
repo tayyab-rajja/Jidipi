@@ -9,7 +9,7 @@ import { UserContext } from "../../../../providers/UserProvider";
 import { generateSidebarMenus } from "../../../../lib/common/menu";
 import { DashboardLayout } from "../../../../components/Dashboard/Layout/Layout";
 import Filters from "src/components/Dashboard/Judge/Architectures/Filters";
-import Menu from "src/components/Dashboard/Judge/Architectures/Menu";
+import Menu from "src/components/Dashboard/Menu";
 import Table from "src/components/Dashboard/Judge/Architectures/Table";
 import PageSize from "src/components/Dashboard/PageSize";
 import PaginationReverse from "src/components/Dashboard/PaginationReverse";
@@ -138,7 +138,13 @@ export default function Posts(props: IProps) {
     return (
         <DashboardLayout
             sidebarComponent={<SidebarDashboard menus={menus} />}
-            TopDropdownComponent={<Process statuses={data?.statuses} menuFolders={props.menuFolders} competitionPageFolderIds={user?.competitionPageFolderIds} />}
+            TopDropdownComponent={
+                <Process
+                    statuses={data?.statuses}
+                    menuFolders={props.menuFolders}
+                    competitionPageFolderIds={user?.competitionPageFolderIds}
+                />
+            }
             TopDropdownComponentWrapper={ProcessWrapper}
         >
             <div>

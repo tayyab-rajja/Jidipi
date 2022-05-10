@@ -8,23 +8,6 @@ import styles from "./SidebarDashboard.module.scss";
 import { isJudge, isPartner } from "../../../lib/user/role";
 import { useRouter } from "next/router";
 
-// const defaultData = [
-//     {
-//         title: 'post',
-//         icon: 'POST',
-//         isSelected: false,
-//     },
-//     {
-//         title: 'company',
-//         icon: 'COMPANY',
-//         isSelected: false,
-//     },
-//     {
-//         title: 'information',
-//         icon: 'INFORMATION',
-//         isSelected: false,
-//     }
-// ]
 /**
  * @paraconstructorm props
  * @
