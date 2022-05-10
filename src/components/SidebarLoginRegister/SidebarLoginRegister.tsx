@@ -25,7 +25,7 @@ const SidebarLoginRegister: FC<ISidebarLoginRegisterProps> = ({}) => {
       name: "login",
       panel: loginForgotten ? (
         <RecoverOrResetPasswordField
-          type={"reset"}
+          type={"recover"}
           footerAction={goToRecoverPassword}
         />
       ) : (

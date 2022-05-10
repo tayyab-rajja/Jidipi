@@ -1,10 +1,10 @@
 import {FilterItem} from "./interface";
 
 export enum filterCandidateStatus {
-    All = 'all',
-    Pending = 'pending',
-    Draft = 'draft',
-    Published = 'published',
+    All = 'ALL',
+    Pending = 'PENDING',
+    Draft = 'DRAFT',
+    Published = 'PUBLISHED',
 }
 /**
  * @param {string} id

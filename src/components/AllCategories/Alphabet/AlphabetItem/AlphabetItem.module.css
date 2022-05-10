@@ -1,0 +1,18 @@
+.Alphabet-Item {
+    list-style-type: none;
+    margin: 0;
+    text-align: center;
+    color: #888888;
+    width: 10px;
+    height: 20px;
+    font-size: 13px;
+}
+
+.Alphabet-Item:hover {
+    color: #DEB851;
+}
+
+.Alphabet-Item.Selected {
+    font-weight: bold;
+    color: #373737;
+}

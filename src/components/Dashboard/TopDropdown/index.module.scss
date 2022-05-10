@@ -1,0 +1,33 @@
+@media (min-width: 1230px) {
+    .process-section {
+        .tools {
+            position: relative;
+            padding: 10px 0;
+            button {
+                position: absolute;
+                bottom: -24px;
+                right: 0;
+            }
+        }
+    }
+}
+
+.process-section {
+    font-size: 11px;
+    color: #37373799;
+    font-family: "Poppins";
+
+    .tools {
+        position: relative;
+        button {
+            width: 240px;
+            background-color: #ffffff;
+            border: none;
+            border-radius: 0 0 5px 5px;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #373737;
+            padding: 14px 20px;
+        }
+    }
+}

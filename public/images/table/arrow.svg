@@ -1,0 +1,4 @@
+<svg id="icon-dropdown" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <rect id="icon-background" width="20" height="20" fill="none"/>
+  <path id="Arrow-Down_2" data-name="Arrow-Down 2" d="M15.53,7.444a.607.607,0,0,1,0,.934L10,13.25,4.47,8.378a.607.607,0,0,1,0-.934.823.823,0,0,1,1.061,0L10,11.381l4.47-3.938A.823.823,0,0,1,15.53,7.444Z" transform="translate(-0.25 -0.25)" fill="#888" fill-rule="evenodd"/>
+</svg>

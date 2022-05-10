@@ -212,7 +212,7 @@
                 border-radius: 4px;
                 left: 0;
                 top: 44px;
-                z-index: 10;
+                z-index: 20;
                 &::-webkit-scrollbar {
                     width: 4px;
                 }
@@ -330,6 +330,7 @@
                 }
             }
             .select-content {
+                z-index: 20;
                 .item {
                     .item-content {
                         display: flex;

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 import clsx from "clsx";
 
@@ -19,10 +19,10 @@ const PanelDropdown: FC<Props> = ({
   logOut,
 }) => {
   return isOpen ? (
-    /* <div className={styles["Body-Wrapper"]} onClick={close}> */
     <div
       className={clsx(styles["Container"], styles["Body-Container"])}
       onClick={() => setShowLoginBar(false)}
+      // onMouseLeave={() => setShowLoginBar(false)}
     >
       <Link href={"/panel"}>
         <a className={styles["Container-List"]}>panel</a>
@@ -37,8 +37,7 @@ const PanelDropdown: FC<Props> = ({
         logout
       </div>
     </div>
-  ) : // </div>
-  null;
+  ) : null;
 };
 
 export default PanelDropdown;

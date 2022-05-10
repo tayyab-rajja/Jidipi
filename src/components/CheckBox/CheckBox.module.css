@@ -1,0 +1,33 @@
+.Container {
+  /* display: grid;
+  grid-template: 18px / 18px 1fr;
+  grid-column-gap: 10px; */
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.Checkbox {
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Container-Checkbox {
+  width: 18px;
+  height: 18px;
+}
+.Checkbox[data-checked="false"] {
+  background: white;
+  border: 1px solid #D6D6D6;
+}
+
+.Check {
+  color: white;
+}
+
+.Container-Label {
+  color: #888888;
+  margin-left: 15px;
+  font-size: 11px;
+}
