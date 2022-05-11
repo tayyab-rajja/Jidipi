@@ -5,6 +5,7 @@ import { generateSidebarMenus } from "src/lib/common/menu";
 import { UserContext } from "src/providers/UserProvider";
 import TopMenuContent from "src/components/Dashboard/Partner/Account/Profile";
 import TopMenuContentWrapper from "src/components/Dashboard/Partner/Account/Profile/Wrapper";
+import Menu from "src/components/Dashboard/Partner/Account/Menu";
 
 interface IProps {}
 
@@ -17,12 +18,11 @@ export default function Profile({}: IProps) {
     return (
         <DashboardLayout
             sidebarComponent={<SidebarDashboard menus={menus} />}
-            TopDropdownComponent={
-                <TopMenuContent />
-            }
+            TopDropdownComponent={<TopMenuContent />}
             TopDropdownComponentWrapper={TopMenuContentWrapper}
             TopDropdownButtonName={"PROFILE"}
         >
+            <Menu />
             <div>hello</div>
         </DashboardLayout>
     );
