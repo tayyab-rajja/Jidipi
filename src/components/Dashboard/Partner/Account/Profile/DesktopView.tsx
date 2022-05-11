@@ -35,6 +35,7 @@ export default () => {
                                 type="text"
                                 className={clsx(styles["custom-input"])}
                                 defaultValue="T +45 1234 5678    F + 45 1234567"
+                                disabled
                             />
                         </div>
                         <div className={styles["input-container"]}>
@@ -42,6 +43,7 @@ export default () => {
                                 type="text"
                                 className={clsx(styles["custom-input"])}
                                 defaultValue="contact@copenhagen101.com"
+                                disabled
                             />
                         </div>
                     </div>
@@ -101,6 +103,7 @@ export default () => {
                                 type="text"
                                 className={styles["custom-input"]}
                                 defaultValue="101 Copenhagen GmbH"
+                                disabled
                             />
                         </div>
 
@@ -115,6 +118,7 @@ export default () => {
                                 type="text"
                                 className={styles["custom-input"]}
                                 defaultValue="www.101cph.com"
+                                disabled
                             />
                         </div>
                     </div>
@@ -124,6 +128,7 @@ export default () => {
                                 type="text"
                                 className={styles["custom-input"]}
                                 defaultValue="Magstraede 10a, 1204 Copenhagen, Demark"
+                                disabled
                             />
                         </div>
                     </div>

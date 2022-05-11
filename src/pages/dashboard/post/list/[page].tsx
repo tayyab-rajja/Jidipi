@@ -9,7 +9,7 @@ import { UserContext } from "../../../../providers/UserProvider";
 import { generateSidebarMenus } from "../../../../lib/common/menu";
 import { DashboardLayout } from "../../../../components/Dashboard/Layout/Layout";
 import Filters from "src/components/Dashboard/Judge/Architectures/Filters";
-import Menu from "src/components/Dashboard/Menu";
+import Menu from "src/components/Dashboard/Judge/Architectures/Menu";
 import Table from "src/components/Dashboard/Judge/Architectures/Table";
 import PageSize from "src/components/Dashboard/PageSize";
 import PaginationReverse from "src/components/Dashboard/PaginationReverse";
