@@ -1,0 +1,30 @@
+
+.header {
+  background-color: #fff;
+  height: 64px;
+  nav {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    height: 100%;
+    .logo {
+      width: 300px;
+      font-family: "GameOver";
+      font-size: 46px;
+      color: #373737;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .tools {
+      padding: 0 30px;
+      display: flex;
+      align-items: center;
+    }
+  }
+  .avatar img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+}

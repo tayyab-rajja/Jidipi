@@ -10,13 +10,12 @@ import {
 import useSWR from "swr";
 import { isJudge, isPartner, isReader, isStaff } from "../../../lib/user/role";
 import { useContext, useEffect, useState } from "react";
-import { makeSelectBasicUser } from "../../../lib/user/selector";
 import React from "react";
 import { UserContext } from "../../../providers/UserProvider";
-import Layout from "../../../components/Layout";
-import SidebarDashboard from "../../../components/Dashboard/Sidebar/SidebarDashboard";
 import SidebarDashboardRight from "../../../components/Dashboard/RightSidebar/SidebarDashboardRight";
 import { DashboardLayout } from "../../../components/Dashboard/Layout/Layout";
+import JudgeSidebar from "../../../components/Dashboard/Judge/Sidebar/Sidebar";
+import styles from "./post.module.scss";
 
 export default function Post(props: any) {
     // get user from context
@@ -74,22 +73,19 @@ export default function Post(props: any) {
     if (error) return <div>Post not found</div>; // TODO redirect to 404 page
     if (!data) return <div>Loading</div>;
 
+    const sidebar = ()=>{
+        return <JudgeSidebar post={post} awards={awards} />
+    }
+
     return <DashboardLayout
-        user={user}
-        post={post}
-        awards={awards}
-        competition={competition}
-        test={true}
-        // pageFolders={props.pageFolders}
-        // sidebarComponent={<SidebarDashboard competition={competition} user={user} post={post} awards={awards}/>}
-    >
-        <div>
-            <div>
-                <SidebarDashboardRight user={user} post={post} awards={awards} competition={competition}/>
-            </div>
-            <div>
+        sidebarComponent={sidebar()}
+
+        test={true} >
+            <div className={`  ${styles['container']} show-flex `}>
+            <div className="flex-grow">
                 <div dangerouslySetInnerHTML={{__html: post.description}}/>
             </div>
+            <SidebarDashboardRight user={user} post={post} awards={awards} competition={competition}/>
         </div>
     </DashboardLayout>;
 

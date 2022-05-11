@@ -1,82 +1,67 @@
 import clsx from "clsx";
 import React, {FC, ReactElement} from "react";
-import SidebarDashboard from "../Sidebar/SidebarDashboard";
-
 import {Header} from "./Header/Header";
-import SidebarDashboardRight from "../RightSidebar/SidebarDashboardRight";
 import TopDropdown from "../TopDropdown";
 import styles from "./Layout.module.css";
+import {Sidebar} from "./Sidebar/Sidebar";
 
 
 interface LayoutProps {
     children: ReactElement | ReactElement[];
     sidebarComponent?: ReactElement;
+    rightSidebarComponent?: ReactElement;
+
     style?: object;
     TopDropdownComponent?: any;
     TopDropdownComponentWrapper?: any,
     TopDropdownButtonName?: string;
 
     competition?: any,
-    menus?: any,
     user?: any,
     post?: any,
     awards?: any,
-    test?:any,
+    test?: any,
 }
 
+/**
+ *
+ * @param children - children of the layout
+ * @param sidebarComponent - optional If not setup, will output the default sidebar component
+ * @param rightSidebarComponent - optional If not setup, will output childrend in content area full width
+ * @param style
+ * @param TopDropdownComponent
+ * @param TopDropdownComponentWrapper
+ * @param competition
+ * @param user
+ * @param post
+ * @param awards
+ * @param test
+ * @constructor
+ */
 export const DashboardLayout: FC<LayoutProps> = ({
                                                      children,
                                                      sidebarComponent,
                                                      style = {},
                                                      TopDropdownComponent,
                                                      TopDropdownComponentWrapper,
-                                                     menus,
+                                                     rightSidebarComponent,
                                                      competition,
-                                                     user, post, awards,test,
+                                                     user, post, awards, test,
                                                  }) => {
-    if(test)
     return (
         <>
-            <Header></Header>
-            <section className="main-inner">
-                <div className="container-fluid">
-                    <div className="row">
 
-                        <SidebarDashboard menus={menus} competition={competition} user={user} post={post}
-                                          awards={awards}/>
-                        <div className="col-lg middle-area pt-20">
-                            <div className="middle-area-grid">
-                                <div>
-                                    <div dangerouslySetInnerHTML={{__html: post.description}}/>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <SidebarDashboardRight competition={competition} user={user} post={post} awards={awards}/>
-
-                    </div>
-                </div>
-            </section>
-
-        </>
-    );
-    return (
-        <>
-            <main className={clsx(styles["Layout-Container"])}>
-                {sidebarComponent}
-                <div
-                    style={style}
-                    className={clsx(
-                        styles["Layout-Content"],
-                        !sidebarComponent && styles["Layout-Content_FullWith"]
-                    )}
-                >
-                    <TopDropdown Child={TopDropdownComponent} Wrapper={TopDropdownComponentWrapper} />
-
+            <Header user={user}/>
+            <div className="wrapper">
+                {/*{sidebarComponent ? <div className="left-navbar"> {sidebarComponent}</div> : <Sidebar/>}*/}
+                {sidebarComponent ? sidebarComponent : <Sidebar/>}
+                <div className="content-block">
+                    {TopDropdownComponent && <TopDropdown Child={TopDropdownComponent} Wrapper={TopDropdownComponentWrapper}/>}
                     {children}
                 </div>
-            </main>
+                {/*{rightSidebarComponent ? <div className="right-navbar"> {rightSidebarComponent}</div> : null}*/}
+
+            </div>
         </>
     );
 };

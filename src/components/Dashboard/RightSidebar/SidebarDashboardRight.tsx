@@ -101,16 +101,18 @@ const SidebarDashboardRight = (props: any) => {
 
     const [days, hours, minutes, seconds] = useCountdown(post.competitionId.winningEndDate);
     useEffect(() => {
-        if(post && post.competitionId){
+        if (post && post.competitionId) {
         }
     }, [post]);
+
     async function reviewDraft() {
         await review(PostStatus.Draft);
     }
 
+    const [ratingErrorMessage, setRatingErrorMessage] = useState("");
     async function reviewPublished() {
         if (!evaluation.rating) {
-            console.log("Please rate the post before publishing.");
+            setRatingErrorMessage("Please Rate before send Review");
             return;
         }
         await review(PostStatus.Published);
@@ -168,19 +170,17 @@ const SidebarDashboardRight = (props: any) => {
         }
         return false;
     };
-    console.log(post);
-    console.log(user);
     if (isJudge(user)) {
         return (
-            <div className="col-lg right-sidebar pt-20">
-                <div className="main-widget-grid">
-                    <div className="main-widget">
-                        <div className="widget-title text-center">
+            <div className={`'col-lg' ${styles['right-sidebar']}   pt-20`}>
+                <div className={styles['main-widget-grid']}>
+                    <div className={styles['main-widget']}>
+                        <div className={`${styles['widget-title']} text-center `}>
                             <h3>DEADLINE</h3>
                         </div>
-                        <div className="main-widget-inner bgf1">
-                            <div className="date-and-time">
-                                <div className="row mx-0">
+                        <div className={`${styles['main-widget-inner']}  ${styles['bgf1']}   `}>
+                            <div className={styles['date-and-time']}>
+                                <div className={`row  mx-0 `}>
                                     <div className="col d-flex justify-content-center align-items-center px-0">
                                         <p>
                                             <sup>from</sup>{moment.tz(post.competitionId.winningStartDate, 'Europe/Berlin').format('YYYY-MM-DD')}
@@ -194,48 +194,46 @@ const SidebarDashboardRight = (props: any) => {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="main-widget-inner timer-counter">
-                        <div className="uk-grid-small d-flex align-items-center justify-content-center uk-grid uk-countdown">
-                            <div className="timer-counter-grid uk-first-column">
-                                <div className="uk-countdown-number uk-countdown-days"><span>{days}
+
+                        <div className={`${styles['main-widget-inner']}  ${styles['timer-counter']}   `}>
+                            <div className="  d-flex align-items-center justify-content-center uk-grid uk-countdown">
+                                <div className={styles['timer-counter-grid']}>
+                                    <div className={styles['uk-countdown-number']}><span>{days}
                                 </span>
+                                    </div>
+                                    <div className={styles['uk-countdown-label']}>Days
+                                    </div>
                                 </div>
-                                <div className="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Days
+                                <div className={styles['uk-countdown-separator']}>&nbsp;</div>
+                                <div className="timer-counter-grid">
+                                    <div className={styles['uk-countdown-number']}><span>{hours}</span>
+                                    </div>
+                                    <div className={styles['uk-countdown-label']}>Hours
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="uk-countdown-separator">&nbsp;</div>
-                            <div className="timer-counter-grid">
-                                <div className="uk-countdown-number uk-countdown-hours"><span>{hours}</span>
+                                <div className={styles['uk-countdown-separator']}>:</div>
+                                <div className="timer-counter-grid">
+                                    <div className={styles['uk-countdown-number']}><span>{minutes}</span>
+                                    </div>
+                                    <div className={styles['uk-countdown-label']}>Minutes
+                                    </div>
                                 </div>
-                                <div className="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Hours
-                                </div>
-                            </div>
-                            <div className="uk-countdown-separator">:</div>
-                            <div className="timer-counter-grid">
-                                <div className="uk-countdown-number uk-countdown-minutes"><span>{minutes}</span>
-                                </div>
-                                <div
-                                    className="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Minutes
-                                </div>
-                            </div>
-                            <div className="uk-countdown-separator">:</div>
-                            <div className="timer-counter-grid">
-                                <div className="uk-countdown-number uk-countdown-seconds"><span>{seconds}</span>
-                                </div>
-                                <div
-                                    className="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Seconds
+                                <div className={styles['uk-countdown-separator']}>:</div>
+                                <div className="timer-counter-grid">
+                                    <div className={styles['uk-countdown-number']}><span>{seconds}</span>
+                                    </div>
+                                    <div className={styles['uk-countdown-label']}>Seconds
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div className="main-widget">
-                        <div className="widget-title text-center">
+                    <div className={styles['main-widget']}>
+                        <div className={`${styles['widget-title']} text-center `}>
                             <h3>REVIEW</h3>
                         </div>
-                        <div className="main-widget-inner bgf1">
-                            <div className="date-and-time">
+                        <div className={`${styles['main-widget-inner']}  ${styles['bgf1']}   `}>
+                            <div className={styles['date-and-time']}>
                                 <div className="row mx-0">
                                     <div className="col d-flex justify-content-center align-items-center px-0">
                                         <p>{moment(post.ratingAt).format('YYYY-MM-DD')}</p>
@@ -247,28 +245,29 @@ const SidebarDashboardRight = (props: any) => {
                             </div>
                         </div>
 
-                        <div className="main-widget-inner bgf1">
-                            <div className="steve-job">
+                        <div className={`${styles['main-widget-inner']}  ${styles['bgf1']}   `}>
+                            <div className={`${styles['steve-job']}   `}>
                                 <div className="row">
                                     <div className="col-12 d-flex align-items-center">
-                                        <div className="steve-job-img">
+                                        <div className="col d-flex justify-content-center align-items-center px-0">
+                                        <div className={`${styles['steve-job-img']}   `}>
                                             {/*<img src="img/avatar-m-18.png">*/}
                                         </div>
                                         <p>2ds-29d-000</p>
+                                        </div>
+                                        <div className="col d-flex justify-content-center align-items-center px-0">
                                         <p>{(user.firstName + ' ' + user.lastName).trim()}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div className="main-widget-inner widget-text">
-                            <div className="widget-textarea-main widget-border">
-                                    <textarea
-                                        placeholder="Please add comment if you like this project."
-
+                        <div className={`${styles['main-widget-inner']}   ${styles['widget-text']}   `}>
+                            <div className={`${styles['widget-textarea-main']}  ${styles['widget-border']} `}>
+                                    <textarea      placeholder="Please add comment if you like this project."
                                         value={evaluation.comment}
                                         onChange={(e) => {
-                                            if (e.target.value)
+
                                                 SetEvaluation({
                                                     ...evaluation,
                                                     comment: e.target.value,
@@ -277,67 +276,41 @@ const SidebarDashboardRight = (props: any) => {
                                     </textarea>
                             </div>
                         </div>
-                        {/*{Array.from(Array(10).keys()).map((k) => (*/}
-                        {/*    <React.Fragment key={k}>*/}
-                        {/*        <button*/}
-                        {/*            onClick={() => {*/}
-                        {/*                rating(k);*/}
-                        {/*            }}*/}
-                        {/*            className={`nav-link  ${*/}
-                        {/*                evaluation.rating === k ? "active" : ""*/}
-                        {/*            }`}*/}
-                        {/*        >*/}
-                        {/*            {k}*/}
-                        {/*            {evaluation.rating === k ? "(*)" : ""}*/}
-                        {/*        </button>*/}
-                        {/*    </React.Fragment>*/}
-                        {/*))}*/}
-                        <div className="main-widget-inner">
-                            {/*    <div className="rate">*/}
-                            {/*        <input className="rating" type="hidden" value="" />*/}
-                            {/*            <div className="rate_err_msg">Please Rate before send Review</div>*/}
-                            {/*    </div>*/}
-                            <div className="rate">
-                                <div className="simple-rating star-rating">
+                        <div className={`${styles['main-widget-inner']}    `}>
+                            <div className={`${styles['rate']}    `}>
+                                <div className={`${styles['simple-rating']}  ${styles['star-rating']}    `}>
+                                    {/*<div> */}
                                     {Array.from(Array(10).keys()).map((i) => {
-                                        return     <i key={i}
-                                                                  onClick={() => {
-                                                                      rating(i+1);
-                                                                  }}
-                                                      className={`fa-star fas ${evaluation.rating>=(i+1)?'rated':''}`} ></i>;
+                                        return <div key={i}
+                                                  onClick={() => {
+                                                      rating(i + 1);
+                                                  }}
+                                                  className={`${styles['icon-star']}  ${evaluation.rating >= (i + 1) ? styles['active-star'] :  ''}`}></div>;
                                     })}
-                                    {/*<i className="fa-star fas"*/}
-                                    {/*                                          data-rating="1"></i>*/}
-                                    {/*<i*/}
-                                    {/*className="fa-star fas" data-rating="2"></i>*/}
-                                    {/*<i className="fa-star fas"*/}
-                                    {/*                                               data-rating="3"></i><i*/}
-                                    {/*className="fa-star fas" data-rating="4"></i><i className="fa-star fas"*/}
-                                    {/*                                               data-rating="5"></i><i*/}
-                                    {/*className="fa-star fas" data-rating="6"></i><i className="fa-star far"*/}
-                                    {/*                                               data-rating="7"></i><i*/}
-                                    {/*className="fa-star far" data-rating="8"></i><i className="far fa-star"*/}
-                                    {/*                                               data-rating="9"></i><i*/}
-                                    {/*className="far fa-star" data-rating="10"></i>*/}
                                 </div>
+                                <div onClick={()=>{
+                                    setRatingErrorMessage("");
+                                    console.log('on click' ,ratingErrorMessage,ratingErrorMessage.length);
+                                }} className={`${styles['rate_err_msg']}  ${ratingErrorMessage.length===0?styles['display-none']:''}    `}>Please Rate before send Review</div>
 
 
                             </div>
                         </div>
 
-                        <div className="main-widget-inner">
+                        <div className={`${styles['main-widget-inner']}    `}>
                             <button onClick={() => {
                                 reviewDraft();
                             }}
-                                    className="save-review save-review-draft d-flex justify-content-center align-items-center">
+                                className={`${styles['save-review']}  ${styles['save-review-draft']}   d-flex justify-content-center align-items-center  `}>
                                 <Image src={IconSave}/><span>Save Review as Draft</span>
                             </button>
                         </div>
-                        <div className="main-widget-inner">
+                        <div className={`${styles['main-widget-inner']}    `}>
                             <button onClick={() => {
                                 reviewPublished();
                             }}
-                                    className="save-review save-send-review d-flex justify-content-center align-items-center">
+                                    className={`${styles['save-review']}  ${styles['save-send-review']} ${evaluation   && evaluation.comment ?styles['commented']:''}    d-flex justify-content-center align-items-center  `}>
+
                                 <Image src={IconPublished}/><span>Send Review to Jidipi</span>
                             </button>
                         </div>

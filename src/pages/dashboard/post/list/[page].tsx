@@ -1,12 +1,10 @@
 import styles from "../post.module.scss";
-import { GetServerSideProps, PreviewData } from "next";
+import { GetServerSideProps } from "next";
 import { GET } from "../../../../lib/common/api";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
-import SidebarDashboard from "../../../../components/Dashboard/Sidebar/SidebarDashboard";
 import { UserContext } from "../../../../providers/UserProvider";
-import { generateSidebarMenus } from "../../../../lib/common/menu";
 import { DashboardLayout } from "../../../../components/Dashboard/Layout/Layout";
 import Filters from "src/components/Dashboard/Judge/Architectures/Filters";
 import Menu from "src/components/Dashboard/Menu";
@@ -49,12 +47,13 @@ export default function Posts(props: IProps) {
     const router = useRouter();
     let awards: award[] = [];
 
-    // MENU of the sidebar
-    const menus = generateSidebarMenus({
-        user,
-        competitions: props.competitions,
-    });
-
+    // // MENU of the sidebar
+    // const menus = generateSidebarMenus({
+    //     user,
+    //     competitions: props.competitions,
+    // });
+    //
+    // console.log('menus', menus);
 
     if (props.competitions) {
         const competition = props.competitions.find(
@@ -65,19 +64,19 @@ export default function Posts(props: IProps) {
         )?.awards as award[];
     }
 
-    useEffect(() => {
-        if (isJudge(user) && !router.query.competitionId && menus?.length) {
-            let menu = menus[0];
-            if (menu.links.length) {
-                let link = menu.links[1];
-                if (link) {
-                    router.replace({
-                        query: { ...router.query, competitionId: link.title }
-                    })
-                }
-            }
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (isJudge(user) && !router.query.competitionId && menus?.length) {
+    //         let menu = menus[0];
+    //         if (menu.links.length) {
+    //             let link = menu.links[1];
+    //             if (link) {
+    //                 router.replace({
+    //                     query: { ...router.query, competitionId: link.title }
+    //                 })
+    //             }
+    //         }
+    //     }
+    // }, []);
 
     const [filterParameters, setFilterParameters] = useState(
         props.filters.postFilters
@@ -155,7 +154,6 @@ export default function Posts(props: IProps) {
 
     return (
         <DashboardLayout
-            sidebarComponent={<SidebarDashboard menus={menus} />}
             TopDropdownComponent={
                 <Process
                     statuses={data?.statuses}
