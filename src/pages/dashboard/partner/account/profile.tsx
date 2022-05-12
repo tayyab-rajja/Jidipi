@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { DashboardLayout } from "src/components/Dashboard/Layout/Layout";
 import SidebarDashboard from "src/components/Dashboard/Sidebar/SidebarDashboard";
 import { generateSidebarMenus } from "src/lib/common/menu";
@@ -7,6 +7,7 @@ import TopMenuContent from "src/components/Dashboard/Partner/Account/Profile";
 import TopMenuContentWrapper from "src/components/Dashboard/Partner/Account/Profile/Wrapper";
 import Menu from "src/components/Dashboard/Partner/Account/Menu";
 import Form from "src/components/Dashboard/Partner/Account/Form";
+import { CompanyAdd } from "types/companyInfoTypes";
 
 interface IProps {}
 
@@ -16,6 +17,47 @@ export default function Profile({}: IProps) {
     const menus = generateSidebarMenus({
         user,
     });
+
+    const [company, setCompany] = useState<CompanyAdd>({
+        brandName: "",
+        companyName: "",
+        email: "",
+        description: "",
+        telephone: "",
+        fax: "",
+        label: "",
+        group: [],
+        avatar: "",
+        profileUrl: "",
+        partnerUrl: "",
+        website: "",
+        country: "",
+        address: "",
+        qrCode: "",
+        qrLink: "",
+        googleMapLink: "",
+        facebookLink: "",
+        twitterLink: "",
+        instagramLink: "",
+        pininterestLink: "",
+        youtubeLink: "",
+        vimeoLink: "",
+        linkedLink: "",
+        behancLink: "",
+        status: "Draft",
+        publishedDate: "",
+        scheduledDate: "",
+        isActive: true,
+        _id: undefined,
+        logoId: null,
+    });
+
+    const handleChange = (prop: string, value: string) => {
+        setCompany((company: any) => {
+            company[prop] = value;
+            return { ...company };
+        });
+    };
     return (
         <DashboardLayout
             sidebarComponent={<SidebarDashboard menus={menus} />}
@@ -24,7 +66,7 @@ export default function Profile({}: IProps) {
             TopDropdownButtonName={"PROFILE"}
         >
             <Menu />
-            <Form />
+            <Form handleChange={handleChange} company={company} />
         </DashboardLayout>
     );
 }
