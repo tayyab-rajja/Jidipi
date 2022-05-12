@@ -6,6 +6,7 @@ import { UserContext } from "src/providers/UserProvider";
 import TopMenuContent from "src/components/Dashboard/Partner/Account/Profile";
 import TopMenuContentWrapper from "src/components/Dashboard/Partner/Account/Profile/Wrapper";
 import Menu from "src/components/Dashboard/Partner/Account/Menu";
+import Form from "src/components/Dashboard/Partner/Account/Form";
 
 interface IProps {}
 
@@ -23,7 +24,7 @@ export default function Profile({}: IProps) {
             TopDropdownButtonName={"PROFILE"}
         >
             <Menu />
-            <div>hello</div>
+            <Form />
         </DashboardLayout>
     );
 }

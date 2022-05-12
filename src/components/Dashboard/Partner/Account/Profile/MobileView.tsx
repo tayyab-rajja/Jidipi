@@ -1,16 +1,16 @@
 import styles from "./index.module.scss";
 import clsx from "clsx";
-import PartnerLogo from "public/images/top-menu/partner-logo.svg";
-import QrCode from "public/images/top-menu/qr-code.svg";
-import FacebookIcon from "public/images/top-menu/social/facebook.svg";
-import InstagramIcon from "public/images/top-menu/social/instagram.svg";
-import LinkedInIcon from "public/images/top-menu/social/linkedin.svg";
-import PinterestIcon from "public/images/top-menu/social/pinterest.svg";
-import ShareIcon from "public/images/top-menu/social/share.svg";
-import StarIcon from "public/images/top-menu/social/star.svg";
-import TwitterIcon from "public/images/top-menu/social/twitter.svg";
-import VimeoIcon from "public/images/top-menu/social/vimeo.svg";
-import YoutubeIcon from "public/images/top-menu/social/youtube.svg";
+import PartnerLogo from "public/images/profile/partner-logo.svg";
+import QrCode from "public/images/profile/qr-code.svg";
+import FacebookIcon from "public/images/profile/social/facebook.svg";
+import InstagramIcon from "public/images/profile/social/instagram.svg";
+import LinkedInIcon from "public/images/profile/social/linkedin.svg";
+import PinterestIcon from "public/images/profile/social/pinterest.svg";
+import ShareIcon from "public/images/profile/social/share.svg";
+import StarIcon from "public/images/profile/social/star.svg";
+import TwitterIcon from "public/images/profile/social/twitter.svg";
+import VimeoIcon from "public/images/profile/social/vimeo.svg";
+import YoutubeIcon from "public/images/profile/social/youtube.svg";
 import Image from "next/image";
 
 export default () => {
