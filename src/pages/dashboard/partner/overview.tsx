@@ -1,3 +1,8 @@
+import DashboardLayout from "../../../components/Dashboard/Layout";
+
 export default function Overview(props: any) {
-    return <div>Overview</div>
+    return <DashboardLayout >
+        <div>Overview</div>
+
+    </DashboardLayout>
 }

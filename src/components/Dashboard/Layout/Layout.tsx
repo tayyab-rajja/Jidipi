@@ -26,14 +26,15 @@ interface LayoutProps {
 }
 
 /**
- *
+ *  DashboardLayout For Dashboard
  * @param children - children of the layout
  * @param sidebarComponent - optional If not setup, will output the default sidebar component
  * @param rightSidebarComponent - optional If not setup, will output childrend in content area full width
- * @param tab - optional, If setup which fixed above the table
- * @param style
+ * @param tab - optional, For example, the post list table has a page folder tabs like "architects","interiors"
+ * @param paddingTop - optional, if true, will add padding top 20px to the layout, for example, post detail page need it, post list page need no padding.
  * @param TopDropdownComponent
  * @param TopDropdownComponentWrapper
+ * @param style
  * @param competition
  * @param user
  * @param post

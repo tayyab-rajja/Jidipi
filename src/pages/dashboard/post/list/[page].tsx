@@ -185,7 +185,7 @@ export default function Posts(props: IProps) {
                                 sort={sort}
                             />
                             <div className={styles["wrapper"]}>
-                                <div className="pb-5">
+                                <div className="pb-3">
                                     <PageSize
                                         options={[20, 50]}
                                         onPageSizeChange={onPageSizeChange}
