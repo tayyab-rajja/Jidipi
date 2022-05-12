@@ -1,0 +1,11 @@
+// same as .left-navbar
+.navbar {
+  color: #888888;
+  width: 300px;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x:hidden;
+}

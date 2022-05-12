@@ -12,9 +12,9 @@ import { isJudge, isPartner, isReader, isStaff } from "../../../lib/user/role";
 import { useContext, useEffect, useState } from "react";
 import React from "react";
 import { UserContext } from "../../../providers/UserProvider";
-import SidebarDashboardRight from "../../../components/Dashboard/RightSidebar/SidebarDashboardRight";
 import { DashboardLayout } from "../../../components/Dashboard/Layout/Layout";
-import JudgeSidebar from "../../../components/Dashboard/Judge/Sidebar/Sidebar";
+import PostLeftSidebar from "../../../components/Dashboard/Post/Sidebar/Sidebar";
+import PostRightSidebar from "../../../components/Dashboard/Post/Sidebar/RightSidebar";
 import styles from "./post.module.scss";
 
 export default function Post(props: any) {
@@ -73,20 +73,22 @@ export default function Post(props: any) {
     if (error) return <div>Post not found</div>; // TODO redirect to 404 page
     if (!data) return <div>Loading</div>;
 
-    const sidebar = ()=>{
-        return <JudgeSidebar post={post} awards={awards} />
-    }
+
 
     return <DashboardLayout
-        sidebarComponent={sidebar()}
+        sidebarComponent={<PostLeftSidebar post={post} awards={awards} />}
+        rightSidebarComponent={<PostRightSidebar competition={competition} post={post} awards={awards}   />
+    }
 
+        paddingTop={true}
         test={true} >
             <div className={`  ${styles['container']} show-flex `}>
-            <div className="flex-grow">
-                <div dangerouslySetInnerHTML={{__html: post.description}}/>
+            <div  className={`  ${styles['content-area']}  flex-grow `}  >
+                <div  dangerouslySetInnerHTML={{__html: post.description}}/>
             </div>
-            <SidebarDashboardRight user={user} post={post} awards={awards} competition={competition}/>
+                {/*<PostRightSidebar competition={competition} post={post} awards={awards} />*/}
         </div>
+
     </DashboardLayout>;
 
 };

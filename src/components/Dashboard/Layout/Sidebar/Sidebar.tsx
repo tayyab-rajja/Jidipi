@@ -11,21 +11,19 @@ import {isJudge, isPartner} from "../../../../lib/user/role";
 import {CDN_URL} from "../../../../lib/common/env";
 
 interface SidebarProps {
-
-    competition?: any,
-    menus?: any,
-    user?: any,
-    post?: any,
-    awards?: any,
-    test?: any,
+    children?: ReactElement | ReactElement[];
+    right?:boolean;
 }
 
 
-export const Sidebar: FC<SidebarProps> = () => {
+export const Sidebar: FC<SidebarProps> = ({
+                                              children,
+    right
+
+                                          }) => {
     const router = useRouter();
     const userContext: any = useContext(UserContext);
     const user = userContext.user;
-    // let menus: any = generateSidebarMenus({user});
     const [menus, setMenus] = useState<MenuProp[]>(generateSidebarMenus({user}));
     useEffect(() => {
         if (isJudge(user) && !router.query.competitionId && menus?.length) {
@@ -78,7 +76,13 @@ export const Sidebar: FC<SidebarProps> = () => {
         setMenus(ms);
 
     }, [router])
-
+    if(children) {
+        return (<>
+            <div className={styles['left-navbar']}>
+                {children}
+            </div>
+        </>)
+    }
     return (<>
         <div className={styles['left-navbar']}>
             <div className={styles["profile"]}>

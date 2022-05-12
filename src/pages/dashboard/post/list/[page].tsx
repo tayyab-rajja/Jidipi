@@ -163,10 +163,11 @@ export default function Posts(props: IProps) {
             }
             TopDropdownComponentWrapper={ProcessWrapper}
             TopDropdownButtonName={"PROCESS"}
+            tab={        <Menu menuFolders={props.menuFolders} user={user} />}
         >
-            <div>
-                <Menu menuFolders={props.menuFolders} user={user} />
-                <div className={styles["content-container"]}>
+            <div className="bg-white">
+
+                <div>
                     <Filters
                         categories={props.categories}
                         handleChange={handleChange}
