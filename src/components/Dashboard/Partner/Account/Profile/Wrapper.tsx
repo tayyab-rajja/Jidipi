@@ -1,4 +1,4 @@
-import styles from "./index.module.scss";
+import styles from "./Profile.module.scss";
 import clsx from "clsx";
 
 function Wrapper({ isOpen, Child }: any) {

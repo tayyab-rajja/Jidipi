@@ -1,3 +1,10 @@
+@media screen and (max-width: 1199px) {
+    .profile-form-expanded .input-container {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+}
+
 .mr-4 {
     margin-right: 16px;
 }
@@ -31,7 +38,7 @@
 
 .tab-content {
     background-color: #fff;
-    #architectures {
+    .profile-tab {
         padding-bottom: 50px;
     }
 }

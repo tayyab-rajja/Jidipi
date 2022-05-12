@@ -1,4 +1,4 @@
-import styles from "./index.module.scss";
+import styles from "./Profile.module.scss";
 import clsx from "clsx";
 import PartnerLogo from "public/images/profile/partner-logo.svg";
 import QrCode from "public/images/profile/qr-code.svg";

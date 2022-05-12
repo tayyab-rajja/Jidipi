@@ -29,11 +29,10 @@ export default function Form() {
                     "show",
                     "active",
                     "tab-pane",
-                    styles["architectures-tab"]
+                    styles["profile-tab"]
                 )}
-                id="architectures"
                 role="tabpanel"
-                aria-labelledby="architectures-tab"
+                aria-labelledby="profile-tab"
             >
                 <div className={styles["profile-form-expanded"]}>
                     <div
@@ -1078,22 +1077,6 @@ export default function Form() {
                         </div>
                     </div>
                 </div>
-            </div>
-            <div
-                className={clsx(styles["tab-pane"], "fade")}
-                id="interiors"
-                role="tabpanel"
-                aria-labelledby="interiors-tab"
-            >
-                user
-            </div>
-            <div
-                className={clsx(styles["tab-pane"], "fade")}
-                id="construction"
-                role="tabpanel"
-                aria-labelledby="construction-tab"
-            >
-                membership
             </div>
         </div>
     );

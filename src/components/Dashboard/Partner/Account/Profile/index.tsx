@@ -1,4 +1,4 @@
-import styles from "./index.module.scss";
+import styles from "./Profile.module.scss";
 import clsx from "clsx";
 import DesktopView from "./DesktopView";
 import TabletView from "./TabletView";
