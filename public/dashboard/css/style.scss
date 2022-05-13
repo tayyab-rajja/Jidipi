@@ -1,0 +1,229 @@
+@import "./fonts.scss";
+@import "./bootstrap/bootstrap.scss";
+
+:root {
+  --bs-black: #000000;
+  --bs-bg37: #373737;
+  --bs-bg88: #888888;
+  --bs-bgd6: #d6d6d6;
+  --bs-bgf1: #f1f1f1;
+  --bs-yellow: #DEB851;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: #ffffff;
+  color: #37373799;
+  font-family: "Poppins";
+  font-size: 11px;
+  font-weight: 400;
+
+  &::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    background-color: #fff;
+  }
+}
+
+@media (max-width: 1320px) {
+  .info-section {
+    margin-top: 20px !important;
+  }
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: none;
+  border-radius: 6px;
+  background-color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  //width: 8px;
+  //height: 4px;
+  //background-color: #fff;
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  -webkit-box-shadow: none;
+  background-color: #d6d6d6;
+}
+
+img {
+  max-width: 100%;
+}
+
+.hide {
+  display: none !important;
+}
+
+.show-flex {
+  display: flex !important;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+.header {
+  background-color: #fff;
+  height: 64px;
+
+  nav {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    height: 100%;
+
+    .logo {
+      width: 300px;
+      font-family: "GameOver";
+      font-size: 46px;
+      color: #373737;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tools {
+      padding: 0 30px;
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  flex-grow: 1;
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-start;
+
+  .content-block {
+    padding: 0 20px;
+    background-color: #d6d6d6;
+    background-image: url("https://upload.jidipi.com/dashboard/images/background.png");
+    background-repeat: repeat;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    &.pt-20 {
+      padding-top: 20px;
+    }
+
+    // height: calc(100vh - 64px);
+    ////overflow: scroll;
+    //overflow: hidden;
+
+    .content-wrapper {
+      height: 100%;
+      flex-grow: 1;
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+
+    .process-section {
+      .processing {
+        height: 0px;
+        transition: 0.3s;
+        background-color: #ffffff;
+        display: flex;
+        justify-content: flex-start;
+        overflow: auto;
+
+        &.open {
+          height: 300px;
+        }
+
+        .charts {
+          padding-top: 81px;
+          height: 252px;
+
+          .d-flex {
+            align-items: center;
+            margin-bottom: 12px;
+
+            .total {
+              padding-left: 14px;
+              color: #373737;
+            }
+          }
+
+          .chart-title {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding-right: 21px;
+            width: 186px;
+            color: #373737;
+          }
+
+          .line {
+            display: flex;
+            height: 32px;
+            border-left: 1px solid #d6d6d6;
+            border-top: 1px solid #d6d6d6;
+            border-bottom: 1px solid #d6d6d6;
+
+            .part {
+              height: 100%;
+              //  width: 200px;
+              border-right: 1px solid #d6d6d6;
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
+              color: #373737;
+              padding-left: 14px;
+
+              &.dark-gray {
+                background-color: #E3E3E3;
+              }
+
+              &.light-gray {
+                background-color: #F1F1F1;
+              }
+            }
+          }
+        }
+      }
+
+      .tools {
+        position: relative;
+
+        button {
+          width: 240px;
+          background-color: #ffffff;
+          border: none;
+          border-radius: 0 0 5px 5px;
+          font-size: 11px;
+          text-transform: uppercase;
+          color: #373737;
+          padding: 14px 20px;
+        }
+      }
+    }
+
+  }
+
+  .right-navbar {
+    color: #888888;
+    width: 300px;
+  }
+}

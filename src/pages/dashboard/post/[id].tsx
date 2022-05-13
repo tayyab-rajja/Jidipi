@@ -10,13 +10,12 @@ import {
 import useSWR from "swr";
 import { isJudge, isPartner, isReader, isStaff } from "../../../lib/user/role";
 import { useContext, useEffect, useState } from "react";
-import { makeSelectBasicUser } from "../../../lib/user/selector";
 import React from "react";
 import { UserContext } from "../../../providers/UserProvider";
-import Layout from "../../../components/Layout";
-import SidebarDashboard from "../../../components/Dashboard/Sidebar/SidebarDashboard";
-import SidebarDashboardRight from "../../../components/Dashboard/RightSidebar/SidebarDashboardRight";
 import { DashboardLayout } from "../../../components/Dashboard/Layout/Layout";
+import PostLeftSidebar from "../../../components/Dashboard/Post/Sidebar/Sidebar";
+import PostRightSidebar from "../../../components/Dashboard/Post/Sidebar/RightSidebar";
+import styles from "./post.module.scss";
 
 export default function Post(props: any) {
     // get user from context
@@ -73,19 +72,24 @@ export default function Post(props: any) {
 
     if (error) return <div>Post not found</div>; // TODO redirect to 404 page
     if (!data) return <div>Loading</div>;
-    return             <SidebarDashboardRight user={user} post={post} awards={awards} competition={competition}/>;
-    // return <DashboardLayout
-    //     // pageFolders={props.pageFolders}
-    //     sidebarComponent={<SidebarDashboard competition={competition} user={user} post={post} awards={awards}/>}>
-    //     <div>
-    //         <div>
-    //             <SidebarDashboardRight user={user} post={post} awards={awards} competition={competition}/>
-    //         </div>
-    //         <div>
-    //             <div dangerouslySetInnerHTML={{__html: post.description}}/>
-    //         </div>
-    //     </div>
-    // </DashboardLayout>;
+
+
+
+    return <DashboardLayout
+        sidebarComponent={<PostLeftSidebar post={post} awards={awards} />}
+        rightSidebarComponent={<PostRightSidebar competition={competition} post={post} awards={awards}   />
+    }
+
+        paddingTop={true}
+        test={true} >
+            <div className={`  ${styles['container']} show-flex `}>
+            <div  className={`  ${styles['content-area']}  flex-grow `}  >
+                <div  dangerouslySetInnerHTML={{__html: post.description}}/>
+            </div>
+                {/*<PostRightSidebar competition={competition} post={post} awards={awards} />*/}
+        </div>
+
+    </DashboardLayout>;
 
 };
 

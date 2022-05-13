@@ -1,1 +1,0 @@
-merge sidebarWithAvatar once the team finished their development.
