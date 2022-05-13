@@ -20,8 +20,6 @@ export default function InputContainer({
 }: IProps) {
     const [isActive, setIsActive] = useState(false);
     const inputChange = (event: any) => {
-        console.log(prop, "prop");
-        console.log(event.target.value, "value");
         handleChange(prop, event.target.value);
         setIsActive(true);
     };
@@ -39,7 +37,7 @@ export default function InputContainer({
                 )}
                 value={value}
                 onChange={inputChange}
-                placeholder={ placeholder }
+                placeholder={placeholder}
             />
             {isActive && (
                 <button

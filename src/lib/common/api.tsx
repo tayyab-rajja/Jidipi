@@ -4,18 +4,14 @@ import axios from "axios";
 import {IFetchPostsResponse} from "../../api/fetchPosts";
 import {Cookies} from "react-cookie";
 import {GlobalUser} from "../../providers/UserProvider";
+import { NextApiRequestCookies } from "next/dist/server/api-utils";
 
 export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? '';
 const cookies = new Cookies();
-function generateHeader(){
+function generateHeader(requestCookies?: NextApiRequestCookies){
     const headers: any = {'Content-Type': 'application/json'}
-    if (GlobalUser.token) {
-        headers['Authorization'] = `Bearer ${GlobalUser.token}`
-    } else {
-        //TODO should use the middleware to check if the user is logged in
-        const token = cookies.get('token');
-        if (token) headers['Authorization'] = `Bearer ${token}`
-    }
+    const token = cookies.get('token') || requestCookies?.token;
+    if (token) headers['Authorization'] = `Bearer ${token}`
     return headers;
 }
 //
@@ -52,9 +48,9 @@ export async function PUT(path: string, variables: any = {}): Promise<any> {
 }
 
 // export function* GET(path: string, variables: any = {}) {
-export async function GET(path: string): Promise<any> {
+export async function GET(path: string, cookies?: NextApiRequestCookies): Promise<any> {
     try {
-        const headers = generateHeader();
+        const headers = generateHeader(cookies);
         const res: Response = await fetch(API_URL + path, {
             method: 'GET',
             headers,

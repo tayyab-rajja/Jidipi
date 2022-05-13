@@ -8,6 +8,8 @@ import TopMenuContentWrapper from "src/components/Dashboard/Partner/Account/Prof
 import Menu from "src/components/Dashboard/Partner/Account/Menu";
 import Form from "src/components/Dashboard/Partner/Account/Form";
 import { CompanyAdd } from "types/companyInfoTypes";
+import { GET } from "src/lib/common/api";
+import { GetServerSideProps } from "next";
 
 interface IProps {}
 
@@ -70,3 +72,15 @@ export default function Profile({}: IProps) {
         </DashboardLayout>
     );
 }
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+    const props: any = {};
+    try {
+        props.countries = await GET("/company/list/countries", req.cookies)
+    } catch (error) {
+        console.log(error);
+    }
+    return {
+        props,
+    };
+};
