@@ -1,0 +1,23 @@
+.nav-tabs .nav-item {
+    .nav-link {
+        min-width: 120px;
+        height: 44px;
+        border: 1px solid #d6d6d6;
+        background-color: #f1f1f1;
+        border-radius: 0;
+        color: #373737;
+        display: block;
+        padding: 0.5rem 1rem;
+        text-decoration: none;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+            border-color 0.15s ease-in-out;
+        border-bottom: 0 !important;
+        &.active {
+            border: 1px solid #d6d6d6;
+            background-color: #ffffff;
+        }
+    }
+    &:not(:last-child) .nav-link {
+        border-right: 0;
+    }
+}
