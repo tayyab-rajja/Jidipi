@@ -26,7 +26,7 @@ type NextPageWithLayout = NextPage & {
 };
 
 type AppPropsWithLayout = AppProps & {
-    Component: NextPageWithLayout;
+    Component: any;
 };
 
 // @ts-ignore
@@ -52,7 +52,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   }, []);
 
   // Use the layout defined at the page level, if available
-  const getLayout = Component.getLayout ?? ((page) => page);
+  const getLayout = Component.getLayout ?? ((page: any) => page);
 
   return (
       <AuthProvider>
