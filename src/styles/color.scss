@@ -1,0 +1,130 @@
+/*btn color*/
+$btn-black: #000;
+$btn-eclipse: #373737;
+$btn-blue: #79bffc;
+$btn-red: #ff8982;
+$btn-yellow: #ffbf66;
+$btn-light-green: #68eba9;
+$btn-dark-light-gray: #c3c6cc;
+$btn-light-gray: #e3e3e3;
+$btn-color-white: #fff;
+$btn-gray3: #d6d6d6;
+$btn-gray4: #f1f1f1;
+$btn-blue-light: #aeafff;
+$btn-light-downy: #91f3ef;
+
+/*bg-color*/
+$bg-black: #000;
+$bg-eclipse: #373737;
+$bg-blue: #79bffc;
+$bg-red: #ff8982;
+$bg-yellow: #ffbf66;
+$bg-light-green: #68eba9;
+$bg-dark-light-gray: #c3c6cc;
+$bg-light-gray: #e3e3e3;
+
+$bg-color-white: #fff;
+$bg-gray3: #d6d6d6;
+$bg-gray4: #f1f1f1;
+$bg-gray5: #9a9a9a;
+$bg-dark-yellow: #deb851;
+$bg-red: #ff0000;
+
+/*font-color*/
+$text-gray1: #373737;
+$text-gray2: #818386;
+$text-gray3: #d6d6d6;
+$text-gray4: #abafb3;
+$text-white: #fff;
+$text-slate-light: #787aff;
+$text-yellow-light: #ff9500;
+$text-blue-light: #2094fa;
+$text-blue-light2: #787aff99;
+$text-red-light: #ff3b30;
+$text-red: #fd726a;
+$text-green-light: #04de71;
+$text-downy-light: #00f5ea;
+$text-gray-black-light: #888888;
+
+/****/
+/*btn color*/
+$color-black: #000;
+$color-eclipse: #373737;
+$color-dark-light-gray: #c3c6cc;
+$color-light-gray: #e3e3e3;
+$color-lightdark-gray: #9ba0aa99;
+$color-gray4: #f1f1f1;
+$color-gray2: #818386;
+$color-gray3: #d6d6d6;
+$color-gray5: #888888;
+$color-gray6: #b5bac0;
+$color-gray7: #eeeeee;
+$color-blue: #79bffc;
+$color-blue-light: #aeafff;
+$color-red: #ff8982;
+$color-yellow: #ffbf66;
+$color-yellow1: #deb851;
+$color-light-green: #68eba9;
+$color-light-downy: #91f3ef;
+$color-white: #fff;
+
+/*color-class*/
+.bg-black {
+    background-color: $color-black;
+}
+.bg-white {
+    background-color: $color-white;
+}
+.bg-eclipse {
+    background-color: $color-eclipse;
+}
+.bg-dark-light-gray {
+    background-color: $color-dark-light-gray;
+}
+.bg-light-gray {
+    background-color: $color-light-gray;
+}
+.bg-lightdark-gray {
+    background-color: $color-lightdark-gray;
+}
+.bg-blue-light2 {
+    background-color: $text-blue-light2;
+}
+.bg-red-light2 {
+    background-color: $text-red-light;
+}
+.bg-yellow-light2 {
+    background-color: $text-yellow-light;
+}
+.bg-green-light2 {
+    background-color: $text-green-light;
+}
+.bg-gray4 {
+    background-color: $color-gray4;
+}
+.bg-gray2 {
+    background-color: $color-gray2;
+}
+.bg-gray3 {
+    background-color: $color-gray3;
+}
+
+.bg-gold {
+    background: $color-yellow1 !important;
+    color: $color-white !important;
+}
+.text-gold {
+    color: $btn-yellow;
+}
+.text-white {
+    color: $btn-color-white;
+}
+.text-gray-3 {
+    color: $color-gray3;
+}
+.text-gray-5 {
+    color: $color-gray5 !important;
+}
+.bg-red {
+    background-color: $bg-red !important;
+}

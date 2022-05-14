@@ -1,6 +1,5 @@
-import { useContext, useState } from "react";
+import { useEffect, useState } from "react";
 import { DashboardLayout } from "src/components/Dashboard/Layout/Layout";
-import { UserContext } from "src/providers/UserProvider";
 import TopMenuContent from "src/components/Dashboard/Partner/Account/Profile";
 import TopMenuContentWrapper from "src/components/Dashboard/Partner/Account/Profile/Wrapper";
 import Menu from "src/components/Dashboard/Partner/Account/Menu";
@@ -12,6 +11,7 @@ import { GetServerSideProps } from "next";
 interface IProps {}
 
 export default function Profile({}: IProps) {
+    
     const [company, setCompany] = useState<CompanyAdd>({
         brandName: "",
         companyName: "",
@@ -57,14 +57,15 @@ export default function Profile({}: IProps) {
             TopDropdownComponent={<TopMenuContent />}
             TopDropdownComponentWrapper={TopMenuContentWrapper}
             TopDropdownButtonName={"PROFILE"}
+            tab={<Menu />}
         >
-            <Menu />
-            <Form handleChange={handleChange} company={company} />
+
+            <Form handleChange={ handleChange} company={company} />
         </DashboardLayout>
     );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     const props: any = {};
     try {
         props.countries = await GET("/company/list/countries", req.cookies);
