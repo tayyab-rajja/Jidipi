@@ -1,16 +1,7 @@
 import styles from "./Form.module.scss";
 import clsx from "clsx";
 import Arrow from "public/images/profile/icons/arrow.svg";
-import FacebookIcon from "public/images/profile/social/facebook.svg";
-import InstagramIcon from "public/images/profile/social/instagram.svg";
-import LinkedInIcon from "public/images/profile/social/linkedin.svg";
-import PinterestIcon from "public/images/profile/social/pinterest.svg";
-import BehanceIcon from "public/images/profile/social/behance.svg";
-import ShareIcon from "public/images/profile/social/share.svg";
-import StarIcon from "public/images/profile/social/star.svg";
-import TwitterIcon from "public/images/profile/social/twitter.svg";
-import VimeoIcon from "public/images/profile/social/vimeo.svg";
-import YoutubeIcon from "public/images/profile/social/youtube.svg";
+
 import Image from "next/image";
 import { CompanyAdd } from "types/companyInfoTypes";
 import LogoContainerDesktop from "./LogoContainerDesktop";
@@ -18,6 +9,7 @@ import LogoContainerTablet from "./LogoContainerTablet";
 import InputContainer from "./InputContainer";
 import CountrySelect from "./CountrySelect";
 import GroupsSelect from "./GroupsSelect";
+import SocialMediaForm from "./SocialMediaForm";
 interface IProps {
     handleChange: (prop: string, value: string) => void;
     company: CompanyAdd;
@@ -142,127 +134,7 @@ export default function Form({ handleChange, company }: IProps) {
                         </div>
                         <GroupsSelect />
                     </div>
-                    <div
-                        className={clsx(
-                            styles["social-title"],
-                            "d-flex",
-                            "justify-content-center"
-                        )}
-                    >
-                        SOCIAL MEDIA
-                    </div>
-                    <div className={styles["social-media-container"]}>
-                        <div className={styles["social-input"]}>
-                            <div className={styles["social-logo"]}>
-                                <Image src={FacebookIcon} alt="facebook-icon" />
-                            </div>
-
-                            <div className={styles["input-container"]}>
-                                <input
-                                    type="text"
-                                    className={styles["custom-input"]}
-                                    placeholder="Facebook"
-                                />
-                            </div>
-                        </div>
-                        <div className={styles["social-input"]}>
-                            <div className={styles["social-logo"]}>
-                                <Image src={TwitterIcon} alt="twitter icon" />
-                            </div>
-
-                            <div className={styles["input-container"]}>
-                                <input
-                                    type="text"
-                                    className={styles["custom-input"]}
-                                    value="www.twitter.com/abc"
-                                />
-                            </div>
-                        </div>
-                        <div className={styles["social-input"]}>
-                            <div className={styles["social-logo"]}>
-                                <Image
-                                    src={InstagramIcon}
-                                    alt="instagram icon"
-                                />
-                            </div>
-
-                            <div className={styles["input-container"]}>
-                                <input
-                                    type="text"
-                                    className={styles["custom-input"]}
-                                    placeholder="Instagram"
-                                />
-                            </div>
-                        </div>
-                        <div className={styles["social-input"]}>
-                            <div className={styles["social-logo"]}>
-                                <Image
-                                    src={PinterestIcon}
-                                    alt="pinterest icon"
-                                />
-                            </div>
-
-                            <div className={styles["input-container"]}>
-                                <input
-                                    type="text"
-                                    className={styles["custom-input"]}
-                                    placeholder="Pinterest"
-                                />
-                            </div>
-                        </div>
-                        <div className={styles["social-input"]}>
-                            <div className={styles["social-logo"]}>
-                                <Image src={YoutubeIcon} alt="youtube icon" />
-                            </div>
-
-                            <div className={styles["input-container"]}>
-                                <input
-                                    type="text"
-                                    className={styles["custom-input"]}
-                                    placeholder="Youtube"
-                                />
-                            </div>
-                        </div>
-                        <div className={styles["social-input"]}>
-                            <div className={styles["social-logo"]}>
-                                <Image src={VimeoIcon} alt="vimeo icon" />
-                            </div>
-
-                            <div className={styles["input-container"]}>
-                                <input
-                                    type="text"
-                                    className={styles["custom-input"]}
-                                    placeholder="Vimeo"
-                                />
-                            </div>
-                        </div>
-                        <div className={styles["social-input"]}>
-                            <div className={styles["social-logo"]}>
-                                <Image src={LinkedInIcon} alt="linkedin icon" />
-                            </div>
-
-                            <div className={styles["input-container"]}>
-                                <input
-                                    type="text"
-                                    className={styles["custom-input"]}
-                                    placeholder="Linkedin"
-                                />
-                            </div>
-                        </div>
-                        <div className={styles["social-input"]}>
-                            <div className={styles["social-logo"]}>
-                                <Image src={BehanceIcon} alt="behance icon" />
-                            </div>
-
-                            <div className={styles["input-container"]}>
-                                <input
-                                    type="text"
-                                    className={styles["custom-input"]}
-                                    placeholder="Behance"
-                                />
-                            </div>
-                        </div>
-                    </div>
+                    <SocialMediaForm handleChange={handleChange} company={company} />
                 </div>
             </div>
         </div>
