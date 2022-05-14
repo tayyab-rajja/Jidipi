@@ -9,7 +9,7 @@ interface IProps {
     company: CompanyAdd;
 }
 
-export default ({ company, handleChange }: IProps) => {
+export default function LogoContainerTablet({ company, handleChange }: IProps) {
     return (
         <>
             <div

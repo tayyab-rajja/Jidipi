@@ -13,7 +13,7 @@ import VimeoIcon from "public/images/profile/social/vimeo.svg";
 import YoutubeIcon from "public/images/profile/social/youtube.svg";
 import Image from "next/image";
 
-export default () => {
+export default function DesktopView() {
     return (
         <div className={clsx(styles["form-container"], "d-none", "d-xl-block")}>
             <div className={clsx(styles["top"], "mb-3")}>

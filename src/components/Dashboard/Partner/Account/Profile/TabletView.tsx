@@ -13,7 +13,7 @@ import VimeoIcon from "public/images/profile/social/vimeo.svg";
 import YoutubeIcon from "public/images/profile/social/youtube.svg";
 import Image from "next/image";
 
-export default () => {
+export default function TabletView() {
     return (
         <div
             className={clsx(
