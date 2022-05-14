@@ -22,8 +22,8 @@ import FooterUserData from "src/components/FooterUserData";
 import InputUserDataRHF from "src/components/InputUserDataRHF";
 import NoValidationText from "src/components/NoValidationText";
 
-import googleIcon from "public/images/social-icons/Google.svg";
-import facebookIcon from "public/images/social-icons/Facebook.svg";
+import googleIcon from "public/images/icons/social/google-colorful.svg";
+import facebookIcon from "public/images/icons/social/facebook-colorful.svg";
 
 import stylesForm from "src/components/FormUserData/FormUserData.module.css";
 import styles from "./LoginField.module.css";

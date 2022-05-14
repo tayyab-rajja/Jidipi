@@ -1,12 +1,12 @@
 import SocialMediaInput from "./SocialMediaInput";
-import FacebookIcon from "public/images/profile/social/facebook.svg";
-import InstagramIcon from "public/images/profile/social/instagram.svg";
-import LinkedInIcon from "public/images/profile/social/linkedin.svg";
-import PinterestIcon from "public/images/profile/social/pinterest.svg";
-import BehanceIcon from "public/images/profile/social/behance.svg";
-import TwitterIcon from "public/images/profile/social/twitter.svg";
-import VimeoIcon from "public/images/profile/social/vimeo.svg";
-import YoutubeIcon from "public/images/profile/social/youtube.svg";
+import FacebookIcon from "public/images/icons/social/facebook.svg";
+import InstagramIcon from "public/images/icons/social/instagram.svg";
+import LinkedInIcon from "public/images/icons/social/linkedin.svg";
+import PinterestIcon from "public/images/icons/social/pinterest.svg";
+import BehanceIcon from "public/images/icons/social/behance.svg";
+import TwitterIcon from "public/images/icons/social/twitter.svg";
+import VimeoIcon from "public/images/icons/social/vimeo.svg";
+import YoutubeIcon from "public/images/icons/social/youtube.svg";
 
 export default {
     SocialMediaInputs: [

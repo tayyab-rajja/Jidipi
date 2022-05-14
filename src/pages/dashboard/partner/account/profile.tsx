@@ -7,11 +7,13 @@ import Form from "src/components/Dashboard/Partner/Account/Form";
 import { CompanyAdd } from "types/companyInfoTypes";
 import { GET } from "src/lib/common/api";
 import { GetServerSideProps } from "next";
+import { ICountry } from "types/country";
 
-interface IProps {}
+interface IProps {
+    countries: ICountry[];
+}
 
-export default function Profile({}: IProps) {
-    
+export default function Profile({ countries }: IProps) {
     const [company, setCompany] = useState<CompanyAdd>({
         brandName: "",
         companyName: "",
@@ -59,8 +61,7 @@ export default function Profile({}: IProps) {
             TopDropdownButtonName={"PROFILE"}
             tab={<Menu />}
         >
-
-            <Form handleChange={ handleChange} company={company} />
+            <Form handleChange={handleChange} company={company} countries={countries} />
         </DashboardLayout>
     );
 }

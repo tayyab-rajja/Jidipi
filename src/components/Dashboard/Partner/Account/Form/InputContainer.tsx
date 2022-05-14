@@ -1,7 +1,7 @@
 import styles from "./Form.module.scss";
 import Image from "next/image";
 import clsx from "clsx";
-import UpdateButton from "public/images/profile/icons/update-button.svg";
+import UpdateButton from "public/images/icons/update-button.svg";
 import { useState } from "react";
 
 interface IProps {

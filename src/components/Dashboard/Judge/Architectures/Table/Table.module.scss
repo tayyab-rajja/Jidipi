@@ -77,10 +77,10 @@
                             background-color: #deb851 !important;
                             color: #fff !important;
                             .icon-star {
-                                background-image: url("/images/table/star-white.svg") !important;
+                                background-image: url("/images/icons/star-white.svg") !important;
                             }
                             .active-star {
-                                background-image: url("/images/table/active-star-white.svg") !important;
+                                background-image: url("/images/icons/active-star-white.svg") !important;
                             }
                         }
                         th {
@@ -184,10 +184,10 @@
                                     background-color: #deb851;
                                     color: #ffffff;
                                     .icon-star {
-                                        background-image: url("/images/table/star-white.svg") !important;
+                                        background-image: url("/images/icons/star-white.svg") !important;
                                     }
                                     .active-star {
-                                        background-image: url("/images/table/active-star-white.svg") !important;
+                                        background-image: url("/images/icons/active-star-white.svg") !important;
                                     }
                                 }
                                 &.logo {
@@ -199,13 +199,13 @@
                                     .icon-star {
                                         width: 16px;
                                         height: 16px;
-                                        background-image: url("/images/table/star.svg");
+                                        background-image: url("/images/icons/star.svg");
                                         background-size: cover;
                                         background-repeat: no-repeat;
                                         margin-right: 4px;
                                     }
                                     .active-star {
-                                        background-image: url("/images/table/dark-star.svg");
+                                        background-image: url("/images/icons/dark-star.svg");
                                     }
                                 }
                                 &.award,
@@ -217,10 +217,10 @@
                                         height: 30px;
                                         background-size: cover;
                                         background-repeat: no-repeat;
-                                        background-image: url("/images/table/edit-circle.svg");
+                                        background-image: url("/images/icons/edit-circle.svg");
                                         cursor: pointer;
                                         &:hover {
-                                            background-image: url("/images/table/edit-circle-active.svg");
+                                            background-image: url("/images/icons/edit-circle-active.svg");
                                         }
                                         .link {
                                             width: 100%;

@@ -303,13 +303,13 @@
                     background-color: #e3e3e3;
                     color: #373737;
                     .icon {
-                        background-image: url("/images/filters/category.svg");
+                        background-image: url("/images/icons/category.svg");
                     }
                 }
 
                 .review {
                     .icon {
-                        background-image: url("/images/filters/calendar-light.svg");
+                        background-image: url("/images/icons/calendar-light.svg");
                     }
                     background-color: #f89590;
                     color: #ffffff;
@@ -318,14 +318,14 @@
                     background-color: #73b9f6;
                     color: #ffffff;
                     .icon {
-                        background-image: url("/images/filters/pen-light.svg");
+                        background-image: url("/images/icons/pen-light.svg");
                     }
                 }
                 .scheduled {
                     background-color: #f9b960;
                     color: #ffffff;
                     .icon {
-                        background-image: url("/images/filters/clock-light.svg");
+                        background-image: url("/images/icons/clock-light.svg");
                     }
                 }
             }
@@ -350,39 +350,39 @@
                             background-color: #373737;
                             color: #ffffff;
                             &.all .icon {
-                                background-image: url("/images/filters/category-light.svg");
+                                background-image: url("/images/icons/category-light.svg");
                             }
                             &.review .icon {
-                                background-image: url("/images/filters/calendar-light.svg");
+                                background-image: url("/images/icons/calendar-light.svg");
                             }
                             &.draft .icon {
-                                background-image: url("/images/filters/pen-light.svg");
+                                background-image: url("/images/icons/pen-light.svg");
                             }
                             &.scheduled .icon {
-                                background-image: url("/images/filters/clock-light.svg");
+                                background-image: url("/images/icons/clock-light.svg");
                             }
                         }
                     }
                 }
                 .all {
                     .icon {
-                        background-image: url("/images/filters/category.svg");
+                        background-image: url("/images/icons/category.svg");
                     }
                     &:hover {
                         background-color: #e3e3e3;
                         color: #373737;
                         .icon {
-                            background-image: url("/images/filters/category.svg");
+                            background-image: url("/images/icons/category.svg");
                         }
                     }
                 }
                 .review {
                     .icon {
-                        background-image: url("/images/filters/calendar.svg");
+                        background-image: url("/images/icons/calendar.svg");
                     }
                     &:hover {
                         .icon {
-                            background-image: url("/images/filters/calendar-light.svg");
+                            background-image: url("/images/icons/calendar-light.svg");
                         }
                         background-color: #f89590;
                         color: #ffffff;
@@ -390,25 +390,25 @@
                 }
                 .draft {
                     .icon {
-                        background-image: url("/images/filters/pen.svg");
+                        background-image: url("/images/icons/pen.svg");
                     }
                     &:hover {
                         background-color: #73b9f6;
                         color: #ffffff;
                         .icon {
-                            background-image: url("/images/filters/pen-light.svg");
+                            background-image: url("/images/icons/pen-light.svg");
                         }
                     }
                 }
                 .scheduled {
                     .icon {
-                        background-image: url("/images/filters/clock.svg");
+                        background-image: url("/images/icons/clock.svg");
                     }
                     &:hover {
                         background-color: #f9b960;
                         color: #ffffff;
                         .icon {
-                            background-image: url("/images/filters/clock-light.svg");
+                            background-image: url("/images/icons/clock-light.svg");
                         }
                     }
                 }

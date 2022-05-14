@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import styles from "./index.module.scss";
 import clsx from "clsx";
 import Image from "next/image";
-import ArrowIcon from "public/images/filters/arrow.svg";
-import DeleteIcon from "public/images/filters/xmark.svg";
+import ArrowIcon from "public/images/icons/arrow.svg";
+import DeleteIcon from "public/images/icons/xmark.svg";
 import useFilterSelect from "src/hooks/useFilterSelect";
 import { FilterItem } from "constant/filters/interface";
 

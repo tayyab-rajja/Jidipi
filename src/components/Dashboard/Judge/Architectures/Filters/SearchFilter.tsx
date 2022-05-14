@@ -1,8 +1,8 @@
 import styles from "./index.module.scss";
 import clsx from "clsx";
 import Image from "next/image";
-import SearchIcon from "public/images/filters/search.svg";
-import DeleteIcon from "public/images/filters/xmark.svg";
+import SearchIcon from "public/images/icons/search.svg";
+import DeleteIcon from "public/images/icons/xmark.svg";
 import { useEffect, useRef } from "react";
 
 interface IProps {

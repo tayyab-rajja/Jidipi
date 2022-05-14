@@ -1,8 +1,5 @@
 import styles from "./Form.module.scss";
 import clsx from "clsx";
-import Arrow from "public/images/profile/icons/arrow.svg";
-
-import Image from "next/image";
 import { CompanyAdd } from "types/companyInfoTypes";
 import LogoContainerDesktop from "./LogoContainerDesktop";
 import LogoContainerTablet from "./LogoContainerTablet";
@@ -10,9 +7,11 @@ import InputContainer from "./InputContainer";
 import CountrySelect from "./CountrySelect";
 import GroupsSelect from "./GroupsSelect";
 import SocialMediaForm from "./SocialMediaForm";
+import { ICountry } from "types/country";
 interface IProps {
     handleChange: (prop: string, value: string) => void;
     company: CompanyAdd;
+    countries: ICountry[];
 }
 
 const inputContainer: any = {
@@ -23,7 +22,7 @@ const inputContainer: any = {
     type: "input",
 };
 
-export default function Form({ handleChange, company }: IProps) {
+export default function Form({ handleChange, company, countries }: IProps) {
     const handleComponent = () => {
         const { Component, classes, prop, placeholder } = inputContainer;
         return (
@@ -104,7 +103,7 @@ export default function Form({ handleChange, company }: IProps) {
                                     placeholder="Company"
                                 />
                             </div>
-                            <CountrySelect />
+                            <CountrySelect countries={countries} />
                             <div
                                 className={clsx(
                                     styles["input-container"],
@@ -134,7 +133,10 @@ export default function Form({ handleChange, company }: IProps) {
                         </div>
                         <GroupsSelect />
                     </div>
-                    <SocialMediaForm handleChange={handleChange} company={company} />
+                    <SocialMediaForm
+                        handleChange={handleChange}
+                        company={company}
+                    />
                 </div>
             </div>
         </div>

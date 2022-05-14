@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
-import NextIcon from "public/images/pagination/angle-right.svg";
-import PrevIcon from "public/images/pagination/angle-left.svg";
+import NextIcon from "public/images/icons/angle-right.svg";
+import PrevIcon from "public/images/icons/angle-left.svg";
 // import { DebounceInput } from "react-debounce-input";
 import styles from "./PaginationReverse.module.scss";
 import clsx from "clsx";

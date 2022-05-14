@@ -6,11 +6,11 @@ import AwardData from "constant/filters/award";
 import ScoreData from "constant/filters/score";
 import RatingData from "constant/filters/rating";
 import CommentData from "constant/filters/comment";
-import ListIcon from "public/images/filters/list.svg";
-import ChatIcon from "public/images/filters/chat.svg";
-import StarIcon from "public/images/filters/star.svg";
-import ScoreIcon from "public/images/filters/score.svg";
-import AwardIcon from "public/images/filters/award.svg";
+import ListIcon from "public/images/icons/list.svg";
+import ChatIcon from "public/images/icons/chat.svg";
+import StarIcon from "public/images/icons/star.svg";
+import ScoreIcon from "public/images/icons/score.svg";
+import AwardIcon from "public/images/icons/award.svg";
 import { postFilters } from "types/queryParameters";
 import { FilterItem } from "constant/filters/interface";
 

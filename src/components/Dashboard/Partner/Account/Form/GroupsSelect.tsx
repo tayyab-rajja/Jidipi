@@ -1,7 +1,7 @@
 import styles from "./Form.module.scss";
 import clsx from "clsx";
 import Image from "next/image";
-import Arrow from "public/images/profile/icons/arrow.svg";
+import Arrow from "public/images/icons/arrow.svg";
 
 export default function GroupSelect() {
     return (

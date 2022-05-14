@@ -2,15 +2,15 @@ import styles from "./Profile.module.scss";
 import clsx from "clsx";
 import PartnerLogo from "public/images/profile/partner-logo.svg";
 import QrCode from "public/images/profile/qr-code.svg";
-import FacebookIcon from "public/images/profile/social/facebook.svg";
-import InstagramIcon from "public/images/profile/social/instagram.svg";
-import LinkedInIcon from "public/images/profile/social/linkedin.svg";
-import PinterestIcon from "public/images/profile/social/pinterest.svg";
-import ShareIcon from "public/images/profile/social/share.svg";
-import StarIcon from "public/images/profile/social/star.svg";
-import TwitterIcon from "public/images/profile/social/twitter.svg";
-import VimeoIcon from "public/images/profile/social/vimeo.svg";
-import YoutubeIcon from "public/images/profile/social/youtube.svg";
+import FacebookIcon from "public/images/icons/social/facebook.svg";
+import InstagramIcon from "public/images/icons/social/instagram.svg";
+import LinkedInIcon from "public/images/icons/social/linkedin.svg";
+import PinterestIcon from "public/images/icons/social/pinterest.svg";
+import ShareIcon from "public/images/icons/social/share.svg";
+import StarIcon from "public/images/icons/social/star.svg";
+import TwitterIcon from "public/images/icons/social/twitter.svg";
+import VimeoIcon from "public/images/icons/social/vimeo.svg";
+import YoutubeIcon from "public/images/icons/social/youtube.svg";
 import Image from "next/image";
 
 export default function MobileView() {
@@ -131,4 +131,4 @@ export default function MobileView() {
             </div>
         </div>
     );
-};
+}

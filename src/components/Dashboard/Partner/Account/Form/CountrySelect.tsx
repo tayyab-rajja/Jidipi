@@ -1,10 +1,15 @@
 import styles from "./Form.module.scss";
 import Image from "next/image";
 import clsx from "clsx";
-import Arrow from "public/images/profile/icons/arrow.svg";
-import Search from "public/images/profile/icons/search.svg";
+import Arrow from "public/images/icons/arrow.svg";
+import Search from "public/images/icons/search.svg";
+import { ICountry } from "types/country";
 
-export default function CountrySelect() {
+interface IProps {
+    countries: ICountry[];
+}
+
+export default function CountrySelect({ countries }: IProps) {
     return (
         <div
             className={clsx(styles["input-container"], "mb-3", styles["ml-8"])}

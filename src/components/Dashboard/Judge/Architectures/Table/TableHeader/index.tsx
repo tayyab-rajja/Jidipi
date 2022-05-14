@@ -1,10 +1,10 @@
 import styles from "../Table.module.scss";
 import clsx from "clsx";
 import Image from "next/image";
-import ArrowUp from "public/images/table/arrow-up.svg";
-import ArrowDown from "public/images/table/arrow-down.svg";
-import ArrowUpActive from "public/images/table/arrow-up-active.svg";
-import ArrowDownActive from "public/images/table/arrow-down-active.svg";
+import ArrowUp from "public/images/icons/arrow-up.svg";
+import ArrowDown from "public/images/icons/arrow-down.svg";
+import ArrowUpActive from "public/images/icons/arrow-up-active.svg";
+import ArrowDownActive from "public/images/icons/arrow-down-active.svg";
 import { sort } from "types/queryParameters";
 
 interface IProps {
