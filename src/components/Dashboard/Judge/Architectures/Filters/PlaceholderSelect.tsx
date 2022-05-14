@@ -13,7 +13,7 @@ interface IProps {
     options: FilterItem[];
     placeholder: string;
     prop: string;
-    icon: StaticImageData;
+    icon: StaticImageData | string;
     value: string | number | boolean | undefined;
     handleChange: Function;
 }
