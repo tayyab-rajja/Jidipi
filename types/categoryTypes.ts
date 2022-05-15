@@ -1,4 +1,5 @@
 export interface CategoryId {
+  _id: string;
   title: string;
   type: string;
   uniqueId: string;
@@ -6,12 +7,14 @@ export interface CategoryId {
   countPublishedPostPerPage?: { [key: string]: number };
 }
 export interface CategoryAPI {
+  _id: string;
   title: string;
   type: string;
   uniqueId: string;
   categoryId: CategoryId;
   subCategories: CategoryAPI[];
   isDeleted: boolean;
+  active?: boolean;
   countPublishedPostPerPage?: { [key: string]: number };
 }
 

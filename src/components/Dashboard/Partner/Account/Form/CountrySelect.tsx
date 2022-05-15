@@ -75,7 +75,6 @@ export default function CountrySelect({ countries }: IProps) {
                             </h3>
                             <Image src={Arrow} alt="arrow" />
                         </div>
-                        <div className={styles["selected-item"]}></div>
                     </div>
 
                     <div

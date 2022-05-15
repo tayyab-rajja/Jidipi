@@ -8,10 +8,12 @@ import CountrySelect from "./CountrySelect";
 import GroupsSelect from "./GroupsSelect";
 import SocialMediaForm from "./SocialMediaForm";
 import { ICountry } from "types/country";
+import { CategoryAPI } from "types/categoryTypes";
 interface IProps {
     handleChange: (prop: string, value: string) => void;
     company: CompanyAdd;
     countries: ICountry[];
+    categories: CategoryAPI[];
 }
 
 const inputContainer: any = {
@@ -22,7 +24,7 @@ const inputContainer: any = {
     type: "input",
 };
 
-export default function Form({ handleChange, company, countries }: IProps) {
+export default function Form({ handleChange, company, countries, categories }: IProps) {
     const handleComponent = () => {
         const { Component, classes, prop, placeholder } = inputContainer;
         return (
@@ -131,7 +133,7 @@ export default function Form({ handleChange, company, countries }: IProps) {
                                 />
                             </div>
                         </div>
-                        <GroupsSelect />
+                        <GroupsSelect categories={categories} />
                     </div>
                     <SocialMediaForm
                         handleChange={handleChange}

@@ -8,12 +8,17 @@ import { CompanyAdd } from "types/companyInfoTypes";
 import { GET } from "src/lib/common/api";
 import { GetServerSideProps } from "next";
 import { ICountry } from "types/country";
+import { CategoryAPI } from "types/categoryTypes";
 
 interface IProps {
     countries: ICountry[];
+    categories: CategoryAPI[];
 }
 
-export default function Profile({ countries }: IProps) {
+export default function Profile({ countries, categories }: IProps) {
+    useEffect(() => {
+        console.log(categories);
+    }, []);
     const [company, setCompany] = useState<CompanyAdd>({
         brandName: "",
         companyName: "",
@@ -61,7 +66,12 @@ export default function Profile({ countries }: IProps) {
             TopDropdownButtonName={"PROFILE"}
             tab={<Menu />}
         >
-            <Form handleChange={handleChange} company={company} countries={countries} />
+            <Form
+                handleChange={handleChange}
+                company={company}
+                countries={countries}
+                categories={categories}
+            />
         </DashboardLayout>
     );
 }
@@ -69,7 +79,13 @@ export default function Profile({ countries }: IProps) {
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     const props: any = {};
     try {
-        props.countries = await GET("/company/list/countries", req.cookies);
+        const urls = ["/company/list/countries", "/category?type=GROUP"];
+        const [countries, categories] = await Promise.all(
+            urls.map((url) => GET(url, req.cookies))
+        );
+        props.countries = countries;
+        props.categories = categories.categories[0].categories;
+        console.log(props);
     } catch (error) {
         console.log(error);
     }

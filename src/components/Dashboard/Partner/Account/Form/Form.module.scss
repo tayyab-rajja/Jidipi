@@ -43,6 +43,10 @@
     }
 }
 
+.show-flex {
+    display: flex !important;
+}
+
 .profile-form-expanded {
     * {
         padding: 0;
@@ -220,6 +224,9 @@
                 align-items: center;
                 justify-content: space-between;
                 height: 44px;
+                &::-webkit-scrollbar {
+                    height: 4px;
+                }
             }
         }
         .select-content {
@@ -333,10 +340,10 @@
                 border: 2px solid #fff;
             }
 
-            &.arch {
+            &.architect {
                 background: #f9b960;
             }
-            &.decor {
+            &.decorator {
                 background: #a8a9f9;
             }
             &.planner {
@@ -357,10 +364,10 @@
             &.designer {
                 background: #73b9f6;
             }
-            &.photo {
+            &.photographer {
                 background: #96d8f6;
             }
-            &.retail {
+            &.retailer {
                 background: #f66a8f;
             }
         }
