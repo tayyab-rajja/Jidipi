@@ -16,9 +16,9 @@ function generateHeader(requestCookies?: NextApiRequestCookies){
 }
 //
 // async function fetchAPI(query, {variables} = {}) {
-export async function POST(path: string, variables: any = {}): Promise<any> {
+export async function POST(path: string, variables: any = {}, cookies?: NextApiRequestCookies): Promise<any> {
     try {
-        const headers = generateHeader();
+        const headers = generateHeader(cookies);
         const res: Response = await fetch(API_URL + path, {
             method: 'POST',
             headers,
@@ -32,9 +32,9 @@ export async function POST(path: string, variables: any = {}): Promise<any> {
         throw  e;
     }
 }
-export async function PUT(path: string, variables: any = {}): Promise<any> {
+export async function PUT(path: string, variables: any = {}, cookies?: NextApiRequestCookies): Promise<any> {
     try {
-        const headers = generateHeader();
+        const headers = generateHeader(cookies);
         const res: Response = await fetch(API_URL + path, {
             method: 'PUT',
             headers,
@@ -61,9 +61,9 @@ export async function GET(path: string, cookies?: NextApiRequestCookies): Promis
         throw  e;
     }
 }
-export async function DELETE(path: string): Promise<any> {
+export async function DELETE(path: string, cookies?: NextApiRequestCookies): Promise<any> {
     try {
-        const headers = generateHeader();
+        const headers = generateHeader(cookies);
         const res: Response = await fetch(API_URL + path, {
             method: 'DELETE',
             headers,

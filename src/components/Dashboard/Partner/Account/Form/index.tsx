@@ -18,7 +18,7 @@ const inputContainer: any = {
     Component: InputContainer,
     classes: [styles["mr-8"]],
     prop: "companyName",
-    placeholder: "Semi",
+    placeholder: "Telephone",
     type: "input",
 };
 
