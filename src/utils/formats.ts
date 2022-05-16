@@ -10,3 +10,8 @@ export const telephoneFaxFieldFormat = (company: CompanyAdd) => {
         ? `F ${fax}`
         : "";
 };
+
+export const websiteUrlFormat = (website: string) => {
+    if (!website) return "";
+    return website.startsWith("http") ? website : `https://${website}`;
+};

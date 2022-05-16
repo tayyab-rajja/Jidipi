@@ -11,6 +11,7 @@ interface IProps {
 }
 
 export default function LogoContainer({ company, handleChange }: IProps) {
+
     return (
         <>
             <div
@@ -43,16 +44,11 @@ export default function LogoContainer({ company, handleChange }: IProps) {
                                 styles["custom-input"],
                                 styles["border-dashed"]
                             )}
-                            defaultValue={`https://partner.jidipi.com/${company.brandName}`}
+                            defaultValue={`https://partner.jidipi.com/`}
                             disabled
                         />
                     </div>
                     <div className={styles["input-container"]}>
-                        {/* <input
-                            type="text"
-                            className={styles["custom-input"]}
-                            placeholder="Brand"
-                        /> */}
                         <InputContainer
                             placeholder="Brand"
                             value={company["brandName"]}
@@ -73,13 +69,6 @@ export default function LogoContainer({ company, handleChange }: IProps) {
                 )}
             >
                 <div className="w-100">
-                    {/* <div className={clsx(styles["input-container"], "mb-3")}>
-                        <input
-                            type="text"
-                            className={styles["custom-input"]}
-                            placeholder="Website"
-                        />
-                    </div> */}
                     <InputContainer
                         placeholder="Website"
                         value={company["website"]}
@@ -87,13 +76,6 @@ export default function LogoContainer({ company, handleChange }: IProps) {
                         classes={["mb-3"]}
                         handleChange={handleChange}
                     />
-                    {/* <div className={styles["input-container"]}>
-                        <input
-                            type="text"
-                            className={styles["custom-input"]}
-                            placeholder="Email"
-                        />
-                    </div> */}
                     <InputContainer
                         placeholder="Email"
                         value={company["email"]}

@@ -82,7 +82,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         );
         props.countries = countries;
         props.categories = categories.categories[0].categories;
-        console.log(props);
     } catch (error) {
         console.log(error);
     }

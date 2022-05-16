@@ -28,7 +28,7 @@ export default function LogoContainerTablet({ company, handleChange }: IProps) {
                         styles["custom-input"],
                         styles["border-dashed"]
                     )}
-                    defaultValue={`https://partner.jidipi.com/${company.brandName}`}
+                    defaultValue={`https://partner.jidipi.com/`}
                     disabled
                 />
             </div>
@@ -58,13 +58,6 @@ export default function LogoContainerTablet({ company, handleChange }: IProps) {
                     />
                 </div>
                 <div className="w-100">
-                    {/* <div className={clsx(styles["input-container"], "mb-3")}>
-                        <input
-                            type="text"
-                            className={styles["custom-input"]}
-                            placeholder="Website"
-                        />
-                    </div> */}
                     <InputContainer
                         placeholder="Website"
                         value={company["website"]}
@@ -72,13 +65,6 @@ export default function LogoContainerTablet({ company, handleChange }: IProps) {
                         classes={["mb-3"]}
                         handleChange={handleChange}
                     />
-                    {/* <div className={styles["input-container"]}>
-                        <input
-                            type="text"
-                            className={styles["custom-input"]}
-                            placeholder="Email"
-                        />
-                    </div> */}
                     <InputContainer
                         placeholder="Email"
                         value={company["email"]}
@@ -99,21 +85,7 @@ export default function LogoContainerTablet({ company, handleChange }: IProps) {
                     <span>QR Code</span>
                 </div>
             </div>
-            {/* <div
-                className={clsx(
-                    styles["input-container"],
-                    "w-100",
-                    "mb-3",
-                    "d-flex",
-                    "d-xl-none"
-                )}
-            >
-                <input
-                    type="text"
-                    className={styles["custom-input"]}
-                    placeholder="Brand"
-                />
-            </div> */}
+
             <InputContainer
                 placeholder="Brand"
                 value={company["brand"]}

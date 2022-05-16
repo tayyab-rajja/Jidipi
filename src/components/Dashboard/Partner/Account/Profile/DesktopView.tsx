@@ -1,13 +1,14 @@
 import styles from "./Profile.module.scss";
 import clsx from "clsx";
 import PartnerLogo from "public/images/profile/partner-logo.svg";
-import QrCode from "public/images/profile/qr-code.svg";
+import { QRCodeSVG } from "qrcode.react";
 import ShareIcon from "public/images/icons/social/share.svg";
 import StarIcon from "public/images/icons/social/star.svg";
 import Image from "next/image";
 import { CompanyAdd } from "types/companyInfoTypes";
 import { telephoneFaxFieldFormat } from "src/utils/formats";
 import config from "../config";
+import { websiteUrlFormat } from "src/utils/formats";
 
 interface IProps {
     company: CompanyAdd;
@@ -15,6 +16,8 @@ interface IProps {
 
 export default function DesktopView({ company }: IProps) {
     const icons = config.icons(company);
+    const websiteUrl = websiteUrlFormat(company?.website);
+    // const QRCodeElement = QRCode as unknown as JSX.Element
 
     return (
         <div className={clsx(styles["form-container"], "d-none", "d-xl-block")}>
@@ -63,7 +66,7 @@ export default function DesktopView({ company }: IProps) {
                             const { icon, prop, alt } = iconItem;
                             return (
                                 prop && (
-                                    <a href={prop} target="_blank">
+                                    <a href={prop} target="_blank" rel="noreferrer">
                                         <div className={styles["icon"]}>
                                             <Image src={icon} alt={alt} />
                                         </div>
@@ -133,7 +136,9 @@ export default function DesktopView({ company }: IProps) {
                         styles["ml-8"]
                     )}
                 >
-                    <Image src={QrCode} alt="qr code" />
+                    <a href={websiteUrl} target="_blank" rel="noreferrer">
+                        <QRCodeSVG value={websiteUrl} size={70} />
+                    </a>
                 </div>
             </div>
         </div>

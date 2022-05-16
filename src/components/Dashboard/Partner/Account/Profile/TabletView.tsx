@@ -1,19 +1,20 @@
 import styles from "./Profile.module.scss";
 import clsx from "clsx";
 import PartnerLogo from "public/images/profile/partner-logo.svg";
-import QrCode from "public/images/profile/qr-code.svg";
 import ShareIcon from "public/images/icons/social/share.svg";
 import StarIcon from "public/images/icons/social/star.svg";
 import Image from "next/image";
 import { CompanyAdd } from "types/companyInfoTypes";
-import { telephoneFaxFieldFormat } from "src/utils/formats";
+import { telephoneFaxFieldFormat, websiteUrlFormat } from "src/utils/formats";
 import config from "../config";
+import { QRCodeSVG } from "qrcode.react";
 interface IProps {
     company: CompanyAdd;
 }
 
 export default function TabletView({ company }: IProps) {
     const icons = config.icons(company);
+    const websiteUrl = websiteUrlFormat(company?.website);
 
     return (
         <div
@@ -62,7 +63,9 @@ export default function TabletView({ company }: IProps) {
                             styles["ml-4"]
                         )}
                     >
-                        <Image src={QrCode} alt="qr code" />
+                        <a href={websiteUrl} target="_blank" rel="noreferrer">
+                            <QRCodeSVG value={websiteUrl} size={70} />
+                        </a>
                     </div>
                 </div>
             </div>
@@ -105,7 +108,11 @@ export default function TabletView({ company }: IProps) {
                             const { icon, prop, alt } = iconItem;
                             return (
                                 prop && (
-                                    <a href={prop} target="_blank">
+                                    <a
+                                        href={prop}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
                                         <div className={styles["icon"]}>
                                             <Image src={icon} alt={alt} />
                                         </div>

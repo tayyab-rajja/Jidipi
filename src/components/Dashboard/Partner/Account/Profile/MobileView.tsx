@@ -1,12 +1,12 @@
 import styles from "./Profile.module.scss";
 import clsx from "clsx";
 import PartnerLogo from "public/images/profile/partner-logo.svg";
-import QrCode from "public/images/profile/qr-code.svg";
 import ShareIcon from "public/images/icons/social/share.svg";
 import StarIcon from "public/images/icons/social/star.svg";
 import Image from "next/image";
 import { CompanyAdd } from "types/companyInfoTypes";
-import { telephoneFaxFieldFormat } from "src/utils/formats";
+import { telephoneFaxFieldFormat, websiteUrlFormat } from "src/utils/formats";
+import { QRCodeSVG } from "qrcode.react";
 import config from "../config";
 
 interface IProps {
@@ -14,6 +14,7 @@ interface IProps {
 }
 
 export default function MobileView({ company }: IProps) {
+    const websiteUrl = websiteUrlFormat(company?.website);
     const icons = config.icons(company);
     return (
         <div className={clsx(styles["form-container"], "d-block", "d-lg-none")}>
@@ -35,7 +36,10 @@ export default function MobileView({ company }: IProps) {
                             styles["border-grey"]
                         )}
                     >
-                        <Image src={QrCode} alt="qr code" />
+                        <a href={websiteUrl} target="_blank" rel="noreferrer">
+                            <QRCodeSVG value={websiteUrl} size={70} />
+                        </a>
+                        {/* <Image src={QrCode} alt="qr code" /> */}
                     </div>
                     <div
                         className={clsx(
@@ -110,7 +114,7 @@ export default function MobileView({ company }: IProps) {
                             const { icon, prop, alt } = iconItem;
                             return (
                                 prop && (
-                                    <a href={prop} target="_blank">
+                                    <a href={prop} target="_blank" rel="noreferrer">
                                         <div className={styles["icon"]}>
                                             <Image src={icon} alt={alt} />
                                         </div>
