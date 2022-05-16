@@ -54,7 +54,7 @@ export default function CountrySelect({ countries, classes }: IProps) {
 
     return (
         <div
-            className={clsx(styles["input-container"], "mb-3", ...classes)}
+            className={clsx(styles["input-container"], ...classes)}
             ref={countrySelectRef}
         >
             <div className={styles["filter-item"]}>

@@ -86,7 +86,7 @@ export default {
             prop: "telephone",
             placeholder: "Telephone",
             type: "input",
-            classes: [styles["mr-8"]],
+            classes: [styles["mr-8"], "mb-3"],
         },
         {
             id: 2,
@@ -94,7 +94,7 @@ export default {
             prop: "fax",
             placeholder: "Fax",
             type: "input",
-            classes: [styles["ml-8"]],
+            classes: [styles["ml-8"], "mb-3"],
         },
         {
             id: 3,
@@ -102,7 +102,7 @@ export default {
             prop: "companyName",
             placeholder: "Company",
             type: "input",
-            classes: [styles["mr-8"]],
+            classes: [styles["mr-8"], "mb-3"],
         },
         {
             id: 4,
@@ -110,7 +110,7 @@ export default {
             prop: "country",
             placeholder: "Country",
             type: "select",
-            classes: [styles["ml-8"]],
+            classes: [styles["ml-8"], "mb-3"],
         },
         {
             id: 5,
@@ -118,7 +118,7 @@ export default {
             prop: "address",
             placeholder: "Address",
             type: "input",
-            classes: [styles["mr-8"]],
+            classes: [styles["mr-8"], "mb-3"],
         },
         {
             id: 6,
@@ -126,7 +126,7 @@ export default {
             prop: "googleMapLink",
             placeholder: "Google Map",
             type: "input",
-            classes: [styles["ml-8"]],
+            classes: [styles["ml-8"], "mb-3"],
         },
         {
             id: 7,

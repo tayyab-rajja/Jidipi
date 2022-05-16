@@ -28,7 +28,7 @@ export default function InputContainer({
         setIsActive(false);
     };
     return (
-        <div className={clsx(styles["input-container"], "mb-3", ...classes)}>
+        <div className={clsx(styles["input-container"], ...classes)}>
             <input
                 type="text"
                 className={clsx(

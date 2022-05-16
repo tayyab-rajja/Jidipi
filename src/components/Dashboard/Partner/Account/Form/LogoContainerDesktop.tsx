@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { CompanyAdd } from "types/companyInfoTypes";
 import UploadLogo from "public/images/profile/upload-logo.svg";
 import Image from "next/image";
+import InputContainer from "./InputContainer";
 
 interface IProps {
     handleChange: (prop: string, value: string) => void;
@@ -47,10 +48,17 @@ export default function LogoContainer({ company, handleChange }: IProps) {
                         />
                     </div>
                     <div className={styles["input-container"]}>
-                        <input
+                        {/* <input
                             type="text"
                             className={styles["custom-input"]}
                             placeholder="Brand"
+                        /> */}
+                        <InputContainer
+                            placeholder="Brand"
+                            value={company["brandName"]}
+                            prop="brandName"
+                            classes={[]}
+                            handleChange={handleChange}
                         />
                     </div>
                 </div>
@@ -65,20 +73,34 @@ export default function LogoContainer({ company, handleChange }: IProps) {
                 )}
             >
                 <div className="w-100">
-                    <div className={clsx(styles["input-container"], "mb-3")}>
+                    {/* <div className={clsx(styles["input-container"], "mb-3")}>
                         <input
                             type="text"
                             className={styles["custom-input"]}
                             placeholder="Website"
                         />
-                    </div>
-                    <div className={styles["input-container"]}>
+                    </div> */}
+                    <InputContainer
+                        placeholder="Website"
+                        value={company["website"]}
+                        prop="website"
+                        classes={["mb-3"]}
+                        handleChange={handleChange}
+                    />
+                    {/* <div className={styles["input-container"]}>
                         <input
                             type="text"
                             className={styles["custom-input"]}
                             placeholder="Email"
                         />
-                    </div>
+                    </div> */}
+                    <InputContainer
+                        placeholder="Email"
+                        value={company["email"]}
+                        prop="email"
+                        classes={[]}
+                        handleChange={handleChange}
+                    />
                 </div>
                 <div
                     className={clsx(
