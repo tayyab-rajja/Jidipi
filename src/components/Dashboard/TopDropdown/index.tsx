@@ -4,6 +4,8 @@ import styles from "./index.module.scss";
 // import Process from "../Process";
 
 function TopDropdown({ Child, Wrapper, TopDropdownButtonName }: any) {
+    console.log('name')
+    console.log(TopDropdownButtonName)
     const [isOpen, setIsOpen] = useState(false);
     const handleClick = () => {
         setIsOpen((value) => !value);
