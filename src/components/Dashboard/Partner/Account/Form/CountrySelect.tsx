@@ -13,9 +13,10 @@ import { PUT } from "src/lib/common/api";
 
 interface IProps {
     countries: ICountry[];
+    classes: string[]
 }
 
-export default function CountrySelect({ countries }: IProps) {
+export default function CountrySelect({ countries, classes }: IProps) {
     const countrySelectRef = useRef(null);
     const [filterCountries, setFilterCountries] = useState(countries);
     const [isOpen, setIsOpen] = useState(false);
@@ -53,7 +54,7 @@ export default function CountrySelect({ countries }: IProps) {
 
     return (
         <div
-            className={clsx(styles["input-container"], "mb-3", styles["ml-8"])}
+            className={clsx(styles["input-container"], "mb-3", ...classes)}
             ref={countrySelectRef}
         >
             <div className={styles["filter-item"]}>

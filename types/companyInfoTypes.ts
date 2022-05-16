@@ -35,7 +35,7 @@ export interface CompanyAdd
     > {
     brandName: string;
     label: string;
-    group: any[];
+    groups: any[];
     profileUrl: string;
     partnerUrl: string;
     country: string;

@@ -3,12 +3,10 @@ import clsx from "clsx";
 import { CompanyAdd } from "types/companyInfoTypes";
 import LogoContainerDesktop from "./LogoContainerDesktop";
 import LogoContainerTablet from "./LogoContainerTablet";
-import InputContainer from "./InputContainer";
-import CountrySelect from "./CountrySelect";
-import GroupsSelect from "./GroupsSelect";
 import SocialMediaForm from "./SocialMediaForm";
 import { ICountry } from "types/country";
 import { CategoryAPI } from "types/categoryTypes";
+import config from "./config";
 interface IProps {
     handleChange: (prop: string, value: string) => void;
     company: CompanyAdd;
@@ -16,26 +14,29 @@ interface IProps {
     categories: CategoryAPI[];
 }
 
-const inputContainer: any = {
-    Component: InputContainer,
-    classes: [styles["mr-8"]],
-    prop: "companyName",
-    placeholder: "Telephone",
-    type: "input",
-};
-
-export default function Form({ handleChange, company, countries, categories }: IProps) {
-    const handleComponent = () => {
-        const { Component, classes, prop, placeholder } = inputContainer;
-        return (
-            <Component
-                classes={classes}
-                prop={prop}
-                handleChange={handleChange}
-                value={company[prop]}
-                placeholder={placeholder}
-            />
-        );
+export default function Form({
+    handleChange,
+    company,
+    countries,
+    categories,
+}: IProps) {
+    const handleComponents = () => {
+        const personalInformation = config.basicProfile;
+        return personalInformation.map((field) => {
+            const { Component, classes, prop, placeholder, id } = field;
+            return (
+                <Component
+                    key={id}
+                    classes={classes}
+                    prop={prop}
+                    handleChange={handleChange}
+                    value={company[prop]}
+                    placeholder={placeholder}
+                    countries={countries}
+                    categories={categories}
+                />
+            );
+        });
     };
 
     return (
@@ -78,8 +79,8 @@ export default function Form({ handleChange, company, countries, categories }: I
                                 handleChange={handleChange}
                             />
 
-                            {handleComponent()}
-                            <div
+                            {handleComponents()}
+                            {/* <div
                                 className={clsx(
                                     styles["input-container"],
                                     "mb-3",
@@ -105,7 +106,10 @@ export default function Form({ handleChange, company, countries, categories }: I
                                     placeholder="Company"
                                 />
                             </div>
-                            <CountrySelect countries={countries} />
+                            <CountrySelect
+                                countries={countries}
+                                classes={[styles["ml-8"]]}
+                            />
                             <div
                                 className={clsx(
                                     styles["input-container"],
@@ -131,9 +135,9 @@ export default function Form({ handleChange, company, countries, categories }: I
                                     className={styles["custom-input"]}
                                     placeholder="Google Map"
                                 />
-                            </div>
+                            </div> */}
                         </div>
-                        <GroupsSelect categories={categories} />
+                        {/* <GroupsSelect categories={categories} /> */}
                     </div>
                     <SocialMediaForm
                         handleChange={handleChange}

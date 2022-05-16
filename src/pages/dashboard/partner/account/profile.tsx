@@ -27,7 +27,7 @@ export default function Profile({ countries, categories }: IProps) {
         telephone: "",
         fax: "",
         label: "",
-        group: [],
+        groups: [],
         avatar: "",
         profileUrl: "",
         partnerUrl: "",
@@ -61,7 +61,7 @@ export default function Profile({ countries, categories }: IProps) {
     };
     return (
         <DashboardLayout
-            TopDropdownComponent={<TopMenuContent />}
+            TopDropdownComponent={<TopMenuContent company={company} />}
             TopDropdownComponentWrapper={TopMenuContentWrapper}
             TopDropdownButtonName={"PROFILE"}
             tab={<Menu />}

@@ -10,7 +10,7 @@ interface IProps {
 }
 
 export default function SocialMediaForm({ company, handleChange }: IProps) {
-    const socialMediaInputs = config.SocialMediaInputs;
+    const socialMediaInputs = config.socialMediaInputs;
     return (
         <>
             <div

@@ -1,4 +1,5 @@
 import SocialMediaInput from "./SocialMediaInput";
+import InputContainer from "./InputContainer";
 import FacebookIcon from "public/images/icons/social/facebook.svg";
 import InstagramIcon from "public/images/icons/social/instagram.svg";
 import LinkedInIcon from "public/images/icons/social/linkedin.svg";
@@ -7,9 +8,12 @@ import BehanceIcon from "public/images/icons/social/behance.svg";
 import TwitterIcon from "public/images/icons/social/twitter.svg";
 import VimeoIcon from "public/images/icons/social/vimeo.svg";
 import YoutubeIcon from "public/images/icons/social/youtube.svg";
+import CountrySelect from "./CountrySelect";
+import styles from "./Form.module.scss";
+import GroupSelect from "./GroupsSelect";
 
 export default {
-    SocialMediaInputs: [
+    socialMediaInputs: [
         {
             id: 1,
             Component: SocialMediaInput,
@@ -73,6 +77,64 @@ export default {
             placeholder: "Behance",
             type: "input",
             icon: BehanceIcon,
+        },
+    ],
+    basicProfile: [
+        {
+            id: 1,
+            Component: InputContainer,
+            prop: "telephone",
+            placeholder: "Telephone",
+            type: "input",
+            classes: [styles["mr-8"]],
+        },
+        {
+            id: 2,
+            Component: InputContainer,
+            prop: "fax",
+            placeholder: "Fax",
+            type: "input",
+            classes: [styles["ml-8"]],
+        },
+        {
+            id: 3,
+            Component: InputContainer,
+            prop: "companyName",
+            placeholder: "Company",
+            type: "input",
+            classes: [styles["mr-8"]],
+        },
+        {
+            id: 4,
+            Component: CountrySelect,
+            prop: "country",
+            placeholder: "Country",
+            type: "select",
+            classes: [styles["ml-8"]],
+        },
+        {
+            id: 5,
+            Component: InputContainer,
+            prop: "address",
+            placeholder: "Address",
+            type: "input",
+            classes: [styles["mr-8"]],
+        },
+        {
+            id: 6,
+            Component: InputContainer,
+            prop: "googleMapLink",
+            placeholder: "Google Map",
+            type: "input",
+            classes: [styles["ml-8"]],
+        },
+        {
+            id: 7,
+            Component: GroupSelect,
+            prop: "groups",
+            placeholder: "Groups",
+            type: "select",
+            classes: [],
         },
     ],
 };

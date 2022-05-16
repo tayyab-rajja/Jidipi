@@ -12,8 +12,13 @@ import TwitterIcon from "public/images/icons/social/twitter.svg";
 import VimeoIcon from "public/images/icons/social/vimeo.svg";
 import YoutubeIcon from "public/images/icons/social/youtube.svg";
 import Image from "next/image";
+import { CompanyAdd } from "types/companyInfoTypes";
 
-export default function MobileView() {
+interface IProps {
+    company: CompanyAdd;
+}
+
+export default function MobileView({ company }: IProps) {
     return (
         <div className={clsx(styles["form-container"], "d-block", "d-lg-none")}>
             <div className={clsx(styles["top"], "mb-3")}>
@@ -105,27 +110,47 @@ export default function MobileView() {
                             styles["bg-grey"]
                         )}
                     >
-                        <div className={styles["icon"]}>
-                            <Image src={FacebookIcon} alt="facebook icon" />
-                        </div>
-                        <div className={styles["icon"]}>
-                            <Image src={TwitterIcon} alt="twitter icon" />
-                        </div>
-                        <div className={styles["icon"]}>
-                            <Image src={InstagramIcon} alt="instagram icon" />
-                        </div>
-                        <div className={styles["icon"]}>
-                            <Image src={PinterestIcon} alt="pinterest icon" />
-                        </div>
-                        <div className={styles["icon"]}>
-                            <Image src={YoutubeIcon} alt="youtube icon" />
-                        </div>
-                        <div className={styles["icon"]}>
-                            <Image src={VimeoIcon} alt="vimeo icon" />
-                        </div>
-                        <div className={styles["icon"]}>
-                            <Image src={LinkedInIcon} alt="linkedin icon" />
-                        </div>
+                        {company.facebookLink && (
+                            <div className={styles["icon"]}>
+                                <Image src={FacebookIcon} alt="facebook icon" />
+                            </div>
+                        )}
+                        {company.twitterLink && (
+                            <div className={styles["icon"]}>
+                                <Image src={TwitterIcon} alt="twitter icon" />
+                            </div>
+                        )}
+                        {company.instagramLink && (
+                            <div className={styles["icon"]}>
+                                <Image
+                                    src={InstagramIcon}
+                                    alt="instagram icon"
+                                />
+                            </div>
+                        )}
+                        {company.pininterestLink && (
+                            <div className={styles["icon"]}>
+                                <Image
+                                    src={PinterestIcon}
+                                    alt="pinterest icon"
+                                />
+                            </div>
+                        )}
+                        {company.youtubeLink && (
+                            <div className={styles["icon"]}>
+                                <Image src={YoutubeIcon} alt="youtube icon" />
+                            </div>
+                        )}
+                        {company.vimeoLink && (
+                            <div className={styles["icon"]}>
+                                <Image src={VimeoIcon} alt="vimeo icon" />
+                            </div>
+                        )}
+                        {company.linkedLink && (
+                            <div className={styles["icon"]}>
+                                <Image src={LinkedInIcon} alt="linkedin icon" />
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
