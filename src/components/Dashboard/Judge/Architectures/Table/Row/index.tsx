@@ -35,7 +35,7 @@ function Row({ data }: IProps) {
                         className={clsx(
                             styles["status"],
                             styles[
-                                `status-${data.candidateStatus.toLocaleLowerCase()}`
+                                `status-${data && data.candidateStatus ? data.candidateStatus.toLocaleLowerCase(): ''}`
                             ]
                         )}
                     ></div>
