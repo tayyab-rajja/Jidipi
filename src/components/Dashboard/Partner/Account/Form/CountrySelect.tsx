@@ -2,14 +2,13 @@ import styles from "./Form.module.scss";
 import Image from "next/image";
 import clsx from "clsx";
 import Arrow from "public/images/icons/arrow.svg";
-import Search from "public/images/icons/search.svg";
-import Star from "public/images/icons/star.svg";
-import StarActive from "public/images/icons/star-active.svg";
 import { ICountry } from "types/country";
 import { useEffect, useRef, useState } from "react";
 import useClickOutside from "src/hooks/useClickOutside";
-import { useExpanded } from "react-table";
-import { PUT } from "src/lib/common/api";
+// import Search from "public/images/icons/search.svg";
+// import Star from "public/images/icons/star.svg";
+// import StarActive from "public/images/icons/star-active.svg";
+// import { PUT } from "src/lib/common/api";
 
 interface IProps {
     countries: ICountry[];
@@ -24,18 +23,18 @@ export default function CountrySelect({ countries, classes }: IProps) {
     const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
     useClickOutside(countrySelectRef, () => setIsOpen(false));
 
-    const handleFavorite = (country: ICountry) => {
-        const sortedCountries = [...filterCountries]
-            .map((c) =>
-                c._id === country._id ? { ...c, isFavorite: !c.isFavorite } : c
-            )
-            .sort((a: any, b: any) => b.isFavorite - a.isFavorite);
+    // const handleFavorite = (country: ICountry) => {
+    //     const sortedCountries = [...filterCountries]
+    //         .map((c) =>
+    //             c._id === country._id ? { ...c, isFavorite: !c.isFavorite } : c
+    //         )
+    //         .sort((a: any, b: any) => b.isFavorite - a.isFavorite);
 
-        setFilterCountries(sortedCountries);
-        PUT("/category", [
-            { _id: country._id, isFavorite: !country.isFavorite },
-        ]);
-    };
+    //     setFilterCountries(sortedCountries);
+    //     PUT("/category", [
+    //         { _id: country._id, isFavorite: !country.isFavorite },
+    //     ]);
+    // };
 
     useEffect(() => {
         const filteredCountries = countries
@@ -120,7 +119,7 @@ export default function CountrySelect({ countries, classes }: IProps) {
                                                 handleSelectedCountry(country)
                                             }
                                         >
-                                            <div
+                                            {/* <div
                                                 className={styles["rating"]}
                                                 onClick={() =>
                                                     handleFavorite(country)
@@ -134,7 +133,7 @@ export default function CountrySelect({ countries, classes }: IProps) {
                                                     }
                                                     alt="star"
                                                 ></Image>
-                                            </div>
+                                            </div> */}
                                             <div className={styles["flag"]}>
                                                 <Image
                                                     src={country.avatar}

@@ -16,9 +16,6 @@ interface IProps {
 }
 
 export default function Profile({ countries, categories }: IProps) {
-    useEffect(() => {
-        console.log(categories);
-    }, []);
     const [company, setCompany] = useState<CompanyAdd>({
         brandName: "",
         companyName: "",

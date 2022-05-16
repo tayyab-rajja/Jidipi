@@ -13,6 +13,7 @@ import VimeoIcon from "public/images/icons/social/vimeo.svg";
 import YoutubeIcon from "public/images/icons/social/youtube.svg";
 import Image from "next/image";
 import { CompanyAdd } from "types/companyInfoTypes";
+import { telephoneFaxFieldFormat } from "src/utils/formats";
 
 interface IProps {
     company: CompanyAdd;
@@ -46,7 +47,7 @@ export default function TabletView({ company }: IProps) {
                             <input
                                 type="text"
                                 className={styles["custom-input"]}
-                                defaultValue="T +45 1234 5678    F + 45 1234567"
+                                value={telephoneFaxFieldFormat(company)}
                                 disabled
                             />
                         </div>
@@ -54,7 +55,7 @@ export default function TabletView({ company }: IProps) {
                             <input
                                 type="text"
                                 className={styles["custom-input"]}
-                                defaultValue="contact@copenhagen101.com"
+                                value={company.email}
                                 disabled
                             />
                         </div>
@@ -75,7 +76,7 @@ export default function TabletView({ company }: IProps) {
                 <input
                     type="text"
                     className={clsx(styles["custom-input"])}
-                    defaultValue="www.101cph.com"
+                    value={company.website}
                     disabled
                 />
             </div>
@@ -83,7 +84,7 @@ export default function TabletView({ company }: IProps) {
                 <input
                     type="text"
                     className={clsx(styles["custom-input"])}
-                    defaultValue="101 Copenhagen GmbH"
+                    value={company.companyName}
                     disabled
                 />
             </div>
@@ -91,7 +92,7 @@ export default function TabletView({ company }: IProps) {
                 <input
                     type="text"
                     className={clsx(styles["custom-input"])}
-                    defaultValue="Magstraede 10a, 1204 Copenhagen, Demark"
+                    value={company.address}
                     disabled
                 />
             </div>
