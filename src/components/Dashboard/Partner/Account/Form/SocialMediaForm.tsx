@@ -2,7 +2,7 @@ import Image from "next/image";
 import clsx from "clsx";
 import styles from "./Form.module.scss";
 import { CompanyAdd } from "types/companyInfoTypes";
-import config from "./config";
+import config from "../config";
 
 interface IProps {
     company: CompanyAdd;

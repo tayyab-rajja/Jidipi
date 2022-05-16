@@ -1,5 +1,6 @@
-import SocialMediaInput from "./SocialMediaInput";
-import InputContainer from "./InputContainer";
+import { CompanyAdd } from "./../../../../../types/companyInfoTypes";
+import SocialMediaInput from "./Form/SocialMediaInput";
+import InputContainer from "./Form/InputContainer";
 import FacebookIcon from "public/images/icons/social/facebook.svg";
 import InstagramIcon from "public/images/icons/social/instagram.svg";
 import LinkedInIcon from "public/images/icons/social/linkedin.svg";
@@ -8,11 +9,45 @@ import BehanceIcon from "public/images/icons/social/behance.svg";
 import TwitterIcon from "public/images/icons/social/twitter.svg";
 import VimeoIcon from "public/images/icons/social/vimeo.svg";
 import YoutubeIcon from "public/images/icons/social/youtube.svg";
-import CountrySelect from "./CountrySelect";
-import styles from "./Form.module.scss";
-import GroupSelect from "./GroupsSelect";
+import CountrySelect from "./Form/CountrySelect";
+import formStyles from "./Form/Form.module.scss";
+import GroupSelect from "./Form/GroupsSelect";
 
 export default {
+    icons(company: CompanyAdd) {
+        return [
+            {
+                prop: company.facebookLink,
+                icon: FacebookIcon,
+                alt: "Facebook Icon",
+            },
+            {
+                prop: company.twitterLink,
+                icon: TwitterIcon,
+                alt: "Twitter Icon",
+            },
+            {
+                prop: company.instagramLink,
+                icon: InstagramIcon,
+                alt: "Instagram Icon",
+            },
+            {
+                prop: company.pininterestLink,
+                icon: PinterestIcon,
+                alt: "Pininterest Icon",
+            },
+            {
+                prop: company.vimeoLink,
+                icon: VimeoIcon,
+                alt: "Vimeo Icon",
+            },
+            {
+                prop: company.linkedLink,
+                icon: LinkedInIcon,
+                alt: "LinkedIn Icon",
+            },
+        ];
+    },
     socialMediaInputs: [
         {
             id: 1,
@@ -86,7 +121,7 @@ export default {
             prop: "telephone",
             placeholder: "Telephone",
             type: "input",
-            classes: [styles["mr-8"], "mb-3"],
+            classes: [formStyles["mr-8"], "mb-3"],
         },
         {
             id: 2,
@@ -94,7 +129,7 @@ export default {
             prop: "fax",
             placeholder: "Fax",
             type: "input",
-            classes: [styles["ml-8"], "mb-3"],
+            classes: [formStyles["ml-8"], "mb-3"],
         },
         {
             id: 3,
@@ -102,7 +137,7 @@ export default {
             prop: "companyName",
             placeholder: "Company",
             type: "input",
-            classes: [styles["mr-8"], "mb-3"],
+            classes: [formStyles["mr-8"], "mb-3"],
         },
         {
             id: 4,
@@ -110,7 +145,7 @@ export default {
             prop: "country",
             placeholder: "Country",
             type: "select",
-            classes: [styles["ml-8"], "mb-3"],
+            classes: [formStyles["ml-8"], "mb-3"],
         },
         {
             id: 5,
@@ -118,7 +153,7 @@ export default {
             prop: "address",
             placeholder: "Address",
             type: "input",
-            classes: [styles["mr-8"], "mb-3"],
+            classes: [formStyles["mr-8"], "mb-3"],
         },
         {
             id: 6,
@@ -126,7 +161,7 @@ export default {
             prop: "googleMapLink",
             placeholder: "Google Map",
             type: "input",
-            classes: [styles["ml-8"], "mb-3"],
+            classes: [formStyles["ml-8"], "mb-3"],
         },
         {
             id: 7,

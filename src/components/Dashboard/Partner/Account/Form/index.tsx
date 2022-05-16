@@ -6,7 +6,7 @@ import LogoContainerTablet from "./LogoContainerTablet";
 import SocialMediaForm from "./SocialMediaForm";
 import { ICountry } from "types/country";
 import { CategoryAPI } from "types/categoryTypes";
-import config from "./config";
+import config from "../config";
 interface IProps {
     handleChange: (prop: string, value: string) => void;
     company: CompanyAdd;

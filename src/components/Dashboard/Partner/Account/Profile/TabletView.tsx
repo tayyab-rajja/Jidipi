@@ -2,24 +2,19 @@ import styles from "./Profile.module.scss";
 import clsx from "clsx";
 import PartnerLogo from "public/images/profile/partner-logo.svg";
 import QrCode from "public/images/profile/qr-code.svg";
-import FacebookIcon from "public/images/icons/social/facebook.svg";
-import InstagramIcon from "public/images/icons/social/instagram.svg";
-import LinkedInIcon from "public/images/icons/social/linkedin.svg";
-import PinterestIcon from "public/images/icons/social/pinterest.svg";
 import ShareIcon from "public/images/icons/social/share.svg";
 import StarIcon from "public/images/icons/social/star.svg";
-import TwitterIcon from "public/images/icons/social/twitter.svg";
-import VimeoIcon from "public/images/icons/social/vimeo.svg";
-import YoutubeIcon from "public/images/icons/social/youtube.svg";
 import Image from "next/image";
 import { CompanyAdd } from "types/companyInfoTypes";
 import { telephoneFaxFieldFormat } from "src/utils/formats";
-
+import config from "../config";
 interface IProps {
     company: CompanyAdd;
 }
 
 export default function TabletView({ company }: IProps) {
+    const icons = config.icons(company);
+
     return (
         <div
             className={clsx(
@@ -106,47 +101,18 @@ export default function TabletView({ company }: IProps) {
                             styles["bg-grey"]
                         )}
                     >
-                        {company.facebookLink && (
-                            <div className={styles["icon"]}>
-                                <Image src={FacebookIcon} alt="facebook icon" />
-                            </div>
-                        )}
-                        {company.twitterLink && (
-                            <div className={styles["icon"]}>
-                                <Image src={TwitterIcon} alt="twitter icon" />
-                            </div>
-                        )}
-                        {company.instagramLink && (
-                            <div className={styles["icon"]}>
-                                <Image
-                                    src={InstagramIcon}
-                                    alt="instagram icon"
-                                />
-                            </div>
-                        )}
-                        {company.pininterestLink && (
-                            <div className={styles["icon"]}>
-                                <Image
-                                    src={PinterestIcon}
-                                    alt="pinterest icon"
-                                />
-                            </div>
-                        )}
-                        {company.youtubeLink && (
-                            <div className={styles["icon"]}>
-                                <Image src={YoutubeIcon} alt="youtube icon" />
-                            </div>
-                        )}
-                        {company.vimeoLink && (
-                            <div className={styles["icon"]}>
-                                <Image src={VimeoIcon} alt="vimeo icon" />
-                            </div>
-                        )}
-                        {company.linkedLink && (
-                            <div className={styles["icon"]}>
-                                <Image src={LinkedInIcon} alt="linkedin icon" />
-                            </div>
-                        )}
+                        {icons.map((iconItem) => {
+                            const { icon, prop, alt } = iconItem;
+                            return (
+                                prop && (
+                                    <a href={prop} target="_blank">
+                                        <div className={styles["icon"]}>
+                                            <Image src={icon} alt={alt} />
+                                        </div>
+                                    </a>
+                                )
+                            );
+                        })}
                     </div>
                     <div
                         className={clsx(
