@@ -12,7 +12,7 @@ import link from "public/images/link-icon.png";
 import { GET } from "src/lib/common/api";
 import TableHeader from "./TableHeader";
 import GridView from "../GridView/GridView";
-// import ChatComponent from "../../Chat/ChatComponent";
+import ChatComponent from "../../Chat/ChatComponent";
 export default function PostData(props: any) {
   //global state
   const userContext: any = useContext(UserContext);
@@ -165,7 +165,7 @@ export default function PostData(props: any) {
           </div>
         </div>
         <div className={styles["chat-box"]}>
-          {/* <ChatComponent /> */}
+          <ChatComponent />
         </div>
       </div>
     </div>

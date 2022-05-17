@@ -40,7 +40,7 @@ max-width:25%;
   width:30%
 }
 .table-body{
-width: 97%;
+width: 100%;
   /* border: 2px solid black; */
   /* overflow-x: auto; */
 }
@@ -48,17 +48,19 @@ width: 97%;
   width: 97%;
     /* border: 2px solid black; */
      overflow-x: auto; 
+     padding-bottom: 20px;
   }
 .white-box{
   background-color: white;
-  height: 50000px;
-  
+  height: 2000px;
+  margin-top: -16px;
  
 }
 .white-box-chat{
   background-color: white;
-  height: 1000px;
-  width:76%
+  height: auto;
+  width:76%;
+  margin-top: -16px;
  
 }
 .cloud-table-tab-pane .head-part {
@@ -122,6 +124,7 @@ width: 97%;
   color: #373737;
   border: 1px solid #D6D6D6;
   background: #F1F1F1;
+  text-decoration: none;
 }
 .ct-tp-nav ul li:not(:first-child) a {
   border-left: none;
@@ -514,4 +517,80 @@ width: 97%;
 .grid-view{
   padding-left: 20px;
   padding-right: 20px;
+}
+.side-chat-x {
+  width: 300px;
+  margin: 0 0 0 20px;
+  flex-shrink: 0;
+  background: #fff;
+  align-self: flex-start;
+}
+.side-chat-x .title {
+  padding: 17px 0;
+  background: #373737;
+  color: #fff;
+}
+.side-chat-x .title h2 {
+  font-size: 11px;
+  font-weight: 500;
+  text-align: center;
+  margin: 0;
+}
+
+.side-chat-x .nav-row ul {
+  display: flex;
+  padding-left: 0px;
+  border: 1px solid #D6D6D6;
+  border-left: none;
+}
+.side-chat-x .nav-row ul li {
+  width: 50%;
+  list-style: none;
+}
+.side-chat-x .nav-row ul li a {
+  text-decoration: none;
+  padding: 17px 0;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 400;
+  color: #373737;
+  border-left: 1px solid #D6D6D6;
+  background: #F1F1F1;
+}
+.side-chat-x .nav-row ul li a.active {
+  background: #fff;
+}
+.side-chat-x .content-box-row {
+  border-left: 1px solid #D6D6D6;
+  border-right: 1px solid #D6D6D6;
+  padding: 27px;
+  min-height: 800px;
+}
+.side-chat-x .content-box-row p {
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #888888;
+}
+.sd-chat-x-snd-box {
+  border: 1px solid #D6D6D6;
+  background: #F1F1F1;
+  display: flex;
+  padding: 12px 12px;
+  align-items: center;
+}
+.sd-chat-x-snd-box .r-button {
+  flex-shrink: 0;
+} 
+.sd-chat-x-snd-box .input {
+  width: 0;
+  flex-grow: 1;
+  margin: 0 12px;
+  background: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 11px;
+  padding: 6px 13px;
 }

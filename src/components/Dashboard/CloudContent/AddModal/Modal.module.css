@@ -21,6 +21,7 @@
 .text-st{
  font-weight: normal;
  padding-left: 10px;
+ margin-bottom: 0px;
 }
 .section{
   border-bottom:1px solid rgb(212, 218, 212);
@@ -94,9 +95,7 @@
   width:100%;
   margin: 40px;
 }
-.upload-content select{
-  
-}
+
 .upload-content option:hover{
   background-color: aqua;
 }
