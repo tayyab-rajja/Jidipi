@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {getPreSignedUrl, uploadFileToS3} from "../../../lib/file/upload";
 import {UploadState} from "../../../lib/file/action";
 import {POST} from "../../../lib/common/api";
+import {MenuType} from "../../../../types/topTabsMenu";
 //
 // function DragDrop() {
 //     const [file, setFile] = useState(null);
@@ -22,13 +23,15 @@ import {POST} from "../../../lib/common/api";
 // }
 //
 // export default DragDrop;
+
+
 /**
  * @description Upload file component, can handle multiple files and dispay process bar using the AWS S3 pre-signed url
  * @param props
  * @constructor
  *
  * Post the theme on `props`
- * type: POST OR COMPANY
+ * type: POST OR COMPANY, AVATAR, LOGO
  * isChatFile: true or false, upload from chat or not
  * postId: post id, required when type =POST
  * companyId: company id, required when type =COMPANY
@@ -45,7 +48,6 @@ const UploadFile = (props: any) => {
         setUploadList(uploadList);
         // EOF storage pre signed url and _id into upload list
     };
-
 
     useEffect(() => {
         console.log("uploadList:::::::::::::::::::::", uploadList);
@@ -163,7 +165,8 @@ const UploadFile = (props: any) => {
             return (
                 <div key={i}>
                     <p>{p.name} ::: {p.size}</p>
-                    <p>{p.progress}%, {p.success &&  <span>  LIVE URL: {p.liveURL} <strong>Success</strong>     </span>   }</p>
+                    <p>{p.progress}%, {p.success &&
+                        <span>  LIVE URL: {p.liveURL} <strong>Success</strong>     </span>}</p>
                     <p>
                         <button onClick={() => retry(p._id)}>Retry</button>
                     </p>

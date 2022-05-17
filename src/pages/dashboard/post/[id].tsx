@@ -16,8 +16,9 @@ import { DashboardLayout } from "../../../components/Dashboard/Layout/Layout";
 import PostLeftSidebar from "../../../components/Dashboard/Post/Sidebar/Sidebar";
 import PostRightSidebar from "../../../components/Dashboard/Post/Sidebar/RightSidebar";
 import styles from "./post.module.scss";
+import {fileWrapper} from "../../../lib/file/store";
 
-export default function Post(props: any) {
+export  default function Post(props: any) {
     // get user from context
     const userContext: any = useContext(UserContext);
     const user = userContext.user;
@@ -126,3 +127,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         props: props,
     };
 };
+
+
+

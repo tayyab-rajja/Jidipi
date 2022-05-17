@@ -11,6 +11,7 @@ import IconSave from "../../../../../public/dashboard/images/icon-status-save.sv
 import IconPublished from "../../../../../public/dashboard/images/icon-status-published.svg";
 import {ChatType} from "../../Chat/Chat";
 import {CountDown} from "./CountDown/CountDown";
+import File2 from "../../File/File2";
 
 
 interface PostRightSidebarProps {
@@ -25,6 +26,10 @@ interface PostRightSidebarProps {
  *
  */
 const PostRightSidebar = (props: PostRightSidebarProps) => {
+
+
+
+
     // get user from context
     const userContext: any = useContext(UserContext);
     const user = userContext.user;
@@ -252,8 +257,10 @@ const PostRightSidebar = (props: PostRightSidebarProps) => {
         );
     }
     if (isPartner(user)) {
+
         return (
             <div className={styles["Sidebar"]}>
+                <File2 postId={post._id} companyId={post.companyId} />
                 <h2>Partner Application</h2>
                 {awards.map((award: any) => (
                     <React.Fragment key={award._id}>

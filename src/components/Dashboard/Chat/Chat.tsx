@@ -1,11 +1,11 @@
 import {io} from "socket.io-client";
-import {processEnv} from "@next/env";
 import React, {useEffect, useState} from "react";
 import {Cookies} from "react-cookie";
 import styles from "./Chat.module.scss";
 import useSWR from "swr";
 import {GET} from "../../../lib/common/api";
-import UploadFile from "../File/File";
+import UploadFile  from "../File/File";
+import {FileType} from "../../../lib/file/action";
 
 const cookies = new Cookies();
 const WS_URL = process.env.WS_URL || "ws://localhost:3000";
@@ -116,7 +116,7 @@ const Chat = (props: any) => {
         </textarea>
             <button type="submit" className={styles.button} onClick={handleChatEnd}>=</button>
             <button type="submit" className={styles.button} disabled={messageTextIsEmpty}>Send</button>
-            <UploadFile postId={id} type={'POST'}></UploadFile>
+            <UploadFile postId={id} type={FileType.POST}/>
         </form>
     </div>
 }

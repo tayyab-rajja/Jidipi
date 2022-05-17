@@ -5,12 +5,14 @@
 import rootReducer from "./reducer";
 import rootSaga from "./saga";
 
-import { applyMiddleware, createStore } from 'redux'
+import {applyMiddleware, combineReducers, createStore} from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { createWrapper, MakeStore } from 'next-redux-wrapper'
 import { composeWithDevTools } from 'redux-devtools-extension'
 // redux/redux.d.ts
 import { Task } from 'redux-saga'
+import {fileReducer} from "./file/reducer";
+
 declare module 'redux' {
     export interface Store {
         sagaTask: Task
@@ -19,7 +21,12 @@ declare module 'redux' {
 export const makeStore: MakeStore<any> = () => {
     const sagaMiddleware = createSagaMiddleware()
     const store = createStore(
-        rootReducer,
+        combineReducers(
+            {
+                // rootReducer,
+                file:fileReducer,
+            }
+        ),
         composeWithDevTools(applyMiddleware(sagaMiddleware))
     )
     store.sagaTask = sagaMiddleware.run(rootSaga)
