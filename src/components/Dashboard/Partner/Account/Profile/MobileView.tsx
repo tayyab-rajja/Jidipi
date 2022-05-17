@@ -39,7 +39,6 @@ export default function MobileView({ company }: IProps) {
                         <a href={websiteUrl} target="_blank" rel="noreferrer">
                             <QRCodeSVG value={websiteUrl} size={70} />
                         </a>
-                        {/* <Image src={QrCode} alt="qr code" /> */}
                     </div>
                     <div
                         className={clsx(

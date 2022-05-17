@@ -8,6 +8,7 @@ import { CompanyAdd } from "types/companyInfoTypes";
 import { telephoneFaxFieldFormat, websiteUrlFormat } from "src/utils/formats";
 import config from "../config";
 import { QRCodeSVG } from "qrcode.react";
+
 interface IProps {
     company: CompanyAdd;
 }

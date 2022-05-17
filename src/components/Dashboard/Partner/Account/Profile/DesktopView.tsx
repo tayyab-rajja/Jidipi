@@ -17,7 +17,6 @@ interface IProps {
 export default function DesktopView({ company }: IProps) {
     const icons = config.icons(company);
     const websiteUrl = websiteUrlFormat(company?.website);
-    // const QRCodeElement = QRCode as unknown as JSX.Element
 
     return (
         <div className={clsx(styles["form-container"], "d-none", "d-xl-block")}>

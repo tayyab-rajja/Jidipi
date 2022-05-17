@@ -12,6 +12,6 @@ export const telephoneFaxFieldFormat = (company: CompanyAdd) => {
 };
 
 export const websiteUrlFormat = (website: string) => {
-    if (!website) return "";
+    if (!website) return "http://jidipi.com";
     return website.startsWith("http") ? website : `https://${website}`;
 };

@@ -4,6 +4,8 @@ import { CompanyAdd } from "types/companyInfoTypes";
 import UploadLogo from "public/images/profile/upload-logo.svg";
 import Image from "next/image";
 import InputContainer from "./InputContainer";
+import { QRCodeSVG } from "qrcode.react";
+import { websiteUrlFormat } from "src/utils/formats";
 
 interface IProps {
     handleChange: (prop: string, value: string) => void;
@@ -11,6 +13,7 @@ interface IProps {
 }
 
 export default function LogoContainer({ company, handleChange }: IProps) {
+    const websiteUrl = websiteUrlFormat(company?.website);
 
     return (
         <>
@@ -93,7 +96,11 @@ export default function LogoContainer({ company, handleChange }: IProps) {
                         styles["bg-grey"]
                     )}
                 >
-                    <span>QR Code</span>
+                    {company.website ? (
+                        <QRCodeSVG value={websiteUrl} size={70} />
+                    ) : (
+                        <span>QR Code</span>
+                    )}
                 </div>
             </div>
         </>
