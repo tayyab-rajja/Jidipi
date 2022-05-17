@@ -80,64 +80,7 @@ export default function Form({
                             />
 
                             {handleComponents()}
-                            {/* <div
-                                className={clsx(
-                                    styles["input-container"],
-                                    "mb-3",
-                                    styles["ml-8"]
-                                )}
-                            >
-                                <input
-                                    type="text"
-                                    className={styles["custom-input"]}
-                                    placeholder="Fax"
-                                />
-                            </div>
-                            <div
-                                className={clsx(
-                                    styles["input-container"],
-                                    "mb-3",
-                                    styles["mr-8"]
-                                )}
-                            >
-                                <input
-                                    type="text"
-                                    className={styles["custom-input"]}
-                                    placeholder="Company"
-                                />
-                            </div>
-                            <CountrySelect
-                                countries={countries}
-                                classes={[styles["ml-8"]]}
-                            />
-                            <div
-                                className={clsx(
-                                    styles["input-container"],
-                                    "mb-3",
-                                    styles["mr-8"]
-                                )}
-                            >
-                                <input
-                                    type="text"
-                                    className={styles["custom-input"]}
-                                    placeholder="Address"
-                                />
-                            </div>
-                            <div
-                                className={clsx(
-                                    styles["input-container"],
-                                    "mb-3",
-                                    styles["ml-8"]
-                                )}
-                            >
-                                <input
-                                    type="text"
-                                    className={styles["custom-input"]}
-                                    placeholder="Google Map"
-                                />
-                            </div> */}
                         </div>
-                        {/* <GroupsSelect categories={categories} /> */}
                     </div>
                     <SocialMediaForm
                         handleChange={handleChange}
