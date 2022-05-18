@@ -16,9 +16,6 @@ interface IProps {
 }
 
 export default function Profile({ countries, categories }: IProps) {
-    useEffect(() => {
-        console.log(categories);
-    }, []);
     const [company, setCompany] = useState<CompanyAdd>({
         brandName: "",
         companyName: "",
@@ -27,7 +24,7 @@ export default function Profile({ countries, categories }: IProps) {
         telephone: "",
         fax: "",
         label: "",
-        group: [],
+        groups: [],
         avatar: "",
         profileUrl: "",
         partnerUrl: "",
@@ -61,7 +58,7 @@ export default function Profile({ countries, categories }: IProps) {
     };
     return (
         <DashboardLayout
-            TopDropdownComponent={<TopMenuContent />}
+            TopDropdownComponent={<TopMenuContent company={company} />}
             TopDropdownComponentWrapper={TopMenuContentWrapper}
             TopDropdownButtonName={"PROFILE"}
             tab={<Menu />}
@@ -85,7 +82,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         );
         props.countries = countries;
         props.categories = categories.categories[0].categories;
-        console.log(props);
     } catch (error) {
         console.log(error);
     }

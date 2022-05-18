@@ -3,10 +3,13 @@ import clsx from "clsx";
 import DesktopView from "./DesktopView";
 import TabletView from "./TabletView";
 import MobileView from "./MobileView";
+import { CompanyAdd } from "types/companyInfoTypes";
 
-interface IProps {}
+interface IProps {
+    company: CompanyAdd;
+}
 
-export default function Profile({}: IProps) {
+export default function Profile({ company }: IProps) {
     return (
         <div
             className={clsx(
@@ -14,11 +17,11 @@ export default function Profile({}: IProps) {
                 styles["profile-container"]
             )}
         >
-            <MobileView />
+            <MobileView company={company} />
 
-            <TabletView />
+            <TabletView company={company} />
 
-            <DesktopView />
+            <DesktopView company={company} />
         </div>
     );
 }
