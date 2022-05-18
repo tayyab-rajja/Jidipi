@@ -1,6 +1,5 @@
-import { getPostCategories } from "../../../../helpers/changePostsData";
-import { GetServerSideProps, GetStaticProps } from "next";
-import { GET, POST, PUT } from "../../../lib/common/api";
+import { GetServerSideProps } from "next";
+import { GET} from "../../../lib/common/api";
 import {
     ActivityStatus,
     CoverStatus,
@@ -16,7 +15,6 @@ import { DashboardLayout } from "../../../components/Dashboard/Layout/Layout";
 import PostLeftSidebar from "../../../components/Dashboard/Post/Sidebar/Sidebar";
 import PostRightSidebar from "../../../components/Dashboard/Post/Sidebar/RightSidebar";
 import styles from "./post.module.scss";
-import {fileWrapper} from "../../../lib/file/store";
 
 export  default function Post(props: any) {
     // get user from context

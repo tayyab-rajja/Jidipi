@@ -24,10 +24,10 @@ export const initState: UploadState = {
 };
 export const fileReducer = (state = initState, action: AnyAction) => {
     switch (action.type) {
-        case HYDRATE:
-            // // Attention! This will overwrite client state! Real apps should use proper reconciliation.
-            // @ts-ignore
-            return {...state.file, ...action.detail};
+        // case HYDRATE:
+        //     // // Attention! This will overwrite client state! Real apps should use proper reconciliation.
+        //     // @ts-ignore
+        //     return {...state.file, ...action.detail};
 
         case UPLOAD:
             return {...initState};
