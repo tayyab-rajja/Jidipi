@@ -4,7 +4,7 @@ import {FileObject, UploadState} from "./action";
 import {POST} from "../common/api";
 
 const CDN_URL = process.env.CDN_URL??'https://upload.jidipi.com';
-export async function getPreSignedUrl(props: any,   e: any):Promise<UploadState|undefined> {
+export async function getPreSignedUrl(props: UploadState, e: any):Promise<UploadState|undefined> {
     if (!e || !e.target || !e.target.files) return;
     const fs: any[] = Array.from(e.target.files);
     if (!fs) return;
@@ -71,8 +71,9 @@ export const uploadFileToS3 = async ( file:FileObject,  onProgress: (_id: string
                 "Content-Type": file.type,
             },
             onUploadProgress: (e:any) => {
-                const {loaded, total} = e;
-                //Using local progress events
+                // const {loaded, total} = e;
+                // Using local progress events
+
                 if (e.lengthComputable) {
                     // let progress = loaded / total * 100;
                     // console.log(`${progress}% uploaded`);
@@ -84,6 +85,8 @@ export const uploadFileToS3 = async ( file:FileObject,  onProgress: (_id: string
                 }
             }
         });
+        if(res.status===200)  onSuccess(_id);
+        else onError(_id,res.statusText);
     }catch (e) {
         onError(_id, e);
     }finally {

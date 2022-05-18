@@ -15,10 +15,10 @@ function Process({ statuses, menuFolders, competitionPageFolderIds }: IProps) {
             const access = competitionPageFolderIds.some(
                 (folderId) => folderId === folder._id
             );
-            const toEvaluateInAllPages = statuses.toEvaluateInAllPages.find(
+            const toEvaluateInAllPages = statuses && statuses.toEvaluateInAllPages && statuses.toEvaluateInAllPages.find(
                 (e: { _id: string; count: number }) => e._id === folder._id
             )?.count;
-            const evaluatedInAllPages = statuses.evaluatedInAllPages.find(
+            const evaluatedInAllPages = statuses && statuses.evaluatedInAllPages && statuses.evaluatedInAllPages.find(
                 (e: { _id: string; count: number }) => e._id === folder._id
             )?.count;
             const percentage =
