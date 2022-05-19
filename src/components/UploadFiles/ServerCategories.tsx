@@ -5,7 +5,6 @@ import LinkIcon from "public/images/icons/link.svg";
 import ImageIcon from "public/images/icons/image-black.svg";
 import DownloadIcon from "public/images/icons/download.svg";
 import DeleteIcon from "public/images/icons/trash.svg";
-import LoadingIndicator from "src/components/LoadingIndicator";
 import styles from "./style.module.scss";
 import clsx from "clsx";
 import Image from "next/image";
@@ -106,7 +105,7 @@ const ServerCategories = ({
                                         <Image src={DeleteIcon} />
                                         {/* <DeleteIcon /> */}
                                     </a>
-                                    <a href={`${logo.liveURL}`} target="_blank">
+                                    <a href={`${logo.liveURL}`} target="_blank" rel="noreferrer">
                                         <Image src={LinkIcon} />
 
                                         {/* <LinkIcon /> */}
