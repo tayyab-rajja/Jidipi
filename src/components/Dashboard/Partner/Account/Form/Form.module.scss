@@ -98,6 +98,13 @@
                 margin: 3px auto;
                 height: 40px;
                 width: 40px;
+                .preview-image {
+                    position: absolute;
+                    width: "100%";
+                    height: "100%";
+                    top: 0;
+                    left: 0;
+                }
             }
         }
     }
@@ -133,6 +140,13 @@
                 margin: 3px auto;
                 height: 40px;
                 width: 40px;
+                .preview-image {
+                    position: absolute;
+                    width: "100%";
+                    height: "100%";
+                    top: 0;
+                    left: 0;
+                }
             }
         }
     }

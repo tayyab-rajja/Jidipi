@@ -6,6 +6,7 @@ import Image from "next/image";
 import InputContainer from "./InputContainer";
 import { QRCodeSVG } from "qrcode.react";
 import { websiteUrlFormat } from "src/utils/formats";
+import Avatar from "./Avatar";
 
 interface IProps {
     handleChange: (prop: string, value: string) => void;
@@ -13,7 +14,11 @@ interface IProps {
     company: CompanyAdd;
 }
 
-export default function LogoContainerTablet({ company, handleChange, handleSave }: IProps) {
+export default function LogoContainerTablet({
+    company,
+    handleChange,
+    handleSave,
+}: IProps) {
     const websiteUrl = websiteUrlFormat(company?.website);
     return (
         <>
@@ -45,22 +50,12 @@ export default function LogoContainerTablet({ company, handleChange, handleSave 
                     "w-100"
                 )}
             >
-                <div
-                    className={clsx(
-                        styles["mr-4"],
-                        styles["logo"],
-                        styles["border-grey"],
-                        styles["bg-grey"]
-                    )}
-                >
-                    <span> Logo </span>
-                    <Image
-                        src={UploadLogo}
-                        alt="upload logo"
-                        width="40"
-                        height="40"
-                    />
-                </div>
+                <Avatar
+                    handleChange={handleChange}
+                    handleSave={handleSave}
+                    company={company}
+                    prop={"logoId"}
+                />
                 <div className="w-100">
                     <InputContainer
                         placeholder="Website"

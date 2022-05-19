@@ -30,7 +30,6 @@ const FileUpload = ({
     const userContext: any = useContext(UserContext);
     const user = userContext.user;
     user.authToken = userContext.token;
-    console.log(user)
     const [preview, setPreview] = useState();
     const [selectedFile, setSelectedFile] = useState<any>();
     const [file, setFile] = useState();
@@ -79,12 +78,12 @@ const FileUpload = ({
             const reader = new FileReader();
             reader.onload = (e) => {
                 setPreview(e.target?.result as any);
+                onSelect(file, e.target?.result)
             };
 
             reader.readAsDataURL(file);
             setSelectedFile(file);
             setCurrentSection(fileState.Uploaded);
-            onSelect(file)
             dispatch(upload(state, acceptedFiles ));
             // uploadFile(file);
         }

@@ -34,7 +34,7 @@ export default function LogoContainer({
                     handleChange={handleChange}
                     handleSave={handleSave}
                     company={company}
-                    prop={"avatar"}
+                    prop={"logoId"}
                 />
                 <div className="w-100">
                     <div className={clsx(styles["input-container"], "mb-3")}>

@@ -23,6 +23,7 @@ export default function Avatar({
     prop,
 }: IProps) {
     const userContext: any = useContext(UserContext);
+    const [preview, setPreview] = useState("");
     const user = userContext.user;
     const logoState: UploadState = {
         files: [],
@@ -32,17 +33,17 @@ export default function Avatar({
     const [showUploadModal, setShowUploadModal] = useState(false);
 
     const avatarContainer = () => {
-        if (company.avatar) {
+        if (company[prop]) {
             return (
                 <>
-                    <Image src={company.avatar} layout="fill" />
+                    <Image src={company[prop]} layout="fill" />
                     <div
                         className={clsx(
                             styles["delete-avatar-container"],
                             "position-absolute"
                         )}
                     >
-                        <button
+                        {/* <button
                             type="button"
                             onClick={(e) => {
                                 e.stopPropagation();
@@ -52,7 +53,7 @@ export default function Avatar({
                             className="btn-link position-absolute"
                         >
                             <img src={(DeleteIcon as any).src} />
-                        </button>
+                        </button> */}
                     </div>
                 </>
             );
@@ -61,7 +62,14 @@ export default function Avatar({
                 <>
                     <span> Logo </span>
                     <span className={clsx(styles["image-container"])}>
-                        <Image src={UploadLogo} alt="upload logo" />
+                        {preview ? (
+                            <img
+                                src={preview}
+                                className={styles["preview-image"]}
+                            />
+                        ) : (
+                            <Image src={UploadLogo} alt="upload logo" />
+                        )}
                     </span>
                 </>
             );
@@ -90,12 +98,15 @@ export default function Avatar({
                         onClose={() => {
                             setShowUploadModal(false);
                         }}
-                        onSelect={(file: any) => {
+                        onSelect={(file: any, preview: any) => {
                             handleChange(prop, file.liveURL);
-                            handleSave(prop, file.liveURL);
+                            setPreview(preview);
+                            if (!preview) {
+                                handleSave(prop, file.liveURL);
+                            }
                             setTimeout(() => {
                                 setShowUploadModal(false);
-                            })
+                            });
                         }}
                     />
                 )}

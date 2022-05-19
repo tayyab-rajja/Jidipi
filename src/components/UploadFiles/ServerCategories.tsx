@@ -33,9 +33,9 @@ const ServerCategories = ({
     }, [searchKey]);
     const selectedLogos = () => {
         if (filter === 2)
-            return logoList.filter((f: any) => f[typeKey].length === 0);
+            return logoList.filter((f: any) => f[typeKey]?.length === 0);
         if (filter === 3)
-            return logoList.filter((f: any) => f[typeKey].length > 0);
+            return logoList.filter((f: any) => f[typeKey]?.length > 0);
         return logoList;
     };
 
@@ -68,14 +68,14 @@ const ServerCategories = ({
                                     src={`${logo.liveURL}`}
                                     alt=""
                                     className={`${
-                                        logo[typeKey].length > 0
+                                        logo[typeKey]?.length > 0
                                             ? styles["active"]
                                             : ""
                                     }`}
                                 />
-                                {logo[typeKey].length > 0 && (
+                                {logo[typeKey]?.length > 0 && (
                                     <div className={styles["corner"]}>
-                                        <span>{logo[typeKey].length}</span>
+                                        <span>{logo[typeKey]?.length}</span>
                                     </div>
                                 )}
                             </div>
