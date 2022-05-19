@@ -1,8 +1,8 @@
 import Image from "next/image";
 import styles from "./Form.module.scss";
 import UpdateButton from "public/images/icons/update-button.svg";
-import { useState } from "react";
 import clsx from "clsx";
+import useInputHook from "./useInputHook";
 
 interface IProps {
     icon: StaticImageData | string;
@@ -21,16 +21,13 @@ export default function SocialMediaInput({
     value,
     handleSave,
 }: IProps) {
-    const [isActive, setIsActive] = useState(false);
-    const inputChange = (event: any) => {
-        handleChange(prop, event.target.value);
-        setIsActive(true);
-    };
+    const { updateClickHandler, inputChange, isActive } = useInputHook({
+        handleChange,
+        handleSave,
+        value,
+        prop,
+    });
 
-    const updateClickHandler = () => {
-        setIsActive(false);
-        handleSave(prop, value);
-    };
     return (
         <div className={styles["social-input"]}>
             <div className={styles["social-logo"]}>

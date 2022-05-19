@@ -104,7 +104,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
         props.countries = countries;
         props.categories = categories.categories[0].categories;
         props.company = company.company;
-        console.log(company);
     } catch (error) {
         console.log(error);
     }
