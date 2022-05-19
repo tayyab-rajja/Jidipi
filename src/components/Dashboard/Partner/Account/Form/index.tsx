@@ -20,7 +20,7 @@ export default function Form({
     company,
     countries,
     categories,
-    handleSave
+    handleSave,
 }: IProps) {
     const handleComponents = () => {
         const personalInformation = config.basicProfile;
@@ -75,14 +75,13 @@ export default function Form({
                             <LogoContainerTablet
                                 company={company}
                                 handleChange={handleChange}
-                                handleSave={handleChange}
-
+                                handleSave={handleSave}
                             />
 
                             <LogoContainerDesktop
                                 company={company}
                                 handleChange={handleChange}
-                                handleSave={handleChange}
+                                handleSave={handleSave}
                             />
 
                             {handleComponents()}

@@ -1,16 +1,10 @@
 import styles from "./Form.module.scss";
 import clsx from "clsx";
 import { CompanyAdd } from "types/companyInfoTypes";
-import UploadLogo from "public/images/profile/upload-logo.svg";
-import DeleteIcon from "public/images/icons/delete.svg";
-import Image from "next/image";
 import InputContainer from "./InputContainer";
 import { QRCodeSVG } from "qrcode.react";
 import { websiteUrlFormat } from "src/utils/formats";
-import FilteUploadModal from "../../../../UploadFiles/FileUploadModal";
-import { useContext, useState } from "react";
-import { FileType, UploadState } from "src/lib/file/action";
-import { UserContext } from "src/providers/UserProvider";
+import Avatar from "./Avatar";
 
 interface IProps {
     handleChange: (prop: string, value: string) => void;
@@ -18,15 +12,12 @@ interface IProps {
     company: CompanyAdd;
 }
 
-export default function LogoContainer({ company, handleChange, handleSave }: IProps) {
+export default function LogoContainer({
+    company,
+    handleChange,
+    handleSave,
+}: IProps) {
     const websiteUrl = websiteUrlFormat(company?.website);
-    const userContext: any = useContext(UserContext);
-    const user = userContext.user;
-
-    const [showUploadModa, setShowUploadModal] = useState(false);
-    const logoState: UploadState = {
-        files: [], type: FileType.LOGO, companyId: user?.companyId
-    };
 
     return (
         <>
@@ -39,65 +30,12 @@ export default function LogoContainer({ company, handleChange, handleSave }: IPr
                     "d-xl-flex"
                 )}
             >
-                {showUploadModa && (
-                    <FilteUploadModal
-                        type="users"
-                        typeKey="users"
-                        state={logoState}
-                        onClose={() => {
-                            setShowUploadModal(false);
-                        }}
-                        onSelect={(file: any) => {
-                            handleChange("avatar", file.liveURL);
-                            console.log(file)
-                            // setShowUploadModal(false);
-                        }}
-                    />
-                )}
-                <div
-                    className={clsx(
-                        styles["mr-4"],
-                        styles["logo"],
-                        styles["border-grey"],
-                        styles["bg-grey"],
-                        "position-relative"
-                    )}
-                    onClick={() => {
-                        setShowUploadModal(true);
-                    }}
-                >
-                    {company.avatar ? (
-                        <>
-                            <Image src={company.avatar} layout="fill" />
-                            <div
-                                className={clsx(
-                                    styles["delete-avatar-container"],
-                                    "position-absolute"
-                                )}
-                            >
-                                <button
-                                    type="button"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        handleChange("avatar", "");
-                                    }}
-                                    className="btn-link position-absolute"
-                                >
-                                    <img
-                                        src={(DeleteIcon as any).src}
-                                    />
-                                </button>
-                            </div>
-                        </>
-                    ) : (
-                        <>
-                            <span> Logo </span>
-                            <span className={clsx(styles["image-container"])}>
-                                <Image src={UploadLogo} alt="upload logo" />
-                            </span>
-                        </>
-                    )}
-                </div>
+                <Avatar
+                    handleChange={handleChange}
+                    handleSave={handleSave}
+                    company={company}
+                    prop={"avatar"}
+                />
                 <div className="w-100">
                     <div className={clsx(styles["input-container"], "mb-3")}>
                         <input

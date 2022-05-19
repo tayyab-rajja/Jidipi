@@ -32,10 +32,17 @@ export default function TabletView({ company }: IProps) {
                         className={clsx(
                             styles["mr-4"],
                             styles["logo"],
-                            styles["border-grey"]
+                            styles["border-grey"],
+                            "position-relative"
                         )}
                     >
-                        <Image src={PartnerLogo} alt="partner logo" />
+                        {company.avatar && (
+                            <Image
+                                src={company.avatar}
+                                alt="partner logo"
+                                layout="fill"
+                            />
+                        )}
                     </div>
                     <div className="w-100">
                         <div
