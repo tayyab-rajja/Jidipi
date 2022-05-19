@@ -110,10 +110,15 @@ export default function MobileView({ company }: IProps) {
                         )}
                     >
                         {icons.map((iconItem) => {
-                            const { icon, prop, alt } = iconItem;
+                            const { icon, prop, alt, id } = iconItem;
                             return (
                                 prop && (
-                                    <a href={prop} target="_blank" rel="noreferrer">
+                                    <a
+                                        href={prop}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        key={id}
+                                    >
                                         <div className={styles["icon"]}>
                                             <Image src={icon} alt={alt} />
                                         </div>

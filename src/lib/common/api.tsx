@@ -35,6 +35,7 @@ export async function POST(path: string, variables: any = {}, cookies?: NextApiR
 export async function PUT(path: string, variables: any = {}, cookies?: NextApiRequestCookies): Promise<any> {
     try {
         const headers = generateHeader(cookies);
+        console.log(headers)
         const res: Response = await fetch(API_URL + path, {
             method: 'PUT',
             headers,

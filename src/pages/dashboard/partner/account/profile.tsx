@@ -5,7 +5,7 @@ import TopMenuContentWrapper from "src/components/Dashboard/Partner/Account/Prof
 import Menu from "src/components/Dashboard/Partner/Account/Menu";
 import Form from "src/components/Dashboard/Partner/Account/Form";
 import { CompanyAdd } from "types/companyInfoTypes";
-import { GET } from "src/lib/common/api";
+import { GET, PUT } from "src/lib/common/api";
 import { GetServerSideProps } from "next";
 import { ICountry } from "types/country";
 import { CategoryAPI } from "types/categoryTypes";
@@ -13,42 +13,44 @@ import { CategoryAPI } from "types/categoryTypes";
 interface IProps {
     countries: ICountry[];
     categories: CategoryAPI[];
+    company: CompanyAdd;
 }
 
-export default function Profile({ countries, categories }: IProps) {
-    const [company, setCompany] = useState<CompanyAdd>({
-        brandName: "",
-        companyName: "",
-        email: "",
-        description: "",
-        telephone: "",
-        fax: "",
-        label: "",
-        groups: [],
-        avatar: "",
-        profileUrl: "",
-        partnerUrl: "",
-        website: "",
-        country: "",
-        address: "",
-        qrCode: "",
-        qrLink: "",
-        googleMapLink: "",
-        facebookLink: "",
-        twitterLink: "",
-        instagramLink: "",
-        pininterestLink: "",
-        youtubeLink: "",
-        vimeoLink: "",
-        linkedLink: "",
-        behancLink: "",
-        status: "Draft",
-        publishedDate: "",
-        scheduledDate: "",
-        isActive: true,
-        _id: undefined,
-        logoId: null,
-    });
+export default function Profile({ countries, categories, company: companyData }: IProps) {
+    const [company, setCompany] = useState<CompanyAdd>(companyData);
+    // const [company, setCompany] = useState<CompanyAdd>({
+    //     brandName: "",
+    //     companyName: "",
+    //     email: "",
+    //     description: "",
+    //     telephone: "",
+    //     fax: "",
+    //     label: "",
+    //     groups: [],
+    //     avatar: "",
+    //     profileUrl: "",
+    //     partnerUrl: "",
+    //     website: "",
+    //     country: "",
+    //     address: "",
+    //     qrCode: "",
+    //     qrLink: "",
+    //     googleMapLink: "",
+    //     facebookLink: "",
+    //     twitterLink: "",
+    //     instagramLink: "",
+    //     pininterestLink: "",
+    //     youtubeLink: "",
+    //     vimeoLink: "",
+    //     linkedLink: "",
+    //     behancLink: "",
+    //     status: "Draft",
+    //     publishedDate: "",
+    //     scheduledDate: "",
+    //     isActive: true,
+    //     _id: undefined,
+    //     logoId: null,
+    // });
 
     const handleChange = (prop: string, value: string) => {
         setCompany((company: any) => {
@@ -76,12 +78,15 @@ export default function Profile({ countries, categories }: IProps) {
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     const props: any = {};
     try {
-        const urls = ["/company/list/countries", "/category?type=GROUP"];
-        const [countries, categories] = await Promise.all(
-            urls.map((url) => GET(url, req.cookies))
-        );
+        const user = JSON.parse(req.cookies.user) as any
+        const urls = ["/company/list/countries", "/category?type=GROUP", `/company/${user.companyId}`];
+        const [countries, categories, company] = await Promise.all([
+            ...urls.map((url) => GET(url, req.cookies)),
+        ]);
         props.countries = countries;
         props.categories = categories.categories[0].categories;
+        props.company = company.company
+        console.log(company)
     } catch (error) {
         console.log(error);
     }

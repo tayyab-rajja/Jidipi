@@ -14,7 +14,6 @@ interface IProps {
 
 export default function LogoContainerTablet({ company, handleChange }: IProps) {
     const websiteUrl = websiteUrlFormat(company?.website);
-
     return (
         <>
             <div
