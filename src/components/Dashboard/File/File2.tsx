@@ -31,7 +31,7 @@ const File2 = (props: any) => {
     };
     // Upload logo, require companyId,type: FileType.LOGO
     const logoState: UploadState = {
-        files: [], type: FileType.LOGO, companyId: props.companyId._id
+        files: [], type: FileType.LOGO, companyId: props.companyId?._id
     };
 
     // Watch upload status, and display status bar or feedback error.

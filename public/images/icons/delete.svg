@@ -1,0 +1,24 @@
+<svg
+                xmlns="http://www.w3.org/2000/svg"
+                id="button_delete"
+                data-name="button delete"
+                width="28"
+                height="28"
+                viewBox="0 0 30 30"
+              >
+                <circle
+                  id="Ellipse_282"
+                  data-name="Ellipse 282"
+                  cx="15"
+                  cy="15"
+                  r="15"
+                  fill="#e3e3e3"
+                />
+                <path
+                  id="delete"
+                  d="M11,5A1,1,0,0,0,9,5V9H5a1,1,0,0,0,0,2H9v4a1,1,0,0,0,2,0V11h4a1,1,0,0,0,0-2H11Z"
+                  transform="translate(15.485 1.343) rotate(45)"
+                  fill="#fff"
+                  fill-rule="evenodd"
+                />
+              </svg>
