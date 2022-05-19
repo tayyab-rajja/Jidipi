@@ -265,7 +265,7 @@ export default function CloudTabs(props: any) {
                       onClick={showModalHandler}
                       className={styles["add-button-dd"]}
                     >
-                      <i className={styles["far fa-plus me-3"]}></i> Add
+                      <i className={styles["fa-solid fa-plus me-2"]}></i> Add
                     </div>
                   </div>
                 )}
@@ -320,34 +320,45 @@ export default function CloudTabs(props: any) {
                         </td>
                         <td>
                           <div className={styles["creator"]}>
-                            <h4 className={styles["table-body-font"]}>
-                              {item.createdBy ? item.createdBy.memberType : ""}
-                            </h4>
-                            <Image
-                              src={`${CDN_URL}/avatars/default.svg`}
-                              width={20}
-                              height={20}
-                              alt=""
-                            />
+                            <div className={styles["table-body-font2"]}>
+                              <div className={styles["table-body-font"]}>
+                                {item.createdBy ? item.createdBy.memberType : ""}
+                              </div>
+                              <Image
+                                src={`${CDN_URL}/avatars/default.svg`}
+                                width={20}
+                                height={20}
+                                alt=""
 
-                            <h5 className={styles["table-body-font"]}>
+                              />
+                            </div>
+
+                            <div className={styles["table-body-font-post"]}>
                               {item.createdBy ? item.createdBy.firstName : ""}
-                            </h5>
+                            </div>
+
+
                           </div>
                         </td>
-                        <td className={styles["table-body-font"]}>
-                          {item.updatedAt.substring(0, 10)}
+                        
+                        <td >
+                          <div className={styles["mod"]} >
+                            {item.updatedAt.substring(0, 10)}
+                          </div>
                         </td>
-                        <td className={styles["table-body-font"]}>
-                          {item.size / 1000}GB
+                        <td >
+                          <div className={styles["volume"]} >
+                            {item.size / 1000}GB
+                          </div>
                         </td>
-                        <td>
-                          <div className="page-input">
-                            <div className="dropdown">
+
+                        <td className="">
+                          <div className={styles["page-input"]}>
+                            <div>
                               <select
                                 name="cars"
                                 id="cars"
-                                className={styles["select"]}
+                                className={styles["dropdown"]}
                               >
                                 {PagesList.map((item, index) => (
                                   <option

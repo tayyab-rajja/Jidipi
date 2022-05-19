@@ -12,7 +12,7 @@ function TableHeader(props: any) {
   const unconnectedHeaders = [
     {
       arrowup: ArrowUp,
-      name: "Name",
+      name: "NAME",
       arrowdown: ArrowDown,
     },
     {

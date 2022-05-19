@@ -1,9 +1,9 @@
 import clsx from "clsx";
-import React, {FC, ReactElement} from "react";
-import {Header} from "./Header/Header";
+import React, { FC, ReactElement } from "react";
+import { Header } from "./Header/Header";
 import TopDropdown from "../TopDropdown";
 import styles from "./Layout.module.scss";
-import {Sidebar} from "./Sidebar/Sidebar";
+import { Sidebar } from "./Sidebar/Sidebar";
 
 
 interface LayoutProps {
@@ -43,30 +43,30 @@ interface LayoutProps {
  * @constructor
  */
 export const DashboardLayout: FC<LayoutProps> = ({
-                                                     children,
-                                                     sidebarComponent,
-                                                     style = {},
-                                                     TopDropdownComponent,
-                                                     TopDropdownComponentWrapper,
-                                                            tab,
-                                                     rightSidebarComponent,
-                                                     competition,
-                                                     user, post, awards, test,
+    children,
+    sidebarComponent,
+    style = {},
+    TopDropdownComponent,
+    TopDropdownComponentWrapper,
+    tab,
+    rightSidebarComponent,
+    competition,
+    user, post, awards, test,
     paddingTop,
-                                                 }) => {
+}) => {
     return (
         <div className="d-flex align-items-start flex-column vh-100">
 
-            <Header user={user}/>
+            <Header user={user} />
             <div className="wrapper">
                 <Sidebar>
                     {sidebarComponent}
                 </Sidebar>
-                    <div className={`content-block    ${paddingTop?'pt-20':''}`}>
+                <div className={`content-block    ${paddingTop ? 'pt-20' : ''}`}>
                     <div className="d-flex h-100" >
                         <div className="flex-grow">
-                            {TopDropdownComponent && <TopDropdown Child={TopDropdownComponent} Wrapper={TopDropdownComponentWrapper}/>}
-                            {tab &&tab}
+                            {TopDropdownComponent && <TopDropdown Child={TopDropdownComponent} Wrapper={TopDropdownComponentWrapper} />}
+                            {tab && tab}
                             <div className="content-wrapper">
                                 {children}
                             </div>

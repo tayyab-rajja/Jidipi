@@ -73,7 +73,7 @@ export default function PostData(props: any) {
                   <div
                     className={
                       styles[
-                        !gridView ? "add-button-dd" : "list-view-button-dd"
+                      !gridView ? "add-button-dd" : "list-view-button-dd"
                       ]
                     }
                     onClick={showViewhandler}
@@ -96,7 +96,7 @@ export default function PostData(props: any) {
             </div>
 
             {!gridView && (
-              <div className={styles["table-body-chat"]}>
+              <div className={styles["table-body"]}>
                 <table className={styles["table-style"]}>
                   <TableHeader type={true} />
                   <tbody className={styles["body-border"]}>
@@ -112,39 +112,47 @@ export default function PostData(props: any) {
                         </td>
                         <td>
                           <div className={styles["creator"]}>
-                            <h4 className={styles["table-body-font"]}>
-                              {" "}
-                              {item.createdBy ? item.createdBy.memberType : ""}
-                            </h4>
 
-                            <Image
-                              src={blankIcon}
-                              // width={20}
-                              // height={20}
-                              alt=""
-                            />
+                            <div className={styles["table-body-font2"]}>
+                              <div className={styles["table-body-font"]}>
+                                {item.createdBy ? item.createdBy.memberType : ""}
+                              </div>
+                              <Image
+                                src={blankIcon}
+                                // width={20}
+                                // height={20}
+                                alt=""
+                              />
+                            </div>
 
-                            <h5 className={styles["table-body-font"]}>
-                              {" "}
+                            <div className={styles["table-body-font-post"]}>
                               {item.createdBy ? item.createdBy.firstName : ""}
-                            </h5>
+                            </div>
                           </div>
                         </td>
-                        <td className={styles["table-body-font"]}>
-                          {" "}
-                          {item.updatedAt.substring(0, 10)}
+
+                        <td >
+                          <div className={styles["mod-post"]} >
+                            {" "}
+                            {item.updatedAt.substring(0, 10)}
+                          </div>
                         </td>
-                        <td className={styles["table-body-font"]}>
-                          {" "}
-                          {item.size / 1000}GB
+                        <td >
+                          <div className={styles["volume-post"]} >
+                            {" "}
+                            {item.size / 1000}GB
+                          </div>
                         </td>
-                        <td>
+
+                        <td className={styles["url-post"]}>
+
                           <a
                             href={
                               item.postId && item.postId.featuredImage
                                 ? item.postId.featuredImage.liveURL
                                 : "#"
                             }
+                            className={styles["url-post"]}
                             target="_blank"
                             rel="noreferrer"
                           >
