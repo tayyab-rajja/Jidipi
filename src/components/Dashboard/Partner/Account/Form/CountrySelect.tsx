@@ -12,15 +12,18 @@ import useClickOutside from "src/hooks/useClickOutside";
 
 interface IProps {
     countries: ICountry[];
-    classes: string[]
+    classes: string[];
+    value: string;
 }
 
-export default function CountrySelect({ countries, classes }: IProps) {
+export default function CountrySelect({ countries, classes, value }: IProps) {
     const countrySelectRef = useRef(null);
     const [filterCountries, setFilterCountries] = useState(countries);
     const [isOpen, setIsOpen] = useState(false);
     const [search, setSearch] = useState("");
-    const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+    const [selectedCountry, setSelectedCountry] = useState<ICountry | null>(
+        countries.find((country) => country._id === value) as ICountry
+    );
     useClickOutside(countrySelectRef, () => setIsOpen(false));
 
     // const handleFavorite = (country: ICountry) => {
@@ -47,7 +50,7 @@ export default function CountrySelect({ countries, classes }: IProps) {
     }, [search, countries]);
 
     const handleSelectedCountry = (country: ICountry) => {
-        setSelectedCountry(country.title);
+        setSelectedCountry(country);
         setIsOpen(false);
     };
 
@@ -71,7 +74,7 @@ export default function CountrySelect({ countries, classes }: IProps) {
                             }}
                         >
                             <h3 className={styles["label"]}>
-                                {selectedCountry ?? "Country"}
+                                {selectedCountry?.title ?? "Country"}
                             </h3>
                             <Image src={Arrow} alt="arrow" />
                         </div>
