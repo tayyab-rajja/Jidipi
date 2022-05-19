@@ -90,7 +90,7 @@ export default function Form({
                     </div>
                     <SocialMediaForm
                         handleChange={handleChange}
-                        handleSave={handleChange}
+                        handleSave={handleSave}
                         company={company}
                     />
                 </div>

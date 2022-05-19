@@ -29,6 +29,7 @@ export default function SocialMediaInput({
 
     const updateClickHandler = () => {
         setIsActive(false);
+        handleSave(prop, value);
     };
     return (
         <div className={styles["social-input"]}>
