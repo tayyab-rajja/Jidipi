@@ -9,10 +9,11 @@ import { websiteUrlFormat } from "src/utils/formats";
 
 interface IProps {
     handleChange: (prop: string, value: string) => void;
+    handleSave: (prop: string, value: string) => void;
     company: CompanyAdd;
 }
 
-export default function LogoContainerTablet({ company, handleChange }: IProps) {
+export default function LogoContainerTablet({ company, handleChange, handleSave }: IProps) {
     const websiteUrl = websiteUrlFormat(company?.website);
     return (
         <>
@@ -67,6 +68,7 @@ export default function LogoContainerTablet({ company, handleChange }: IProps) {
                         prop="website"
                         classes={["mb-3"]}
                         handleChange={handleChange}
+                        handleSave={handleSave}
                     />
                     <InputContainer
                         placeholder="Email"
@@ -74,6 +76,7 @@ export default function LogoContainerTablet({ company, handleChange }: IProps) {
                         prop="email"
                         classes={[]}
                         handleChange={handleChange}
+                        handleSave={handleSave}
                     />
                 </div>
                 <div
@@ -99,6 +102,7 @@ export default function LogoContainerTablet({ company, handleChange }: IProps) {
                 prop="brand"
                 classes={["mb-3", "d-flex", "d-xl-none", "w-100"]}
                 handleChange={handleChange}
+                handleSave={handleSave}
             />
         </>
     );

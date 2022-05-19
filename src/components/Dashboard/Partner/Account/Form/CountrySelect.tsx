@@ -11,12 +11,22 @@ import useClickOutside from "src/hooks/useClickOutside";
 // import { PUT } from "src/lib/common/api";
 
 interface IProps {
+    handleChange: (prop: string, value: string) => void;
+    handleSave: (prop: string, value: string) => void;
     countries: ICountry[];
     classes: string[];
+    prop: string;
     value: string;
 }
 
-export default function CountrySelect({ countries, classes, value }: IProps) {
+export default function CountrySelect({
+    handleChange,
+    handleSave,
+    countries,
+    classes,
+    value,
+    prop,
+}: IProps) {
     const countrySelectRef = useRef(null);
     const [filterCountries, setFilterCountries] = useState(countries);
     const [isOpen, setIsOpen] = useState(false);
@@ -52,6 +62,8 @@ export default function CountrySelect({ countries, classes, value }: IProps) {
     const handleSelectedCountry = (country: ICountry) => {
         setSelectedCountry(country);
         setIsOpen(false);
+        handleSave(prop, country._id);
+        handleChange(prop, country._id);
     };
 
     return (

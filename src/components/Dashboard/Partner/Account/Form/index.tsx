@@ -9,6 +9,7 @@ import { CategoryAPI } from "types/categoryTypes";
 import config from "../config";
 interface IProps {
     handleChange: (prop: string, value: string) => void;
+    handleSave: (prop: string, value: string) => void;
     company: CompanyAdd;
     countries: ICountry[];
     categories: CategoryAPI[];
@@ -19,6 +20,7 @@ export default function Form({
     company,
     countries,
     categories,
+    handleSave
 }: IProps) {
     const handleComponents = () => {
         const personalInformation = config.basicProfile;
@@ -30,6 +32,7 @@ export default function Form({
                     classes={classes}
                     prop={prop}
                     handleChange={handleChange}
+                    handleSave={handleSave}
                     value={company[prop]}
                     placeholder={placeholder}
                     countries={countries}
@@ -72,11 +75,14 @@ export default function Form({
                             <LogoContainerTablet
                                 company={company}
                                 handleChange={handleChange}
+                                handleSave={handleChange}
+
                             />
 
                             <LogoContainerDesktop
                                 company={company}
                                 handleChange={handleChange}
+                                handleSave={handleChange}
                             />
 
                             {handleComponents()}
@@ -84,6 +90,7 @@ export default function Form({
                     </div>
                     <SocialMediaForm
                         handleChange={handleChange}
+                        handleSave={handleChange}
                         company={company}
                     />
                 </div>

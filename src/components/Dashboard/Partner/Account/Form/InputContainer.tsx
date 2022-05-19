@@ -7,6 +7,7 @@ import { useRef, useState } from "react";
 interface IProps {
     value: string;
     handleChange: (prop: string, value: string) => void;
+    handleSave: (prop: string, value: string) => void;
     classes: string[];
     prop: string;
     placeholder: string;
@@ -17,6 +18,7 @@ export default function InputContainer({
     classes,
     prop,
     placeholder,
+    handleSave
 }: IProps) {
     const [isActive, setIsActive] = useState(false);
     const valueRef = useRef(value);
@@ -33,6 +35,7 @@ export default function InputContainer({
     const updateClickHandler = () => {
         setIsActive(false);
         valueRef.current = value;
+        handleSave(prop, value)
     };
     return (
         <div className={clsx(styles["input-container"], ...classes)}>

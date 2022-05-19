@@ -14,10 +14,11 @@ import { UserContext } from "src/providers/UserProvider";
 
 interface IProps {
     handleChange: (prop: string, value: string) => void;
+    handleSave: (prop: string, value: string) => void;
     company: CompanyAdd;
 }
 
-export default function LogoContainer({ company, handleChange }: IProps) {
+export default function LogoContainer({ company, handleChange, handleSave }: IProps) {
     const websiteUrl = websiteUrlFormat(company?.website);
     const userContext: any = useContext(UserContext);
     const user = userContext.user;
@@ -116,6 +117,7 @@ export default function LogoContainer({ company, handleChange }: IProps) {
                             prop="brandName"
                             classes={[]}
                             handleChange={handleChange}
+                            handleSave={handleSave}
                         />
                     </div>
                 </div>
@@ -136,6 +138,7 @@ export default function LogoContainer({ company, handleChange }: IProps) {
                         prop="website"
                         classes={["mb-3"]}
                         handleChange={handleChange}
+                        handleSave={handleSave}
                     />
                     <InputContainer
                         placeholder="Email"
@@ -143,6 +146,7 @@ export default function LogoContainer({ company, handleChange }: IProps) {
                         prop="email"
                         classes={[]}
                         handleChange={handleChange}
+                        handleSave={handleSave}
                     />
                 </div>
                 <div

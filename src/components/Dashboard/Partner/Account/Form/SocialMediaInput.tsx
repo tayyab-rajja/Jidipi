@@ -9,6 +9,7 @@ interface IProps {
     prop: string;
     placeholder: string;
     handleChange: (prop: string, value: string) => void;
+    handleSave: (prop: string, value: string) => void;
     value: string;
 }
 
@@ -18,6 +19,7 @@ export default function SocialMediaInput({
     placeholder,
     handleChange,
     value,
+    handleSave,
 }: IProps) {
     const [isActive, setIsActive] = useState(false);
     const inputChange = (event: any) => {

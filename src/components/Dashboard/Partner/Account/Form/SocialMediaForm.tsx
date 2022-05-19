@@ -7,9 +7,14 @@ import config from "../config";
 interface IProps {
     company: CompanyAdd;
     handleChange: (prop: string, value: string) => void;
+    handleSave: (prop: string, value: string) => void;
 }
 
-export default function SocialMediaForm({ company, handleChange }: IProps) {
+export default function SocialMediaForm({
+    company,
+    handleChange,
+    handleSave,
+}: IProps) {
     const socialMediaInputs = config.socialMediaInputs;
     return (
         <>
@@ -32,6 +37,7 @@ export default function SocialMediaForm({ company, handleChange }: IProps) {
                                 placeholder={placeholder}
                                 icon={icon}
                                 handleChange={handleChange}
+                                handleSave={handleSave}
                                 value={company[prop]}
                             />
                         );
