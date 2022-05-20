@@ -2,29 +2,26 @@ import { CompanyAdd } from "types/companyInfoTypes";
 import Image from "next/image";
 import styles from "./Form.module.scss";
 import clsx from "clsx";
-import DeleteIcon from "public/images/icons/delete.svg";
 import UploadLogo from "public/images/profile/upload-logo.svg";
 import { useContext, useState } from "react";
-import { FileType, UploadState } from "src/lib/file/action";
+import { FileType, UploadState, UploadStatus } from "src/lib/file/action";
 import { UserContext } from "src/providers/UserProvider";
 import FileUploadModal from "src/components/UploadFiles/FileUploadModal";
+import { useSelector } from "react-redux";
 
 interface IProps {
     handleChange: (prop: string, value: string) => void;
-    handleSave: (prop: string, value: string) => void;
     company: CompanyAdd;
     prop: string;
 }
 
-export default function Avatar({
-    company,
-    handleSave,
-    handleChange,
-    prop,
-}: IProps) {
+export default function Avatar({ company, handleChange, prop }: IProps) {
     const userContext: any = useContext(UserContext);
-    const [preview, setPreview] = useState("");
     const user = userContext.user;
+    // @ts-ignore
+    const file = useSelector((state) => state.file.files?.[0]);
+    // @ts-ignore
+    const status = useSelector((state) => state.file.status);
     const logoState: UploadState = {
         files: [],
         type: FileType.LOGO,
@@ -62,9 +59,9 @@ export default function Avatar({
                 <>
                     <span> Logo </span>
                     <span className={clsx(styles["image-container"])}>
-                        {preview ? (
+                        {file && status === UploadStatus.allSuccess ? (
                             <img
-                                src={preview}
+                                src={file.liveURL}
                                 className={styles["preview-image"]}
                             />
                         ) : (
@@ -92,19 +89,14 @@ export default function Avatar({
             >
                 {showUploadModal && (
                     <FileUploadModal
+                        // disableDefaultLogos={true}
                         type="company"
-                        typeKey="companies"
-                        pageType="companies"
                         state={logoState}
                         onClose={() => {
                             setShowUploadModal(false);
                         }}
-                        onSelect={(file: any, preview: any) => {
-                            handleChange(prop, file.liveURL);
-                            setPreview(preview);
-                            if (!preview) {
-                                handleSave(prop, file.liveURL);
-                            }
+                        onSelect={() => {
+                            handleChange(prop, '');
                             setTimeout(() => {
                                 setShowUploadModal(false);
                             });

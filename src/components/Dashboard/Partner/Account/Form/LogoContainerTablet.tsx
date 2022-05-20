@@ -52,7 +52,6 @@ export default function LogoContainerTablet({
             >
                 <Avatar
                     handleChange={handleChange}
-                    handleSave={handleSave}
                     company={company}
                     prop={"logo"}
                 />
