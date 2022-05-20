@@ -26,6 +26,8 @@ import {
 import { PageFolder } from "types/pageFolderType";
 import { FilterItem } from "constant/filters/interface";
 import { isJudge } from "src/lib/user/role";
+import { faThumbTack } from "@fortawesome/free-solid-svg-icons";
+import { animatedScrollTo } from "react-select/dist/declarations/src/utils";
 
 interface IProps {
     competitions: ICompetition[];

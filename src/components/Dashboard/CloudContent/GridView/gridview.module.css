@@ -1,0 +1,25 @@
+
+.Grid-view{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.grid-box{
+    border: 1px solid rgb(182, 180, 180);
+    max-width: 254px;
+    margin-top: 20px;
+    margin-right:10px ;
+}
+.icn-name{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    background-color: rgb(204, 206, 207);
+}
+.file-name{
+    margin-left: 5px;
+    font-size: 0.875rem;
+  font-weight: normal;
+ 
+}

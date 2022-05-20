@@ -3,6 +3,7 @@ import React, {useContext} from "react";
 import {UserContext} from "../../../providers/UserProvider";
 import {isPartner, isStaff} from "../../../lib/user/role";
  import {DashboardLayout} from "../../../components/Dashboard/Layout/Layout";
+import CloudContent from "src/components/Dashboard/CloudContent/CloudContent";
 
 export default function Cloud(props: any) {
     // Currnet user, should limit to parnter and staff
@@ -15,7 +16,8 @@ export default function Cloud(props: any) {
 
     return <DashboardLayout>
         <div>
-            <div>Cloud content, Please force on content area, other coders will coding on the sidebar etc.</div>
+            {/* <div>Cloud content, Please force on content area, other coders will coding on the sidebar etc.</div> */}
+            <CloudContent/>
         </div>
     </DashboardLayout>;
 
