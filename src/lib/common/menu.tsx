@@ -37,7 +37,7 @@ export const generateSidebarMenus = (props: any) => {
                     {
                         title: "OVERVIEW",
                         icon: CDN_URL + "/dashboard/images/icons/overview-icon.svg",
-                        isSelected: true,
+                        isSelected: false,
                         link: `/dashboard/partner/overview`,
                     },
                     {
@@ -73,7 +73,7 @@ export const generateSidebarMenus = (props: any) => {
                         title: "ANALYSE",
                         icon: CDN_URL + "/dashboard/images/icons/overview-icon.svg",
                         isSelected: false,
-                        link: `/dashboard/partner/account/analyse`,
+                        link: `/dashboard/partner/analyse`,
                     },
                 ],
             },
