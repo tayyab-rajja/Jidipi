@@ -84,23 +84,24 @@ export const Sidebar: FC<SidebarProps> = ({
     </>;
     useEffect(() => {
         if (children !== undefined) {
-            setCs(<div className={styles['left-navbar']}>
+            setCs(<>
                 {children}
-            </div>);
+            </>);
 
-        }
-        if (isJudge(user) && !router.query.competitionId && menus?.length) {
-            let menu = menus[0];
-            if (menu.links.length) {
-                let link = menu.links[menu.links.length - 1];
-                if (link) {
-                    router.replace({
-                        query: {...router.query, competitionId: link.title}
-                    })
+        }else{
+            if (isJudge(user) && !router.query.competitionId && menus?.length) {
+                let menu = menus[0];
+                if (menu.links.length) {
+                    let link = menu.links[menu.links.length - 1];
+                    if (link) {
+                        router.replace({
+                            query: {...router.query, competitionId: link.title}
+                        })
+                    }
                 }
             }
+            setCs(defaultCs);
         }
-        setCs(defaultCs);
     }, [children]);
     useEffect(() => {
         if (!menus || !menus.length) return;

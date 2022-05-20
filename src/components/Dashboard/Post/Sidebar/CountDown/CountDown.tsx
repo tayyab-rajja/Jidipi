@@ -2,11 +2,13 @@ import styles from "../Sidebar.module.scss";
 import moment from "moment-timezone";
 import React from "react";
 import {useCountdown} from "../../../../../lib/competition/countdown";
+import {isPartner} from "../../../../../lib/user/role";
 
 
 export const CountDown = (props: any) => {
-    const post = props.post;
-    const [days, hours, minutes, seconds] = useCountdown(post.competitionId.winningEndDate);
+    const date = props.date;
+    const [days, hours, minutes, seconds] = useCountdown(date);
+
     return (<div className={styles['main-widget']}>
         <div className={`${styles['widget-title']} text-center `}>
             <h3>DEADLINE</h3>
@@ -16,12 +18,12 @@ export const CountDown = (props: any) => {
                 <div className={`row  mx-0 `}>
                     <div className="col d-flex justify-content-center align-items-center px-0">
                         <p>
-                            <sup>from</sup>{moment.tz(post.competitionId.winningStartDate, 'Europe/Berlin').format('YYYY-MM-DD')}
+                            <sup>from</sup>{moment.tz(date, 'Europe/Berlin').format('YYYY-MM-DD')}
                         </p>
                     </div>
                     <div className="col d-flex justify-content-center align-items-center px-0">
                         <p>
-                            <sup>until</sup>{moment.tz(post.competitionId.winningEndDate, 'Europe/Berlin').format('YYYY-MM-DD')}
+                            <sup>until</sup>{moment.tz(date, 'Europe/Berlin').format('YYYY-MM-DD')}
                         </p>
                     </div>
                 </div>

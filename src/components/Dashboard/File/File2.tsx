@@ -1,4 +1,4 @@
-import {FileType, retrySingleFile,  upload, UploadState} from "../../../lib/file/action";
+import {FileType, retrySingleFile, upload, UploadState, UploadStatus} from "../../../lib/file/action";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 
@@ -40,6 +40,9 @@ const File2 = (props: any) => {
     useEffect(() => {
         // uploadState.status= UploadStatus.allSuccess mean upload complete.
         console.log('useEffect', uploadState.status);
+        if(uploadState.status === UploadStatus.allSuccess){
+            // Use this uploadState.files[0]
+        }
     }, [
         uploadState
     ])
