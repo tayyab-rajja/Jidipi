@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import styles from "src/components/Dashboard/CloudContent/CloudContent.module.css";
-import groupIcon from "public/images/icon-group.png";
+import groupIcon from "public/dashboard/cloud/images/icon-group.png";
 import Image from "next/image";
 
-import fileIcon from "public/images/jpg-file.png";
-import IconLens from "public/images/icon-lens.png";
-import blankIcon from "public/images/creator-blank.png";
+import fileIcon from "public/dashboard/cloud/images/jpg-file.png";
+import IconLens from "public/dashboard/cloud/images/icon-lens.png";
+import blankIcon from "public/dashboard/cloud/images/creator-blank.png";
 import { UserContext } from "src/providers/UserProvider";
 
-import link from "public/images/link-icon.png";
+import link from "public/dashboard/cloud/images/link-icon.png";
 import { GET } from "src/lib/common/api";
 import TableHeader from "./TableHeader";
 import GridView from "../GridView/GridView";

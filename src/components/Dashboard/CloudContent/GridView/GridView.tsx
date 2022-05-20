@@ -1,8 +1,8 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import styles from "src/components/Dashboard/CloudContent/GridView/gridview.module.css";
-import img from "public/images/jpg-file.png";
-import pdfIcon from "public/images/pdf-icon.png";
+import img from "public/dashboard/cloud/images/jpg-file.png";
+import pdfIcon from "public/dashboard/cloud/images/pdf-icon.png";
 import { GET } from "src/lib/common/api";
 import axios from "axios";
 function GridView(props: any) {

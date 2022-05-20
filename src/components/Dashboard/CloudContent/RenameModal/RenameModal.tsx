@@ -3,7 +3,7 @@ import styles from "src/components/Dashboard/CloudContent/RenameModal/rename.mod
 import Modal from "react-modal";
 import { UserContext } from "src/providers/UserProvider";
 import { PUT } from "src/lib/common/api";
-import closeIcon from "public/images/close-button.png";
+import closeIcon from "public/dashboard/cloud/images/close-button.png";
 import Image from "next/image";
 import axios from "axios";
 function RenameModal(props: any) {
