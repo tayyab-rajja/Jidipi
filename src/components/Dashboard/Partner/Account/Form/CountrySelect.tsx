@@ -11,16 +11,29 @@ import useClickOutside from "src/hooks/useClickOutside";
 // import { PUT } from "src/lib/common/api";
 
 interface IProps {
+    handleChange: (prop: string, value: string) => void;
+    handleSave: (prop: string, value: string) => void;
     countries: ICountry[];
-    classes: string[]
+    classes: string[];
+    prop: string;
+    value: string;
 }
 
-export default function CountrySelect({ countries, classes }: IProps) {
+export default function CountrySelect({
+    handleChange,
+    handleSave,
+    countries,
+    classes,
+    value,
+    prop,
+}: IProps) {
     const countrySelectRef = useRef(null);
     const [filterCountries, setFilterCountries] = useState(countries);
     const [isOpen, setIsOpen] = useState(false);
     const [search, setSearch] = useState("");
-    const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
+    const [selectedCountry, setSelectedCountry] = useState<ICountry | null>(
+        countries.find((country) => country._id === value) as ICountry
+    );
     useClickOutside(countrySelectRef, () => setIsOpen(false));
 
     // const handleFavorite = (country: ICountry) => {
@@ -47,8 +60,10 @@ export default function CountrySelect({ countries, classes }: IProps) {
     }, [search, countries]);
 
     const handleSelectedCountry = (country: ICountry) => {
-        setSelectedCountry(country.title);
+        setSelectedCountry(country);
         setIsOpen(false);
+        handleSave(prop, country._id);
+        handleChange(prop, country._id);
     };
 
     return (
@@ -71,7 +86,7 @@ export default function CountrySelect({ countries, classes }: IProps) {
                             }}
                         >
                             <h3 className={styles["label"]}>
-                                {selectedCountry ?? "Country"}
+                                {selectedCountry?.title ?? "Country"}
                             </h3>
                             <Image src={Arrow} alt="arrow" />
                         </div>

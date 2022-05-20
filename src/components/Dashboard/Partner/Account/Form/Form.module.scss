@@ -98,6 +98,13 @@
                 margin: 3px auto;
                 height: 40px;
                 width: 40px;
+                .preview-image {
+                    position: absolute;
+                    width: "100%";
+                    height: "100%";
+                    top: 0;
+                    left: 0;
+                }
             }
         }
     }
@@ -111,6 +118,18 @@
             padding: 14px 12px;
             min-height: 104px;
             min-width: 104px;
+            .delete-avatar-container {
+                top: 5px;
+                right: 25px;
+                button {
+                    background-color: transparent;
+                    border: 0;
+                    outline: 0;
+                    display: inline-block;
+                    width: 20px;
+                    height: 20px;
+                }
+            }
             span {
                 font-size: 11px;
                 color: #888888;
@@ -121,6 +140,13 @@
                 margin: 3px auto;
                 height: 40px;
                 width: 40px;
+                .preview-image {
+                    position: absolute;
+                    width: "100%";
+                    height: "100%";
+                    top: 0;
+                    left: 0;
+                }
             }
         }
     }

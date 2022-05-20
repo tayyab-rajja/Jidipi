@@ -31,14 +31,16 @@ function* uploadSaga(data: {
     detail: UploadState,
     e: any,
 }) {
-
     const e = data.e;
     const props = data.detail;
     let fs: any[] = [];
-    if (e && e.target && e.target.files) {
-        fs = Array.from(e.target.files);
+    if (Array.isArray(e)) {
+        fs = e
+    } else {
+        if (e && e.target && e.target.files) {
+            fs = Array.from(e.target.files);
+        }
     }
-
     const initUploadList: UploadState = {
         type: props.type,
         postId: props.postId ?? undefined,

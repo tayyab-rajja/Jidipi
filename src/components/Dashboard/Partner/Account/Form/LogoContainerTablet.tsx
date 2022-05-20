@@ -6,15 +6,20 @@ import Image from "next/image";
 import InputContainer from "./InputContainer";
 import { QRCodeSVG } from "qrcode.react";
 import { websiteUrlFormat } from "src/utils/formats";
+import Avatar from "./Avatar";
 
 interface IProps {
     handleChange: (prop: string, value: string) => void;
+    handleSave: (prop: string, value: string) => void;
     company: CompanyAdd;
 }
 
-export default function LogoContainerTablet({ company, handleChange }: IProps) {
+export default function LogoContainerTablet({
+    company,
+    handleChange,
+    handleSave,
+}: IProps) {
     const websiteUrl = websiteUrlFormat(company?.website);
-
     return (
         <>
             <div
@@ -45,22 +50,12 @@ export default function LogoContainerTablet({ company, handleChange }: IProps) {
                     "w-100"
                 )}
             >
-                <div
-                    className={clsx(
-                        styles["mr-4"],
-                        styles["logo"],
-                        styles["border-grey"],
-                        styles["bg-grey"]
-                    )}
-                >
-                    <span> Logo </span>
-                    <Image
-                        src={UploadLogo}
-                        alt="upload logo"
-                        width="40"
-                        height="40"
-                    />
-                </div>
+                <Avatar
+                    handleChange={handleChange}
+                    handleSave={handleSave}
+                    company={company}
+                    prop={"logoId"}
+                />
                 <div className="w-100">
                     <InputContainer
                         placeholder="Website"
@@ -68,6 +63,7 @@ export default function LogoContainerTablet({ company, handleChange }: IProps) {
                         prop="website"
                         classes={["mb-3"]}
                         handleChange={handleChange}
+                        handleSave={handleSave}
                     />
                     <InputContainer
                         placeholder="Email"
@@ -75,6 +71,7 @@ export default function LogoContainerTablet({ company, handleChange }: IProps) {
                         prop="email"
                         classes={[]}
                         handleChange={handleChange}
+                        handleSave={handleSave}
                     />
                 </div>
                 <div
@@ -100,6 +97,7 @@ export default function LogoContainerTablet({ company, handleChange }: IProps) {
                 prop="brand"
                 classes={["mb-3", "d-flex", "d-xl-none", "w-100"]}
                 handleChange={handleChange}
+                handleSave={handleSave}
             />
         </>
     );

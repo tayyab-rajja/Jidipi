@@ -26,10 +26,17 @@ export default function DesktopView({ company }: IProps) {
                         className={clsx(
                             styles["mr-4"],
                             styles["logo"],
-                            styles["border-grey"]
+                            styles["border-grey"],
+                            "position-relative"
                         )}
                     >
-                        <Image src={PartnerLogo} alt="partner logo" />
+                        {company.avatar && (
+                            <Image
+                                src={company.avatar}
+                                alt="partner logo"
+                                layout="fill"
+                            />
+                        )}
                     </div>
                     <div className="w-100">
                         <div
@@ -62,10 +69,15 @@ export default function DesktopView({ company }: IProps) {
                 >
                     <div className="d-flex">
                         {icons.map((iconItem) => {
-                            const { icon, prop, alt } = iconItem;
+                            const { icon, prop, alt, id } = iconItem;
                             return (
                                 prop && (
-                                    <a href={prop} target="_blank" rel="noreferrer">
+                                    <a
+                                        href={prop}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        key={id}
+                                    >
                                         <div className={styles["icon"]}>
                                             <Image src={icon} alt={alt} />
                                         </div>

@@ -2,11 +2,12 @@ import styles from "./Form.module.scss";
 import Image from "next/image";
 import clsx from "clsx";
 import UpdateButton from "public/images/icons/update-button.svg";
-import { useRef, useState } from "react";
+import useInputHook from "./useInputHook";
 
 interface IProps {
     value: string;
     handleChange: (prop: string, value: string) => void;
+    handleSave: (prop: string, value: string) => void;
     classes: string[];
     prop: string;
     placeholder: string;
@@ -17,23 +18,14 @@ export default function InputContainer({
     classes,
     prop,
     placeholder,
+    handleSave,
 }: IProps) {
-    const [isActive, setIsActive] = useState(false);
-    const valueRef = useRef(value);
-    const inputChange = (event: any) => {
-        const newValue = event.target.value;
-        if (valueRef.current !== newValue) {
-            setIsActive(true);
-        } else {
-            setIsActive(false);
-        }
-        handleChange(prop, newValue);
-    };
-
-    const updateClickHandler = () => {
-        setIsActive(false);
-        valueRef.current = value;
-    };
+    const { updateClickHandler, inputChange, isActive } = useInputHook({
+        handleChange,
+        handleSave,
+        value,
+        prop,
+    });
     return (
         <div className={clsx(styles["input-container"], ...classes)}>
             <input

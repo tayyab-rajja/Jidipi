@@ -17,31 +17,37 @@ export default {
     icons(company: CompanyAdd) {
         return [
             {
+                id: 1,
                 prop: company.facebookLink,
                 icon: FacebookIcon,
                 alt: "Facebook Icon",
             },
             {
+                id: 2,
                 prop: company.twitterLink,
                 icon: TwitterIcon,
                 alt: "Twitter Icon",
             },
             {
+                id: 3,
                 prop: company.instagramLink,
                 icon: InstagramIcon,
                 alt: "Instagram Icon",
             },
             {
+                id: 4,
                 prop: company.pininterestLink,
                 icon: PinterestIcon,
                 alt: "Pininterest Icon",
             },
             {
+                id: 5,
                 prop: company.vimeoLink,
                 icon: VimeoIcon,
                 alt: "Vimeo Icon",
             },
             {
+                id: 6,
                 prop: company.linkedLink,
                 icon: LinkedInIcon,
                 alt: "LinkedIn Icon",

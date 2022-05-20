@@ -7,6 +7,9 @@ import { useEffect, useState } from "react";
 
 interface IProps {
     categories: CategoryAPI[];
+    handleChange: (prop: string, value: string) => void;
+    handleSave: (prop: string, value: string) => void;
+    value: string[];
 }
 
 export default function GroupSelect({ categories: groupsParam }: IProps) {

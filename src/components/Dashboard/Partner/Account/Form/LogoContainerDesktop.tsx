@@ -1,18 +1,22 @@
 import styles from "./Form.module.scss";
 import clsx from "clsx";
 import { CompanyAdd } from "types/companyInfoTypes";
-import UploadLogo from "public/images/profile/upload-logo.svg";
-import Image from "next/image";
 import InputContainer from "./InputContainer";
 import { QRCodeSVG } from "qrcode.react";
 import { websiteUrlFormat } from "src/utils/formats";
+import Avatar from "./Avatar";
 
 interface IProps {
     handleChange: (prop: string, value: string) => void;
+    handleSave: (prop: string, value: string) => void;
     company: CompanyAdd;
 }
 
-export default function LogoContainer({ company, handleChange }: IProps) {
+export default function LogoContainer({
+    company,
+    handleChange,
+    handleSave,
+}: IProps) {
     const websiteUrl = websiteUrlFormat(company?.website);
 
     return (
@@ -26,19 +30,12 @@ export default function LogoContainer({ company, handleChange }: IProps) {
                     "d-xl-flex"
                 )}
             >
-                <div
-                    className={clsx(
-                        styles["mr-4"],
-                        styles["logo"],
-                        styles["border-grey"],
-                        styles["bg-grey"]
-                    )}
-                >
-                    <span> Logo </span>
-                    <span className={clsx(styles["image-container"])}>
-                        <Image src={UploadLogo} alt="upload logo" />
-                    </span>
-                </div>
+                <Avatar
+                    handleChange={handleChange}
+                    handleSave={handleSave}
+                    company={company}
+                    prop={"logoId"}
+                />
                 <div className="w-100">
                     <div className={clsx(styles["input-container"], "mb-3")}>
                         <input
@@ -58,6 +55,7 @@ export default function LogoContainer({ company, handleChange }: IProps) {
                             prop="brandName"
                             classes={[]}
                             handleChange={handleChange}
+                            handleSave={handleSave}
                         />
                     </div>
                 </div>
@@ -78,6 +76,7 @@ export default function LogoContainer({ company, handleChange }: IProps) {
                         prop="website"
                         classes={["mb-3"]}
                         handleChange={handleChange}
+                        handleSave={handleSave}
                     />
                     <InputContainer
                         placeholder="Email"
@@ -85,6 +84,7 @@ export default function LogoContainer({ company, handleChange }: IProps) {
                         prop="email"
                         classes={[]}
                         handleChange={handleChange}
+                        handleSave={handleSave}
                     />
                 </div>
                 <div

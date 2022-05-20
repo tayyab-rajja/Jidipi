@@ -1,0 +1,7 @@
+<svg id="button-successful" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+  <g id="Ellipse_270" data-name="Ellipse 270" fill="#373737" stroke="#fff" stroke-width="1">
+    <circle cx="15" cy="15" r="15" stroke="none"/>
+    <circle cx="15" cy="15" r="14.5" fill="none"/>
+  </g>
+  <path id="Check" d="M13.8,5.186a.694.694,0,0,0-.982-.982L5.485,11.533l-2.3-2.3a.694.694,0,1,0-.982.982l2.756,2.756c.011.012.022.024.033.035a.7.7,0,0,0,.984,0,.4.4,0,0,0,.033-.035Z" transform="translate(7 6.719)" fill="#f1f1f1" fill-rule="evenodd"/>
+</svg>
