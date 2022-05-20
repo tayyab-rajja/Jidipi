@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback, useContext } from "react";
 import { UserContext } from "../../../../providers/UserProvider";
 import styles from "src/components/Dashboard/CloudContent/AddModal/Modal.module.css";
-import cloudIcon from "public/images/icon-cloud.png";
-import uploadIcon from "public/images/upload-file.png";
-import folderIcon from "public/images/icon-folder.png";
-import closeIcon from "public/images/close-button.png";
+import cloudIcon from "public/dashboard/cloud/images/icon-cloud.png";
+import uploadIcon from "public/dashboard/cloud/images/upload-file.png";
+import folderIcon from "public/dashboard/cloud/images/icon-folder.png";
+import closeIcon from "public/dashboard/cloud/images/close-button.png";
 import Modal from "react-modal";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";

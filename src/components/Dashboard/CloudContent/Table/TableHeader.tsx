@@ -2,8 +2,8 @@ import React, { useState, useEffect, useCallback, useContext } from "react";
 import styles from "src/components/Dashboard/CloudContent/CloudContent.module.css";
 // import Form from "react-bootstrap/Form";
 import Image from "next/image";
-import ArrowUp from "public/images/arrow-up.png";
-import ArrowDown from "public/images/arrow-down.png";
+import ArrowUp from "public/dashboard/cloud/images/arrow-up.png";
+import ArrowDown from "public/dashboard/cloud/images/arrow-down.png";
 
 function TableHeader(props: any) {
   const [headers, setHeaders] = useState<any[]>([]);
