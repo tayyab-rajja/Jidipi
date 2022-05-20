@@ -34,10 +34,10 @@ export const fileReducer = (state = initState, action: AnyAction) => {
         case UPLOAD_FAILED:
             return {...state, status: uploadFailed};
         case GET_PRE_SIGNED_URL:
-            console.log(GET_PRE_SIGNED_URL, action.detail.files);
-            return {...state, files: action.detail.files, status: UploadStatus.gettingPreSignedUrl}
+            // console.log(GET_PRE_SIGNED_URL, action.detail.files[0].name, action.detail.files[0].liveURL);
+            return {...state, files: [...(action.detail.files).map((file: any) => ({...file}))], status: UploadStatus.gettingPreSignedUrl}
         case GET_PRE_SIGNED_URL_SUCCESS:
-            return {...state, files: action.detail.files, status: UploadStatus.getPreSignedUrlSuccess};
+            return {...state, files: [...(action.detail.files).map((file: any) => ({...file}))], status: UploadStatus.getPreSignedUrlSuccess};
         case GET_PRE_SIGNED_URL_FAILED:
             return {...state, status: UploadStatus.getPreSignedUrlFailed};
         case UPLOAD_TO_S3_SUCCESS:
@@ -47,7 +47,7 @@ export const fileReducer = (state = initState, action: AnyAction) => {
                     f.success=true;
                 }
                 if(!f.success) allSuccess=false;
-                return f;
+                return { ...f };
             })
             let status = state.status;
             if(allSuccess){
@@ -57,12 +57,12 @@ export const fileReducer = (state = initState, action: AnyAction) => {
         case UPLOAD_TO_S3_PROGRESS:
             return {...state, files: state.files.map((f:FileObject)=>{
                     if(f._id === action.detail._id) f.progress=action.detail.progress;
-                    return f;
+                    return { ...f };
                 })};
         case UPLOAD_TO_S3_FAILED:
             return {...state, files: state.files.map((f:FileObject)=>{
                     if(f._id === action.detail._id)      f.success= false;
-                    return f;
+                    return { ...f };
                 })};
         case UPLOAD_ALL_SUCCESS:
             return {...state,  status:UploadStatus.allSuccess};

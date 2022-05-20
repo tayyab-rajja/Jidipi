@@ -24,7 +24,7 @@ export default function Profile({
 }: IProps) {
     const userContext: any = useContext(UserContext);
     const user = userContext.user;
-    const [company, setCompany] = useState<CompanyAdd>({ ...companyData, logoId: companyData.logoId.liveURL });
+    const [company, setCompany] = useState<CompanyAdd>({ ...companyData, logo: companyData.logoId.liveURL });
     // const [company, setCompany] = useState<CompanyAdd>({
     //     brandName: "",
     //     companyName: "",

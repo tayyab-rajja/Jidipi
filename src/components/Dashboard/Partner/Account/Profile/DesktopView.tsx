@@ -9,12 +9,20 @@ import { CompanyAdd } from "types/companyInfoTypes";
 import { telephoneFaxFieldFormat } from "src/utils/formats";
 import config from "../config";
 import { websiteUrlFormat } from "src/utils/formats";
+import { UploadStatus } from "src/lib/file/action";
+import { useSelector } from "react-redux";
 
 interface IProps {
     company: CompanyAdd;
+    showCompanyLogo: boolean;
+    logo: string;
 }
 
-export default function DesktopView({ company }: IProps) {
+export default function DesktopView({
+    company,
+    showCompanyLogo,
+    logo,
+}: IProps) {
     const icons = config.icons(company);
     const websiteUrl = websiteUrlFormat(company?.website);
 
@@ -30,9 +38,9 @@ export default function DesktopView({ company }: IProps) {
                             "position-relative"
                         )}
                     >
-                        {company.avatar && (
+                        {showCompanyLogo && (
                             <Image
-                                src={company.avatar}
+                                src={logo}
                                 alt="partner logo"
                                 layout="fill"
                             />

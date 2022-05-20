@@ -11,9 +11,11 @@ import config from "../config";
 
 interface IProps {
     company: CompanyAdd;
+    showCompanyLogo: boolean;
+    logo: string;
 }
 
-export default function MobileView({ company }: IProps) {
+export default function MobileView({ company, showCompanyLogo, logo }: IProps) {
     const websiteUrl = websiteUrlFormat(company?.website);
     const icons = config.icons(company);
     return (
@@ -28,8 +30,12 @@ export default function MobileView({ company }: IProps) {
                             "position-relative"
                         )}
                     >
-                        {company.avatar && (
-                            <Image src={company.avatar} alt="partner logo" layout="fill" />
+                        {showCompanyLogo && (
+                            <Image
+                                src={logo}
+                                alt="partner logo"
+                                layout="fill"
+                            />
                         )}
                     </div>
 

@@ -11,9 +11,11 @@ import { QRCodeSVG } from "qrcode.react";
 
 interface IProps {
     company: CompanyAdd;
+    showCompanyLogo: boolean;
+    logo: string;
 }
 
-export default function TabletView({ company }: IProps) {
+export default function TabletView({ company, showCompanyLogo, logo }: IProps) {
     const icons = config.icons(company);
     const websiteUrl = websiteUrlFormat(company?.website);
 
@@ -36,9 +38,9 @@ export default function TabletView({ company }: IProps) {
                             "position-relative"
                         )}
                     >
-                        {company.avatar && (
+                        {showCompanyLogo && (
                             <Image
-                                src={company.avatar}
+                                src={logo}
                                 alt="partner logo"
                                 layout="fill"
                             />
