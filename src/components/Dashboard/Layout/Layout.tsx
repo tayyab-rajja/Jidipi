@@ -81,8 +81,7 @@ export const DashboardLayout: FC<LayoutProps> = ({
                         </div>
 
                         {rightSidebarComponent ? (
-                            <div className={styles["navbar"]}>
-                                {" "}
+                            <div       className={`${styles["navbar"]}  ${styles["right"]}`}>
                                 {rightSidebarComponent}
                             </div>
                         ) : null}

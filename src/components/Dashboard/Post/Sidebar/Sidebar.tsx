@@ -1,18 +1,15 @@
 import React, {useContext, useEffect, useState} from "react";
-import {useRouter} from "next/router";
 import moment from "moment-timezone";
 import styles from "./Sidebar.module.scss";
 import {Profile} from "./Profile/Profile";
-import {GlobalUser, UserContext} from "../../../../providers/UserProvider";
+import { UserContext} from "../../../../providers/UserProvider";
 import {isJudge, isPartner} from "../../../../lib/user/role";
 import {CountDown} from "./CountDown/CountDown";
-import {status} from "nprogress";
 import {PUT} from "../../../../lib/common/api";
 import Image from "next/image";
 import IconSave from "../../../../../public/dashboard/images/icon-status-save.svg";
 import IconPublished from "../../../../../public/dashboard/images/icon-status-published.svg";
 import {PostStatus} from "../../../../lib/models/post";
-import RemoveSvg from "../../../../../public/dashboard/images/icons/remove.svg";
 import ButtonCancelSvg from "../../../../../public/dashboard/images/icons/button-cancel.svg";
 import ButtonSaveSvg from "../../../../../public/dashboard/images/icons/button-save.svg";
 import SlideSvg from "../../../../../public/dashboard/images/icons/slide.svg";
@@ -38,11 +35,8 @@ const PostLeftSidebar = (props: PostSidebarProps) => {
     const userContext: any = useContext(UserContext);
     const user = userContext.user;
     const {post, awards, competition} = props;
-
     const neverShowAgain = cookies.get('partner-never-show-again');
-    console.log('neverShowAgain',neverShowAgain);
-
-    function evaluation(e: any, i: number) {
+    function evaluation(e: any) {
         return (
             <>
                 <Profile
@@ -67,8 +61,7 @@ const PostLeftSidebar = (props: PostSidebarProps) => {
                         <div className={`${styles['simple-rating']}  ${styles['star-rating']}    `}>
                             {/*<div> */}
                             {Array.from(Array(10).keys()).map((i) => {
-                                return <div key={i}
-                                            className={`${styles['icon-star']}  ${e.rating >= (i + 1) ? styles['active-star'] : ''}`}></div>
+                                return <div key={i}  className={`${styles['icon-star']}  ${e.rating >= (i + 1) ? styles['active-star'] : ''}`}/>
                             })}
                         </div>
 
@@ -92,15 +85,6 @@ const PostLeftSidebar = (props: PostSidebarProps) => {
         applicationStatus: "",
     });
 
-    async function confirm() {
-        try {
-            // show a notification UI. notify when success or fail
-            const result = await PUT("/competition/apply", application);
-            console.log(result);
-        } catch (e) {
-
-        }
-    }
 
 
     const ERR = {
@@ -135,8 +119,8 @@ const PostLeftSidebar = (props: PostSidebarProps) => {
         } catch (e) {
         }
     }
-    async function sendAndDonNotShow(status: string = PostStatus.Published) {
-        GlobalUser.token= cookies.set('partner-never-show-again',true)  ;
+    async function sendAndDonNotShow() {
+          cookies.set('partner-never-show-again',true)  ;
          await publish();
     }
 
@@ -187,7 +171,7 @@ const PostLeftSidebar = (props: PostSidebarProps) => {
         }
     }, [user, post, competition]);
 
-    if (!post || !competition) return (<div></div>);
+    if (!post || !competition) return (<div/>);
 
     const name = post.applicant ? (post.applicant.firstName + ' ' + post.applicant.lastName).trim() : ''
     const profileWidget = () => (
@@ -306,8 +290,7 @@ const PostLeftSidebar = (props: PostSidebarProps) => {
                                 {isPartner(user) && status === STATUS.after && post.evaluations &&
                                     post.evaluations.map((e: any, i: number) => {
                                         return (
-                                            <div key={i}
-                                                 className={`${styles['main-widget']} ${styles['pt-18']}  `}>{evaluation(e, i)} </div>)
+                                            <div key={i}        className={`${styles['main-widget']} ${styles['pt-18']}  `}>{evaluation(e)} </div>)
                                     })
                                 }
                             </>
