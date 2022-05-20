@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "src/components/Dashboard/CloudContent/CloudContent.module.css";
 import Image from "next/image";
-import linkButton from "public/images/link-Buttton.png"
+import linkButton from "public/images/link-buttton.png"
 import sendButton from "public/images/send-button.png";
 function ChatComponent() {
   return (
