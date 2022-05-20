@@ -46,6 +46,7 @@ export interface CompanyAdd
     scheduledDate: string;
     isActive: boolean;
     logoId: any;
+    logo: string;
     _id: undefined;
     description: string;
     [index: string]: any

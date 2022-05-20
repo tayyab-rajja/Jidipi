@@ -92,8 +92,9 @@ export default function Avatar({
             >
                 {showUploadModal && (
                     <FileUploadModal
-                        type="users"
-                        typeKey="users"
+                        type="company"
+                        typeKey="companies"
+                        pageType="companies"
                         state={logoState}
                         onClose={() => {
                             setShowUploadModal(false);

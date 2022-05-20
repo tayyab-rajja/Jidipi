@@ -28,8 +28,8 @@ export default function MobileView({ company }: IProps) {
                             "position-relative"
                         )}
                     >
-                        {company.avatar && (
-                            <Image src={company.avatar} alt="partner logo" layout="fill" />
+                        {company.logo && (
+                            <Image src={company.logo} alt="partner logo" layout="fill" />
                         )}
                     </div>
 

@@ -54,7 +54,7 @@ export default function LogoContainerTablet({
                     handleChange={handleChange}
                     handleSave={handleSave}
                     company={company}
-                    prop={"logoId"}
+                    prop={"logo"}
                 />
                 <div className="w-100">
                     <InputContainer

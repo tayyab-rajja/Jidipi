@@ -36,9 +36,9 @@ export default function TabletView({ company }: IProps) {
                             "position-relative"
                         )}
                     >
-                        {company.avatar && (
+                        {company.logo && (
                             <Image
-                                src={company.avatar}
+                                src={company.logo}
                                 alt="partner logo"
                                 layout="fill"
                             />
