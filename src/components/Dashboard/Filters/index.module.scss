@@ -1,5 +1,5 @@
 @media (min-width: 768px) {
-    .architectures-filter .filter-item {
+    .filters-container .filter-item {
         min-width: 100%;
     }
 
@@ -53,7 +53,7 @@
 }
 
 @media (min-width: 1024px) {
-    .architectures-filter {
+    .filters-container {
         .search-section,
         .award,
         .score-rate {
@@ -87,7 +87,7 @@
 }
 
 @media (min-width: 1440px) {
-    .architectures-filter {
+    .filters-container {
         .award,
         .search-section,
         .candidates {
@@ -120,7 +120,7 @@
 }
 
 @media (min-width: 1900px) {
-    .architectures-filter {
+    .filters-container {
         flex-wrap: nowrap;
         .award,
         .search-section,
@@ -138,7 +138,7 @@
     }
 }
 
-.architectures-filter {
+.filters-container {
     // global styles with apply to body in the design
     // start
     font-family: "Poppins";

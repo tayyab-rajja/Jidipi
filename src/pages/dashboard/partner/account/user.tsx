@@ -5,13 +5,27 @@ import Menu from "src/components/Dashboard/Partner/Account/Menu";
 import { CompanyAdd } from "types/companyInfoTypes";
 import { GET } from "src/lib/common/api";
 import { GetServerSideProps } from "next";
+import Filters from "src/components/Dashboard/Partner/Account/User/Filters";
+import { useState } from "react";
+import { postFilters } from "types/queryParameters";
 
 interface IProps {
     company: CompanyAdd;
+    filters: any;
 }
 
-export default function Profile({ company: companyData }: IProps) {
+export default function Profile({ company: companyData, filters }: IProps) {
     const company = { ...companyData, logo: companyData.logoId.liveURL };
+    const [filterParameters, setFilterParameters] = useState(
+        filters.postFilters
+    );
+
+    const handleChange = (prop: string, itemId: string) => {
+        setFilterParameters((value: postFilters) => {
+            value[prop] = itemId;
+            return { ...value };
+        });
+    };
     return (
         <DashboardLayout
             TopDropdownComponent={<TopMenuContent company={company} />}
@@ -19,7 +33,14 @@ export default function Profile({ company: companyData }: IProps) {
             TopDropdownButtonName={"PROFILE"}
             tab={<Menu />}
         >
-            <div></div>
+            <div className="bg-white">
+                <div>
+                    <Filters
+                        handleChange={handleChange}
+                        filterParameters={filterParameters}
+                    />
+                </div>
+            </div>
         </DashboardLayout>
     );
 }
@@ -33,6 +54,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
             ...urls.map((url) => GET(url, req.cookies)),
         ]);
         props.company = company.company;
+        props.filters = {
+            postFilters: {}
+        }
     } catch (error) {
         console.log(error);
     }

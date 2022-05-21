@@ -1,7 +1,7 @@
-import styles from "./index.module.scss";
-import SearchFilter from "./SearchFilter";
-import CandidatesFilter from "./CandidatesFilter";
-import PlaceholderSelect from "./PlaceholderSelect";
+import styles from "src/components/Dashboard/Filters/index.module.scss";
+import SearchFilter from "src/components/Dashboard/Filters/SearchFilter";
+import CandidatesFilter from "../../../Filters/CandidatesFilter";
+import PlaceholderSelect from "src/components/Dashboard/Filters/PlaceholderSelect";
 import AwardData from "constant/filters/award";
 import ScoreData from "constant/filters/score";
 import RatingData from "constant/filters/rating";
@@ -19,7 +19,7 @@ interface IProps {
     handleChange: Function;
     filterParameters: postFilters;
     statuses: { [key: string]: number };
-    awards: { _id: string; title: string }[]
+    awards: { _id: string; title: string }[];
 }
 
 function Filters({
@@ -27,7 +27,7 @@ function Filters({
     handleChange,
     filterParameters,
     statuses,
-    awards
+    awards,
 }: IProps) {
     RatingData.forEach((item: FilterItem) => {
         item.count = statuses?.[item._id] || 0;
@@ -37,7 +37,7 @@ function Filters({
     });
 
     return (
-        <div className={styles["architectures-filter"]}>
+        <div className={styles["filters-container"]}>
             <PlaceholderSelect
                 options={awards}
                 id="award"
