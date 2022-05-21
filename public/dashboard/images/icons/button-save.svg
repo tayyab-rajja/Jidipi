@@ -1,0 +1,4 @@
+<svg id="icon-confirm" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12">
+    <rect id="icon-background" width="12" height="12" fill="none"/>
+    <path id="Check" d="M9.876,7.466a.555.555,0,0,0-.045-.742.632.632,0,0,0-.786,0L4.76,11.015,2.939,9.195a.55.55,0,0,0-.778.778l2.182,2.183.026.027a.551.551,0,0,0,.779,0,.314.314,0,0,0,.026-.028Z" transform="translate(0 -3.634)" fill="#888" fill-rule="evenodd"/>
+</svg>

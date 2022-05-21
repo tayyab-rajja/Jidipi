@@ -8,6 +8,14 @@
   --bs-bgd6: #d6d6d6;
   --bs-bgf1: #f1f1f1;
   --bs-yellow: #DEB851;
+
+  --color-text: #888;
+  --color-divider: #D6D6D6;
+  --color-tint: #F1F1F1;
+  --color-title: #373737;
+  --color-hover: #DEB851;
+  --color-link: rgba(58, 99, 222, 0.91);
+  --color-invalid: #FF0000;
 }
 
 
@@ -42,6 +50,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
+
   -webkit-box-shadow: none;
   border-radius: 6px;
   background-color: #ffffff;
@@ -227,3 +236,5 @@ img {
     width: 300px;
   }
 }
+
+

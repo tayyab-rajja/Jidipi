@@ -50,19 +50,6 @@ const PostRightSidebar = (props: PostRightSidebarProps) => {
         if (!user || !post || !competition) {
             return;
         }
-        if (isPartner(user)) {
-            // If partner, load the application data from post.
-            const application = {
-                postId: post._id,
-                competitionId: competition._id,
-                awardId: post.awardId,
-                applicationReason: post.applicationReason,
-                status: post.competitionId
-                    ? PostStatus.Published
-                    : PostStatus.Draft,
-            };
-            SetApplication(application);
-        }
         if (isJudge(user)) {
             SetEvaluation({
                 competitionId: post.competitionId,
@@ -73,28 +60,6 @@ const PostRightSidebar = (props: PostRightSidebarProps) => {
         }
     }, [user, post, competition]);
 
-    // Partner application
-    const [application, SetApplication] = useState({
-        postId: "",
-        competitionId: null,
-        awardId: "",
-        applicationReason: "",
-        status: "",
-    });
-
-    async function apply(status: string) {
-        const a = {...application, status};
-        console.log(a);
-        SetApplication(a);
-        try {
-            // show a notification UI. notify when success or fail
-            const result = await PUT("/competition/apply", a);
-            console.log(result);
-        } catch (e) {
-        }
-    }
-
-    // EOF Partner application
 
     // Judge evaluation
     const [evaluation, SetEvaluation] = useState({
@@ -143,17 +108,6 @@ const PostRightSidebar = (props: PostRightSidebarProps) => {
         console.log("follow action for success for failed", result);
     }
 
-    // EOF Judge evaluation
-    const ratingColor = (rating: number): string => {
-        if (rating <= hoverRating || rating <= evaluation.rating) {
-            return "#333";
-        }
-        return "#999";
-    };
-
-    const ratingHoverEffect = (rating: number) => {
-        setHoverRating(rating);
-    };
 
     // hide the rating and comment section after a few seconds.
     const runTimer = async () => {
@@ -184,7 +138,7 @@ const PostRightSidebar = (props: PostRightSidebarProps) => {
         return (
             <div className={`'col-lg'   ${styles['post-sidebar']}    ${styles['right']}     `}>
 
-                <CountDown post={post}/>
+                <CountDown date={post.competitionId.winningStartDate}/>
 
 
                 <div className={`${styles['main-widget']} ${styles['flex-grow']}   `}>
@@ -261,60 +215,7 @@ const PostRightSidebar = (props: PostRightSidebarProps) => {
         return (
             <div className={styles["Sidebar"]}>
                 <File2 postId={post._id} companyId={post.companyId} />
-                <h2>Partner Application</h2>
-                {awards.map((award: any) => (
-                    <React.Fragment key={award._id}>
-                        <p></p>
-                        <button
-                            onClick={() => {
-                                SetApplication({
-                                    ...application,
-                                    awardId: award._id,
-                                });
-                            }}
-                            className={`nav-link  ${
-                                award._id === application.awardId
-                                    ? "active"
-                                    : ""
-                            }`}
-                        >
-                            {award.title}
-                            {award._id === application.awardId ? "(*)" : ""}
-                        </button>
-                    </React.Fragment>
-                ))
-                    // competition.awards
-                }
-                <p></p>
-                <textarea
-                    value={application.applicationReason}
-                    onChange={(e) => {
-                        if (e.target.value)
-                            SetApplication({
-                                ...application,
-                                applicationReason: e.target.value,
-                            });
-                    }}
-                />
-                <p></p>
-                <button
-                    onClick={() => {
-                        apply(PostStatus.Published);
-                    }}
-                >
-                    Send Application to Competition
-                </button>
-                <p></p>
-                {application.status !== PostStatus.Published && (
-                    <button
-                        onClick={() => {
-                            apply(PostStatus.Draft);
-                        }}
-                    >
-                        Save Draft
-                    </button>
-                )}
-                <p></p>
+
             </div>
         );
     }

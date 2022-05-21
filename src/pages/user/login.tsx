@@ -46,8 +46,6 @@ const LoginPage = (prop: any) => {
         dispatch(signOut());
     };
     useEffect(() => {
-
-        console.log('signingState sss',signingState);
         if (signingState.signinFailed) {
             //Display the failed message
             console.log(signingState.message);
@@ -56,7 +54,7 @@ const LoginPage = (prop: any) => {
             if (isReader(user)) {
                 //Handle for reader
             } else if (  isPartner(user)) {
-                router.push('/dashboard/cloud/post').then(() => {
+                router.push('/dashboard/partner/overview').then(() => {
                 });
                 // dispatch(resetState());
             }else if (isStaff(user) || isJudge(user) || isPartner(user)) {

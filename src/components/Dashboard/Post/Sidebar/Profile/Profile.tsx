@@ -32,8 +32,7 @@ export const Profile = (props: ProfileProps) => {
     <div className={`${styles['main-widget-inner']}  ${styles['bgf1']}   `}>
         <div className={`${styles['steve-job']}   `}>
             <div className="row">
-
-                <div className="col-12 d-flex align-items-center px-0">
+                <div className="col-12 d-flex align-items-center px-0  ml-8">
                     <div className="col d-flex justify-content-center align-items-center px-0">
                         <div className={`${styles['steve-job-img']}   `}>
                             <img
