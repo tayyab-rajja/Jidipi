@@ -81,9 +81,8 @@ const LoginPage = (prop: any) => {
                 <div className={`${styles['login-container']}`}>
                     <div className={`${styles['left-block']}`}>
                         <div className={`${styles['logo-block']}`}>
-                            <div className={`${styles['logo']}`}>
-                                <Image width="120" height="50" src={LOGO} alt="JIDIPI"/>
-                            </div>
+
+                            <h1>JIDIPI</h1>
                             <div className={`${styles['title']}`}> Space story</div>
                         </div>
                         <div className={`${styles['text-block']}`}>

@@ -81,21 +81,37 @@
       background-color: #F1F1F1;
       height: 180px;
       border: 1px solid #E3E3E3;
+      width: 100%;
+      align-content: center;
+      text-align: center;
+
+      h1 {
+        width: 121px;
+        font-family: "GameOver";
+        font-size: 50px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top:28px;
+      }
       .logo {
-        margin: 20px 62px 0 97px;
-        img {
-          width: 121px;
-          font-family: "GameOver";
-          font-size: 50px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
+        margin-top: 20px;
+        text-align: center;
+        width: 100%;
+        //img {
+        //  width: 121px;
+        //  font-family: "GameOver";
+        //  font-size: 50px;
+        //  display: flex;
+        //  align-items: center;
+        //  justify-content: center;
+        //}
       }
       .title {
         font-size: 30px;
-        margin: 4px 86px 0 42px;
+        margin-top: 4px;
         width: 100%;
+        font-family: "BedTime";
       }
     }
     .text-block {
