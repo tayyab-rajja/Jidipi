@@ -82,7 +82,7 @@ const LoginPage = (prop: any) => {
                     <div className={`${styles['left-block']}`}>
                         <div className={`${styles['logo-block']}`}>
                             <div className={`${styles['logo']}`}>
-                                <Image src={LOGO} alt="JIDIPI"/>
+                                <Image width="120" src={LOGO} alt="JIDIPI"/>
                             </div>
                             <div className={`${styles['title']}`}> Space story</div>
                         </div>
