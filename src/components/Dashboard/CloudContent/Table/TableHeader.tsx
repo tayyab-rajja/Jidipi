@@ -4,10 +4,6 @@ import styles from "src/components/Dashboard/CloudContent/CloudContent.module.cs
 import Image from "next/image";
 import ArrowUp from "public/dashboard/cloud/images/arrow-up.png";
 import ArrowDown from "public/dashboard/cloud/images/arrow-down.png";
-
-function TableHeader(props: any) {
-  const [headers, setHeaders] = useState<any[]>([]);
-
   //unconnected headers
   const unconnectedHeaders = [
     {
@@ -68,13 +64,16 @@ function TableHeader(props: any) {
       arrowdown: ArrowDown,
     },
   ];
+function TableHeader(props: any) {
+  const [headers, setHeaders] = useState<any[]>([]);
+
   useEffect(() => {
     if (props.type === false) {
       setHeaders(unconnectedHeaders);
     } else if (props.type === true) {
       setHeaders(postHeaders);
     }
-  }, [props.posttable, props.type, postHeaders, unconnectedHeaders]);
+  }, [props.type]);
 
   return (
     <thead>

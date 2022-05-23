@@ -222,7 +222,7 @@ export default function CloudTabs(props: any) {
     return () => {
       document.addEventListener("click", handleClick);
     };
-  });
+  },[]);
   const getFolderData = useCallback(() => {
     const res = GET(
       `/company/${user.companyId}/folders?categoryType=${props.type}&searchKey=${SearchTerm}`
@@ -245,7 +245,7 @@ export default function CloudTabs(props: any) {
     getFolderData();
     getPagesData();
     setpostTable(false);
-  }, [props.type, SearchTerm, getFolderData, getPagesData, user]);
+  }, [props.type, SearchTerm, user]);
 
   return (
     <div>
@@ -308,7 +308,7 @@ export default function CloudTabs(props: any) {
                             {item.name ? item.name : ""}
                           </sup>
                           {!item.isStar && (
-                            <div>
+                            <div className={styles["star"]}>
                               <Image src={unstar} alt="" />
                             </div>
                           )}
@@ -322,32 +322,31 @@ export default function CloudTabs(props: any) {
                           <div className={styles["creator"]}>
                             <div className={styles["table-body-font2"]}>
                               <div className={styles["table-body-font"]}>
-                                {item.createdBy ? item.createdBy.memberType : ""}
+                                {item.createdBy
+                                  ? item.createdBy.memberType
+                                  : ""}
                               </div>
                               <Image
                                 src={`${CDN_URL}/avatars/default.svg`}
                                 width={20}
                                 height={20}
                                 alt=""
-
                               />
                             </div>
 
                             <div className={styles["table-body-font-post"]}>
                               {item.createdBy ? item.createdBy.firstName : ""}
                             </div>
-
-
                           </div>
                         </td>
-                        
-                        <td >
-                          <div className={styles["mod"]} >
+
+                        <td>
+                          <div className={styles["mod"]}>
                             {item.updatedAt.substring(0, 10)}
                           </div>
                         </td>
-                        <td >
-                          <div className={styles["volume"]} >
+                        <td>
+                          <div className={styles["volume"]}>
                             {item.size / 1000}GB
                           </div>
                         </td>
@@ -433,7 +432,7 @@ export default function CloudTabs(props: any) {
             {showDropdown && props.type === "UNARCHIVED" ? (
               <div
                 className={styles["custom-menu"]}
-                style={{ top: `${400 + yPosition}px`, left: `${xPosition}px` }}
+                style={{ top: `${30 + yPosition}px`, left: `${xPosition}px` }}
               >
                 {actions.map((item) => (
                   <div

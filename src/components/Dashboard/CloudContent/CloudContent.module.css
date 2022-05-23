@@ -546,9 +546,12 @@ padding-right: 20px;
   color: #373737;
   font-size: 11px !important;
   margin-left: 40px;
-  margin-right: 20px;
+  margin-right: 25px;
   margin-bottom: -3px;
 }
+/* .star{
+  padding-left: 20px;
+} */
 .select{
   
   -webkit-appearance: none;
