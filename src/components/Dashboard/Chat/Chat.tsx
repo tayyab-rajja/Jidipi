@@ -4,11 +4,9 @@ import {Cookies} from "react-cookie";
 import styles from "./Chat.module.scss";
 import useSWR from "swr";
 import {GET} from "../../../lib/common/api";
-import UploadFile from "../File/File";
-import {FileType} from "../../../lib/file/action";
-import {CDN_URL} from "../../../lib/common/env";
 import {UserContext} from "../../../providers/UserProvider";
 import Message from "./Message";
+import {Upload} from "./Upload";
 
 const cookies = new Cookies();
 const WS_URL = process.env.WS_URL || "ws://localhost:3000";
@@ -132,20 +130,7 @@ const Chat = (props: any) => {
                         </div>
                     </div>
                 </div>
-                <div
-                    className={`${styles['upload-wrapper']} ${showDragDrop ? '' : 'd-none'} d-flex align-items-center justify-content-center`}>
-                    <div className={`${styles['upload-placeholder']}`}>
-                        <div className={`${styles['icon']} mb-2`}>
-                            <img src="/dashboard/chat/icon-upload.svg"/>
-                        </div>
-                        <br/>
-                        Drag and Drop or
-                        <br/>
-                        <a className={`${styles['color-hover']} ${styles['toggle']}`}>Browse</a>
-                        to upload
-                    </div>
-                    <input type="file"/>
-                </div>
+                <Upload show={showDragDrop} setShow={setShowDragDrop}/>
             </div>
             <div>{messageText}</div>
             <div className={`${styles['panel']} ${styles['bg-tint']}  ${styles['bottom-buttons']}  w-100`}>
