@@ -47,11 +47,6 @@ export const getFiltersFromUrl = (
             postFilters[key] = value;
         }
     });
-    console.log({
-        postFilters: postFilters,
-        pageFilters: pageFilters,
-        sort: sort,
-    })
     return {
         postFilters: postFilters,
         pageFilters: pageFilters,
@@ -95,6 +90,36 @@ export const setUrlForListPage = (
     }
     let href = window.location.pathname + path;
     window.history.pushState({}, "", href);
+};
+
+
+export const getUrlForListPage = (
+    pageFilters: pageFilters,
+    postFilters: postFilters,
+    sort: sort
+) => {
+    let query: queryParameters = {};
+    const queryParameters: {[key: string]: any} = {
+        ...pageFilters,
+        ...postFilters,
+        ...sort,
+    }
+    // console.log(queryParameters)
+    Object.keys(queryParameters).forEach((key) => {
+        if (
+            queryParameters[key] !== undefined &&
+            queryParameters[key] !== null &&
+            queryParameters[key] !== ""
+        ) {
+            query[key] = queryParameters[key];
+        }
+    });
+
+    let path = "?" + getQueryString(query);
+    if (path === "?") {
+        path = "";
+    }
+    return path;
 };
 
 export function Linkify(inputText: string) {

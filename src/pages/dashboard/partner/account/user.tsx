@@ -6,15 +6,26 @@ import { CompanyAdd } from "types/companyInfoTypes";
 import { GET } from "src/lib/common/api";
 import { GetServerSideProps } from "next";
 import Filters from "src/components/Dashboard/Partner/Account/User/Filters";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { postFilters } from "types/queryParameters";
+import { getFiltersFromUrl, getUrlForListPage } from "src/utils/url";
+import { fetchUsersForSpecificRoleSuccess } from "src/lib/users/action";
+import { useDispatch } from "react-redux";
+import Table from "src/components/Dashboard/Partner/Account/User/Table";
 
 interface IProps {
     company: CompanyAdd;
     filters: any;
+    partners: any;
 }
 
-export default function Profile({ company: companyData, filters }: IProps) {
+export default function Profile({
+    company: companyData,
+    filters,
+    partners,
+}: IProps) {
+    const dispatch = useDispatch();
+    dispatch(fetchUsersForSpecificRoleSuccess(partners));
     const company = { ...companyData, logo: companyData.logoId.liveURL };
     const [filterParameters, setFilterParameters] = useState(
         filters.postFilters
@@ -26,6 +37,18 @@ export default function Profile({ company: companyData, filters }: IProps) {
             return { ...value };
         });
     };
+
+    const team = {
+        name: 'USER',
+        users: partners.users,
+    };
+
+    const getItems = () => {}
+
+    const createUpdateItem = useCallback((item: any, id: any) => {
+        // dispatch(updateUser(item, id));
+      }, []);
+      
     return (
         <DashboardLayout
             TopDropdownComponent={<TopMenuContent company={company} />}
@@ -40,23 +63,49 @@ export default function Profile({ company: companyData, filters }: IProps) {
                         filterParameters={filterParameters}
                     />
                 </div>
+                <div>
+                    <Table team={team} getItems={getItems} createUpdateItem={createUpdateItem} />
+                </div>
             </div>
         </DashboardLayout>
     );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+    req,
+    resolvedUrl,
+}) => {
     const props: any = {};
     try {
+        const filters = getFiltersFromUrl(resolvedUrl.split("?")[1] ?? "");
+        filters.pageFilters = filters.pageFilters ?? {
+            pageSize: 20,
+            pageNumber: -1,
+        };
+        filters.sort = filters.sort.field
+            ? filters.sort
+            : {
+                  field: "createdAt",
+                  order: 1,
+              };
+        const queryString = getUrlForListPage(
+            filters.pageFilters,
+            filters.postFilters,
+            filters.sort
+        );
         const user = JSON.parse(req.cookies.user) as any;
-        const urls = [`/company/${user.companyId}`];
-        const [company] = await Promise.all([
+        const urls = [
+            `/company/${user.companyId}`,
+            `/user/filterByParams${queryString}`,
+        ];
+        const [company, partners] = await Promise.all([
             ...urls.map((url) => GET(url, req.cookies)),
         ]);
         props.company = company.company;
+        props.partners = partners;
         props.filters = {
-            postFilters: {}
-        }
+            postFilters: {},
+        };
     } catch (error) {
         console.log(error);
     }

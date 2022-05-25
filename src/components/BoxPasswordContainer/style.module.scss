@@ -1,0 +1,69 @@
+@import 'src/styles/color';
+
+.input-container {
+  &.custom-input-container {
+    height: 44px !important;
+    & > div > div {
+      background-color: #f1f1f1;
+    }
+    .box {
+      height: 44px !important;
+      overflow: hidden !important;
+      border-style: solid !important;
+      input {
+        border-left-style: solid !important;
+      }
+    }
+  }
+  &.box-input-container {
+    height: 50px;
+    .box {
+      background: $color-white;
+      border: 1px solid $bg-gray3;
+      input {
+        border: none;
+        box-shadow: none;
+        border-left: 1px solid $bg-gray3;
+        border-radius: 0px;
+
+        &:disabled {
+          background: $color-white;
+        }
+        &:focus {
+          color: #3a6ede;
+        }
+      }
+    }
+
+    .title {
+      min-width: 80px !important;
+      text-align: left;
+      padding: 10px;
+    }
+
+    &.dashed {
+      .box {
+        border-style: dashed;
+        border-width: 1px;
+        input {
+          border-left-style: dashed;
+          border-width: 1px;
+        }
+      }
+    }
+  }
+
+  .password-icon {
+    position: absolute;
+    right: 10px;
+    background: #ababab;
+    height: 22px;
+    width: 22px;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    path {
+      fill: white;
+    }
+  }
+}
