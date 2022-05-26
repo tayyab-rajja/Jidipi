@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import {Document, Page, pdfjs,} from 'react-pdf';
-import styles from "./pdf.module.scss";
+import styles from "../pdf.module.scss";
 import {GetServerSideProps} from "next";
-import {GET} from "../../lib/common/api";
+import {GET} from "../../../lib/common/api";
 import Script from "next/script";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -13,7 +13,8 @@ import ArrowRight from '/public/dashboard/images/icons/angle-right.svg';
 export default function Pdf(props: any) {
     const [numPages, setNumPages] = useState(1);
     const [pageNumber, setPageNumber] = useState(1);
-    const [file, setFile] = useState('https://divan.dev/talks/2019/gdgbcn/FlutterGomobile.pdf');
+
+    const [file, setFile] = useState(props.file ? props.file.liveURL:'');
 
     function onDocumentLoadSuccess({numPages}: any) {
         console.log('onDocumentLoadSuccess', numPages);
@@ -73,6 +74,7 @@ export default function Pdf(props: any) {
  */
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const id = context && context.query && context.query.id;
+    const name = context && context.query && context.query.name;
     //TODO check if user is logged in
     let props = {};
     try {
@@ -84,6 +86,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             }
         }
     } catch (e) {
+        console.log(e)
     }
     return {
         props: props,
