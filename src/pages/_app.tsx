@@ -1,5 +1,5 @@
 // import "bootstrap/dist/css/bootstrap.css";
-// import "../styles/globals.css";
+import "../styles/globals.css";
 import "../styles/nprogress.css";
 import { ReactElement, ReactNode, useEffect } from "react";
 import type { NextPage } from "next";

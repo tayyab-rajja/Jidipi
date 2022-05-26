@@ -20,6 +20,15 @@
         &::-webkit-scrollbar {
             display: none;
         }
+
+        thead {
+            vertical-align: middle;
+            .table-header-td {
+                padding: 12px;
+                background-color: $bg-light-gray;
+                font-weight: normal;
+            }
+        }
         tr.return-tr {
             svg {
                 // margin-right: 308px;

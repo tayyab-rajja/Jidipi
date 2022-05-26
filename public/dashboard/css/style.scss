@@ -132,7 +132,7 @@ img {
     display: flex;
     flex-direction: column;
     height: 100%;
-
+    min-width: 0;
     &.pt-20 {
       padding-top: 20px;
     }

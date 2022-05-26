@@ -9,18 +9,18 @@ import { insertInsideArray } from "src/utils/array";
 
 export default ({
     team,
-    index,
+    // index,
     tableData,
     items,
     setItems,
     setInitalItemProps,
-    moveUp,
-    moveDown,
+    // moveUp,
+    // moveDown,
     contextData,
-    setContextData,
+    // setContextData,
     createUpdateItem,
     getItems,
-    menuId,
+    // menuId,
     targetRole,
 }: any) => {
     const table = useRef<any>();
@@ -164,7 +164,7 @@ export default ({
     );
 
     return (
-        <div className={styles["table-container"]}>
+        <div className={clsx(styles["table-container"], "px-3")}>
             {/* <ContextMenu
                 menuId={menuId}
                 contextData={contextData}
@@ -177,7 +177,7 @@ export default ({
             /> */}
             <div
                 className={clsx(
-                    "bg-dark",
+                    styles["bg-dark"],
                     "text-white",
                     "d-flex",
                     "align-items-center",
@@ -197,7 +197,10 @@ export default ({
                 <table className="table">
                     <thead>
                         <tr
-                            className="text-center bg-light-gray"
+                            className={clsx(
+                                "text-center",
+                                styles["bg-light-gray"]
+                            )}
                             ref={tableHeaderRow}
                         >
                             {Object.keys(tableData.headers).map((h, i) => (
@@ -205,16 +208,17 @@ export default ({
                                     key={i}
                                     style={headerTdStyle(tableData.headers[h])}
                                     scope="col"
-                                    className={`table-header-td ${
+                                    className={clsx(
+                                        styles["table-header-td"],
                                         i === 0 ? styles["first-cell"] : ""
-                                    }`}
+                                    )}
                                 >
                                     {tableData.headers[h].name}
                                 </th>
                             ))}
                         </tr>
                     </thead>
-                    <tbody>
+                    {/* <tbody>
                         {items.map((user: any, i: number) => {
                             return (
                                 <Row
@@ -249,7 +253,7 @@ export default ({
                                 colSpan={11}
                             ></td>
                         </tr>
-                    </tbody>
+                    </tbody> */}
                 </table>
             </div>
         </div>

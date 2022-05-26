@@ -76,10 +76,9 @@ export default Object.freeze({
       componentName: 'DefaultCell',
       componentProps: {},
     },
-    role: {
+    joint: {
       index: 4,
       name: 'JOINT',
-      sticky: true,
       style: {
         minWidth: 174,
       },
