@@ -1,11 +1,14 @@
 @import "src/styles/color.scss";
 
 .table-container {
-    .table {
-        color: #373737;
-    }
     margin-top: 50px;
     font-size: 12px;
+
+    .table {
+        color: #373737;
+        border-collapse: separate;
+        border-spacing: inherit;
+    }
     .table-header {
         height: 44px;
         & > h6 {
@@ -104,6 +107,8 @@
         }
         tbody tr {
             td {
+                padding: 0.75rem;
+                border-top: 1px solid #dee2e6;
                 background-color: white;
             }
             .judge-form-row {

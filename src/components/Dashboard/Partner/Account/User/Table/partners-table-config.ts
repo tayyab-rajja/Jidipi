@@ -41,7 +41,7 @@ export default Object.freeze({
     //   componentName: 'NationalityCell',
     //   componentProps: {},
     // },
-    team: {
+    ip: {
       index: 1,
       name: 'IP (LAST LOGIN)',
       sticky: true,
@@ -57,7 +57,7 @@ export default Object.freeze({
       name: 'NAME',
       sticky: true,
       style: {
-        minWidth: 220,
+        minWidth: 120,
       },
       component: NameCell,
       componentName: 'NameCell',
@@ -139,45 +139,6 @@ export default Object.freeze({
         unActiveName: 'deactivate',
       },
     },
-  },
-  team: {
-    name: 'READER',
-    users: [
-      {
-        _id: 1,
-        uniqueId: '000-000-001',
-        location: '615afc94899dd8828faebd8a',
-        avatar:
-          'https://upload.jidipi.com/avatars/users/default/avatar-m-05%402x.png',
-        firstName: 'test',
-        lastName: 'test',
-        email: 'test@test.com',
-        createdAt: '2022-03-21T11:34:35.567Z',
-        lastLoginAt: '2022-03-21T11:34:35.567Z',
-        hours: '23h 20m 40s',
-        visited: '3,829',
-        saved: '123',
-        isActive: true,
-        roles: ['62283bd96183fd25bbd5cc27'],
-      },
-      {
-        _id: 2,
-        uniqueId: '000-000-002',
-        location: '615afc94899dd8828faebd8a',
-        avatar:
-          'https://upload.jidipi.com/avatars/users/default/avatar-m-05%402x.png',
-        firstName: 'test1',
-        lastName: 'test1',
-        email: 'test1@test1.com',
-        createdAt: '2022-03-21T11:34:35.567Z',
-        lastLoginAt: '2022-03-21T11:34:35.567Z',
-        hours: '23h 20m 40s',
-        visited: '3,829',
-        saved: '321',
-        isActive: true,
-        roles: ['62283bd96183fd25bbd5cc27'],
-      },
-    ],
   },
   inputs: {
     right: {

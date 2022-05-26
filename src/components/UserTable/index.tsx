@@ -70,6 +70,12 @@ export default ({
                     child.style.position === "sticky" &&
                     nextChild.style.position === "sticky"
                 ) {
+                    console.log('child')
+                    console.log(child)
+                    console.log('next child')
+                    console.log(nextChild)
+                    console.log('offset width')
+                    console.log(child.offsetWidth)
                     totalWidths += child.offsetWidth;
                     nextChild.style.left = totalWidths + "px";
                 }
@@ -194,7 +200,7 @@ export default ({
                 )}
                 ref={table}
             >
-                <table className="table">
+                <table className={ styles["table"] }>
                     <thead>
                         <tr
                             className={clsx(
@@ -218,7 +224,7 @@ export default ({
                             ))}
                         </tr>
                     </thead>
-                    {/* <tbody>
+                    <tbody>
                         {items.map((user: any, i: number) => {
                             return (
                                 <Row
@@ -253,7 +259,7 @@ export default ({
                                 colSpan={11}
                             ></td>
                         </tr>
-                    </tbody> */}
+                    </tbody>
                 </table>
             </div>
         </div>
