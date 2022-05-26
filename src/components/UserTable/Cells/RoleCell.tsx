@@ -9,7 +9,7 @@ export default ({
 }: any) => {
     return (
         <td
-            className={`${styles["role-cell"]} text-right ${
+            className={`${styles["role-cell"]} text-end ${
                 index === 0 ? styles["first-cell"] : ""
             }`}
             style={{

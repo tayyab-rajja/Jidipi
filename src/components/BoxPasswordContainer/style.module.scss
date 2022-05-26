@@ -25,6 +25,8 @@
         box-shadow: none;
         border-left: 1px solid $bg-gray3;
         border-radius: 0px;
+        font-size: 12px;
+        height: 44px;
 
         &:disabled {
           background: $color-white;
