@@ -61,11 +61,11 @@ export default ({
 
     return (
         <td
-            className={`text-right ${index === 0 ? styles["first-cell"] : ""}`}
+            className={`text-end ${index === 0 ? styles["first-cell"] : ""}`}
             style={calculatePositionOfStickyHeaders(config)}
         >
-            <span className="mr-2">{checked ? activeName : unActiveName}</span>
-            <label className={clsx(styles["switch"], "m-0", "mr-3")}>
+            <span className="me-2">{checked ? activeName : unActiveName}</span>
+            <label className={clsx(styles["switch"], "m-0", "me-3")}>
                 <input
                     type="checkbox"
                     checked={checked}
