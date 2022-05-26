@@ -21,9 +21,7 @@ import {
 } from "./action";
 import {POST} from "../common/api";
 import {CDN_URL} from "../common/env";
-import {uploadFileToS3} from "./upload";
 import axios from "axios";
-import {eventChannel} from "redux-saga";
 
 
 function* uploadSaga(data: {
@@ -49,7 +47,6 @@ function* uploadSaga(data: {
         files: [],
         isChatFile: props.isChatFile ?? false,
     }
-
     if (fs.length < 1) {
         initUploadList.status = UploadStatus.uploadFailed;
         initUploadList.error = "Please select files";
@@ -96,7 +93,7 @@ function* getPreSignedUrlSaga(data: {
                 if (file) {
                     p.preSignedUrl = file.preSignedUrl;
                     p._id = file._id;
-                    p.liveURL = file.liveURL ? file.liveURL: CDN_URL + '/' + file.key;
+                    p.liveURL = file.liveURL ? file.liveURL : CDN_URL + '/' + file.key;
                 }
                 return p;
             });
