@@ -35,7 +35,9 @@ export default function InputContainer(props: any) {
         <div
             className={`${styles["input-container"]} ${
                 props.validationError && "invalid"
-            } ${props.className || ""} ${styles["box-input-container"]}`}
+            } ${props.className || ""} ${styles["box-input-container"]} ${
+                styles["custom-input-container"]
+            }`}
         >
             <div className={`d-flex align-items-center ${styles["box"]}`}>
                 <div className="h-100 d-flex justify-content-center align-items-center">

@@ -4,6 +4,7 @@ import AddIcon from "public/images/icons/add.svg";
 import DeleteIcon from "public/images/icons/delete.svg";
 import styles from "../Table.module.scss";
 import clsx from "clsx";
+// import Image from "next/image";
 
 export default React.memo(({ item, handleChange }: any) => {
     const [selectLogo, setSelectLogo] = useState(false);
@@ -28,8 +29,8 @@ export default React.memo(({ item, handleChange }: any) => {
                     "align-items-center",
                     "justify-content-center",
                     "bg-white",
-                    "mr-3",
-                    "ml-3",
+                    "ms-3",
+                    "me-3",
                     "pointer",
                     "position-relative",
                     "border-gray"
@@ -48,7 +49,11 @@ export default React.memo(({ item, handleChange }: any) => {
                             onClick={removeAvatar}
                             className="btn-link position-absolute"
                         >
-                            <DeleteIcon />
+                            <img
+                                src={(DeleteIcon as any).src}
+                                alt="delete icon"
+                            />
+                            {/* <DeleteIcon /> */}
                         </button>
                     </div>
                 )}
@@ -61,7 +66,8 @@ export default React.memo(({ item, handleChange }: any) => {
                         />
                     ) : (
                         <button type="button" className="btn-link">
-                            <AddIcon />
+                            <img src={(AddIcon as any).src} alt="add icon" />
+                            {/* <AddIcon /> */}
                             <div
                                 className={clsx(
                                     "text-center",

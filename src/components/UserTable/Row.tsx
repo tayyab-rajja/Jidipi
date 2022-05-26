@@ -104,8 +104,8 @@ export default ({
                 selectedItem._id === "new_user" ||
                   selectedItem._id === "existing_user" ||
                   selectedItem.isExistingUser === true
-                ? "bg-gray"
-                : "bg-black";
+                ? styles["bg-gray"]
+                : styles["bg-black"];
         }
         return updatedClass;
     };

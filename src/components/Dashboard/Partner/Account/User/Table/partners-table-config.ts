@@ -213,7 +213,9 @@ export default Object.freeze({
                 name: "NAME",
                 component: NameInput,
                 componentName: "NameInput",
-                componentProps: {},
+                componentProps: {
+                  custom: true
+                },
             },
             email: {
                 index: 5,

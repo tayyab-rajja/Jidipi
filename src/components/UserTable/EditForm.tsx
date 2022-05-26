@@ -187,7 +187,10 @@ export default ({
                                     onClick={onDeleteMember}
                                     className="btn-link position-absolute"
                                 >
-                                    <img src={DeleteIcon} alt="delete icon" />
+                                    <img
+                                        src={(DeleteIcon as any).src}
+                                        alt="delete icon"
+                                    />
                                     {/* <DeleteIcon /> */}
                                 </button>
                             </div>
@@ -204,7 +207,10 @@ export default ({
                                 onClick={onAddMember}
                                 className="btn-link position-absolute"
                             >
-                                <img src={AddIcon} alt="add icon" />
+                                <img
+                                    src={(AddIcon as any).src}
+                                    alt="add icon"
+                                />
                                 {/* <AddIcon /> */}
                             </button>
                         </div>

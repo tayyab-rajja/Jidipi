@@ -21,7 +21,7 @@ export default ({ formMargin, confirmDeleteMember, setDeleteConfirm }: any) => {
             <div className="d-flex">
                 <button
                     type="button"
-                    className="mr-2 cat-delete"
+                    className="me-2 cat-delete"
                     onClick={() => {
                         setDeleteConfirm(null);
                     }}
@@ -31,10 +31,10 @@ export default ({ formMargin, confirmDeleteMember, setDeleteConfirm }: any) => {
 
                 <button
                     type="button"
-                    className="ml-auto cat-delete"
+                    className="ms-auto cat-delete"
                     onClick={confirmDeleteMember}
                 >
-                    <img src={CheckIcon} alt="" className="mr-2" />
+                    <img src={CheckIcon} alt="" className="me-2" />
                     Confirm
                 </button>
             </div>

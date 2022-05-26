@@ -1,3 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16.738" height="16.739" viewBox="0 0 16.738 16.739">
-  <path id="icon-add-team-member" d="M15.9,7.532h-6.7V.837a.837.837,0,0,0-1.674,0v6.7H.837a.837.837,0,0,0,0,1.674h6.7v6.7a.837.837,0,1,0,1.674,0v-6.7h6.7a.837.837,0,1,0,0-1.674Zm0,0"/>
-</svg>
+<svg
+                xmlns="http://www.w3.org/2000/svg"
+                id="button_add"
+                data-name="button add"
+                width="28"
+                height="28"
+                viewBox="0 0 30 30"
+              >
+                <circle
+                  id="Ellipse_283"
+                  data-name="Ellipse 283"
+                  cx="15"
+                  cy="15"
+                  r="15"
+                  fill="#e3e3e3"
+                />
+                <path
+                  id="add"
+                  d="M11,5A1,1,0,0,0,9,5V9H5a1,1,0,0,0,0,2H9v4a1,1,0,0,0,2,0V11h4a1,1,0,0,0,0-2H11Z"
+                  transform="translate(5 5)"
+                  fill="#fff"
+                  fill-rule="evenodd"
+                />
+              </svg>
