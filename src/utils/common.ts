@@ -6,3 +6,14 @@ export const formatFileSize = (bytes: any, decimalPoint?: any) => {
         i = Math.floor(Math.log(bytes) / Math.log(k));
     return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
 };
+
+export const generatePassword = () => {
+    const length = 10;
+    const charset =
+        "abcdefghijklmnopqrstuvwxyz#@ABC*!KLMNOPQRSTUVWXYZ0123456789";
+    let retVal = "";
+    for (let i = 0, n = charset.length; i < length; ++i) {
+        retVal += charset.charAt(Math.floor(Math.random() * n));
+    }
+    return retVal;
+};

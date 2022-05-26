@@ -1,0 +1,9 @@
+<svg id="icon-return" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28">
+  <circle id="Ellipse_349" data-name="Ellipse 349" cx="14" cy="14" r="14" fill="#e3e3e3"/>
+  <g id="icon_move_here_B" data-name="icon move here B" transform="translate(4 4)">
+    <rect id="icon-background" width="20" height="20" fill="none"/>
+    <g id="icon" transform="translate(21.166 -34.509) rotate(-180)">
+      <path id="arrow" d="M10.663,2.06a.807.807,0,0,0-.858.158l-.02.019L5.458,6.564A.806.806,0,1,0,6.6,7.7L9.551,4.752v8.442a.806.806,0,0,0,1.612,0V4.752L14.115,7.7a.806.806,0,0,0,1.14-1.14L10.926,2.236A.8.8,0,0,0,10.663,2.06Z" transform="translate(19.166 -55) rotate(90)" fill="#fff" fill-rule="evenodd"/>
+    </g>
+  </g>
+</svg>

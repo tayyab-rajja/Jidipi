@@ -1,5 +1,6 @@
 import {HYDRATE} from "next-redux-wrapper";
 import {Action, AnyAction, combineReducers} from "redux";
+import usersReducer from './users/reducer'
 import userReducer  from "./user/reducer";
 import {UserDraft} from "./user/action";
 import {fileReducer} from "./file/reducer";
@@ -26,6 +27,7 @@ const rootReducer = (
     return combineReducers({
         user: userReducer,
         file: fileReducer,
+        users: usersReducer,
     })(state, action)
 }
 export default rootReducer
