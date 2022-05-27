@@ -15,6 +15,7 @@ import PasswordInput from "src/components/UserTable/Inputs/PasswordInput";
 // import TeamSelect from "src/components/UserTable/Inputs/TeamSelect";
 import RoleSelect from "src/components/UserTable/Inputs/RoleSelect";
 import NationalityCell from "src/components/UserTable/Cells/NationalityCell";
+import CreatedDateInput from "src/components/UserTable/Inputs/CreatedDateInput";
 
 export default Object.freeze({
     headers: {
@@ -153,50 +154,28 @@ export default Object.freeze({
                     placeholder: "ID",
                 },
             },
-            id2: {
+            role: {
                 index: 1,
                 component: Input,
                 componentName: "Input",
                 componentProps: {
-                    prop: "uniqueId",
                     disabled: true,
                     custom: true,
-                    placeholder: "ID",
+                    placeholder: "ROLE",
+                    defaultText: "User",
                 },
             },
             id3: {
                 index: 2,
-                component: Input,
+                component: CreatedDateInput,
                 componentName: "Input",
                 componentProps: {
-                    prop: "uniqueId",
+                    prop: "createdAt",
                     disabled: true,
                     custom: true,
-                    placeholder: "ID",
+                    placeholder: "Date",
                 },
             },
-            //   roles: {
-            //     index: 1,
-            //     name: 'ROLES',
-            //     component: RoleSelect,
-            //     componentName: 'RoleSelect',
-            //     type: 'select',
-            //     componentProps: {
-            //       prop: 'roles',
-            //       isDisabled: true,
-            //     },
-            //   },
-            //
-            // team: {
-            //     index: 2,
-            //     name: "TEAM",
-            //     component: TeamSelect,
-            //     componentName: "TeamSelect",
-            //     type: "select",
-            //     componentProps: {
-            //         prop: "teamName",
-            //     },
-            // },
         },
         middle: {
             avatar: {
@@ -315,6 +294,7 @@ export default Object.freeze({
             teamId: team._id,
             roles: selectedItem.roles,
             isExistingUser: selectedItem.isExistingUser,
+            createdAt: selectedItem.createdAt,
         };
     },
     onAddMemberItemRemap(item: any, team: any) {

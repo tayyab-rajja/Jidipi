@@ -23,7 +23,7 @@ import {
     FETCH_COUNTRIES_SUCCESS,
     UPDATE_COMPANY,
     UPDATE_COMPANY_EDIT,
-} from "./actions";
+} from "./action";
 
 export const initialState = {
     list: [],

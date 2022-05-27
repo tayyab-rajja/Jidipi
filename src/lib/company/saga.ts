@@ -42,7 +42,7 @@ import {
     FETCH_COUNTRIES,
     fetchCountriesSuccess,
     fetchCountriesFailed,
-} from "./actions";
+} from "./action";
 import { getQueryString } from "src/utils/queryString";
 
 function* fetchCompanies(action: any): Generator<any, any, any> {

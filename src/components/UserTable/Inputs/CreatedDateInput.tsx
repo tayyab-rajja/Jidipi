@@ -1,19 +1,19 @@
 import React from "react";
 import InputContainer from "src/components/BoxInputContainer";
+import { switchTimeZoneYMD } from "src/utils/date";
 
-export default React.memo(function Input({
+export default React.memo(function CreatedDateInput({
     item,
     prop,
     placeholder,
     custom,
     disabled,
     handleChange,
-    defaultText,
 }: any) {
     return (
         <InputContainer
             type="text"
-            value={defaultText || item[prop] || ""}
+            value={switchTimeZoneYMD(item[prop]) || "-"}
             placeholder={placeholder}
             inputClass="form-control"
             disabled={disabled}

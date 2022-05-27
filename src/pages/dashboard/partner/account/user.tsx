@@ -10,7 +10,7 @@ import { useCallback, useEffect, useState } from "react";
 import { postFilters } from "types/queryParameters";
 import { getFiltersFromUrl, getUrlForListPage } from "src/utils/url";
 import { fetchUsersForSpecificRoleSuccess } from "src/lib/users/action";
-import { fetchCountriesSuccess } from 'src/lib/company/actions'
+import { fetchCountriesSuccess } from 'src/lib/company/action'
 import { useDispatch } from "react-redux";
 import Table from "src/components/Dashboard/Partner/Account/User/Table";
 
@@ -105,13 +105,16 @@ export const getServerSideProps: GetServerSideProps = async ({
             `/company/${user.companyId}`,
             `/user/filterByParams${queryString}`,
             "/company/list/countries",
+            // "/roles"
         ];
-        const [company, partners, countries] = await Promise.all([
+        const [company, partners, countries, roles] = await Promise.all([
             ...urls.map((url) => GET(url, req.cookies)),
         ]);
         props.company = company.company;
         props.partners = partners;
         props.countries = countries;
+        // props.roles = roles;
+        // console.log(roles)
         props.filters = {
             postFilters: {},
         };
