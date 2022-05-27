@@ -227,7 +227,10 @@
 
 .upload .controls .icon {
   margin-left: 8px;
-  display: none;
+  img{
+    width: 12px;
+    height: 12px;
+  }
 }
 
 .upload .status {

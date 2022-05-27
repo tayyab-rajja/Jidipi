@@ -21,6 +21,7 @@ import "../../public/dashboard/css/style.scss";
 // import "../../public/dashboard/css/style.css"
 
 
+
 type NextPageWithLayout = NextPage & {
     getLayout?: (page: ReactElement) => ReactNode;
 };

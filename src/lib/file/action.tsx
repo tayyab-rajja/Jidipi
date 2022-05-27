@@ -3,6 +3,7 @@ export enum FileType {
     COMPANY = 'COMPANY',
     AVATAR = 'AVATAR',
     LOGO = 'LOGO',
+    FOLDER = 'FOLDER',
 }
 
 
@@ -49,10 +50,13 @@ export enum UploadStatus {
     uploadFailed = 'uploadFailed',
     getPreSignedUrlSuccess = 'getPreSignedUrlSuccess',
     getPreSignedUrlFailed = 'getPreSignedUrlFailed',
+    uploading = 'uploading',
     uploadingToS3 = 'uploadingToS3',
     uploadingToS3Success = 'uploadingToS3Success',
     uploadingToS3Failed = 'uploadingToS3Failed',
     allSuccess = 'allSuccess',
+    partialSuccess = 'partialSuccess',
+    allFailed = 'allFailed',
 }
 
 /**

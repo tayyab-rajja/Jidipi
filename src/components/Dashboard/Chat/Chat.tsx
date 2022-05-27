@@ -4,11 +4,11 @@ import {Cookies} from "react-cookie";
 import styles from "./Chat.module.scss";
 import useSWR from "swr";
 import {GET} from "../../../lib/common/api";
-import UploadFile from "../File/File";
-import {FileType} from "../../../lib/file/action";
-import {CDN_URL} from "../../../lib/common/env";
 import {UserContext} from "../../../providers/UserProvider";
 import Message from "./Message";
+import {Upload} from "./Upload/Upload";
+import {FileObject, FileType, UPLOAD_TO_S3_SUCCESS, UploadStatus} from "../../../lib/file/action";
+import {useSelector} from "react-redux";
 
 const cookies = new Cookies();
 const WS_URL = process.env.WS_URL || "ws://localhost:3000";
@@ -24,21 +24,79 @@ const Chat = (props: any) => {
     const userContext: any = useContext(UserContext);
     const user = userContext.user;
 
+    // const files = useSelector((state:any) => state.file.files);
+    // const status = useSelector((state:any) => state.file.status);
+    const files = useSelector((state: any) => state.file);
+
     const [showDragDrop, setShowDragDrop] = useState(false);
     const [socket, setSocket] = useState<any>(null);
     const id = props.postId ?? props.companyId;
     const {data, error} = useSWR('/chat/' + id + '/' + props.chatType, GET);
-    console.log('fetch by useSWR', data, error);
+    // console.log('fetch by useSWR', data, error);
     useEffect(() => {
         if (data && data.success && data.messages && data.messages.length > 0) {
-            setReceivedMessages(data.messages);
+            const ms: any = [...receivedMessages];
+            const existIds = receivedMessages.map((m: any) => m._id).filter((id: any) => !!id);
+            data.messages.forEach((m: any) => {
+                if (!existIds.includes(m._id)) {
+                    ms.push(m);
+                }
+            });
+            setReceivedMessages(ms);
         }
     }, [data]);
+
+
+    useEffect(() => {
+        // Not chat file
+        if (!files.isChatFile) return;
+        //Not same post or company or folder,
+        if (props.postId && files.postId !== props.postId) return;
+        if (props.companyId && files.companyId !== props.companyId) return;
+        if (props.folderId && files.folderId !== props.folderId) return;
+        console.log("uploading?????????????", files.status, files.files.length);
+        console.log("receivedMessages", receivedMessages);
+
+        // create messages
+        // if (files.status === UploadStatus.uploading || files.status === UploadStatus.allSuccess) {
+        // When upload the file, add it into messages.
+        // const ms: any = receivedMessages;
+        files.files.forEach((file: FileObject) => {
+            if (files.status === UploadStatus.uploading) {
+                receivedMessages.push({
+                    chatType: props.chatType,
+                    isFile: true,
+                    postId: props.postId ?? undefined,
+                    companyId: props.companyId ?? undefined,
+                    folderId: props.folderId ?? undefined,
+                    message: '',
+                    file: {...file, localFile: null},
+                });
+            } else if (files.status === UploadStatus.getPreSignedUrlSuccess) {
+
+            } else {
+                const existingMessage: any = receivedMessages.find((message: any) => {
+                    return message.file && message.file._id === file._id;
+                });
+                console.log('existingMessage', existingMessage);
+
+                existingMessage.file = file;
+                if (file.success) {
+                    console.log("SUCCESS, send out file", file);
+                    sendChatMessage('', file._id);
+                }
+            }
+        });
+        setReceivedMessages([...receivedMessages]);
+        // }
+
+    }, [files]);
+
 
     let inputBox: HTMLTextAreaElement | null = null;
     let messageEnd = null;
     const [messageText, setMessageText] = useState("");
-    const [receivedMessages, setReceivedMessages] = useState([]);
+    const [receivedMessages, setReceivedMessages] = useState<any[]>([]);
     const messageTextIsEmpty = messageText.trim().length === 0;
     useEffect(() => {
         const query: any = {method: 'chat'};
@@ -60,27 +118,40 @@ const Chat = (props: any) => {
             companyId: props.companyId ?? undefined,
         });
         socket.on('message', (data: any) => {
-            console.log('received welcome-message >>', data)
+            console.log('receive message on socket: ', data, receivedMessages.length, receivedMessages);
             if (data && data._id) {
-                // @ts-ignore
+                if (data.isFile) {
+                    const existingMessage: any = receivedMessages.find((message: any) => {
+                        return message.file && message.file._id === data._id;
+                    });
+                    if (existingMessage) {
+                        existingMessage._id = data._id;
+                    }
+                }
                 receivedMessages.push(data);
-                setReceivedMessages(receivedMessages);
+                console.log('receive message on socket22222: ', receivedMessages.length, receivedMessages);
+                setReceivedMessages([...receivedMessages]);
             }
         });
     }, [socket])
 
 
-    const sendChatMessage = (messageText: string) => {
+    const sendChatMessage = (messageText: string, fileId: string = '') => {
         console.log('send chat message', messageText);
-        if (!messageText || messageText.trim() === '') return;
+        if ((!messageText || messageText.trim() === '') && !fileId) return;
         socket.emit('new-message', {
             chatType: props.chatType,
             message: messageText,
             postId: props.postId ?? undefined,
             companyId: props.companyId ?? undefined,
+            folderId: props.folderId ?? undefined,
+            isFile: !!fileId,
+            file: fileId ?? undefined,
         });
-        setMessageText("");
-        if (inputBox) inputBox.focus();
+        if (!fileId) {
+            setMessageText("");
+            if (inputBox) inputBox.focus();
+        }
     }
     const handleFormSubmission = (event: any) => {
         event.preventDefault();
@@ -115,37 +186,32 @@ const Chat = (props: any) => {
                 <div className={`${styles['panel']}`}>
                     <div className={`${styles['widget-content']}`}>
                         <div className={`${styles['chat-wrapper']}`}>
-                            <div className={`${styles['chat-placeholder']}`}>
-                                If you have any questions about editing, please
-                                leave a message here. Our colleagues will reply as
-                                soon as possible.If you have any questions about
-                                editing, please leave a message here. Our
-                                colleagues will reply as soon as possible.
-                            </div>
+                            {receivedMessages.length === 0 &&
+                                <div className={`${styles['chat-placeholder']}`}>
+                                    If you have any questions about editing, please
+                                    leave a message here. Our colleagues will reply as
+                                    soon as possible.If you have any questions about
+                                    editing, please leave a message here. Our
+                                    colleagues will reply as soon as possible.
+                                </div>
+                            }
                             {receivedMessages.map((m: any, i: number) => (
                                 <Message key={i} user={user} message={m}/>))}
-                                <div className={`${styles['divider-line']}`}>
-                                    <button onClick={(e)=>handleChatEnd(e)} className={`${styles['icon']}  ${styles['tint']} `}>
+                            <div className={`${styles['divider-line']}`}>
+                                <button onClick={(e) => handleChatEnd(e)}
+                                        className={`${styles['icon']}  ${styles['tint']} `}>
                                     <img src="/dashboard/chat/icon-line.svg"/>
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div
-                    className={`${styles['upload-wrapper']} ${showDragDrop ? '' : 'd-none'} d-flex align-items-center justify-content-center`}>
-                    <div className={`${styles['upload-placeholder']}`}>
-                        <div className={`${styles['icon']} mb-2`}>
-                            <img src="/dashboard/chat/icon-upload.svg"/>
-                        </div>
-                        <br/>
-                        Drag and Drop or
-                        <br/>
-                        <a className={`${styles['color-hover']} ${styles['toggle']}`}>Browse</a>
-                        to upload
-                    </div>
-                    <input type="file"/>
-                </div>
+                {showDragDrop &&
+                    <Upload postId={props.postId} companyId={props.companyId} onSelectedFiles={
+                        () => {
+                            setShowDragDrop(false);
+                        }
+                    }/>}
             </div>
             <div>{messageText}</div>
             <div className={`${styles['panel']} ${styles['bg-tint']}  ${styles['bottom-buttons']}  w-100`}>
