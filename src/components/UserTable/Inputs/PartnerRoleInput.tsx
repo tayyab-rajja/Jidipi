@@ -8,11 +8,13 @@ export default React.memo(function Input({
     custom,
     disabled,
     handleChange,
+    defaultText,
 }: any) {
+    const result = item.isCompanyAdmin ? "Admin" : "User";
     return (
         <InputContainer
             type="text"
-            value={item[prop] || ""}
+            value={result}
             placeholder={placeholder}
             inputClass="form-control"
             disabled={disabled}

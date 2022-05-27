@@ -16,6 +16,7 @@ import PasswordInput from "src/components/UserTable/Inputs/PasswordInput";
 import RoleSelect from "src/components/UserTable/Inputs/RoleSelect";
 import NationalityCell from "src/components/UserTable/Cells/NationalityCell";
 import CreatedDateInput from "src/components/UserTable/Inputs/CreatedDateInput";
+import PartnerRoleInput from "src/components/UserTable/Inputs/PartnerRoleInput";
 
 export default Object.freeze({
     headers: {
@@ -156,16 +157,15 @@ export default Object.freeze({
             },
             role: {
                 index: 1,
-                component: Input,
-                componentName: "Input",
+                component: PartnerRoleInput,
+                componentName: "PartnerRoleInput",
                 componentProps: {
                     disabled: true,
                     custom: true,
                     placeholder: "ROLE",
-                    defaultText: "User",
                 },
             },
-            id3: {
+            createdAt: {
                 index: 2,
                 component: CreatedDateInput,
                 componentName: "Input",
@@ -295,6 +295,7 @@ export default Object.freeze({
             roles: selectedItem.roles,
             isExistingUser: selectedItem.isExistingUser,
             createdAt: selectedItem.createdAt,
+            isCompanyAdmin: selectedItem.isCompanyAdmin,
         };
     },
     onAddMemberItemRemap(item: any, team: any) {

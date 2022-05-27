@@ -29,13 +29,20 @@ export default function InputContainer(props: any) {
             <div className={`d-flex align-items-center ${styles["box"]}`}>
                 <div className="h-100 d-flex justify-content-center align-items-center">
                     <div
-                        className={`${styles["title"]} ${props.placeholder ? "" : "d-none"}`}
+                        className={`${styles["title"]} ${
+                            props.placeholder ? "" : "d-none"
+                        }`}
                     >
                         {props.placeholder}
                     </div>
                 </div>
                 <div className={clsx(styles["input-container"], "flex-grow-1")}>
-                    <input {...inputProps} />
+                    <input
+                        {...inputProps}
+                        style={{
+                            color: inputProps.disabled && "#BDC0C6",
+                        }}
+                    />
                 </div>
             </div>
 
