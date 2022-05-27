@@ -9,7 +9,7 @@ export default function NationalityCell({
     index,
 }: any) {
     // @ts-ignore
-    const countries = useSelector((state) => state.company.countries);
+    const countries = useSelector((state: any) => state.company.countries);
     const country = useMemo(() => {
         const country = countries.find(
             (country: any) => country._id === item.location
@@ -38,4 +38,4 @@ export default function NationalityCell({
             />
         </td>
     );
-};
+}

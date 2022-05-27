@@ -14,7 +14,7 @@ import NameInput from "src/components/UserTable/Inputs/NameInput";
 import PasswordInput from "src/components/UserTable/Inputs/PasswordInput";
 // import TeamSelect from "src/components/UserTable/Inputs/TeamSelect";
 import RoleSelect from "src/components/UserTable/Inputs/RoleSelect";
-// import NationalityCell from 'src/components/UserTable/Cells/NationalityCell';
+import NationalityCell from "src/components/UserTable/Cells/NationalityCell";
 
 export default Object.freeze({
     headers: {
@@ -48,8 +48,8 @@ export default Object.freeze({
             style: {
                 minWidth: 120,
             },
-            component: DefaultCell,
-            componentName: "DefaultCell",
+            component: NationalityCell,
+            componentName: "NationalityCell",
             componentProps: {},
         },
         name: {
@@ -214,7 +214,7 @@ export default Object.freeze({
                 component: NameInput,
                 componentName: "NameInput",
                 componentProps: {
-                  custom: true
+                    custom: true,
                 },
             },
             email: {

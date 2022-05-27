@@ -70,12 +70,12 @@ export default function UserTable({
                     child.style.position === "sticky" &&
                     nextChild.style.position === "sticky"
                 ) {
-                    console.log('child')
-                    console.log(child)
-                    console.log('next child')
-                    console.log(nextChild)
-                    console.log('offset width')
-                    console.log(child.offsetWidth)
+                    // console.log("child");
+                    // console.log(child);
+                    // console.log("next child");
+                    // console.log(nextChild);
+                    // console.log("offset width");
+                    // console.log(child.offsetWidth);
                     totalWidths += child.offsetWidth;
                     nextChild.style.left = totalWidths + "px";
                 }
@@ -200,7 +200,7 @@ export default function UserTable({
                 )}
                 ref={table}
             >
-                <table className={ styles["table"] }>
+                <table className={styles["table"]}>
                     <thead>
                         <tr
                             className={clsx(
@@ -264,4 +264,4 @@ export default function UserTable({
             </div>
         </div>
     );
-};
+}

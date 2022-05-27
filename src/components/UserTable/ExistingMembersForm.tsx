@@ -99,7 +99,10 @@ export default function ExistingMembersForm({
                             onClick={() => handleUserClick(user)}
                         >
                             <img
-                                src={user.avatar || "https://upload.jidipi.com/avatars/default.svg" }
+                                src={
+                                    user.avatar ||
+                                    "https://upload.jidipi.com/avatars/default.svg"
+                                }
                                 alt={`${user.firstName} ${user.lastName}`}
                             />
                             {`${user.firstName} ${user.lastName}`}
@@ -109,4 +112,4 @@ export default function ExistingMembersForm({
             </div>
         </div>
     );
-};
+}
