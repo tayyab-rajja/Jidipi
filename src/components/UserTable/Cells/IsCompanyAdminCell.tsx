@@ -2,12 +2,12 @@ import React from "react";
 import IconRight from "assets/svgs/actions/icon-right.svg";
 import styles from "..Table.module.scss";
 
-export default ({
+export default function IsCompanyAdminCell({
     item,
     calculatePositionOfStickyHeaders,
     config,
     index,
-}: any) => {
+}: any) {
     return (
         <td
             className={`text-center ${
@@ -18,4 +18,4 @@ export default ({
             {item.isCompanyAdmin && <img src={IconRight} alt="icon-right" />}
         </td>
     );
-};
+}

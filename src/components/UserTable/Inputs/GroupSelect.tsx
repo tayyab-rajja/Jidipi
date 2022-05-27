@@ -7,13 +7,13 @@ import clsx from "clsx";
 
 const style = { height: 44 };
 export default React.memo(
-    ({
+    function GroupSelect({
         item,
         prop,
         handleChange,
         setSelectOpen: setSelectOpenMainFunc,
         disabled,
-    }: any) => {
+    }: any) {
         // @ts-ignore
         const sharedList = useSelector((state) => state.category.sharedList);
         const categoryOptions = useMemo(() => {

@@ -1,4 +1,4 @@
-import React, {FC, ReactElement, useContext, useEffect, useState} from "react";
+import React, {FC, ReactComponentElement, ReactElement, useContext, useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {generateSidebarMenus, LinkProp, MenuProp} from "../../../../lib/common/menu";
 import Link from "next/link";
@@ -24,7 +24,7 @@ import {GET} from "../../../../lib/common/api";
 const MenuItemWithNoSSR = dynamic<ItemProps>(
     () => import('./Item/Item').then(module => module.Item),
     {ssr: false}
-)
+) as any
 // const MyComponent = dynamic<LinkProp>(() =>
 //     import('./Item/Item').then(module =>   module.Item)
 // );

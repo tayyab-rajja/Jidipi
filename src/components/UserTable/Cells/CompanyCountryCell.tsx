@@ -2,12 +2,12 @@ import React from "react";
 import styles from "../Table.module.scss";
 // import { deepValue } from 'helpers';
 
-export default ({
+export default function CompanyCountryCell({
     item,
     calculatePositionOfStickyHeaders,
     config,
     index,
-}: any) => {
+}: any) {
     return (
         <td
             className={`text-center ${styles["nationality-td"]}, ${

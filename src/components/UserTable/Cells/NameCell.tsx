@@ -2,12 +2,12 @@ import React from "react";
 import styles from "../Table.module.scss";
 // import DefaultUserAvatar from 'assets/svgs/common/default-avatar.svg';
 
-export default ({
+export default function NameCell({
     item,
     calculatePositionOfStickyHeaders,
     config,
     index,
-}: any) => {
+}: any) {
     return (
         <td
             className={`${styles["name"]} text-center ${

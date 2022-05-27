@@ -3,12 +3,12 @@ import { useSelector } from "react-redux";
 import styles from "../Table.module.scss";
 import clsx from "clsx";
 
-export default ({
+export default function OverviewCell ({
     item,
     calculatePositionOfStickyHeaders,
     config,
     index,
-}: any) => {
+}: any) {
     // @ts-ignore
     let roles = useSelector((state) => state.roles.roles);
     const stuffRoles = useMemo(

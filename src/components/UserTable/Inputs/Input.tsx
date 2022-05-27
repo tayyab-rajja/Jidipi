@@ -2,7 +2,7 @@ import React from "react";
 import InputContainer from "src/components/BoxInputContainer";
 
 export default React.memo(
-    ({ item, prop, placeholder, custom, disabled, handleChange }: any) => {
+    function Input({ item, prop, placeholder, custom, disabled, handleChange }: any) {
         return (
             <InputContainer
                 type="text"

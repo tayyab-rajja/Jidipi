@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "../Table.module.scss";
 
-export default ({
+export default function DefaultCell ({
     item,
     calculatePositionOfStickyHeaders,
     config,
     index,
-}: any) => {
+}: any) {
     return (
         <td
             className={`text-${config.direction || "center"} ${

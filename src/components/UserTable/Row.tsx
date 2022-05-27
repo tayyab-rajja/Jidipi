@@ -6,7 +6,7 @@ import { ReactComponent as IconReturn } from "public/images/icons/icon-return.sv
 import EmptyCell from "./Cells/EmptyCell";
 import styles from "src/components/UserTable/Table.module.scss";
 
-export default ({
+export default function Row({
     item,
     tableData,
     selectedItem,
@@ -24,7 +24,7 @@ export default ({
     table,
     setInitalItemProps,
     innerRef,
-}: any) => {
+}: any) {
     const [updating, setUpdating] = useState(false);
     const [deleteConfirm, setDeleteConfirm] = useState(false);
     const [openSelects, setOpenSelects] = useState<any[]>([]);

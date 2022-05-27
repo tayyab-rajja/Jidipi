@@ -2,12 +2,12 @@ import React, { useMemo } from "react";
 import moment from "moment";
 import styles from "../Table.module.scss";
 
-export default ({
+export default function JointCell({
     item,
     calculatePositionOfStickyHeaders,
     config,
     index,
-}: any) => {
+}: any) {
     const joint = useMemo(
         () =>
             item.registrationDate
@@ -23,4 +23,4 @@ export default ({
             {joint}
         </td>
     );
-};
+}

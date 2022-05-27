@@ -3,7 +3,11 @@ import CheckIcon from "public/images/icons/check.svg";
 import styles from "./Table.module.scss";
 import clsx from "clsx";
 
-export default ({ formMargin, confirmDeleteMember, setDeleteConfirm }: any) => {
+export default function DeleteConfirm({
+    formMargin,
+    confirmDeleteMember,
+    setDeleteConfirm,
+}: any) {
     return (
         <div
             className={clsx(
@@ -40,4 +44,4 @@ export default ({ formMargin, confirmDeleteMember, setDeleteConfirm }: any) => {
             </div>
         </div>
     );
-};
+}

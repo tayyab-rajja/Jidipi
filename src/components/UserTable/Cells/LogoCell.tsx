@@ -2,12 +2,12 @@ import React from "react";
 import styles from "../Table.module.scss";
 
 // import DefaultCompany from 'assets/svgs/common/default-company.svg'
-export default ({
+export default function LogoCell({
     item,
     calculatePositionOfStickyHeaders,
     config,
     index,
-}: any) => {
+}: any) {
     return (
         <td
             className={`text-center ${

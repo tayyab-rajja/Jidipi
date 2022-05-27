@@ -7,7 +7,7 @@ import Row from "./Row";
 // import ContextMenu from 'components/ContextMenu';
 import { insertInsideArray } from "src/utils/array";
 
-export default ({
+export default function UserTable({
     team,
     // index,
     tableData,
@@ -22,7 +22,7 @@ export default ({
     getItems,
     // menuId,
     targetRole,
-}: any) => {
+}: any) {
     const table = useRef<any>();
     const tableHeaderRow = useRef<any>();
     const tableRows = useRef<any[]>([]);

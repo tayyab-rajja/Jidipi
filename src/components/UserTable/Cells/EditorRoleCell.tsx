@@ -2,12 +2,12 @@ import React, { useMemo, useCallback } from "react";
 import { useSelector } from "react-redux";
 import styles from "../Table.module.scss";
 
-export default ({
+export default function EditorRoleCell({
     item,
     calculatePositionOfStickyHeaders,
     config,
     index,
-}: any) => {
+}: any) {
     // @ts-ignore
     let roles = useSelector((state) => state.roles.roles);
     roles = useMemo(
@@ -48,4 +48,4 @@ export default ({
             {renderRole()}
         </td>
     );
-};
+}

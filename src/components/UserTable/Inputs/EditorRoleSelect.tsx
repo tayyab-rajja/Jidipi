@@ -6,8 +6,8 @@ import styles from "../Table.module.scss";
 import clsx from "clsx";
 
 const style = { height: 44 };
-export default React.memo(
-    ({ item, handleChange, setSelectOpen: setSelectOpenMainFunc }: any) => {
+export default React.memo(function EditorRoleSelect
+    ({ item, handleChange, setSelectOpen: setSelectOpenMainFunc }: any) {
         // @ts-ignore
         let roles = useSelector((state) => state.roles.roles);
         roles = useMemo(

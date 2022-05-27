@@ -5,7 +5,7 @@ import DeleteIcon from "public/images/icons/delete.svg";
 import styles from "./Table.module.scss";
 import clsx from "clsx";
 
-export default ({
+export default function ExistingMembersForm({
     setSelectedItem,
     items,
     setItems,
@@ -13,7 +13,7 @@ export default ({
     targetRole,
     teamId,
     centerizeForm,
-}: any) => {
+}: any) {
     // @ts-ignore
     const staff = useSelector((state) => state.team.staff);
     const existingUserForm = useRef<any>();

@@ -2,12 +2,12 @@ import clsx from "clsx";
 import React from "react";
 import styles from "Table.module.scss";
 
-export default ({
+export default function GroupCell({
     calculatePositionOfStickyHeaders,
     config,
     index,
     item,
-}: any) => {
+}: any) {
     return (
         <td
             className={`${styles["group-cell"]} ${

@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "../Table.module.scss";
 
-export default ({
+export default function RoleCell({
     calculatePositionOfStickyHeaders,
     config,
     index,
     targetRole,
-}: any) => {
+}: any) {
     return (
         <td
             className={`${styles["role-cell"]} text-end ${

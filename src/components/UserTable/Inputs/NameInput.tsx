@@ -1,7 +1,7 @@
 import React from "react";
 import NameInputContainer from "src/components/BoxNameInputContainer";
 
-export default React.memo(({ item, handleChange }: any) => {
+export default React.memo(function NameInput({ item, handleChange }: any) {
     const inputProps = (property: any) => {
         return {
             value: item[property],

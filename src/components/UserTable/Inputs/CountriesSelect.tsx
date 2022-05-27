@@ -1,15 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Countries from 'components/CustomCountries';
+// import Countries from 'components/CustomCountries';
 export default React.memo(
-  ({
+  function CountriesSelect({
     item,
     prop,
     handleChange,
     setSelectOpen: setSelectOpenMainFunc,
     targetSelectIsOpen: targetSelectIsOpenMainFunc,
     name: placeholder = 'NATION',
-  }: any) => {
+  }: any) {
     // @ts-ignore
     const countries = useSelector(state => state.company.countries);
     const name = 'countries';
@@ -17,17 +17,18 @@ export default React.memo(
     const targetSelectIsOpen = targetSelectIsOpenMainFunc(name);
 
     return (
-      <Countries
-        selected={item[prop]}
-        onChange={(e: any) => {
-          handleChange(prop, e._id);
-        }}
-        list={countries}
-        selectedCountryId={item[prop]}
-        setSelectOpen={setSelectOpen}
-        targetSelectIsOpen={targetSelectIsOpen}
-        placeholder={placeholder}
-      />
+      <div></div>
+      // <Countries
+      //   selected={item[prop]}
+      //   onChange={(e: any) => {
+      //     handleChange(prop, e._id);
+      //   }}
+      //   list={countries}
+      //   selectedCountryId={item[prop]}
+      //   setSelectOpen={setSelectOpen}
+      //   targetSelectIsOpen={targetSelectIsOpen}
+      //   placeholder={placeholder}
+      // />
     );
   },
 );

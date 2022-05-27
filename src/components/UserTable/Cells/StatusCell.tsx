@@ -2,7 +2,7 @@ import clsx from "clsx";
 import React, { useState, useEffect } from "react";
 import styles from "../Table.module.scss";
 
-export default ({
+export default function StatusCell({
     item,
     calculatePositionOfStickyHeaders,
     config,
@@ -15,7 +15,7 @@ export default ({
     team,
     index,
     unEditable,
-}: any) => {
+}: any) {
     const [checked, setChecked] = useState(item.isActive);
 
     useEffect(() => {

@@ -6,12 +6,12 @@ import styles from "../Table.module.scss";
 import clsx from "clsx";
 const style = { height: 44 };
 export default React.memo(
-    ({
+    function RoleSelect({
         item,
         handleChange,
         setSelectOpen: setSelectOpenMainFunc,
         isDisabled,
-    }: any) => {
+    }: any) {
         // @ts-ignore
         let roles = useSelector((state) => state.roles.roles);
         const rolesOptions = useMemo(() => {

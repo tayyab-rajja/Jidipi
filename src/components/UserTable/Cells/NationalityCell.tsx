@@ -2,12 +2,12 @@ import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import styles from "../Table.module.scss";
 
-export default ({
+export default function NationalityCell({
     item,
     calculatePositionOfStickyHeaders,
     config,
     index,
-}: any) => {
+}: any) {
     // @ts-ignore
     const countries = useSelector((state) => state.company.countries);
     const country = useMemo(() => {

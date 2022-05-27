@@ -6,7 +6,7 @@ import DeleteConfirm from "./DeleteConfirm";
 import styles from "./Table.module.scss";
 import clsx from "clsx";
 
-export default ({
+export default function EditForm({
     onCancel,
     selectedItem,
     setUpdating,
@@ -21,7 +21,7 @@ export default ({
     centerizeForm,
     setFormMargin,
     formMargin,
-}: any) => {
+}: any) {
     const validations = tableData.validations;
     const userForm = useRef<any>();
     const [item, setItem] = useState(tableData.firstInitItemState(team));

@@ -4,7 +4,7 @@ import YearIcon from "public/images/icons/year.svg";
 import { generatePassword } from "src/utils/common";
 import styles from "../Table.module.scss";
 
-export default React.memo(({ item, handleChange, custom }: any) => {
+export default React.memo(function PasswordInput({ item, handleChange, custom }: any) {
     return (
         <PasswordContainer
             type="text"

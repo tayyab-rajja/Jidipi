@@ -13,7 +13,7 @@ const cateogoryItemStyle = (userCategoryAccess: any, categoryId: any) => {
     return null;
 };
 
-export default ({
+export default function AccessCell({
     item,
     calculatePositionOfStickyHeaders,
     config,
@@ -22,7 +22,7 @@ export default ({
     createUpdateItem,
     team,
     index,
-}: any) => {
+}: any) {
     const [folders, setFolders] = useState([]);
     // @ts-ignore
     let allFolders = useSelector((state) => state.folders.folders);
@@ -128,4 +128,4 @@ export default ({
             })}
         </td>
     );
-};
+}

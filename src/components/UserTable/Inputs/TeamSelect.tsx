@@ -7,12 +7,12 @@ import clsx from "clsx";
 
 const style = { height: 44 };
 export default React.memo(
-    ({
+    function TeamSelect({
         item,
         prop,
         handleChange,
         setSelectOpen: setSelectOpenMainFunc,
-    }: any) => {
+    }: any) {
         // @ts-ignore
         let teams = useSelector((state) => state.team.teams);
 

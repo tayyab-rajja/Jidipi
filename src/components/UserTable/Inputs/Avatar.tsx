@@ -6,7 +6,7 @@ import styles from "../Table.module.scss";
 import clsx from "clsx";
 // import Image from "next/image";
 
-export default React.memo(({ item, handleChange }: any) => {
+export default React.memo(function Avatar({ item, handleChange }: any) {
     const [selectLogo, setSelectLogo] = useState(false);
     const removeAvatar = (event: any) => {
         event.stopPropagation();
