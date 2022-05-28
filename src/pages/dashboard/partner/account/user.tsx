@@ -8,23 +8,28 @@ import { GetServerSideProps } from "next";
 import Filters from "src/components/Dashboard/Partner/Account/User/Filters";
 import { useCallback, useEffect, useState } from "react";
 import { postFilters } from "types/queryParameters";
-import { getFiltersFromUrl, getUrlForListPage } from "src/utils/url";
+import {
+    getFiltersFromUrl,
+    getUrlForListPage,
+    setUrlForListPage,
+} from "src/utils/url";
 import { fetchUsersForSpecificRoleSuccess } from "src/lib/users/action";
 import { fetchCountriesSuccess } from "src/lib/company/action";
 import { useDispatch } from "react-redux";
 import Table from "src/components/Dashboard/Partner/Account/User/Table";
+import useSWR from "swr";
 
 interface IProps {
     company: CompanyAdd;
     filters: any;
-    partners: any;
+    // partners: any;
     countries: any;
 }
 
 export default function Profile({
     company: companyData,
     filters,
-    partners,
+    // partners,
     countries,
 }: IProps) {
     const dispatch = useDispatch();
@@ -32,11 +37,17 @@ export default function Profile({
     const [filterParameters, setFilterParameters] = useState(
         filters.postFilters
     );
+    const { data, error } = useSWR(getKey(filterParameters), GET);
 
     useEffect(() => {
-        dispatch(fetchUsersForSpecificRoleSuccess(partners));
         dispatch(fetchCountriesSuccess(countries));
-    });
+    }, []);
+
+    useEffect(() => {
+        if (data?.users) {
+            dispatch(fetchUsersForSpecificRoleSuccess(data));
+        }
+    }, [data]);
 
     const handleChange = (prop: string, itemId: string) => {
         setFilterParameters((value: postFilters) => {
@@ -45,16 +56,24 @@ export default function Profile({
         });
     };
 
+    useEffect(() => {
+        filterToUrl();
+    }, [filterParameters]);
+
+    function filterToUrl() {
+        setUrlForListPage({} as any, filterParameters, {});
+    }
+
     const team = {
         name: "USER",
-        users: partners.users,
+        users: data?.users,
     };
 
     const getItems = () => {};
 
     const createUpdateItem = useCallback((item: any, id: any) => {
         if (id) {
-            PUT(`/user/${id || item._id || item.userId}`, item);
+            PUT(`/user/${id}`, item);
         } else {
             POST("/user/register", item);
         }
@@ -86,6 +105,17 @@ export default function Profile({
     );
 }
 
+const getKey = (filterParameters: postFilters) => {
+    let query = "";
+    Object.entries(filterParameters).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== "") {
+            query += `&${key}=${value}`;
+        }
+    });
+    query = query ? "?" + query.slice(1) : "";
+    return `/user/filterByParams${query}`;
+};
+
 export const getServerSideProps: GetServerSideProps = async ({
     req,
     resolvedUrl,
@@ -93,16 +123,6 @@ export const getServerSideProps: GetServerSideProps = async ({
     const props: any = {};
     try {
         const filters = getFiltersFromUrl(resolvedUrl.split("?")[1] ?? "");
-        filters.pageFilters = filters.pageFilters ?? {
-            pageSize: 20,
-            pageNumber: -1,
-        };
-        filters.sort = filters.sort.field
-            ? filters.sort
-            : {
-                  field: "createdAt",
-                  order: 1,
-              };
         const queryString = getUrlForListPage(
             filters.pageFilters,
             filters.postFilters,
@@ -111,19 +131,16 @@ export const getServerSideProps: GetServerSideProps = async ({
         const user = JSON.parse(req.cookies.user) as any;
         const urls = [
             `/company/${user.companyId}`,
-            `/user/filterByParams${queryString}`,
+            // `/user/filterByParams${queryString}`,
             "/company/list/countries",
-            // "/roles"
         ];
-        const [company, partners, countries, roles] = await Promise.all([
+        const [company, countries] = await Promise.all([
             ...urls.map((url) => GET(url, req.cookies)),
         ]);
         props.company = company.company;
-        props.partners = partners;
+        // props.partners = partners;
         props.countries = countries;
-        props.filters = {
-            postFilters: {},
-        };
+        props.filters = filters;
     } catch (error) {
         console.log(error);
     }
