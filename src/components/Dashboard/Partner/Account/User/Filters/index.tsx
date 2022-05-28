@@ -1,7 +1,9 @@
 import globalStyles from "src/components/Dashboard/Filters/index.module.scss";
 import SearchFilter from "src/components/Dashboard/Filters/SearchFilter";
 import { postFilters } from "types/queryParameters";
+import Plus from "public/images/icons/Plus.svg";
 import styles from "./Filters.module.scss";
+import Image from "next/image";
 
 interface IProps {
     handleChange: (prop: string, itemId: string) => void;
@@ -11,16 +13,11 @@ interface IProps {
 export default function Filters({ handleChange, filterParameters }: IProps) {
     return (
         <div className={globalStyles["filters-container"]}>
-            <button
-                style={{
-                    padding: "10px",
-                    borderRadius: 5,
-                    width: 100,
-                    border: "1px solid #d6d6d6",
-                    margin: "0 8px 16px",
-                }}
-            >
-                Add
+            <button className={styles["add-button"]}>
+                <div className="d-flex justify-content-center align-items-center">
+                    <Image src={Plus} alt="add icon" />
+                    <span className="ms-3">Add</span>
+                </div>
             </button>
             <SearchFilter
                 handleChange={handleChange}
