@@ -1,0 +1,65 @@
+@media (min-width: 768px) {
+    .search-section,
+    .award,
+    .category,
+    .score,
+    .rating,
+    .comment,
+    .candidates {
+        min-width: 100%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .search-section,
+    .award,
+    .score-rate {
+        min-width: 372px;
+        width: 60%;
+    }
+    .category,
+    .score {
+        min-width: 250px;
+        width: 40%;
+    }
+    .rating,
+    .comment {
+        min-width: 311px;
+        width: 50%;
+    }
+    .candidates {
+        min-width: 100%;
+    }
+}
+
+@media (min-width: 1440px) {
+    .award,
+    .search-section,
+    .candidates {
+        min-width: 432px;
+        width: 40%;
+    }
+    .score,
+    .comment,
+    .category,
+    .rating {
+        min-width: 216px;
+        width: 20%;
+    }
+}
+
+@media (min-width: 1900px) {
+    .award,
+    .search-section,
+    .candidates {
+        min-width: 515px;
+        width: 40%;
+    }
+    .score,
+    .comment,
+    .category,
+    .rating {
+        min-width: 256px;
+        width: 20%;
+    }
+}

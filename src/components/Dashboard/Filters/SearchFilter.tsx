@@ -9,9 +9,10 @@ interface IProps {
     value: any;
     handleChange: Function;
     prop: string;
+    gridClass?: string;
 }
 
-function SearchFilter({ handleChange, value, prop }: IProps) {
+function SearchFilter({ handleChange, value, prop, gridClass }: IProps) {
     const input = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
@@ -32,7 +33,7 @@ function SearchFilter({ handleChange, value, prop }: IProps) {
         handleChange(prop, "");
     };
     return (
-        <div className={clsx(styles["filter-item"], styles["search-section"])}>
+        <div className={clsx(styles["filter-item"], styles["search-section"], gridClass)}>
             <div className={styles["search"]}>
                 <div
                     className={clsx(

@@ -1,7 +1,7 @@
 @media (min-width: 768px) {
-    .filters-container .filter-item {
-        min-width: 100%;
-    }
+    // .filters-container .filter-item {
+    //     min-width: 100%;
+    // }
 
     .nav-item .tab-button {
         padding: 10px 20px !important;
@@ -53,27 +53,27 @@
 }
 
 @media (min-width: 1024px) {
-    .filters-container {
-        .search-section,
-        .award,
-        .score-rate {
-            min-width: 372px;
-            width: 60%;
-        }
-        .category,
-        .score {
-            min-width: 250px;
-            width: 40%;
-        }
-        .rating,
-        .comment {
-            min-width: 311px;
-            width: 50%;
-        }
-        .candidates {
-            min-width: 100%;
-        }
-    }
+    // .filters-container {
+    //     // .search-section,
+    //     .award,
+    //     .score-rate {
+    //         min-width: 372px;
+    //         width: 60%;
+    //     }
+    //     .category,
+    //     .score {
+    //         min-width: 250px;
+    //         width: 40%;
+    //     }
+    //     .rating,
+    //     .comment {
+    //         min-width: 311px;
+    //         width: 50%;
+    //     }
+    //     .candidates {
+    //         min-width: 100%;
+    //     }
+    // }
     .process-list {
         min-width: calc(100% - 200px);
         .item {
@@ -87,21 +87,21 @@
 }
 
 @media (min-width: 1440px) {
-    .filters-container {
-        .award,
-        .search-section,
-        .candidates {
-            min-width: 432px;
-            width: 40%;
-        }
-        .score,
-        .comment,
-        .category,
-        .rating {
-            min-width: 216px;
-            width: 20%;
-        }
-    }
+    // .filters-container {
+    //     .award,
+    //     // .search-section,
+    //     .candidates {
+    //         min-width: 432px;
+    //         width: 40%;
+    //     }
+    //     .score,
+    //     .comment,
+    //     .category,
+    //     .rating {
+    //         min-width: 216px;
+    //         width: 20%;
+    //     }
+    // }
     .process-list {
         min-width: calc(100% - 240px);
         padding: 0;
@@ -120,22 +120,22 @@
 }
 
 @media (min-width: 1900px) {
-    .filters-container {
-        flex-wrap: nowrap;
-        .award,
-        .search-section,
-        .candidates {
-            min-width: 515px;
-            width: 40%;
-        }
-        .score,
-        .comment,
-        .category,
-        .rating {
-            min-width: 256px;
-            width: 20%;
-        }
-    }
+    // .filters-container {
+    //     flex-wrap: nowrap;
+    //     .award,
+    //     // .search-section,
+    //     .candidates {
+    //         min-width: 515px;
+    //         width: 40%;
+    //     }
+    //     .score,
+    //     .comment,
+    //     .category,
+    //     .rating {
+    //         min-width: 256px;
+    //         width: 20%;
+    //     }
+    // }
 }
 
 .filters-container {

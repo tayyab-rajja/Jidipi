@@ -1,6 +1,7 @@
-import styles from "src/components/Dashboard/Filters/index.module.scss";
+import globalStyles from "src/components/Dashboard/Filters/index.module.scss";
 import SearchFilter from "src/components/Dashboard/Filters/SearchFilter";
 import { postFilters } from "types/queryParameters";
+import styles from "./Filters.module.scss";
 
 interface IProps {
     handleChange: (prop: string, itemId: string) => void;
@@ -9,7 +10,7 @@ interface IProps {
 
 export default function Filters({ handleChange, filterParameters }: IProps) {
     return (
-        <div className={styles["filters-container"]}>
+        <div className={globalStyles["filters-container"]}>
             <button
                 style={{
                     padding: "10px",
@@ -25,6 +26,7 @@ export default function Filters({ handleChange, filterParameters }: IProps) {
                 handleChange={handleChange}
                 value={filterParameters["searchKey"]}
                 prop="searchKey"
+                gridClass={styles["search-filter"]}
             />
         </div>
     );

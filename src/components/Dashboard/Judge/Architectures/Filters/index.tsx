@@ -1,4 +1,4 @@
-import styles from "src/components/Dashboard/Filters/index.module.scss";
+import globalStyles from "src/components/Dashboard/Filters/index.module.scss";
 import SearchFilter from "src/components/Dashboard/Filters/SearchFilter";
 import CandidatesFilter from "../../../Filters/CandidatesFilter";
 import PlaceholderSelect from "src/components/Dashboard/Filters/PlaceholderSelect";
@@ -13,6 +13,7 @@ import ScoreIcon from "public/images/icons/score.svg";
 import AwardIcon from "public/images/icons/award.svg";
 import { postFilters } from "types/queryParameters";
 import { FilterItem } from "constant/filters/interface";
+import styles from "./Filters.module.scss";
 
 interface IProps {
     categories: { title: string; _id: string }[];
@@ -37,7 +38,7 @@ function Filters({
     });
 
     return (
-        <div className={styles["filters-container"]}>
+        <div className={globalStyles["filters-container"]}>
             <PlaceholderSelect
                 options={awards}
                 id="award"
@@ -47,6 +48,7 @@ function Filters({
                 handleChange={handleChange}
                 icon={AwardIcon}
                 value={filterParameters["awardId"]}
+                gridClass={styles["award"]}
             />
             <PlaceholderSelect
                 options={categories}
@@ -57,11 +59,13 @@ function Filters({
                 icon={ListIcon}
                 handleChange={handleChange}
                 value={filterParameters["categories"]}
+                gridClass={styles["category"]}
             />
             <SearchFilter
                 handleChange={handleChange}
                 value={filterParameters["searchKey"]}
                 prop="searchKey"
+                gridClass={styles["search-section"]}
             />
             <PlaceholderSelect
                 options={ScoreData}
@@ -72,6 +76,7 @@ function Filters({
                 icon={ScoreIcon}
                 handleChange={handleChange}
                 value={filterParameters["score"]}
+                gridClass={styles["score"]}
             />
             <PlaceholderSelect
                 options={RatingData}
@@ -82,6 +87,7 @@ function Filters({
                 icon={StarIcon}
                 handleChange={handleChange}
                 value={filterParameters["rating"]}
+                gridClass={styles["rating"]}
             />
             <PlaceholderSelect
                 options={CommentData}
@@ -92,12 +98,14 @@ function Filters({
                 icon={ChatIcon}
                 handleChange={handleChange}
                 value={filterParameters["comment"]}
+                gridClass={styles["comment"]}
             />
             <CandidatesFilter
                 handleChange={handleChange}
                 value={filterParameters["candidate"] as string}
                 prop="candidate"
                 statuses={statuses}
+                gridClass={styles["candidates"]}
             />
         </div>
     );
