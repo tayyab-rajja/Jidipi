@@ -23,19 +23,20 @@ export default function StatusCell({
     }, [item.isActive]);
 
     const updateStatusDB = (value: any) => {
+        let id = item._id || item.userId;
         let updatedItem;
         if (unEditable) {
             updatedItem = {
                 isActive: value,
             };
-            createUpdateItem(updatedItem, item._id);
+            createUpdateItem(updatedItem, id);
         } else {
             updatedItem = {
-                teamId: item.teamId || team._id,
-                userId: item._id,
+                teamId: item.teamId,
+                userId: id,
                 isActive: value,
             };
-            createUpdateItem(updatedItem);
+            createUpdateItem(updatedItem, id);
         }
         setUpdating(true);
         setTimeout(() => {
@@ -77,4 +78,4 @@ export default function StatusCell({
             </label>
         </td>
     );
-};
+}

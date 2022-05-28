@@ -59,9 +59,9 @@ export default function EditForm({
         // const isValid = checkForValidation();
 
         // if (!isValid) return;
-        const updatedItem = tableData.onAddMemberItemRemap(item, team);
+        const updatedItem = tableData.onAddMemberItemRemap(item, team) as any;
         setUpdating(true);
-        createUpdateItem(updatedItem);
+        createUpdateItem(updatedItem, updatedItem._id || updatedItem.userId);
 
         updateState();
     };

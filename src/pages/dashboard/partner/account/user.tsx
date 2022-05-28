@@ -3,14 +3,14 @@ import TopMenuContent from "src/components/Dashboard/Partner/Account/Profile";
 import TopMenuContentWrapper from "src/components/Dashboard/Partner/Account/Profile/Wrapper";
 import Menu from "src/components/Dashboard/Partner/Account/Menu";
 import { CompanyAdd } from "types/companyInfoTypes";
-import { GET } from "src/lib/common/api";
+import { GET, POST, PUT } from "src/lib/common/api";
 import { GetServerSideProps } from "next";
 import Filters from "src/components/Dashboard/Partner/Account/User/Filters";
 import { useCallback, useEffect, useState } from "react";
 import { postFilters } from "types/queryParameters";
 import { getFiltersFromUrl, getUrlForListPage } from "src/utils/url";
 import { fetchUsersForSpecificRoleSuccess } from "src/lib/users/action";
-import { fetchCountriesSuccess } from 'src/lib/company/action'
+import { fetchCountriesSuccess } from "src/lib/company/action";
 import { useDispatch } from "react-redux";
 import Table from "src/components/Dashboard/Partner/Account/User/Table";
 
@@ -25,7 +25,7 @@ export default function Profile({
     company: companyData,
     filters,
     partners,
-    countries
+    countries,
 }: IProps) {
     const dispatch = useDispatch();
     const company = { ...companyData, logo: companyData.logoId.liveURL };
@@ -35,8 +35,8 @@ export default function Profile({
 
     useEffect(() => {
         dispatch(fetchUsersForSpecificRoleSuccess(partners));
-        dispatch(fetchCountriesSuccess(countries))
-    })
+        dispatch(fetchCountriesSuccess(countries));
+    });
 
     const handleChange = (prop: string, itemId: string) => {
         setFilterParameters((value: postFilters) => {
@@ -46,16 +46,20 @@ export default function Profile({
     };
 
     const team = {
-        name: 'USER',
+        name: "USER",
         users: partners.users,
     };
 
-    const getItems = () => {}
+    const getItems = () => {};
 
     const createUpdateItem = useCallback((item: any, id: any) => {
-        // dispatch(updateUser(item, id));
-      }, []);
-      
+        if (id) {
+            PUT(`/user/${id || item._id || item.userId}`, item);
+        } else {
+            POST("/user/register", item);
+        }
+    }, []);
+
     return (
         <DashboardLayout
             TopDropdownComponent={<TopMenuContent company={company} />}
@@ -71,7 +75,11 @@ export default function Profile({
                     />
                 </div>
                 <div>
-                    <Table team={team} getItems={getItems} createUpdateItem={createUpdateItem} />
+                    <Table
+                        team={team}
+                        getItems={getItems}
+                        createUpdateItem={createUpdateItem}
+                    />
                 </div>
             </div>
         </DashboardLayout>
@@ -113,8 +121,6 @@ export const getServerSideProps: GetServerSideProps = async ({
         props.company = company.company;
         props.partners = partners;
         props.countries = countries;
-        // props.roles = roles;
-        // console.log(roles)
         props.filters = {
             postFilters: {},
         };
