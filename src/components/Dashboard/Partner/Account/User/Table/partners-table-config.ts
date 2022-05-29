@@ -3,17 +3,10 @@ import JointCell from "src/components/UserTable/Cells/JointCell";
 import LastLoginCell from "src/components/UserTable/Cells/LastLoginCell";
 import StatusCell from "src/components/UserTable/Cells/StatusCell";
 import DefaultCell from "src/components/UserTable/Cells/DefaultCell";
-// import TeamCell from 'src/components/UserTable/Cells/TeamCell';
-// import RoleCell from 'src/components/UserTable/Cells/RoleCell';
-// import OverviewCell from 'src/components/UserTable/Cells/OverviewCell';
-// import validators from 'validator';
-// import messages from '../messages';
 import Input from "src/components/UserTable/Inputs/Input";
 import Avatar from "src/components/UserTable/Inputs/Avatar";
 import NameInput from "src/components/UserTable/Inputs/NameInput";
 import PasswordInput from "src/components/UserTable/Inputs/PasswordInput";
-// import TeamSelect from "src/components/UserTable/Inputs/TeamSelect";
-import RoleSelect from "src/components/UserTable/Inputs/RoleSelect";
 import NationalityCell from "src/components/UserTable/Cells/NationalityCell";
 import CreatedDateInput from "src/components/UserTable/Inputs/CreatedDateInput";
 import PartnerRoleInput from "src/components/UserTable/Inputs/PartnerRoleInput";
@@ -32,17 +25,6 @@ export default Object.freeze({
             componentName: "DefaultCell",
             componentProps: {},
         },
-        // team: {
-        //   index: 1,
-        //   name: 'IP (LAST LOGIN)',
-        //   sticky: true,
-        //   style: {
-        //     minWidth: 120,
-        //   },
-        //   component: NationalityCell,
-        //   componentName: 'NationalityCell',
-        //   componentProps: {},
-        // },
         ip: {
             index: 1,
             name: "IP (LAST LOGIN)",
@@ -222,6 +204,12 @@ export default Object.freeze({
     unEditable: false,
     noContextMenu: false,
     isStaff: true,
+
+    /**
+     *
+     * @param team
+     * @returns
+     */
     initialRow(team: any) {
         return {
             _id: "initial_user",
@@ -256,6 +244,11 @@ export default Object.freeze({
     //     error: `${messages.enterValid} Password`,
     //   },
     // },
+    /**
+     *
+     * @param team
+     * @returns
+     */
     firstInitItemState(team: any) {
         const item = {
             password: "",
@@ -279,6 +272,13 @@ export default Object.freeze({
             roles: user.roles,
         };
     },
+
+    /**
+     *
+     * @param selectedItem
+     * @param team
+     * @returns
+     */
     resetOnSelectItem(selectedItem: any, team: any) {
         return {
             uniqueId: selectedItem.uniqueId,
@@ -298,19 +298,38 @@ export default Object.freeze({
             isCompanyAdmin: selectedItem.isCompanyAdmin,
         };
     },
-    onAddMemberItemRemap(item: any, team: any) {
+    /**
+     *
+     * @param item
+     * @param team
+     * @param oldItem
+     * @returns
+     */
+    onAddMemberItemRemap(item: any, team: any, oldItem: any) {
         const updatedItem = {
             ...item,
-            // roles: [itemRole],
             teamId: item.teamId || team._id,
-            username: item.email,
         };
+        // check if email doesn't change, so doesn't send it with the API.
+        if (oldItem.email === item.email) {
+            delete updatedItem.email;
+            delete updatedItem.username;
+        }
+
+        // if this is a new user, just delete the hardcoded id
         if (updatedItem._id === "new_user") {
             delete updatedItem._id;
             delete updatedItem.userId;
         }
         return updatedItem;
     },
+
+    /**
+     *
+     * @param item
+     * @param team
+     * @returns
+     */
     onConfirmDeleteMemberItemRemap(item: any, team: any) {
         return {
             _id: item._id,

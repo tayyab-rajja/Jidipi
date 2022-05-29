@@ -1,7 +1,8 @@
 import React, { useMemo } from "react";
 import { useSelector } from "react-redux";
 import styles from "../Table.module.scss";
-
+import { useContext } from "react";
+import Context from "../TableContext";
 export default function NationalityCell({
     item,
     calculatePositionOfStickyHeaders,
@@ -9,13 +10,11 @@ export default function NationalityCell({
     index,
 }: any) {
     // @ts-ignore
-    const countries = useSelector((state: any) => state.company.countries);
-    const country = useMemo(() => {
-        const country = countries.find(
-            (country: any) => country._id === item.location
-        );
-        return country ? country : {};
-    }, [item.location, countries]);
+    const { countries } = useContext(Context);
+    // const countries = useSelector((state: any) => state.company.countries);
+    const country =
+        countries.find((country: any) => country._id === item.location) ??
+        ({} as any);
 
     return (
         <td

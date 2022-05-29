@@ -18,6 +18,7 @@ import { fetchCountriesSuccess } from "src/lib/company/action";
 import { useDispatch } from "react-redux";
 import Table from "src/components/Dashboard/Partner/Account/User/Table";
 import useSWR from "swr";
+import Context from "src/components/UserTable/TableContext";
 
 interface IProps {
     company: CompanyAdd;
@@ -37,17 +38,17 @@ export default function Profile({
     const [filterParameters, setFilterParameters] = useState(
         filters.postFilters
     );
-    const { data, error } = useSWR(getKey(filterParameters), GET);
+    const { data, error, mutate } = useSWR(getKey(filterParameters), GET);
 
-    useEffect(() => {
-        dispatch(fetchCountriesSuccess(countries));
-    }, []);
+    // useEffect(() => {
+    //     dispatch(fetchCountriesSuccess(countries));
+    // }, []);
 
-    useEffect(() => {
-        if (data?.users) {
-            dispatch(fetchUsersForSpecificRoleSuccess(data));
-        }
-    }, [data]);
+    // useEffect(() => {
+    //     if (data?.users) {
+    //         dispatch(fetchUsersForSpecificRoleSuccess(data));
+    //     }
+    // }, [data]);
 
     const handleChange = (prop: string, itemId: string) => {
         setFilterParameters((value: postFilters) => {
@@ -69,7 +70,9 @@ export default function Profile({
         users: data?.users,
     };
 
-    const getItems = () => {};
+    const getItems = () => {
+        mutate();
+    };
 
     const createUpdateItem = useCallback((item: any, id: any) => {
         if (id) {
@@ -94,11 +97,17 @@ export default function Profile({
                     />
                 </div>
                 <div>
-                    <Table
-                        team={team}
-                        getItems={getItems}
-                        createUpdateItem={createUpdateItem}
-                    />
+                    <Context.Provider
+                        value={{
+                            countries,
+                        }}
+                    >
+                        <Table
+                            team={team}
+                            getItems={getItems}
+                            createUpdateItem={createUpdateItem}
+                        />
+                    </Context.Provider>
                 </div>
             </div>
         </DashboardLayout>
@@ -123,11 +132,11 @@ export const getServerSideProps: GetServerSideProps = async ({
     const props: any = {};
     try {
         const filters = getFiltersFromUrl(resolvedUrl.split("?")[1] ?? "");
-        const queryString = getUrlForListPage(
-            filters.pageFilters,
-            filters.postFilters,
-            filters.sort
-        );
+        // const queryString = getUrlForListPage(
+        //     filters.pageFilters,
+        //     filters.postFilters,
+        //     filters.sort
+        // );
         const user = JSON.parse(req.cookies.user) as any;
         const urls = [
             `/company/${user.companyId}`,

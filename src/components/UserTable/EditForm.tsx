@@ -57,11 +57,13 @@ export default function EditForm({
             event.preventDefault();
         }
         // const isValid = checkForValidation();
-
         // if (!isValid) return;
-        const updatedItem = tableData.onAddMemberItemRemap(item, team) as any;
+
+        const updatedItem = { ...item }
+
+        const itemToUpdate = tableData.onAddMemberItemRemap(updatedItem, team, selectedItem) as any;
         setUpdating(true);
-        createUpdateItem(updatedItem, updatedItem._id || updatedItem.userId);
+        createUpdateItem(itemToUpdate, itemToUpdate._id || itemToUpdate.userId);
 
         updateState();
     };
