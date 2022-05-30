@@ -236,37 +236,3 @@ body {
     width: 300px;
   }
 }
-
-
-
-.react-pdf__Document {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-}
-
-.react-pdf__Page {
-
-  //width: 50%;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
-  margin: 1em;
-  overflow: hidden;
-}
-
-.react-pdf__Page canvas {
-
-  max-width: 100%;
-  max-height: 100%;
-  //width: 50%;
-  height: auto !important;
-}
-.react-pdf__Page__textContent{
-  max-width: 100%;
-  max-height: 100%;
-}
-
-.react-pdf__message {
-  padding: 20px;
-  color: white;
-}
