@@ -1,4 +1,4 @@
-import React, {FC, ReactElement, useContext, useEffect, useState} from "react";
+import React, {FC, ReactComponentElement, ReactElement, useContext, useEffect, useState} from "react";
 import {useRouter} from "next/router";
 import {generateSidebarMenus, LinkProp, MenuProp} from "../../../../lib/common/menu";
 import Link from "next/link";
@@ -24,7 +24,7 @@ import {GET} from "../../../../lib/common/api";
 const MenuItemWithNoSSR = dynamic<ItemProps>(
     () => import('./Item/Item').then(module => module.Item),
     {ssr: false}
-)
+) as any
 // const MyComponent = dynamic<LinkProp>(() =>
 //     import('./Item/Item').then(module =>   module.Item)
 // );
@@ -41,7 +41,6 @@ export const Sidebar: FC<SidebarProps> = ({
 
     const [activeMenu, setActiveMenu] = useState('OVERVIEW');
     const [cs, setCs] = useState<ReactElement | ReactElement[]>([]);
-
     useEffect(() => {
         if (children !== undefined) {
             setCs(<>
@@ -60,7 +59,7 @@ export const Sidebar: FC<SidebarProps> = ({
                     }
                 }
             }
-            setCs(defaultCs);
+            // setCs(defaultCs);
         }
     }, [children]);
     useEffect(() => {
@@ -114,55 +113,57 @@ export const Sidebar: FC<SidebarProps> = ({
         // console.log('menus changed', menus);
 
     }, [menus])
-    useEffect(() => {
-        setCs(defaultCs);
-    }, [activeMenu])
-    const defaultCs = <>
-        <div className={styles['left-navbar']}>
-            <div className={styles["profile"]}>
-                <div className={styles["profile-img"]}>
-                    <img src={user && user.avatar ? user.avatar : CDN_URL + '/avatars/default.svg'}/>
-                </div>
-                <div className={styles["contact-info"]}>
-                    <div className={styles["item"]}>
-                        <div className={styles["icon"]}>
-                            <Image src={UserSvg} alt="username"/>
-                        </div>
-                        <div className={styles["name"]}>{user && user.firstName} {user && user.lastName}</div>
-                    </div>
-                    <div className={styles["item"]}>
-                        <div className={styles["icon"]}>
-                            <Image src={EnvelopeSvg} alt="email"/>
-                        </div>
-                        <div className={styles["email"]}>{user && user.email}</div>
-                    </div>
-                </div>
-            </div>
+    // useEffect(() => {
+    //     setCs(defaultCs);
+    // }, [activeMenu])
 
-            {menus.map((menu: any, index: number) => {
-                return (
-                    <div key={index} className={styles["menu"]}>
-                        <h2>{menu.title}</h2>
-                        <div className={styles["menu-list"]}>
-                            <ul>
-                                {
-                                    activeMenu && menu.links.map((link: any, i: number) => {
-                                        if (link.isSelected) console.log('link:', link);
-                                        return <MenuItemWithNoSSR key={i} link={link} active={activeMenu === link.title} />
-                                    })
-                                }
-                            </ul>
-                        </div>
-                    </div>
-                );
-            })
-            }
-        </div>
-    </>;
+    if (children !== undefined) {
+        return (            <div className={styles['left-navbar']}>
+            {children}
+        </div>);
+    }
 
     return (<>
         <div className={styles['left-navbar']}>
-            {cs}
+            <div className={styles['left-navbar']}>
+                <div className={styles["profile"]}>
+                    <div className={styles["profile-img"]}>
+                        <img src={user && user.avatar ? user.avatar : CDN_URL + '/avatars/default.svg'}/>
+                    </div>
+                    <div className={styles["contact-info"]}>
+                        <div className={styles["item"]}>
+                            <div className={styles["icon"]}>
+                                <Image src={UserSvg} alt="username"/>
+                            </div>
+                            <div className={styles["name"]}>{user && user.firstName} {user && user.lastName}</div>
+                        </div>
+                        <div className={styles["item"]}>
+                            <div className={styles["icon"]}>
+                                <Image src={EnvelopeSvg} alt="email"/>
+                            </div>
+                            <div className={styles["email"]}>{user && user.email}</div>
+                        </div>
+                    </div>
+                </div>
+
+                {menus.map((menu: any, index: number) => {
+                    return (
+                        <div key={index} className={styles["menu"]}>
+                            <h2>{menu.title}</h2>
+                            <div className={styles["menu-list"]}>
+                                <ul>
+                                    {
+                                        activeMenu && menu.links.map((link: any, i: number) => {
+                                            return <MenuItemWithNoSSR key={i} link={link} active={activeMenu === link.title} />
+                                        })
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    );
+                })
+                }
+            </div>
         </div>
     </>)
 

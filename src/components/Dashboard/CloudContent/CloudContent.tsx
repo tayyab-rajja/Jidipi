@@ -5,20 +5,21 @@ import styles from "src/components/Dashboard/CloudContent/CloudContent.module.cs
 
 import CloudTabs from "src/components/Dashboard/CloudContent/CloudTabs";
 const CloudContent = () => {
-  const [ActiveTab, setActiveTab] = useState("UNARCHIVED");
+  const [ActiveTab, setActiveTab] = useState("POST");
 
   const router = useRouter();
   const { type } = router.query;
 
-  useEffect(() => {
-    if (type === "information") {
-      setActiveTab("INFORMATION");
-    } else if (type === "post") {
-      setActiveTab("POST");
-    } else {
-      setActiveTab("UNARCHIVED");
-    }
-  }, [type]);
+  // useEffect(() => {
+  //   console.log("type", type);
+  //   if (type === "information") {
+  //     setActiveTab("INFORMATION");
+  //   } else if (type === "post") {
+  //     setActiveTab("POST");
+  //   } else if (type == "unconnected") {
+  //     setActiveTab("UNARCHIVED");
+  //   }
+  // }, [type]);
 
   return (
     <>
@@ -35,7 +36,7 @@ const CloudContent = () => {
                     className={
                       ActiveTab === "UNARCHIVED" ? styles["active"] : ""
                     }
-                    // onClick={unconnectedHandler}
+                    onClick={() => setActiveTab("UNARCHIVED")}
                   >
                     UNCONNECTED
                   </a>
@@ -45,7 +46,7 @@ const CloudContent = () => {
                 <Link href={"/dashboard/cloud/post"}>
                   <a
                     className={ActiveTab === "POST" ? styles["active"] : ""}
-                    // onClick={postHandler}
+                    onClick={() => setActiveTab("POST")}
                   >
                     POST
                   </a>
@@ -57,7 +58,7 @@ const CloudContent = () => {
                     className={
                       ActiveTab === "INFORMATION" ? styles["active"] : ""
                     }
-                    // onClick={infoHandler}
+                    onClick={() => setActiveTab("INFORMATION")}
                   >
                     INFORMATION
                   </a>

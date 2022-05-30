@@ -1,0 +1,64 @@
+@import 'src/styles/color';
+
+
+.input-container {
+  &.custom-input-container {
+    height: 44px !important;
+    & > div > div {
+      background-color: #f1f1f1
+    }
+    .box {
+      height: 44px !important;
+      overflow: hidden !important;
+      border-style: solid !important;
+      input {
+        border-left-style: solid !important;
+      }
+    }
+  }
+  &.box-input-container {
+    .box {
+      background: $color-white;
+      border: 1px solid $bg-gray3;
+      height: 100%;
+      input {
+        border: none;
+        box-shadow: none;
+        border-left: 1px solid $bg-gray3;
+        border-radius: 0px;
+        font-size: 12px;
+        height: 48px;
+
+        &:disabled {
+          background: $color-white;
+        }
+      }
+      .css-xyedy-Control input {
+        height: 36px;
+      }
+    }
+
+    .title {
+      min-width: 80px !important;
+      text-align: left;
+      padding: 10px;
+    }
+
+    &.bg {
+      .title {
+        min-width: 110px;
+        text-align: left;
+      }
+    }
+    &.dashed {
+      .box {
+        border-style: dashed;
+        border-width: 1px;
+        input {
+          border-left-style: dashed;
+          border-width: 1px;
+        }
+      }
+    }
+  }
+}

@@ -10,9 +10,16 @@ interface IProps {
     handleChange: Function;
     prop: string;
     statuses: { [key: string]: number };
+    gridClass?: string;
 }
 
-function CandidatesFilter({ handleChange, value, prop, statuses }: IProps) {
+function CandidatesFilter({
+    handleChange,
+    value,
+    prop,
+    statuses,
+    gridClass,
+}: IProps) {
     const prevSelected = useRef<FilterItem | null>(null);
 
     data.forEach((item: FilterItem) => {
@@ -41,7 +48,11 @@ function CandidatesFilter({ handleChange, value, prop, statuses }: IProps) {
     return (
         <div
             ref={select}
-            className={clsx(styles["filter-item"], styles["candidates"])}
+            className={clsx(
+                styles["filter-item"],
+                styles["candidates"],
+                gridClass
+            )}
         >
             <div className={styles["select-group"]}>
                 <div className={styles["select-btn"]}>

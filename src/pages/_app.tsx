@@ -1,5 +1,5 @@
 // import "bootstrap/dist/css/bootstrap.css";
-// import "../styles/globals.css";
+import "../styles/globals.css";
 import "../styles/nprogress.css";
 import { ReactElement, ReactNode, useEffect } from "react";
 import type { NextPage } from "next";
@@ -19,6 +19,7 @@ import {UserProvider} from "../providers/UserProvider";
 import "../../public/dashboard/css/style.scss";
 // import "../../public/dashboard/css/all.css"
 // import "../../public/dashboard/css/style.css"
+
 
 
 type NextPageWithLayout = NextPage & {

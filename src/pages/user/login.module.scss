@@ -1,0 +1,276 @@
+
+.page-container {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  background-image: url("https://upload.jidipi.com/dashboard/images/background.png");
+  color: #37373799;
+  font-family: "Poppins";
+  font-size: 11px;
+  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.page {
+
+  background-color: rgba(55, 55, 55, 70%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+
+@media screen and (max-width: 650px) {
+  .login-container {
+    flex-direction: column;
+    .left-block {
+      width: 100%;
+      .logo-block {
+        width: 100%;
+        .logo {
+          display: flex;
+          justify-content: center;
+        }
+
+      }
+    }
+    .right-block {
+      margin-top: 20px;
+      margin-left: 0;
+      width: 100%;
+      .input-block {
+        width: 100%;
+        .login-block {
+          .remember-password {
+            align-items: flex-start;
+            .info {
+              margin-left: 30px;
+            }
+          }
+
+        }
+      }
+
+    }
+
+  }
+
+}
+
+
+
+.login-container {
+  background-color: #D6D6D6;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  .left-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 280px;
+    color: #373737;
+    .logo-block {
+      background-color: #F1F1F1;
+      height: 180px;
+      border: 1px solid #E3E3E3;
+      width: 100%;
+      align-content: center;
+      text-align: center;
+
+      h1 {
+        width: 121px;
+        font-family: "GameOver";
+        font-size: 50px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top:28px;
+      }
+      .logo {
+        margin-top: 20px;
+        text-align: center;
+        width: 100%;
+        //img {
+        //  width: 121px;
+        //  font-family: "GameOver";
+        //  font-size: 50px;
+        //  display: flex;
+        //  align-items: center;
+        //  justify-content: center;
+        //}
+      }
+      .title {
+        font-size: 30px;
+        margin-top: 4px;
+        width: 100%;
+        font-family: "BedTime";
+      }
+    }
+    .text-block {
+      height: 180px;
+      padding: 20px;
+      background-color: #F1F1F1;
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid #E3E3E3;
+      .row-2 {
+        line-height: 1.7;
+      }
+      .row-3 {
+        align-self: flex-end;
+        font-size: 11px;
+      }
+    }
+  }
+  .right-block {
+    width: 280px;
+    background-color: #F1F1F1;
+    margin-left: 20px;
+    .input-block {
+      padding: 62px 20px;
+      display: flex;
+      flex-direction: column;
+      input {
+        &.error {
+          border: 2px solid #ff0000;
+        }
+      }
+      .enter {
+        .input-container {
+          display: flex;
+          flex-direction: column;
+          height: 58px;
+
+          position: relative;
+          .visibility {
+            position: absolute;
+            top: 36%;
+            right: 20px;
+            cursor: pointer;
+          }
+        }
+        .wrong {
+          font-size: 8px;
+          color: #ff0000;
+          margin-top: 5px;
+          display: block;
+          line-height: 1;
+
+        }
+      }
+      .input-text {
+        width: 100%;
+        height: 44px;
+        padding: 14px 20px;
+        color: #373737;
+        font-size: 11px;
+        border: 1px solid #d6d6d6;
+        outline: 0;
+        &::placeholder {
+          color: #d6d6d6;
+        }
+      }
+      .input-password {
+        width: 100%;
+        height: 44px;
+        padding: 14px 20px;
+        color: #373737;
+        font-size: 11px;
+        border: 1px solid #d6d6d6;
+        margin-top: 7px;
+        outline: 0;
+        &::placeholder {
+          color: #d6d6d6;
+        }
+      }
+      .login-block {
+         display: flex;
+         flex-direction: column;
+         justify-content: space-between;
+         padding-top: 40px;
+         .remember-password {
+           display: flex;
+           flex-direction: column;
+           justify-content: space-between;
+           width: 100%;
+           height: 33px;
+           align-items: center;
+           padding-bottom: 2px;
+           .content {
+             display: flex;
+             justify-content: space-between;
+             width: 100%;
+           }
+
+           .left-side {
+             display: flex;
+             justify-content: space-between;
+             height: 100%;
+             align-items: center;
+             .input-checkbox {
+               appearance: none;
+               width: 18px;
+               height: 18px;
+               border: 1px solid #d6d6d6;
+               background: #ffffff;
+               margin-right: 12px;
+               &:checked {
+                 //background-image: url("/images/icons/check.svg");
+                 background-color: #373737;
+                 background-position: center;
+                 background-size: auto;
+                 background-repeat: no-repeat;
+                 font-size: 11px;
+               }
+             }
+             span {
+               font-size: 9px;
+             }
+           }
+           .forgot-password {
+             color: #3a63de;
+             font-size: 9px;
+             cursor: pointer;
+             align-self: center;
+           }
+           .info {
+             font-size: 8px;
+             color: #ff0000;
+             margin-left: 25px;
+             display: none;
+             &.show{
+               display: block!important;
+             }
+           }
+
+         }
+         .login-btn {
+           width: 100%;
+           background-color: #D6D6D6;
+           color: #373737;
+           font-size: 11px;
+           height: 44px;
+           border: 1px solid #d6d6d6;
+           margin-top: 20px;
+           &:hover {
+             background-color: #373737;
+             color: #ffffff;
+           }
+         }
+       }
+    }
+
+
+
+  }
+}

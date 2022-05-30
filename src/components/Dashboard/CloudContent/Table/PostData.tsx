@@ -173,7 +173,7 @@ export default function PostData(props: any) {
           </div>
         </div>
         <div className={styles["chat-box"]}>
-          <ChatComponent />
+          {/* <ChatComponent /> */}
         </div>
       </div>
     </div>

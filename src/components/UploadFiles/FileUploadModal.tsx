@@ -9,10 +9,13 @@ import CloudImage from "public/images/file-upload/cloud.svg";
 import CheckIcon from "public/images/actions/check.svg";
 import ServerCategories from "./ServerCategories";
 import useClickOutside from "src/hooks/useClickOutside";
-import {FileType, retrySingleFile,  upload, UploadState} from "src/lib/file/action";
-import {useDispatch } from "react-redux";
-
-
+import {
+    FileType,
+    retrySingleFile,
+    upload,
+    UploadState,
+} from "src/lib/file/action";
+import { useDispatch } from "react-redux";
 
 import styles from "./style.module.scss";
 import { UserContext } from "src/providers/UserProvider";
@@ -22,10 +25,11 @@ import Image from "next/image";
 const FileUpload = ({
     type,
     typeKey,
-    state,
+    // state,
     onSelect,
     onClose,
-}: any) => {
+}: // disableDefaultLogos,
+any) => {
     const dispatch = useDispatch();
     const userContext: any = useContext(UserContext);
     const user = userContext.user;
@@ -36,11 +40,30 @@ const FileUpload = ({
     const [progress, setProgress] = useState(40);
     const [searchKey, setSearchKey] = useState("");
     const [filter, setFilter] = useState(1);
+    // const [disableDefaultLogos, setDisableDefaultLogos] = useState(false)
 
     const uploadContainer = useRef(null);
     useClickOutside(uploadContainer, () => {
         onClose();
     });
+
+    let state: any;
+    let disableDefaultLogos = false;
+
+    if (type === "company") {
+        state = {
+            files: [],
+            type: FileType.LOGO,
+            companyId: user?.companyId,
+        };
+        disableDefaultLogos = true;
+    } else if (type === "user") {
+        state = {
+            files: [],
+            type: FileType.AVATAR,
+        };
+        disableDefaultLogos = false;
+    }
 
     const fileState = {
         Select: "SELECT",
@@ -78,13 +101,13 @@ const FileUpload = ({
             const reader = new FileReader();
             reader.onload = (e) => {
                 setPreview(e.target?.result as any);
-                onSelect(file, e.target?.result)
             };
 
             reader.readAsDataURL(file);
             setSelectedFile(file);
             setCurrentSection(fileState.Uploaded);
-            dispatch(upload(state, acceptedFiles ));
+            onSelect(file);
+            dispatch(upload(state, acceptedFiles));
             // uploadFile(file);
         }
     }, []);
@@ -212,7 +235,7 @@ const FileUpload = ({
                     }}
                     alt=""
                     src={(CheckIcon as any).src}
-                    className={ styles["pointer"]}
+                    className={styles["pointer"]}
                 />
             </div>
         </div>
@@ -361,39 +384,46 @@ const FileUpload = ({
                                         Upload Logo
                                     </a>
                                 </li>
-                                <li
-                                    className={clsx(
-                                        styles["nav-item"],
-                                        "nav-item"
-                                    )}
-                                >
-                                    <a
-                                        className={`${styles["nav-link"]}  ${
-                                            currentSection === fileState.Server
-                                                ? styles["active"]
-                                                : ""
-                                        }`}
-                                        data-toggle="pill"
-                                        href="#test"
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            if (
-                                                currentSection ===
-                                                fileState.Uploading
-                                            )
-                                                return;
-                                            setCurrentSection(fileState.Server);
-                                        }}
-                                        role="tab"
-                                        aria-controls="pills-select-logo"
-                                        aria-selected="false"
+                                {!disableDefaultLogos && (
+                                    <li
+                                        className={clsx(
+                                            styles["nav-item"],
+                                            "nav-item"
+                                        )}
                                     >
-                                        <span className="me-2">
-                                            <Image src={Folder} />
-                                        </span>{" "}
-                                        Select Logo
-                                    </a>
-                                </li>
+                                        <a
+                                            className={`${
+                                                styles["nav-link"]
+                                            }  ${
+                                                currentSection ===
+                                                fileState.Server
+                                                    ? styles["active"]
+                                                    : ""
+                                            }`}
+                                            data-toggle="pill"
+                                            href="#test"
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                if (
+                                                    currentSection ===
+                                                    fileState.Uploading
+                                                )
+                                                    return;
+                                                setCurrentSection(
+                                                    fileState.Server
+                                                );
+                                            }}
+                                            role="tab"
+                                            aria-controls="pills-select-logo"
+                                            aria-selected="false"
+                                        >
+                                            <span className="me-2">
+                                                <Image src={Folder} />
+                                            </span>{" "}
+                                            Select Logo
+                                        </a>
+                                    </li>
+                                )}
                             </ul>
                         </div>
                         <div

@@ -16,6 +16,7 @@ interface IProps {
     icon: StaticImageData | string;
     value: string | number | boolean | undefined;
     handleChange: Function;
+    gridClass?: string;
 }
 
 function PlaceholderSelect({
@@ -27,6 +28,7 @@ function PlaceholderSelect({
     prop,
     icon,
     value,
+    gridClass,
 }: IProps) {
     const {
         selectedItem,
@@ -53,7 +55,11 @@ function PlaceholderSelect({
     return (
         <div
             ref={select}
-            className={clsx(styles["filter-item"], styles[className])}
+            className={clsx(
+                styles["filter-item"],
+                styles[className],
+                gridClass
+            )}
         >
             <div className={styles["select-group"]}>
                 <div className={styles["select-btn"]}>

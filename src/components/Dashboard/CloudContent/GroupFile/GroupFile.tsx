@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import styles from "src/components/Dashboard/CloudContent/MoveToModal/moveto.module.css";
 import cloudIcon from "public/dashboard/cloud/images/icon-cloud.png";
 import uploadIcon from "public/dashboard/cloud/images/upload-file.png";
@@ -47,11 +47,13 @@ function GroupFile(props: any) {
     });
   };
 
-  const getFolderData = () => {
-    const res = GET(`/company/${user.companyId}/folders`).then((res) => {
+  const getFolderData = useCallback(() => {
+    const res = GET(
+      `/company/${user.companyId}/folders?categoryType=UNARCHIVED`
+    ).then((res) => {
       setFolderData(res.folders);
     });
-  };
+  }, [user.companyId]);
   useEffect(() => {
     getFolderData();
   }, [getFolderData]);

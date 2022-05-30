@@ -15,7 +15,7 @@ import {DashboardLayout} from "../../../components/Dashboard/Layout/Layout";
 import PostLeftSidebar from "../../../components/Dashboard/Post/Sidebar/Sidebar";
 import PostRightSidebar from "../../../components/Dashboard/Post/Sidebar/RightSidebar";
 import styles from "./post.module.scss";
-import moment from "moment-timezone";
+import Chat, {ChatType} from "../../../components/Dashboard/Chat/Chat";
 
 export default function Post(props: any) {
     // get user from context
@@ -90,7 +90,7 @@ export default function Post(props: any) {
 
     return <DashboardLayout
         sidebarComponent={<PostLeftSidebar post={post} awards={awards} competition={competition}/>}
-        rightSidebarComponent={<PostRightSidebar competition={competition} post={post} awards={awards}/>
+        rightSidebarComponent={isJudge(user)?<PostRightSidebar competition={competition} post={post} awards={awards}/>:<Chat postId={post._id} chatType={ChatType.PartnerChat} />
         }
         paddingTop={true}
     >

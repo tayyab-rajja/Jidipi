@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import styles from "src/components/Dashboard/CloudContent/MoveToModal/moveto.module.css";
 import cloudIcon from "public/dashboard/cloud/images/icon-cloud.png";
 import { UserContext } from "src/providers/UserProvider";
@@ -29,15 +29,13 @@ function MoveTo(props: any) {
   const folderNamehandler = (event: any) => {
     setFoldername(event.target.value);
   };
-  const addNewFolder = () => {
+  const addNewFolder = useCallback(() => {
     const res = POST(`/company/${user.companyId}/folder`, { name: Foldername });
-    res.then((res) => {
-      getFolderData();
-    });
+    res.then((res) => {});
     res.catch((err) => {
       console.log(err);
     });
-  };
+  }, [user.companyId, Foldername]);
   const MoveFolderhandler = (id: any) => {
     const res = PUT(`/company/${props.Folderid}/document`, {
       parentFolderId: id,
@@ -49,12 +47,14 @@ function MoveTo(props: any) {
     });
   };
 
-  const getFolderData = () => {
-    const res = GET(`/company/${user.companyId}/folders`);
+  const getFolderData = useCallback(() => {
+    const res = GET(
+      `/company/${user.companyId}/folders?categoryType=UNARCHIVED`
+    );
     res.then((res) => {
       setFolderData(res.folders);
     });
-  };
+  }, [user.companyId]);
   useEffect(() => {
     getFolderData();
   }, [getFolderData]);

@@ -63,10 +63,10 @@ export const DashboardLayout: FC<LayoutProps> = ({
             <div className="wrapper">
                 <Sidebar>{sidebarComponent}</Sidebar>
                 <div
-                    className={`content-block    ${paddingTop ? "pt-20" : ""}`}
+                    className={`content-block ${paddingTop ? "pt-20" : ""}`}
                 >
                     <div className="d-flex h-100">
-                        <div className="flex-grow">
+                        <div className="min-w-0 flex-grow">
                             {TopDropdownComponent && (
                                 <TopDropdown
                                     Child={TopDropdownComponent}
@@ -81,8 +81,7 @@ export const DashboardLayout: FC<LayoutProps> = ({
                         </div>
 
                         {rightSidebarComponent ? (
-                            <div className={styles["navbar"]}>
-                                {" "}
+                            <div       className={`${styles["navbar"]}  ${styles["right"]}`}>
                                 {rightSidebarComponent}
                             </div>
                         ) : null}
