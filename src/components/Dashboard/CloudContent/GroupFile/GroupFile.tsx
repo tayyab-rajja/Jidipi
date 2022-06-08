@@ -18,8 +18,9 @@ import axios from "axios";
 
 function GroupFile(props: any) {
   //global state
-  const userContext: any = useContext(UserContext);
-  const user = userContext.user;
+  // const userContext: any = useContext(UserContext);
+  // const user = userContext.user;
+  let user = { companyId: "615b101e899dd8828faf0547" };
 
   const [FolderData, setFolderData] = useState<any[]>([]);
   const [Foldername, setFoldername] = useState("");
@@ -29,17 +30,14 @@ function GroupFile(props: any) {
   };
   const addNewFolder = () => {
     const res = POST(`/company/${user.companyId}/folder`, { name: Foldername });
-    res.then((res) => {
-      getFolderData();
-    });
+    res.then((res) => {});
     res.catch((err) => {
       console.log(err);
     });
   };
-  const MoveFolderhandler = (id: any) => {
+  const MoveFolderhandler = () => {
     const res = PUT(`/company/${user.companyId}/group`, {
-      pageFolderId: id,
-      files: props.Folderid,
+      files: props.Folders,
     });
     res.then((res) => {
       props.getFolder();
@@ -47,16 +45,10 @@ function GroupFile(props: any) {
     });
   };
 
-  const getFolderData = useCallback(() => {
-    const res = GET(
-      `/company/${user.companyId}/folders?categoryType=UNARCHIVED`
-    ).then((res) => {
-      setFolderData(res.folders);
-    });
-  }, [user.companyId]);
   useEffect(() => {
-    getFolderData();
-  }, [getFolderData]);
+    console.log("file array", props.Folders);
+    MoveFolderhandler();
+  }, []);
 
   return (
     <>
@@ -70,7 +62,7 @@ function GroupFile(props: any) {
           />
         </div>
         <div className={styles["body-div"]}>
-          {FolderData.map((item) => (
+          {/* {FolderData.map((item) => (
             <div
               className={styles["icn-name"]}
               key={item._id}
@@ -94,9 +86,9 @@ function GroupFile(props: any) {
                 </svg>
               </span>
 
-              <span className={styles["text"]}>{item.name}</span>
+              <span className={styles["text"]}>{item.title}</span>
             </div>
-          ))}
+          ))} */}
         </div>
         <div className={styles["footer"]}>
           <div className={styles["icn-input"]}>

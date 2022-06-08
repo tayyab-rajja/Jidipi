@@ -430,6 +430,7 @@ padding-right: 20px;
   right: var(--offset);
 }
 .body-row{
+  cursor: pointer;
   padding-left:5px;
   padding-right: 5px;
   outline: 0.1px solid rgb(171, 170, 170);

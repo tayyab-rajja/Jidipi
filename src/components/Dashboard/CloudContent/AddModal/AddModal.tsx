@@ -12,8 +12,13 @@ import FolderItem from "src/components/SaveInFolderSidebar/FolderItem/FolderItem
 import { upload } from "src/lib/file/action";
 import { POST } from "../../../../lib/common/api";
 import axios from "axios";
+import UploadFile from "../../File/File";
 
 function AddModal(props: any) {
+  // const user = userContext.user;
+  // console.log("user", user);
+  // let user = { companyId: "615b101e899dd8828faf0547" };
+
   const [ActiveSec, setActiveSec] = useState(1);
   const [FolderName, setFolderName] = useState("");
   const [ActiveColor1, setActiveColor1] = useState("");
@@ -36,7 +41,10 @@ function AddModal(props: any) {
   const userContext: any = useContext(UserContext);
   const user = userContext.user;
   const submitfoldername = () => {
-    const res = POST(`/company/${user.companyId}/folder`, { name: FolderName });
+    const res = POST(`/company/${user.companyId}/folder`, {
+      name: FolderName,
+      color: "#C5C5C5",
+    });
     res.then((res) => {
       console.log(res.data);
       props.showModalHandler();
@@ -110,15 +118,18 @@ function AddModal(props: any) {
                 <Image src={cloudIcon} alt="" />
               </div>
 
-              <div {...getRootProps()}>
-                <input {...getInputProps()} />
-                <h4 className={styles["text-st"]}>
+              <div>
+                <UploadFile
+                  type="COMPANY"
+                  companyId="615b101e899dd8828faf0547"
+                />
+                {/* <h4 className={styles["text-st"]}>
                   Drag and Drop or{" "}
                   <span id="004" className={styles["brows-col"]}>
                     Browse
                   </span>{" "}
                   to upload
-                </h4>
+                </h4> */}
               </div>
             </label>
           </div>

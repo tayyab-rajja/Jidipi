@@ -5,19 +5,21 @@ import styles from "src/components/Dashboard/CloudContent/CloudContent.module.cs
 
 import CloudTabs from "src/components/Dashboard/CloudContent/CloudTabs";
 const CloudContent = () => {
-  const [ActiveTab, setActiveTab] = useState("POST");
+  const [ActiveTab, setActiveTab] = useState("UNARCHIVED");
 
   const router = useRouter();
-  const { type } = router.query;
+  const type = router.query.type;
 
   // useEffect(() => {
   //   console.log("type", type);
-  //   if (type === "information") {
-  //     setActiveTab("INFORMATION");
-  //   } else if (type === "post") {
-  //     setActiveTab("POST");
-  //   } else if (type == "unconnected") {
-  //     setActiveTab("UNARCHIVED");
+  //   if (type === "information" || type === "post" || type === "unconnected") {
+  //     if (type === "information") {
+  //       setActiveTab("INFORMATION");
+  //     } else if (type === "post") {
+  //       setActiveTab("POST");
+  //     } else if (type == "unconnected") {
+  //       setActiveTab("UNARCHIVED");
+  //     }
   //   }
   // }, [type]);
 
@@ -53,7 +55,7 @@ const CloudContent = () => {
                 </Link>
               </li>
               <li>
-                <Link href={"/dashboard/cloud/information"}>
+                <Link href="/dashboard/cloud/information">
                   <a
                     className={
                       ActiveTab === "INFORMATION" ? styles["active"] : ""
@@ -68,7 +70,7 @@ const CloudContent = () => {
           </div>
           <div className={styles["dt-data-button"]}>DATA</div>
         </div>
-        <CloudTabs type={ActiveTab} />
+        {type && <CloudTabs type={ActiveTab} />}
       </div>
       {/* <div>chatbox</div> */}
       {/* </div> */}

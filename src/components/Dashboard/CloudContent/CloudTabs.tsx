@@ -30,6 +30,7 @@ import RenameModal from "./RenameModal/RenameModal";
 import GroupFile from "./GroupFile/GroupFile";
 import token from "./Config/Token";
 import { UserContext } from "../../../providers/UserProvider";
+import { useRouter } from "next/router";
 import { PUT } from "../../../lib/common/api";
 import { GET } from "../../../lib/common/api";
 import { DELETE } from "../../../lib/common/api";
@@ -39,8 +40,9 @@ export default function CloudTabs(props: any) {
   //global state
   const userContext: any = useContext(UserContext);
 
-  const user = userContext.user;
-  console.log("user", user);
+  // const user = userContext.user;
+  // console.log("user", user);
+  let user = { companyId: "615b101e899dd8828faf0547" };
   // local state
   const [showDropdown, setShowDropdown] = useState(false);
   const [showPage, setshowPage] = useState(false);
@@ -51,6 +53,7 @@ export default function CloudTabs(props: any) {
   const [FolderData, setFolderData] = useState<any[]>([]);
   const [parentFolderID, setparentFolderID] = useState("");
   const [FilterFolderData, setFilterFolderData] = useState<any[]>([]);
+  const [first, setfirst] = useState("");
   const [toggleBlakColor, settoggleBlakColor] = useState(false);
   const [MoveToModal, setMoveToModal] = useState(false);
   const [ChangecolorModal, setChangecolorModal] = useState(false);
@@ -65,6 +68,14 @@ export default function CloudTabs(props: any) {
   const [postId, setpostId] = useState("");
   const [PagesList, setPagesList] = useState<any[]>([]);
   const [SubFolder, setSubFolder] = useState(false);
+  const [GroupFilesArray, setGroupFilesArray] = useState([]);
+  const [SelectColor, setSelectColor] = useState(false);
+
+  let fileArray: any = [];
+
+  //dfdfdfdf
+  const router = useRouter();
+  const type = router.query.type;
 
   const CDN_URL = process.env.CDN_URL ?? "https://upload.jidipi.com";
 
@@ -91,9 +102,7 @@ export default function CloudTabs(props: any) {
       setFilterFolderData(FolderData);
     }
   };
-  const selectHandler = (event: any) => {
-    console.log(event.target.value);
-  };
+
   const getParentId = (pid: any) => {
     console.log("pid", pid);
     setparentFolderID(pid);
@@ -106,13 +115,13 @@ export default function CloudTabs(props: any) {
   const editChangeHandler = (event: any) => {
     console.log("value", event.target.checked);
     if (event.target.checked) {
-      const res = PUT(`/company/${moveableFolderId}/document`, {
-        parentFolderId: parentFolderID,
-        action: "move",
+      const res = PUT(`/company/${user.companyId}/group`, {
+        pageFolderId: parentFolderID,
+        files: moveableFolderId,
       });
       res.then((res) => {
-        // props.getFolder();
-        console.log("move response", res);
+        console.log("response", res.data);
+        getFolderData();
       });
     }
   };
@@ -122,11 +131,17 @@ export default function CloudTabs(props: any) {
       //setCoordinates(e.clientX, e.clientY);
       setxPosition(e.clientX);
       setyPosition(e.clientY);
-      // showDropdown && setShowDropdown(true);
+      setGroupFilesArray(fileArray);
       setFolderID(item._id);
       console.log("item", item);
       setShowDropdown(true);
     }
+  };
+  const GroupFolderhandler = () => {
+    const res = PUT(`/company/${user.companyId}/group`, {
+      files: GroupFilesArray,
+    });
+    res.then((res) => {});
   };
   const trashRestoredocumenthandler = () => {
     const res = PUT(`/company/${FolderID}/document`, {
@@ -190,26 +205,22 @@ export default function CloudTabs(props: any) {
   const renamehnadler = () => {
     setRenamemodal(!Renamemodal);
   };
-  const groupfilehandler = () => {
-    setGroupfile(!Groupfile);
-  };
+
   const getChatTeashFoldersId = (id: any) => {
     if (props.type === "POST") {
       console.log("postid", id);
       setpostId(id);
       setpostTable(true);
-    } else {
-      const res = GET(`/company/${user.companyId}/folders?id=${id}`);
-      res.then((result) => {
-        console.log("response", result.folders);
-        // setFolderData([]);
-        setFolderData(result.folders);
-        setSubFolder(true);
-        setFilterFolderData(result.folders);
-        //console.log("folder data", FolderData);
-      });
+    } else if (props.type === "UNARCHIVED") {
+      setSelectColor(!SelectColor);
+      if (!fileArray.includes(id)) {
+        fileArray.push(id);
+        console.log(fileArray);
+      } else {
+        fileArray.pop(id);
+      }
     }
-    console.log("ide", id);
+    console.log("files array", fileArray);
   };
 
   //actions
@@ -226,7 +237,7 @@ export default function CloudTabs(props: any) {
     },
     {
       name: "Group files",
-      onClick: () => groupfilehandler(),
+      onClick: () => GroupFolderhandler(),
       src: groupIcon,
     },
     {
@@ -258,12 +269,12 @@ export default function CloudTabs(props: any) {
       name: "Delete",
       onClick: () => deletedocumenthandler(),
       src: deleteIcon,
-    },
-    {
-      name: "Trash/Restore",
-      onClick: () => trashRestoredocumenthandler(),
-      src: deleteIcon,
-    },
+    }
+    // {
+    //   name: "Trash/Restore",
+    //   onClick: () => trashRestoredocumenthandler(),
+    //   src: deleteIcon,
+    // },
   ];
   const handleClick = useCallback(() => {
     showDropdown && setShowDropdown(false);
@@ -279,17 +290,19 @@ export default function CloudTabs(props: any) {
   }, [handleClick]);
   const getFolderData = useCallback(() => {
     const res = GET(
-      `/company/${user.companyId}/folders?categoryType=${props.type}`
+      `/company/${user.companyId}/folders?categoryType=${props.type}&folderType=FOLDER`
     );
-    res.then((result) => {
-      console.log("response", result.folders);
+    res.then((res) => {
+      console.log("response", res.folders);
       // setFolderData([]);
-      setFolderData(result.folders);
-      setFilterFolderData(result.folders);
-      console.log("folder data", FolderData);
+
+      setFilterFolderData(res.folders);
+      setFolderData(res.folders);
+
+      //console.log("folder data", FolderData);
     });
   }, [user.companyId, props.type]);
-
+  console.log("filterdata", FilterFolderData);
   const getPagesData = useCallback(() => {
     const res = GET(`/pages`);
     res.then((result) => {
@@ -300,11 +313,12 @@ export default function CloudTabs(props: any) {
 
   useEffect(() => {
     console.log("props type", props.type);
-    setFolderData([]);
+    // setFolderData([]);
+    // setFilterFolderData([]);
+    setpostTable(false);
     getFolderData();
     getPagesData();
-    setpostTable(false);
-  }, [props.type, user, getFolderData]);
+  }, [props.type, getFolderData]);
 
   return (
     <div>
@@ -354,13 +368,25 @@ export default function CloudTabs(props: any) {
                         key={item._id}
                         className={styles["body-row"]}
                         onContextMenu={() => showDropdownhandler(event, item)}
+                        onClick={() => getChatTeashFoldersId(item._id)}
                       >
-                        <td
-                          className={styles["tbdy-row"]}
-                          onClick={() => getChatTeashFoldersId(item._id)}
-                        >
+                        <td className={styles["tbdy-row"]}>
                           {item.folderType === "FOLDER" ? (
-                            <Image src={folderIcon} alt="" />
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="28"
+                              height="24"
+                              viewBox="0 0 28 24"
+                              className={styles["folder-icon"]}
+                            >
+                              <path
+                                id="icon_folder_5"
+                                data-name="icon folder 5"
+                                d="M30,24.333a2.6,2.6,0,0,1-.82,1.886A2.873,2.873,0,0,1,27.2,27H4.8a2.873,2.873,0,0,1-1.98-.781A2.6,2.6,0,0,1,2,24.333V5.667a2.6,2.6,0,0,1,.82-1.886A2.873,2.873,0,0,1,4.8,3h7l2.8,4H27.2a2.873,2.873,0,0,1,1.98.781A2.6,2.6,0,0,1,30,9.667Z"
+                                transform="translate(-2 -3)"
+                                fill={item.color || "#C5C5C5"}
+                              />
+                            </svg>
                           ) : (
                             <Image src={fileIcon} alt="" />
                           )}
@@ -491,12 +517,12 @@ export default function CloudTabs(props: any) {
                 showModalHandler={renamehnadler}
                 getFolder={getFolderData}
               />
-              <GroupFile
+              {/* <GroupFile
                 isOpen={Groupfile}
-                Folderid={FolderID}
+                Folders={GroupFilesArray}
                 showModalHandler={groupfilehandler}
                 getFolder={getFolderData}
-              />
+              /> */}
             </div>
             {showDropdown && props.type === "UNARCHIVED" ? (
               <div

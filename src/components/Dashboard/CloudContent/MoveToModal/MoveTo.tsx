@@ -22,8 +22,9 @@ function MoveTo(props: any) {
   const [Foldername, setFoldername] = useState("");
 
   //global state
-  const userContext: any = useContext(UserContext);
-  const user = userContext.user;
+  // const userContext: any = useContext(UserContext);
+  // const user = userContext.user;
+  let user = { companyId: "615b101e899dd8828faf0547" };
 
   //methods
   const folderNamehandler = (event: any) => {
@@ -57,7 +58,7 @@ function MoveTo(props: any) {
   }, [user.companyId]);
   useEffect(() => {
     getFolderData();
-  }, [getFolderData]);
+  }, []);
 
   return (
     <>
@@ -71,33 +72,35 @@ function MoveTo(props: any) {
           />
         </div>
         <div className={styles["body-div"]}>
-          {FolderData.map((item) => (
-            <div
-              className={styles["icn-name"]}
-              key={item._id}
-              onClick={() => MoveFolderhandler(item._id)}
-            >
-              <span className={styles["folder-icon"]}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="28"
-                  height="24"
-                  viewBox="0 0 28 24"
-                  className={styles["folder-icon"]}
-                >
-                  <path
-                    id="icon_folder_5"
-                    data-name="icon folder 5"
-                    d="M30,24.333a2.6,2.6,0,0,1-.82,1.886A2.873,2.873,0,0,1,27.2,27H4.8a2.873,2.873,0,0,1-1.98-.781A2.6,2.6,0,0,1,2,24.333V5.667a2.6,2.6,0,0,1,.82-1.886A2.873,2.873,0,0,1,4.8,3h7l2.8,4H27.2a2.873,2.873,0,0,1,1.98.781A2.6,2.6,0,0,1,30,9.667Z"
-                    transform="translate(-2 -3)"
-                    fill="#bdc0c6"
-                  />
-                </svg>
-              </span>
+          {FolderData.map((item) =>
+            item.isSpecial == false ? (
+              <div
+                className={styles["icn-name"]}
+                key={item._id}
+                onClick={() => MoveFolderhandler(item._id)}
+              >
+                <span className={styles["folder-icon"]}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="28"
+                    height="24"
+                    viewBox="0 0 28 24"
+                    className={styles["folder-icon"]}
+                  >
+                    <path
+                      id="icon_folder_5"
+                      data-name="icon folder 5"
+                      d="M30,24.333a2.6,2.6,0,0,1-.82,1.886A2.873,2.873,0,0,1,27.2,27H4.8a2.873,2.873,0,0,1-1.98-.781A2.6,2.6,0,0,1,2,24.333V5.667a2.6,2.6,0,0,1,.82-1.886A2.873,2.873,0,0,1,4.8,3h7l2.8,4H27.2a2.873,2.873,0,0,1,1.98.781A2.6,2.6,0,0,1,30,9.667Z"
+                      transform="translate(-2 -3)"
+                      fill="#bdc0c6"
+                    />
+                  </svg>
+                </span>
 
-              <span className={styles["text"]}>{item.name}</span>
-            </div>
-          ))}
+                <span className={styles["text"]}>{item.name}</span>
+              </div>
+            ) : null
+          )}
         </div>
         <div className={styles["footer"]}>
           <div className={styles["icn-input"]}>

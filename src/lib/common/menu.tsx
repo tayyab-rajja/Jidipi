@@ -61,7 +61,7 @@ export const generateSidebarMenus = (props: any) => {
                         title: "CLOUD",
                         icon: CDN_URL + "/dashboard/images/icons/overview-icon.svg",
                         isSelected: false,
-                        link: `/dashboard/cloud/post`,
+                        link: `/dashboard/cloud/unconnected`,
                     },
                     {
                         title: "ACCOUNT",

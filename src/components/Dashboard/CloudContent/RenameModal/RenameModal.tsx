@@ -8,9 +8,9 @@ import Image from "next/image";
 import axios from "axios";
 function RenameModal(props: any) {
   //global state
-  const userContext: any = useContext(UserContext);
-  const user = userContext.user;
-
+  // const userContext: any = useContext(UserContext);
+  // const user = userContext.user;
+  let user = { companyId: "615b101e899dd8828faf0547" };
   //local states
   const [Rename, setRename] = useState("");
   const renamehandler = (event: any) => {
