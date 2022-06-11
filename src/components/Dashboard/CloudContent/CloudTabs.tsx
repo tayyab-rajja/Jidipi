@@ -36,6 +36,8 @@ import { GET } from "../../../lib/common/api";
 import { DELETE } from "../../../lib/common/api";
 import TableHeader from "./Table/TableHeader";
 import PostData from "./Table/PostData";
+import EditableModal from "./EditableModal/EditableModal";
+import { formatFileSize } from "src/utils/common";
 export default function CloudTabs(props: any) {
   //global state
   const userContext: any = useContext(UserContext);
@@ -48,6 +50,7 @@ export default function CloudTabs(props: any) {
   const [showPage, setshowPage] = useState(false);
   const [toggleValue, settoggleValue] = useState(false);
   const [modalShow, setModalShow] = useState(false);
+  const [editableModal, seteditableModal] = useState(false);
   const [xPosition, setxPosition] = useState("");
   const [yPosition, setyPosition] = useState("");
   const [FolderData, setFolderData] = useState<any[]>([]);
@@ -68,8 +71,9 @@ export default function CloudTabs(props: any) {
   const [postId, setpostId] = useState("");
   const [PagesList, setPagesList] = useState<any[]>([]);
   const [SubFolder, setSubFolder] = useState(false);
-  const [GroupFilesArray, setGroupFilesArray] = useState([]);
+  const [GroupFilesArray, setGroupFilesArray] = useState<any[]>([]);
   const [SelectColor, setSelectColor] = useState(false);
+  const [FolderItemId, setFolderItemId] = useState("");
 
   let fileArray: any = [];
 
@@ -112,26 +116,20 @@ export default function CloudTabs(props: any) {
     setmoveableFolderId(id);
   };
 
-  const editChangeHandler = (event: any) => {
-    console.log("value", event.target.checked);
+  const editChangeHandler = (event: any, item: any) => {
+    console.log("item", item);
+    setFolderItemId(item);
     if (event.target.checked) {
-      const res = PUT(`/company/${user.companyId}/group`, {
-        pageFolderId: parentFolderID,
-        files: moveableFolderId,
-      });
-      res.then((res) => {
-        console.log("response", res.data);
-        getFolderData();
-      });
+      seteditableModal(!editableModal);
     }
   };
   const showDropdownhandler = (e: any, item: any) => {
     e.preventDefault();
-    if (props.type === "UNARCHIVED") {
+    if (props.type === "UNARCHIVED" && !item.isSpecial) {
       //setCoordinates(e.clientX, e.clientY);
       setxPosition(e.clientX);
       setyPosition(e.clientY);
-      setGroupFilesArray(fileArray);
+      // setGroupFilesArray(fileArray);
       setFolderID(item._id);
       console.log("item", item);
       setShowDropdown(true);
@@ -141,7 +139,9 @@ export default function CloudTabs(props: any) {
     const res = PUT(`/company/${user.companyId}/group`, {
       files: GroupFilesArray,
     });
-    res.then((res) => {});
+    res.then((res) => {
+      getFolderData();
+    });
   };
   const trashRestoredocumenthandler = () => {
     const res = PUT(`/company/${FolderID}/document`, {
@@ -192,7 +192,9 @@ export default function CloudTabs(props: any) {
 
   const showModalHandler = () => {
     setModalShow(!modalShow);
-    console.log(modalShow);
+  };
+  const editableModalHandler = () => {
+    seteditableModal(!editableModal);
   };
   const movetohandler = () => {
     //showDropdown && setShowDropdown(false);
@@ -206,18 +208,24 @@ export default function CloudTabs(props: any) {
     setRenamemodal(!Renamemodal);
   };
 
-  const getChatTeashFoldersId = (id: any) => {
+  const getChatTeashFoldersId = (item: any) => {
     if (props.type === "POST") {
-      console.log("postid", id);
-      setpostId(id);
+      console.log("postid", item._id);
+      setpostId(item._id);
       setpostTable(true);
-    } else if (props.type === "UNARCHIVED") {
+    } else if (props.type === "UNARCHIVED" && !item.isSpecial) {
       setSelectColor(!SelectColor);
-      if (!fileArray.includes(id)) {
-        fileArray.push(id);
-        console.log(fileArray);
+      //setGroupFilesArray([]);
+      if (!GroupFilesArray.includes(item._id)) {
+        GroupFilesArray.push(item._id);
+        console.log(GroupFilesArray);
       } else {
-        fileArray.pop(id);
+        // GroupFilesArray.pop();
+        const index = GroupFilesArray.indexOf(item._id);
+        if (index > -1) {
+          GroupFilesArray.splice(index, 1);
+        }
+        console.log(GroupFilesArray);
       }
     }
     console.log("files array", fileArray);
@@ -368,7 +376,7 @@ export default function CloudTabs(props: any) {
                         key={item._id}
                         className={styles["body-row"]}
                         onContextMenu={() => showDropdownhandler(event, item)}
-                        onClick={() => getChatTeashFoldersId(item._id)}
+                        onClick={() => getChatTeashFoldersId(item)}
                       >
                         <td className={styles["tbdy-row"]}>
                           {item.folderType === "FOLDER" ? (
@@ -435,7 +443,7 @@ export default function CloudTabs(props: any) {
                         </td>
                         <td>
                           <div className={styles["volume"]}>
-                            {item.size / 1000}GB
+                            {formatFileSize(item.size)}
                           </div>
                         </td>
 
@@ -472,7 +480,7 @@ export default function CloudTabs(props: any) {
                             <input
                               type="checkbox"
                               //defaultChecked={toggleValue}
-                              onChange={editChangeHandler}
+                              onChange={() => editChangeHandler(event, item)}
                               //value={"true"}
                               className={styles["check-switch"]}
                             />
@@ -523,6 +531,12 @@ export default function CloudTabs(props: any) {
                 showModalHandler={groupfilehandler}
                 getFolder={getFolderData}
               /> */}
+              <EditableModal
+                isOpen={editableModal}
+                showModalHandler={editableModalHandler}
+                getFolder={getFolderData}
+                FolderItemid={FolderItemId}
+              />
             </div>
             {showDropdown && props.type === "UNARCHIVED" ? (
               <div

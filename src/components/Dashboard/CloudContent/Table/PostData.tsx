@@ -13,6 +13,7 @@ import { GET } from "src/lib/common/api";
 import TableHeader from "./TableHeader";
 import GridView from "../GridView/GridView";
 import ChatComponent from "../../Chat/ChatComponent";
+import { formatFileSize } from "src/utils/common";
 export default function PostData(props: any) {
   //global state
   const userContext: any = useContext(UserContext);
@@ -73,7 +74,7 @@ export default function PostData(props: any) {
                   <div
                     className={
                       styles[
-                      !gridView ? "add-button-dd" : "list-view-button-dd"
+                        !gridView ? "add-button-dd" : "list-view-button-dd"
                       ]
                     }
                     onClick={showViewhandler}
@@ -112,10 +113,11 @@ export default function PostData(props: any) {
                         </td>
                         <td>
                           <div className={styles["creator"]}>
-
                             <div className={styles["table-body-font2"]}>
                               <div className={styles["table-body-font"]}>
-                                {item.createdBy ? item.createdBy.memberType : ""}
+                                {item.createdBy
+                                  ? item.createdBy.memberType
+                                  : ""}
                               </div>
                               <Image
                                 src={blankIcon}
@@ -131,21 +133,20 @@ export default function PostData(props: any) {
                           </div>
                         </td>
 
-                        <td >
-                          <div className={styles["mod-post"]} >
+                        <td>
+                          <div className={styles["mod-post"]}>
                             {" "}
                             {item.updatedAt.substring(0, 10)}
                           </div>
                         </td>
-                        <td >
-                          <div className={styles["volume-post"]} >
+                        <td>
+                          <div className={styles["volume-post"]}>
                             {" "}
-                            {item.size / 1000}GB
+                            {formatFileSize(item.size)}
                           </div>
                         </td>
 
                         <td className={styles["url-post"]}>
-
                           <a
                             href={
                               item.postId && item.postId.featuredImage
