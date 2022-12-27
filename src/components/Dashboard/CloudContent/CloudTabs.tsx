@@ -87,7 +87,7 @@ export default function CloudTabs(props: any) {
     setCategory(event.target.value);
   };
   const searchHandler = (event: any) => {
-    console.log("key", event.target.value);
+    console.log("keyyyy", event.target.value);
     setSearchValue(event.target.value);
   };
   const searchSubmitHandler = (event: any) => {
